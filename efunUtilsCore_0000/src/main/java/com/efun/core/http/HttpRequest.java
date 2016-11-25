@@ -96,7 +96,6 @@ public class HttpRequest {
 	/**
 	 * <p>Description: 发送post请求</p>
 	 * @param urlStr 请求地址
-	 * @param data 参数键值
 	 * @return  请求的结果
 	 * @date 2015年10月9日
 	 */
