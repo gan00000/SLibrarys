@@ -28,7 +28,7 @@ import android.util.Log;
 */
 public abstract class EfunRequestAsyncTask extends AsyncTask<String, Integer, String> {
 	
-	private static final String LOG_TAG = "efun_EfunRequestAsyncTask";
+	private static final String LOG_TAG = "efun_request";
 	private static Method executeOnExecutorMethod;
 
 	private static final int DEFAULT_CORE_POOL_SIZE = 5;
@@ -150,7 +150,7 @@ public abstract class EfunRequestAsyncTask extends AsyncTask<String, Integer, St
 	protected void onPreExecute() {
 		super.onPreExecute();
 		Log.d(LOG_TAG, "onPreExecute");
-		Log.d("efun", "efun-util.jar 5.2,http请求返回拼接的请求连接");
+		Log.d("efun", "efun-util.jar 5.3,http请求拼接accesstoken");
 		if (!asyncExcute) {
 			throw new RuntimeException("please use asyncExcute() instead of execute()");
 		}
