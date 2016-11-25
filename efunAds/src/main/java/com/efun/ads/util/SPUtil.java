@@ -35,7 +35,7 @@ public class SPUtil {
 	public static final String ads_efun_older = "ads.efun";
 	
 	public static void adsCurrentVersion(){
-		Log.d("efunlog", "current version 2.6,修改google追踪方式，使用新的google-play-service-9256000");
+		Log.d("efunlog", "ads version 2.7");
 	}
 	
 	public static void saveLastLoginTime(Context context, long mLastLoginTime) {
