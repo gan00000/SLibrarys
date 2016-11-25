@@ -1,4 +1,4 @@
-/*package com.efun.core.tools;
+package com.efun.core.tools;
 
 import java.io.IOException;
 
@@ -39,4 +39,3 @@ public class GoogleAdUtil {
 		return advertisingId;
 	}
 }
-*/

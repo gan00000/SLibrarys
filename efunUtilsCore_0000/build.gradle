@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         minSdkVersion 9
@@ -18,4 +18,5 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:25.0.0'
+    compile files('libs/efun-google-service-9256000-8.jar')
 }
