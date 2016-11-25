@@ -7,34 +7,20 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-* build.xml
 * ic_launcher-web.png
+* perl.exe.stackdump
 * proguard-project.txt
-
-Replaced Jars with Dependencies:
---------------------------------
-The importer recognized the following .jar files as third party
-libraries and replaced them with Gradle dependencies instead. This has
-the advantage that more explicit version information is known, and the
-libraries can be updated automatically. However, it is possible that
-the .jar file in your project was of an older version than the
-dependency we picked, which could render the project not compileable.
-You can disable the jar replacement in the import wizard and try again:
-
-android-support-v4.jar => com.android.support:support-v4:23.4.0
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => efunGooglePayWallet_New_v20\src\main\AndroidManifest.xml
-* assets\ => efunGooglePayWallet_New_v20\src\main\assets
-* libs\efun-utils-core_0000.jar => efunGooglePayWallet_New_v20\libs\efun-utils-core_0000.jar
-* lint.xml => efunGooglePayWallet_New_v20\lint.xml
-* res\ => efunGooglePayWallet_New_v20\src\main\res
-* src\ => efunGooglePayWallet_New_v20\src\main\java\
-* src\com\android\vending\billing\IInAppBillingService.aidl => efunGooglePayWallet_New_v20\src\main\aidl\com\android\vending\billing\IInAppBillingService.aidl
+* AndroidManifest.xml => efunAds\src\main\AndroidManifest.xml
+* assets\ => efunAds\src\main\assets
+* libs\libGoogleAnalytics.jar => efunAds\libs\libGoogleAnalytics.jar
+* res\ => efunAds\src\main\res\
+* src\ => efunAds\src\main\java\
 
 Next Steps:
 -----------
