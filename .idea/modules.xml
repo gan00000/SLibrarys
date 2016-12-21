@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EfunCommmonLibrary.iml" filepath="$PROJECT_DIR$/EfunCommmonLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FacebookSDK-4.5.1-Src/FacebookSDK-4.5.1-Src.iml" filepath="$PROJECT_DIR$/FacebookSDK-4.5.1-Src/FacebookSDK-4.5.1-Src.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/efunAds/efunAds.iml" filepath="$PROJECT_DIR$/efunAds/efunAds.iml" />
+      <module fileurl="file://$PROJECT_DIR$/efunGooglePayWallet/efunGooglePayWallet.iml" filepath="$PROJECT_DIR$/efunGooglePayWallet/efunGooglePayWallet.iml" />
       <module fileurl="file://$PROJECT_DIR$/efunGooglePayWallet_New_v20/efunGooglePayWallet_New_v20.iml" filepath="$PROJECT_DIR$/efunGooglePayWallet_New_v20/efunGooglePayWallet_New_v20.iml" />
       <module fileurl="file://$PROJECT_DIR$/efunUtilsCore_0000/efunUtilsCore_0000.iml" filepath="$PROJECT_DIR$/efunUtilsCore_0000/efunUtilsCore_0000.iml" />
       <module fileurl="file://$PROJECT_DIR$/google-play-services_lib_9256000/google-play-services_lib_9256000.iml" filepath="$PROJECT_DIR$/google-play-services_lib_9256000/google-play-services_lib_9256000.iml" />
