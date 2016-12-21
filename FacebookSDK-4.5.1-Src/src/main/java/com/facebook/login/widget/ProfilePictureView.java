@@ -33,8 +33,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.facebook.FacebookException;
 import com.facebook.LoggingBehavior;
-import com.facebook.R;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 import com.facebook.internal.*;
 
 /**
@@ -385,7 +384,7 @@ public class ProfilePictureView extends FrameLayout {
     }
 
     private void parseAttributes(AttributeSet attrs) {
-    	int arrts[] = new int[]{EfunResourceUtil.findAttrIdByName(getContext(), "com_facebook_preset_size"),EfunResourceUtil.findAttrIdByName(getContext(), "com_facebook_is_cropped")};
+    	int arrts[] = new int[]{FbResUtil.findAttrIdByName(getContext(), "com_facebook_preset_size"), FbResUtil.findAttrIdByName(getContext(), "com_facebook_is_cropped")};
         TypedArray a = getContext().obtainStyledAttributes(
                 attrs, arrts);
         setPresetSize(a.getInt(0, CUSTOM));
@@ -415,8 +414,8 @@ public class ProfilePictureView extends FrameLayout {
 
         if (customizedDefaultProfilePicture == null) {
             int blankImageResource = isCropped() ?
-                    EfunResourceUtil.findDrawableIdByName(getContext(), "com_facebook_profile_picture_blank_square") :
-                    	 EfunResourceUtil.findDrawableIdByName(getContext(), "com_facebook_profile_picture_blank_portrait");
+                    FbResUtil.findDrawableIdByName(getContext(), "com_facebook_profile_picture_blank_square") :
+                    	 FbResUtil.findDrawableIdByName(getContext(), "com_facebook_profile_picture_blank_portrait");
             setImageBitmap(BitmapFactory.decodeResource(getResources(), blankImageResource));
         } else {
             // Update profile image dimensions.
@@ -523,19 +522,19 @@ public class ProfilePictureView extends FrameLayout {
         int dimensionId;
         switch (presetSizeType) {
             case SMALL:
-                dimensionId = EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_profilepictureview_preset_size_small");
+                dimensionId = FbResUtil.findDimenIdByName(getContext(), "com_facebook_profilepictureview_preset_size_small");
                 break;
             case NORMAL:
-                dimensionId = EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_profilepictureview_preset_size_normal");
+                dimensionId = FbResUtil.findDimenIdByName(getContext(), "com_facebook_profilepictureview_preset_size_normal");
                 break;
             case LARGE:
-                dimensionId = EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_profilepictureview_preset_size_large");
+                dimensionId = FbResUtil.findDimenIdByName(getContext(), "com_facebook_profilepictureview_preset_size_large");
                 break;
             case CUSTOM:
                 if (!forcePreset) {
                     return ImageRequest.UNSPECIFIED_DIMENSION;
                 } else {
-                    dimensionId = EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_profilepictureview_preset_size_normal");;
+                    dimensionId = FbResUtil.findDimenIdByName(getContext(), "com_facebook_profilepictureview_preset_size_normal");;
                     break;
                 }
             default:

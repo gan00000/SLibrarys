@@ -26,7 +26,6 @@ import android.content.ContextWrapper;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
@@ -34,12 +33,9 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.util.Log;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.R;
+
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 
 /**
  * A base class for a facebook button.
@@ -63,7 +59,7 @@ public abstract class FacebookButtonBase extends Button {
             final String analyticsButtonTappedEventName) {
         super(context, attrs, 0);
         defStyleRes = (defStyleRes == 0 ? this.getDefaultStyleResource() : defStyleRes);
-        defStyleRes = (defStyleRes == 0 ? EfunResourceUtil.findStyleIdByName(getActivity(), "com_facebook_button") : defStyleRes);
+        defStyleRes = (defStyleRes == 0 ? FbResUtil.findStyleIdByName(getActivity(), "com_facebook_button") : defStyleRes);
         configureButton(context, attrs, defStyleAttr, defStyleRes);
         this.analyticsButtonCreatedEventName = analyticsButtonCreatedEventName;
         this.analyticsButtonTappedEventName = analyticsButtonTappedEventName;
@@ -235,7 +231,7 @@ public abstract class FacebookButtonBase extends Button {
                 }
             } else {
                 // fallback, if no background specified, fill with Facebook blue
-                setBackgroundColor(a.getColor(0, EfunResourceUtil.findColorIdByName(getActivity(), "com_facebook_blue")));
+                setBackgroundColor(a.getColor(0, FbResUtil.findColorIdByName(getActivity(), "com_facebook_blue")));
             }
         } finally {
             a.recycle();

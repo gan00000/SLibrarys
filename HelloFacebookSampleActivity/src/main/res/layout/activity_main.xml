@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout  android:layout_width="match_parent"
+             android:orientation="vertical"
+        android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/fbLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fb登陆" />
+
+            <Button
+                android:id="@+id/fbLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fbd登出" />
+
+            <Button
+                android:id="@+id/fbShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fbd分享连接" />
+
+            <Button
+                android:id="@+id/fbShareLocalImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fbd分享本地图片" />
+
+            <Button
+                android:id="@+id/InviteFiends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fb Invite Fiends" />
+
+            <Button
+                android:id="@+id/MyFriends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MyFriends" />
+
+            <Button
+                android:id="@+id/business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="business" />
+
+            <Button
+                android:id="@+id/invite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邀请好友" />
+            <Button
+                android:id="@+id/get_token_business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="get_token_business" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

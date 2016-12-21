@@ -9,7 +9,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/EfunLoginCommon" />
             <option value="$PROJECT_DIR$/FacebookSDK-4.5.1-Src" />
+            <option value="$PROJECT_DIR$/HelloFacebookSampleActivity" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/efunAds" />
             <option value="$PROJECT_DIR$/efunGooglePayWallet" />

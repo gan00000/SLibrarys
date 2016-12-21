@@ -24,8 +24,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.facebook.R;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 import com.facebook.internal.AnalyticsEvents;
 import com.facebook.internal.CallbackManagerImpl;
 
@@ -56,7 +55,7 @@ public final class ShareButton extends ShareButtonBase {
 
     @Override
     protected int getDefaultStyleResource() {
-        return EfunResourceUtil.findStyleIdByName(getActivity(), "com_facebook_button_share");
+        return FbResUtil.findStyleIdByName(getActivity(), "com_facebook_button_share");
     }
 
     @Override

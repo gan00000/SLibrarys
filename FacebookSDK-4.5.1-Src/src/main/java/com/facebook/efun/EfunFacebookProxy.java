@@ -80,10 +80,10 @@ public class EfunFacebookProxy {
 	
 	public static void activateApp(Context context){
 		
-		if (TextUtils.isEmpty(EfunResourceUtil.findStringByName(context,"efunFBApplicationId"))) {
+		if (TextUtils.isEmpty(FbResUtil.findStringByName(context,"efunFBApplicationId"))) {
 			Toast.makeText(context, "fb applicationId is empty", Toast.LENGTH_LONG).show();
 		}else{
-			activateApp(context, EfunResourceUtil.findStringByName(context,"efunFBApplicationId"));
+			activateApp(context, FbResUtil.findStringByName(context,"efunFBApplicationId"));
 		}
 		
 	}
@@ -133,7 +133,7 @@ public class EfunFacebookProxy {
 	 * @param fbLoginCallBack
 	 * @date 2015年11月20日
 	 */
-	public void fbLogin(Activity activity,final EfunFbLoginCallBack fbLoginCallBack) {
+	public void fbLogin(final Activity activity, final EfunFbLoginCallBack fbLoginCallBack) {
 
 		if (loginManager == null) {
 			loginManager = LoginManager.getInstance();
@@ -164,8 +164,8 @@ public class EfunFacebookProxy {
 				}else{
 					user.setUserId(result.getAccessToken().getUserId());
 				}
-				fbLoginCallBack.onSuccess(user);
-			
+				//fbLoginCallBack.onSuccess(user);
+				requestTokenForBusines(activity,user, fbLoginCallBack);
 			}
 
 			@Override
@@ -207,13 +207,58 @@ public class EfunFacebookProxy {
 					user.setName(p.getName());
 					user.setMiddleName(p.getMiddleName());
 					user.setLinkUri(p.getLinkUri());
-					fbLoginCallBack.onSuccess(user);
+//					fbLoginCallBack.onSuccess(user);
+					requestTokenForBusines(activity,user, fbLoginCallBack);
 				}
 			}
 		}
 
 	}
-	
+
+	/**
+	 * 获取token_for_business,登陆完成后获取
+	 * @param activity
+	 * @param user
+	 * @param fbLoginCallBack
+	 */
+	public void requestTokenForBusines(final Activity activity, final User user, final EfunFbLoginCallBack fbLoginCallBack){
+		AccessToken accessToken =  AccessToken.getCurrentAccessToken();
+		if (accessToken != null) {
+			GraphRequest request = GraphRequest.newMeRequest(
+                    accessToken,
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            Log.d(TAG, "token_for_business:" + response.toString());
+							if (response != null){
+								JSONObject resJsonObject = response.getJSONObject();
+								if (resJsonObject != null){
+									String token_for_business = resJsonObject.optString("token_for_business","");
+									FbSp.saveTokenForBusiness(activity,token_for_business);
+									if (user != null){
+										user.setTokenForBusiness(token_for_business);
+									}
+								}
+							}
+							if (fbLoginCallBack != null) {
+								fbLoginCallBack.onSuccess(user);//回调登陆成功
+							}
+
+						}
+                    });
+
+			Bundle parameters = new Bundle();
+			parameters.putString("fields", "token_for_business");
+			request.setParameters(parameters);
+			request.executeAsync();
+		}else {
+			if (fbLoginCallBack != null) {
+				fbLoginCallBack.onSuccess(user);//回调登陆成功
+			}
+		}
+	}
+
+
 	public void fbLogout(Activity activity){
 		if (loginManager != null) {
 			loginManager.logOut();
@@ -671,7 +716,8 @@ public class EfunFacebookProxy {
 		});
 		
 	}
-	
+
+
 	public void requestBusinessId(final Activity activity,final EfunFbBusinessIdCallBack efunFbBusinessIdCallBack){
 		
 		AccessToken accessToken =  AccessToken.getCurrentAccessToken();
@@ -701,7 +747,7 @@ public class EfunFacebookProxy {
 									}
 								}
 								apps = stringBuilder.substring(0, stringBuilder.lastIndexOf(","));
-								activity.getSharedPreferences(EFUN_FILE, Activity.MODE_PRIVATE).edit().putString(EFUN_APP_BUSINESS_IDS, apps).commit();
+								activity.getSharedPreferences(FbSp.EFUN_FILE, Activity.MODE_PRIVATE).edit().putString(FbSp.EFUN_APP_BUSINESS_IDS, apps).commit();
 								if (efunFbBusinessIdCallBack != null) {
 									efunFbBusinessIdCallBack.onSuccess(apps);
 								}
@@ -850,9 +896,7 @@ public class EfunFacebookProxy {
 		fbLogout(activity);
 	}
 	
-	public static final String EFUN_FILE = "Efun.db";
-	public static final String EFUN_APP_BUSINESS_IDS = "EFUN_APP_BUSINESS_IDS";
-	
+
 	public interface EfunFbShareCallBack{
 		public void onCancel();
 		public void onError(String message);
@@ -928,6 +972,7 @@ public class EfunFacebookProxy {
 	    private String gender;
 		private Uri pictureUri;
 
+		private String tokenForBusiness;
 
 		/**
 		 * @return the firstName
@@ -1018,12 +1063,26 @@ public class EfunFacebookProxy {
 
 		@Override
 		public String toString() {
-			return "User [userId=" + userId + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName="
-					+ lastName + ", name=" + name + ", linkUri=" + linkUri + ", gender=" + gender + ", pictureUri="
-					+ pictureUri + "]";
+			return "User{" +
+					"userId='" + userId + '\'' +
+					", firstName='" + firstName + '\'' +
+					", middleName='" + middleName + '\'' +
+					", lastName='" + lastName + '\'' +
+					", name='" + name + '\'' +
+					", linkUri=" + linkUri +
+					", gender='" + gender + '\'' +
+					", pictureUri=" + pictureUri +
+					", tokenForBusiness='" + tokenForBusiness + '\'' +
+					'}';
 		}
 
-	    
+		public String getTokenForBusiness() {
+			return tokenForBusiness;
+		}
+
+		public void setTokenForBusiness(String tokenForBusiness) {
+			this.tokenForBusiness = tokenForBusiness;
+		}
 	}
 
 }

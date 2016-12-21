@@ -17,7 +17,7 @@ import android.content.pm.ServiceInfo;
 import android.content.res.Resources;
 import android.util.Log;
 
-public class EfunResourceUtil {
+public class FbResUtil {
 	/**
 	 * 获取资源
 	 * 
@@ -30,7 +30,7 @@ public class EfunResourceUtil {
 		Resources resources = context.getResources();
 		int id = resources.getIdentifier(resourcesName, packageName, context.getPackageName());
 		if (id == 0) {
-			Log.e("EfunResourceUtil", "资源文件读取不到！resourcesName:" + resourcesName);
+			Log.e("FbResUtil", "资源文件读取不到！resourcesName:" + resourcesName);
 		}
 		return id;
 	}

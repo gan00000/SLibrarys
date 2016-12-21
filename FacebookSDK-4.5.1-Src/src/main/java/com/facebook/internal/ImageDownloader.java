@@ -27,15 +27,12 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import com.facebook.FacebookException;
-import com.facebook.R;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -278,7 +275,7 @@ public class ImageDownloader {
                         Utility.closeQuietly(reader);
                     } else {
                         errorMessageBuilder.append(
-                            context.getString(EfunResourceUtil.findStringIdByName(context, "com_facebook_image_download_unknown_error")));
+                            context.getString(FbResUtil.findStringIdByName(context, "com_facebook_image_download_unknown_error")));
                     }
                     error = new FacebookException(errorMessageBuilder.toString());
                     break;

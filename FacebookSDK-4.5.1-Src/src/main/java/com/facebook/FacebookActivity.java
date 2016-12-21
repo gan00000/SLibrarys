@@ -20,7 +20,7 @@
 
 package com.facebook;
 
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 import com.facebook.internal.FacebookDialogFragment;
 import com.facebook.internal.NativeProtocol;
 import com.facebook.login.LoginFragment;
@@ -57,7 +57,7 @@ public class FacebookActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(EfunResourceUtil.findLayoutIdByName(this, "com_facebook_activity_layout"));
+        setContentView(FbResUtil.findLayoutIdByName(this, "com_facebook_activity_layout"));
 
         Intent intent = getIntent();
         if (PASS_THROUGH_CANCEL_ACTION.equals(intent.getAction())) {
@@ -79,7 +79,7 @@ public class FacebookActivity extends FragmentActivity {
                 fragment = new LoginFragment();
                 fragment.setRetainInstance(true);
                 manager.beginTransaction()
-                        .add(EfunResourceUtil.findViewIdByName(this, "com_facebook_fragment_container"), fragment, FRAGMENT_TAG)
+                        .add(FbResUtil.findViewIdByName(this, "com_facebook_fragment_container"), fragment, FRAGMENT_TAG)
                         .commit();
             }
         }

@@ -30,8 +30,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import com.facebook.R;
-import com.facebook.efun.EfunResourceUtil;
+
+import com.facebook.efun.FbResUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -111,25 +111,25 @@ public class ToolTipPopup {
     public void show() {
         if (mAnchorViewRef.get() != null) {
             mPopupContent = new PopupContentView(mContext);
-            TextView body = (TextView) mPopupContent.findViewById(EfunResourceUtil.findViewIdByName(mContext, "com_facebook_tooltip_bubble_view_text_body")
+            TextView body = (TextView) mPopupContent.findViewById(FbResUtil.findViewIdByName(mContext, "com_facebook_tooltip_bubble_view_text_body")
                    );
             body.setText(mText);
             if (mStyle == Style.BLUE) {
-                mPopupContent.bodyFrame.setBackgroundResource(EfunResourceUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_blue_background")
+                mPopupContent.bodyFrame.setBackgroundResource(FbResUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_blue_background")
                         );
                 mPopupContent.bottomArrow.setImageResource(
-                		EfunResourceUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_blue_bottomnub"));
+                		FbResUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_blue_bottomnub"));
                 mPopupContent.topArrow.setImageResource(
-                		EfunResourceUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_blue_topnub"));
-                mPopupContent.xOut.setImageResource(EfunResourceUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_blue_xout"));
+                		FbResUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_blue_topnub"));
+                mPopupContent.xOut.setImageResource(FbResUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_blue_xout"));
             } else {
                 mPopupContent.bodyFrame.setBackgroundResource(
-                        EfunResourceUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_black_background"));
+                        FbResUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_black_background"));
                 mPopupContent.bottomArrow.setImageResource(
-                        EfunResourceUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_black_bottomnub"));
+                        FbResUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_black_bottomnub"));
                 mPopupContent.topArrow.setImageResource(
-                        EfunResourceUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_black_topnub"));
-                mPopupContent.xOut.setImageResource(EfunResourceUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_black_xout"));
+                        FbResUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_black_topnub"));
+                mPopupContent.xOut.setImageResource(FbResUtil.findDrawableIdByName(mContext, "com_facebook_tooltip_black_xout"));
             }
             
             final Window window = ((Activity) mContext).getWindow();
@@ -220,12 +220,12 @@ public class ToolTipPopup {
         
         private void init() {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            inflater.inflate(EfunResourceUtil.findLayoutIdByName(getContext(), "com_facebook_tooltip_bubble"), this);
-            topArrow = (ImageView) findViewById(EfunResourceUtil.findViewIdByName(getContext(), "com_facebook_tooltip_bubble_view_top_pointer"));
+            inflater.inflate(FbResUtil.findLayoutIdByName(getContext(), "com_facebook_tooltip_bubble"), this);
+            topArrow = (ImageView) findViewById(FbResUtil.findViewIdByName(getContext(), "com_facebook_tooltip_bubble_view_top_pointer"));
             bottomArrow = (ImageView) findViewById(
-                    EfunResourceUtil.findViewIdByName(getContext(), "com_facebook_tooltip_bubble_view_bottom_pointer"));
-            bodyFrame = findViewById(EfunResourceUtil.findViewIdByName(getContext(), "com_facebook_body_frame"));
-            xOut = (ImageView) findViewById(EfunResourceUtil.findViewIdByName(getContext(), "com_facebook_button_xouts"));
+                    FbResUtil.findViewIdByName(getContext(), "com_facebook_tooltip_bubble_view_bottom_pointer"));
+            bodyFrame = findViewById(FbResUtil.findViewIdByName(getContext(), "com_facebook_body_frame"));
+            xOut = (ImageView) findViewById(FbResUtil.findViewIdByName(getContext(), "com_facebook_button_xouts"));
         }
         
         public void showTopArrow() {

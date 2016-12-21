@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package com.efun.platform.login.comm.dao;
+
+import com.efun.core.exception.EfunException;
+
+/**
+ * <p>Title: IEfunLoginDao</p>
+ * <p>Description: </p>
+ * <p>Company: EFun</p> 
+ * @author GanYuanrong
+ * @date 2013年12月7日
+ */
+public interface IEfunLoginDao {
+	
+	public String efunRequestServer() throws EfunException;
+	
+}

@@ -27,8 +27,8 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import com.facebook.R;
-import com.facebook.efun.EfunResourceUtil;
+
+import com.facebook.efun.FbResUtil;
 
 /**
  * com.facebook.share.internal is solely for the use of other packages within the Facebook SDK for
@@ -125,14 +125,14 @@ public class LikeBoxCountView extends FrameLayout {
 
     private void initialize(Context context) {
         setWillNotDraw(false); // Required for the onDraw() method to be called on a FrameLayout
-        caretHeight = getResources().getDimension(EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_caret_height"));
-        caretWidth = getResources().getDimension(EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_caret_width"));
-        borderRadius = getResources().getDimension(EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_border_radius"));
+        caretHeight = getResources().getDimension(FbResUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_caret_height"));
+        caretWidth = getResources().getDimension(FbResUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_caret_width"));
+        borderRadius = getResources().getDimension(FbResUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_border_radius"));
 
         borderPaint = new Paint();
         borderPaint.setColor(
-                getResources().getColor(EfunResourceUtil.findColorIdByName(getContext(), "com_facebook_likeboxcountview_border_color")));
-        borderPaint.setStrokeWidth(getResources().getDimension(EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_border_width")));
+                getResources().getColor(FbResUtil.findColorIdByName(getContext(), "com_facebook_likeboxcountview_border_color")));
+        borderPaint.setStrokeWidth(getResources().getDimension(FbResUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_border_width")));
         borderPaint.setStyle(Paint.Style.STROKE);
 
         initializeLikeCountLabel(context);
@@ -151,13 +151,13 @@ public class LikeBoxCountView extends FrameLayout {
         likeCountLabel.setGravity(Gravity.CENTER);
         likeCountLabel.setTextSize(
                 TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimension(EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_text_size")));
+                getResources().getDimension(FbResUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_text_size")));
         likeCountLabel.setTextColor(
-                getResources().getColor(EfunResourceUtil.findColorIdByName(getContext(), "com_facebook_likeboxcountview_text_color")));
-        textPadding = getResources().getDimensionPixelSize(EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_text_padding"));
+                getResources().getColor(FbResUtil.findColorIdByName(getContext(), "com_facebook_likeboxcountview_text_color")));
+        textPadding = getResources().getDimensionPixelSize(FbResUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_text_padding"));
 
         // Calculate the additional text padding that will be applied in the direction of the caret.
-        additionalTextPadding = getResources().getDimensionPixelSize(EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_caret_height"));
+        additionalTextPadding = getResources().getDimensionPixelSize(FbResUtil.findDimenIdByName(getContext(), "com_facebook_likeboxcountview_caret_height"));
     }
 
     private void setAdditionalTextPadding(int left, int top, int right, int bottom) {

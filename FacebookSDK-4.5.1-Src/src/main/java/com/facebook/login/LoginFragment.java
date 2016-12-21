@@ -31,8 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.R;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 
 /**
  * This Fragment is a necessary part of the overall Facebook login process
@@ -94,19 +93,19 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(EfunResourceUtil.findLayoutIdByName(getActivity(), "com_facebook_login_fragment"), container, false);
+        final View view = inflater.inflate(FbResUtil.findLayoutIdByName(getActivity(), "com_facebook_login_fragment"), container, false);
 
         loginClient.setBackgroundProcessingListener(
                 new LoginClient.BackgroundProcessingListener() {
             @Override
             public void onBackgroundProcessingStarted() {
-                view.findViewById(EfunResourceUtil.findViewIdByName(getActivity(), "com_facebook_login_activity_progress_bar")
+                view.findViewById(FbResUtil.findViewIdByName(getActivity(), "com_facebook_login_activity_progress_bar")
                         ).setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onBackgroundProcessingStopped() {
-                view.findViewById(EfunResourceUtil.findViewIdByName(getActivity(), "com_facebook_login_activity_progress_bar")
+                view.findViewById(FbResUtil.findViewIdByName(getActivity(), "com_facebook_login_activity_progress_bar")
                         ).setVisibility(View.GONE);
             }
         });
@@ -153,7 +152,7 @@ public class LoginFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        getActivity().findViewById(EfunResourceUtil.findViewIdByName(getActivity(), "com_facebook_login_activity_progress_bar")).setVisibility(
+        getActivity().findViewById(FbResUtil.findViewIdByName(getActivity(), "com_facebook_login_activity_progress_bar")).setVisibility(
                 View.GONE);
     }
 

@@ -40,8 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.FacebookException;
-import com.facebook.R;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 import com.facebook.internal.*;
 import com.facebook.share.internal.LikeActionController;
 import com.facebook.share.internal.LikeBoxCountView;
@@ -438,12 +437,12 @@ public class LikeView extends FrameLayout {
             return;
         }
         int[] styleArrts = new int[]{
-        		EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_foreground_color"),
-        		EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_object_id"),
-        		EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_object_type"),
-        		EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_style"),
-        		EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_auxiliary_view_position"),
-        		EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_horizontal_alignment"),
+        		FbResUtil.findAttrIdByName(getActivity(), "com_facebook_foreground_color"),
+        		FbResUtil.findAttrIdByName(getActivity(), "com_facebook_object_id"),
+        		FbResUtil.findAttrIdByName(getActivity(), "com_facebook_object_type"),
+        		FbResUtil.findAttrIdByName(getActivity(), "com_facebook_style"),
+        		FbResUtil.findAttrIdByName(getActivity(), "com_facebook_auxiliary_view_position"),
+        		FbResUtil.findAttrIdByName(getActivity(), "com_facebook_horizontal_alignment"),
         };
         TypedArray a = getContext().obtainStyledAttributes(
                 attrs, styleArrts);
@@ -488,10 +487,10 @@ public class LikeView extends FrameLayout {
     // If attributes were present, parseAttributes MUST be called before initialize() to ensure
     // proper behavior
     private void initialize(Context context) {
-        edgePadding = getResources().getDimensionPixelSize(EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_likeview_edge_padding"));
-        internalPadding = getResources().getDimensionPixelSize(EfunResourceUtil.findDimenIdByName(getContext(), "com_facebook_likeview_internal_padding"));
+        edgePadding = getResources().getDimensionPixelSize(FbResUtil.findDimenIdByName(getContext(), "com_facebook_likeview_edge_padding"));
+        internalPadding = getResources().getDimensionPixelSize(FbResUtil.findDimenIdByName(getContext(), "com_facebook_likeview_internal_padding"));
         if (foregroundColor == NO_FOREGROUND_COLOR) {
-            foregroundColor = getResources().getColor(EfunResourceUtil.findColorIdByName(getContext(), "com_facebook_likeview_text_color"));
+            foregroundColor = getResources().getColor(FbResUtil.findColorIdByName(getContext(), "com_facebook_likeview_text_color"));
         }
 
         setBackgroundColor(Color.TRANSPARENT);
@@ -538,7 +537,7 @@ public class LikeView extends FrameLayout {
         socialSentenceView = new TextView(context);
         socialSentenceView.setTextSize(
                 TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimension(EfunResourceUtil.findDimenIdByName(getActivity(), "com_facebook_likeview_text_size")));
+                getResources().getDimension(FbResUtil.findDimenIdByName(getActivity(), "com_facebook_likeview_text_size")));
         socialSentenceView.setMaxLines(2);
         socialSentenceView.setTextColor(foregroundColor);
         socialSentenceView.setGravity(Gravity.CENTER);

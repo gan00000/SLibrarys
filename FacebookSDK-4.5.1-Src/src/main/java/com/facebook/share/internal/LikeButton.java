@@ -23,8 +23,7 @@ package com.facebook.share.internal;
 import android.content.Context;
 import android.util.AttributeSet;
 import com.facebook.FacebookButtonBase;
-import com.facebook.R;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 import com.facebook.internal.AnalyticsEvents;
 
 /**
@@ -62,19 +61,19 @@ public class LikeButton extends FacebookButtonBase {
 
     @Override
     protected int getDefaultStyleResource() {
-        return EfunResourceUtil.findStyleIdByName(getActivity(), "com_facebook_button_like");
+        return FbResUtil.findStyleIdByName(getActivity(), "com_facebook_button_like");
     }
 
     private void updateForLikeStatus() {
         // the compound drawables don't support selectors, so we need to update for the status
         if (isSelected()) {
-            this.setCompoundDrawablesWithIntrinsicBounds(EfunResourceUtil.findDrawableIdByName(getActivity(), "com_facebook_button_like_icon_selected")
+            this.setCompoundDrawablesWithIntrinsicBounds(FbResUtil.findDrawableIdByName(getActivity(), "com_facebook_button_like_icon_selected")
                     , 0, 0, 0);
-            this.setText(getResources().getString(EfunResourceUtil.findStringIdByName(getActivity(), "com_facebook_like_button_liked")));
+            this.setText(getResources().getString(FbResUtil.findStringIdByName(getActivity(), "com_facebook_like_button_liked")));
         } else {
-            this.setCompoundDrawablesWithIntrinsicBounds(EfunResourceUtil.findDrawableIdByName(getActivity(), "com_facebook_button_icon")
+            this.setCompoundDrawablesWithIntrinsicBounds(FbResUtil.findDrawableIdByName(getActivity(), "com_facebook_button_icon")
                    , 0, 0, 0);
-            this.setText(getResources().getString(EfunResourceUtil.findStringIdByName(getActivity(), "com_facebook_like_button_not_liked")));
+            this.setText(getResources().getString(FbResUtil.findStringIdByName(getActivity(), "com_facebook_like_button_not_liked")));
         }
     }
 }

@@ -24,7 +24,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -32,13 +31,10 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 
 import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsConstants;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 import com.facebook.FacebookException;
-import com.facebook.HttpMethod;
-import com.facebook.R;
 import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.internal.Utility;
 import com.facebook.internal.Validate;
@@ -181,8 +177,8 @@ class LoginClient implements Parcelable {
         int permissionCheck = checkPermission(Manifest.permission.INTERNET);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             Activity activity = getActivity();
-            String errorType = activity.getString(EfunResourceUtil.findStringIdByName(activity, "com_facebook_internet_permission_error_title"));
-            String errorDescription = activity.getString(EfunResourceUtil.findStringIdByName(activity, "com_facebook_internet_permission_error_message"));
+            String errorType = activity.getString(FbResUtil.findStringIdByName(activity, "com_facebook_internet_permission_error_title"));
+            String errorDescription = activity.getString(FbResUtil.findStringIdByName(activity, "com_facebook_internet_permission_error_message"));
             complete(Result.createErrorResult(pendingRequest, errorType, errorDescription));
 
             return false;

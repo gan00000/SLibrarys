@@ -32,7 +32,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import com.facebook.*;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 import com.facebook.internal.AnalyticsEvents;
 import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.internal.LoginAuthorizationType;
@@ -498,7 +498,7 @@ public class LoginButton extends FacebookButtonBase {
                 });
                 break;
             case DISPLAY_ALWAYS:
-                String toolTipString = getResources().getString(EfunResourceUtil.findStringIdByName(getActivity(), "com_facebook_tooltip_default")
+                String toolTipString = getResources().getString(FbResUtil.findStringIdByName(getActivity(), "com_facebook_tooltip_default")
                         );
                 displayToolTip(toolTipString);
                 break;
@@ -554,7 +554,7 @@ public class LoginButton extends FacebookButtonBase {
         if (isInEditMode()) {
             // cannot use a drawable in edit mode, so setting the background color instead
             // of a background resource.
-            setBackgroundColor(getResources().getColor(EfunResourceUtil.findColorIdByName(getActivity(), "com_facebook_blue")));
+            setBackgroundColor(getResources().getColor(FbResUtil.findColorIdByName(getActivity(), "com_facebook_blue")));
             // hardcoding in edit mode as getResources().getString() doesn't seem to work in
             // IntelliJ
             loginText = "Log in with Facebook";
@@ -574,7 +574,7 @@ public class LoginButton extends FacebookButtonBase {
 
     @Override
     protected int getDefaultStyleResource() {
-        return EfunResourceUtil.findStyleIdByName(getActivity(), "com_facebook_loginview_default_style");
+        return FbResUtil.findStyleIdByName(getActivity(), "com_facebook_loginview_default_style");
     }
 
     private void parseLoginButtonAttributes(
@@ -584,10 +584,10 @@ public class LoginButton extends FacebookButtonBase {
             final int defStyleRes) {
         this.toolTipMode = ToolTipMode.DEFAULT;
         int[] attrsqq = new int[]{
-        		EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_confirm_logout"),
-        				EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_login_text"),
-        						EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_logout_text"),
-        								EfunResourceUtil.findAttrIdByName(getActivity(), "com_facebook_tooltip_mode"
+        		FbResUtil.findAttrIdByName(getActivity(), "com_facebook_confirm_logout"),
+        				FbResUtil.findAttrIdByName(getActivity(), "com_facebook_login_text"),
+        						FbResUtil.findAttrIdByName(getActivity(), "com_facebook_logout_text"),
+        								FbResUtil.findAttrIdByName(getActivity(), "com_facebook_tooltip_mode"
         				)};
         final TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
@@ -618,18 +618,18 @@ public class LoginButton extends FacebookButtonBase {
         int logInWidth;
         int width;
         if (text == null) {
-            text = resources.getString(EfunResourceUtil.findStringIdByName(getActivity(), "com_facebook_loginview_log_in_button_long"));
+            text = resources.getString(FbResUtil.findStringIdByName(getActivity(), "com_facebook_loginview_log_in_button_long"));
             logInWidth = measureButtonWidth(text);
             width = resolveSize(logInWidth, widthMeasureSpec);
             if (width < logInWidth) {
-                text = resources.getString(EfunResourceUtil.findStringIdByName(getActivity(),"com_facebook_loginview_log_in_button"));
+                text = resources.getString(FbResUtil.findStringIdByName(getActivity(),"com_facebook_loginview_log_in_button"));
             }
         }
         logInWidth = measureButtonWidth(text);
 
         text = logoutText;
         if (text == null) {
-            text = resources.getString(EfunResourceUtil.findStringIdByName(getActivity(),"com_facebook_loginview_log_out_button"));
+            text = resources.getString(FbResUtil.findStringIdByName(getActivity(),"com_facebook_loginview_log_out_button"));
         }
         int logOutWidth = measureButtonWidth(text);
 
@@ -651,13 +651,13 @@ public class LoginButton extends FacebookButtonBase {
         if (!isInEditMode() && AccessToken.getCurrentAccessToken() != null) {
             setText((logoutText != null) ?
                     logoutText :
-                    resources.getString(EfunResourceUtil.findStringIdByName(getContext(),"com_facebook_loginview_log_out_button")));
+                    resources.getString(FbResUtil.findStringIdByName(getContext(),"com_facebook_loginview_log_out_button")));
         } else {
             if (loginText != null) {
                 setText(loginText);
             } else {
                 String text = resources.getString(
-                		EfunResourceUtil.findStringIdByName(getContext(),"com_facebook_loginview_log_in_button_long"));
+                		FbResUtil.findStringIdByName(getContext(),"com_facebook_loginview_log_in_button_long"));
                 int width = getWidth();
                 // if the width is 0, we are going to measure size, so use the long text
                 if (width != 0) {
@@ -665,7 +665,7 @@ public class LoginButton extends FacebookButtonBase {
                     int measuredWidth = measureButtonWidth(text);
                     if (measuredWidth > width) {
                         // it doesn't fit, use the shorter text
-                        text = resources.getString(EfunResourceUtil.findStringIdByName(getContext(),"com_facebook_loginview_log_in_button"));
+                        text = resources.getString(FbResUtil.findStringIdByName(getContext(),"com_facebook_loginview_log_in_button"));
                     }
                 }
                 setText(text);
@@ -693,19 +693,19 @@ public class LoginButton extends FacebookButtonBase {
                 if (confirmLogout) {
                     // Create a confirmation dialog
                     String logout = getResources().getString(
-                    		EfunResourceUtil.findStringIdByName(getContext(),"com_facebook_loginview_log_out_action"));
+                    		FbResUtil.findStringIdByName(getContext(),"com_facebook_loginview_log_out_action"));
                     String cancel = getResources().getString(
-                    		EfunResourceUtil.findStringIdByName(getContext(),"com_facebook_loginview_cancel_action"));
+                    		FbResUtil.findStringIdByName(getContext(),"com_facebook_loginview_cancel_action"));
                     String message;
                     Profile profile = Profile.getCurrentProfile();
                     if (profile != null && profile.getName() != null) {
                         message = String.format(
                                 getResources().getString(
-                                		EfunResourceUtil.findStringIdByName(getContext(),"com_facebook_loginview_logged_in_as")),
+                                		FbResUtil.findStringIdByName(getContext(),"com_facebook_loginview_logged_in_as")),
                                 profile.getName());
                     } else {
                         message = getResources().getString(
-                        		EfunResourceUtil.findStringIdByName(getContext(),"com_facebook_loginview_logged_in_using_facebook"));
+                        		FbResUtil.findStringIdByName(getContext(),"com_facebook_loginview_logged_in_using_facebook"));
                     }
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setMessage(message)

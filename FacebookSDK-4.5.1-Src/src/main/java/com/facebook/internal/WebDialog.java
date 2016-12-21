@@ -42,8 +42,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.facebook.*;
-import com.facebook.R;
-import com.facebook.efun.EfunResourceUtil;
+import com.facebook.efun.FbResUtil;
 
 import java.util.Locale;
 
@@ -228,7 +227,7 @@ public class WebDialog extends Dialog {
 
         spinner = new ProgressDialog(getContext());
         spinner.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        spinner.setMessage(getContext().getString(EfunResourceUtil.findStringIdByName(getContext(), "com_facebook_loading")));
+        spinner.setMessage(getContext().getString(FbResUtil.findStringIdByName(getContext(), "com_facebook_loading")));
         spinner.setOnCancelListener(new OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
@@ -376,7 +375,7 @@ public class WebDialog extends Dialog {
                 cancel();
             }
         });
-        Drawable crossDrawable = getContext().getResources().getDrawable(EfunResourceUtil.findDrawableIdByName(getContext(), "com_facebook_close"));
+        Drawable crossDrawable = getContext().getResources().getDrawable(FbResUtil.findDrawableIdByName(getContext(), "com_facebook_close"));
         crossImageView.setImageDrawable(crossDrawable);
         /* 'x' should not be visible while webview is loading
          * make it visible only after webview has fully loaded
