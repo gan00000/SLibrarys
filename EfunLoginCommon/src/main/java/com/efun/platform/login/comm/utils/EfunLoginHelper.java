@@ -298,7 +298,7 @@ public class EfunLoginHelper {
 	}
 
 	public static void logCurrentVersion() {
-		Log.d("efun", "当前 version 4.3,修复EfunForgetPasswordCmd类构造函数删掉的问题");
+		Log.d("efun", "1.当前 version 4.4,fb登录添加unionId参数，值为fb token_for_business id;2.第三方登录重载一个构造函数，添加coveredThirdId、coveredThirdPlate参数");
 	}
 
 	public static boolean existClass(String className) {

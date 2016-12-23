@@ -214,6 +214,12 @@ public class EfunParamsBuilder {
 		return postParams;
 	}
 
+	/**
+	 * 不再使用
+	 * @param parameters
+	 * @return
+	 */
+	@Deprecated
 	public static Map<String, String> buildThirdPlat(ListenerParameters parameters){
 		Long currentTime = System.currentTimeMillis();
 		Map<String, String> postParams = new HashMap<String, String>();
@@ -244,6 +250,13 @@ public class EfunParamsBuilder {
 						+parameters.getGameShortName()+","+
 						parameters.getThirdPlate()+","+
 						parameters.getPlatForm(), false));
+
+		if (!TextUtils.isEmpty(parameters.getCoveredThirdId())){
+			postParams.put("coveredThirdId", parameters.getCoveredThirdId());
+		}
+		if (!TextUtils.isEmpty(parameters.getCoveredThirdPlate())){
+			postParams.put("coveredThirdPlate", parameters.getCoveredThirdPlate());
+		}
 		return postParams;
 	}
 
@@ -286,6 +299,12 @@ public class EfunParamsBuilder {
 						parameters.getGameCode()		+
 						parameters.getPlatForm(),
 						false));
+		if (!TextUtils.isEmpty(parameters.getCoveredThirdId())){
+			postParams.put("coveredThirdId", parameters.getCoveredThirdId());
+		}
+		if (!TextUtils.isEmpty(parameters.getCoveredThirdPlate())){
+			postParams.put("coveredThirdPlate", parameters.getCoveredThirdPlate());
+		}
 		return postParams;		
 	}
 	

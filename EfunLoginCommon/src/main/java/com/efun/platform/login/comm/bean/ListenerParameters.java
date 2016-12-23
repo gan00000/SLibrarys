@@ -69,8 +69,25 @@ public class ListenerParameters extends HashMap<String, String> implements Seria
 	private String userArea = "";
 	private String encode = "";//编码（标志明文密文）
 	private String token_for_business = "";//编码（标志明文密文）
+	private String coveredThirdId = "";//被覆盖的第三方id（引继账号登入的时候有效，传免注册登入时的thirdId）
+	private String coveredThirdPlate = "";//被覆盖的第三方登入标识（引继账号登入的时候有效，传免注册登入时的登入标识
 
-	
+	public String getCoveredThirdId() {
+		return coveredThirdId;
+	}
+
+	public void setCoveredThirdId(String coveredThirdId) {
+		this.coveredThirdId = coveredThirdId;
+	}
+
+	public String getCoveredThirdPlate() {
+		return coveredThirdPlate;
+	}
+
+	public void setCoveredThirdPlate(String coveredThirdPlate) {
+		this.coveredThirdPlate = coveredThirdPlate;
+	}
+
 	/**
 	 * 统一开关标志：获取哪一些开关
 	 */

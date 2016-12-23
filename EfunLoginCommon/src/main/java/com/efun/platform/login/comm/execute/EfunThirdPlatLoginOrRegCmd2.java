@@ -51,6 +51,16 @@ public class EfunThirdPlatLoginOrRegCmd2 extends EfunBaseCmd {
 	
 	}
 
+	public EfunThirdPlatLoginOrRegCmd2(Context context, String thirdPlateId, String advertisersName, String partnerName, String platForm, String thirdPlate,
+									   String bussessIds,String coveredThirdId,String coveredThirdPlate){
+		this(context,thirdPlateId, advertisersName, partnerName, platForm, thirdPlate,bussessIds);
+
+		listenerParameters.setCoveredThirdId(coveredThirdId);
+		listenerParameters.setCoveredThirdPlate(coveredThirdPlate);
+
+	}
+
+
 	@Override
 	public void execute() throws Exception {
 		super.execute();	

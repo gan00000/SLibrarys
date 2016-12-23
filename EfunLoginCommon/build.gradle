@@ -18,6 +18,5 @@ android {
 }
 
 dependencies {
-    compile files('libs/efun-utils-5.2.jar')
     compile project(':efunUtilsCore_0000')
 }
