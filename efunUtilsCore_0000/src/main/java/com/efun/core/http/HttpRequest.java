@@ -1,5 +1,6 @@
 package com.efun.core.http;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -181,5 +182,20 @@ public class HttpRequest {
 			dataMap.put("accessToken", EfunResConfiguration.getSDKLoginReturnData());
 		}
 		return dataMap;
+	}
+
+	/**
+	 * 上传文件
+	 * @param params
+	 *            传递的普通参数
+	 * @param uploadFile
+	 *            需要上传的文件名
+	 * @param newFileName
+	 *            上传的文件名称，不填写将为uploadFile的名称
+	 * @param urlStr
+	 *            上传的服务器的路径
+	 */
+	public static String uploadFile(Map<String, String> params, File uploadFile, String newFileName, String urlStr){
+		return HttpFileUploadRequest.uploadFile(params, uploadFile, newFileName, urlStr);
 	}
 }

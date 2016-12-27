@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -136,9 +137,9 @@ public class EfunFileUtil {
                 file.delete(); // 删除文件;
             } else if (file.isDirectory()) { // 否则如果它是一个目录
                 File files[] = file.listFiles(); // 声明目录下所有的文件 files[];
-                for (int i = 0; i < files.length; i++) { // 遍历目录下所有的文件
-                    deleteFile(files[i]); // 把每个文件 用这个方法进行迭代
-                }
+				for (File file1 : files) { // 遍历目录下所有的文件
+					deleteFile(file1); // 把每个文件 用这个方法进行迭代
+				}
             }
             file.delete();
         }
@@ -149,9 +150,9 @@ public class EfunFileUtil {
 			return null;
 		}
 		File file = new File(filePath);
-		if (file != null && file.isFile() && file.exists()) {
-			FileInputStream inputStream = new FileInputStream(file);
-			return inputStream;
+		if (file.isFile() && file.exists()) {
+
+			return new FileInputStream(file);
 		}
 		return null;
 	}
@@ -186,14 +187,14 @@ public class EfunFileUtil {
 		try {
 			//如果原文件不存在
 			File oldFile = new File(oldFilePath);
-			if (oldFile != null && oldFile.exists()) {
+			if (oldFile.exists()) {
 				Log.d("efun", "oldFile.exists true");
 				//获得原文件流
 				FileInputStream inputStream = new FileInputStream(oldFile);
 				byte[] data = new byte[2048 * 2];
 				//输出流
 				File newFile = new File(newFilePath);
-				if (newFile != null && newFile.exists()) {
+				if (newFile.exists()) {
 					newFile.delete();
 				}
 				
@@ -224,7 +225,32 @@ public class EfunFileUtil {
 		return false;
 		
 	}
-	
+
+	/**
+	 * 写入文件
+	 *
+	 * @param fileName 文件名
+	 * @param content 输出到文件的内容
+	 * @param append 是否追加
+	 */
+	public static void writeFile(String fileName, String content, boolean append) {
+		FileWriter writer = null;
+		try
+		{
+			writer = new FileWriter(fileName, append);
+			writer.write(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(writer != null) {
+				try {
+					writer.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
 
 
 	

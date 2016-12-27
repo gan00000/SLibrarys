@@ -19,15 +19,14 @@ public class EfunStorageUtil {
 	
 	/**
 	 * SD card 是否存在
-	 * @param context
 	 * @return true存在
 	 */
-	private static boolean isExternalStorageExist(){
+	public static boolean isExternalStorageExist(){
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
 	
 	public static boolean isAccess(){
-		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+		return isExternalStorageExist();
 	}
 	
 

@@ -103,13 +103,17 @@ public class EfunSwitchHelper {
 					Log.i("efun Switch", "requestCompleteUrl: " + requestCompleteUrl);
 					//解析 code = 1000 的时候保存到本地
 					try {
-						JSONObject jsonObject = new JSONObject(response);
-						String code = jsonObject.optString("code", "");
-						if ("1000".equals(code)) {
-							EfunDatabase.saveSimpleInfo(context, EfunDatabase.EFUN_FILE, typeNames, response);
-							savaSwitchTypeNames(context, typeNames);
+						if (!TextUtils.isEmpty(response)) {
+							JSONObject jsonObject = new JSONObject(response);
+							if (jsonObject != null) {
+								String code = jsonObject.optString("code", "");
+								if ("1000".equals(code)) {
+                                    EfunDatabase.saveSimpleInfo(context, EfunDatabase.EFUN_FILE, typeNames, response);
+                                    savaSwitchTypeNames(context, typeNames);
+                                }
+							}
 						}
-						
+
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}

@@ -15,6 +15,7 @@ import com.efun.core.res.EfunResConfiguration;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
@@ -23,6 +24,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,7 +35,23 @@ import android.webkit.WebView;
 public class EfunLocalUtil {
 	
 	public static String efun_uuid = "";
-	
+
+	/**
+	 * 获取当前的包信息
+	 *
+	 * @param context 上下文
+	 * @return packageInfo
+	 */
+	public static PackageInfo getPackageInfo(@NonNull Context context) {
+		PackageInfo pi = null;
+		try {
+			PackageManager pm = context.getPackageManager();
+			pi = pm.getPackageInfo(context.getPackageName(), 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pi;
+	}
 	
 	public static int getNavigationBarHeight(Context context) {
 	    Resources resources = context.getResources();
@@ -193,7 +211,7 @@ public class EfunLocalUtil {
 	 * @date 2013-1-25
 	 */
 	public static boolean isNetworkAvaiable(Context ctx){  
-	    ConnectivityManager connectivityManager = (ConnectivityManager) ctx.getSystemService(ctx.CONNECTIVITY_SERVICE);  
+	    ConnectivityManager connectivityManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo info = connectivityManager.getActiveNetworkInfo();
 	    return (info != null && info.isConnected());
 	}
