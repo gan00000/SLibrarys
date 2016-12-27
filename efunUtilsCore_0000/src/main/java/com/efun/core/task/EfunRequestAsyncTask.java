@@ -150,7 +150,7 @@ public abstract class EfunRequestAsyncTask extends AsyncTask<String, Integer, St
 	protected void onPreExecute() {
 		super.onPreExecute();
 		Log.d(LOG_TAG, "onPreExecute");
-		Log.d("efun", "efun-util.jar 5.3.2,http请求拼接accesstoken");
+		Log.d("efun", "efun-util.jar 5.4,合并日志上报功能");
 		if (!asyncExcute) {
 			throw new RuntimeException("please use asyncExcute() instead of execute()");
 		}
