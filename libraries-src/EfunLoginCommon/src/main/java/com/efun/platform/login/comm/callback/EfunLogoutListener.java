@@ -3,6 +3,7 @@ package com.efun.platform.login.comm.callback;
 import com.efun.core.callback.EfunCallBack;
 
 /**
+ * 退出登陆回调
  * Created by Efun on 2016/12/15.
  */
 

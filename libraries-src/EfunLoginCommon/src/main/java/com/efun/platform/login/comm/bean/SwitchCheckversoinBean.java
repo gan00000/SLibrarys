@@ -38,9 +38,7 @@ public class SwitchCheckversoinBean implements Serializable {
 				setVersion(cbJson.optString("version", ""));
 				setVersionName(cbJson.optString("versionName", ""));
 
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

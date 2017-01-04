@@ -4,8 +4,8 @@
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
 /captures
 .externalNativeBuild
-*/build/
-libraries-src/EfunLoginCommon/build/
+/build/
+**/build/
+
