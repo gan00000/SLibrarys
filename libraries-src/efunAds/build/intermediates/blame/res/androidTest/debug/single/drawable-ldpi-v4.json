@@ -2,5 +2,9 @@
     {
         "merged": "E:\\workspace\\AndroidStudioProjects\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_launcher.png",
         "source": "E:\\workspace\\AndroidStudioProjects\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-ldpi-v4\\ic_launcher.png",
+        "source": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\drawable-ldpi-v4\\ic_launcher.png"
     }
 ]

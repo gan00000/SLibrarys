@@ -178,5 +178,185 @@
                 }
             }
         ]
+    },
+    {
+        "outputFile": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 54,
+                    "endOffset": 105
+                },
+                "from": {
+                    "file": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 54,
+                        "endOffset": 105
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 110,
+                    "endColumn": 56,
+                    "endOffset": 162
+                },
+                "from": {
+                    "file": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 110,
+                        "endColumn": 56,
+                        "endOffset": 162
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 167,
+                    "endColumn": 50,
+                    "endOffset": 213
+                },
+                "from": {
+                    "file": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 167,
+                        "endColumn": 50,
+                        "endOffset": 213
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 218,
+                    "endColumn": 47,
+                    "endOffset": 261
+                },
+                "from": {
+                    "file": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 218,
+                        "endColumn": 47,
+                        "endOffset": 261
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 266,
+                    "endColumn": 52,
+                    "endOffset": 314
+                },
+                "from": {
+                    "file": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 266,
+                        "endColumn": 52,
+                        "endOffset": 314
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 319,
+                    "endColumn": 52,
+                    "endOffset": 367
+                },
+                "from": {
+                    "file": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 319,
+                        "endColumn": 52,
+                        "endOffset": 367
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 372,
+                    "endColumn": 50,
+                    "endOffset": 418
+                },
+                "from": {
+                    "file": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 372,
+                        "endColumn": 50,
+                        "endOffset": 418
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 423,
+                    "endLine": 15,
+                    "endColumn": 12,
+                    "endOffset": 709
+                },
+                "from": {
+                    "file": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 423,
+                        "endLine": 15,
+                        "endColumn": 12,
+                        "endOffset": 709
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 714,
+                    "endLine": 18,
+                    "endColumn": 12,
+                    "endOffset": 869
+                },
+                "from": {
+                    "file": "E:\\aspro\\EfunCommmonLibrary\\libraries-src\\efunAds\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 714,
+                        "endLine": 18,
+                        "endColumn": 12,
+                        "endOffset": 869
+                    }
+                }
+            }
+        ]
     }
 ]
