@@ -8,6 +8,7 @@ should evaluate whether these are still needed in your project and if
 so manually move them:
 
 * .gitignore
+* ic_launcher-web.png
 * proguard-project.txt
 
 Moved Files:
@@ -15,11 +16,10 @@ Moved Files:
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => EfunLoginCommon\src\main\AndroidManifest.xml
-* assets\ => EfunLoginCommon\src\main\assets
-* libs\efun-utils-5.2.jar => EfunLoginCommon\libs\efun-utils-5.2.jar
-* res\ => EfunLoginCommon\src\main\res
-* src\ => EfunLoginCommon\src\main\java\
+* AndroidManifest.xml => PushNotifition\src\main\AndroidManifest.xml
+* assets\ => PushNotifition\src\main\assets
+* res\ => PushNotifition\src\main\res
+* src\ => PushNotifition\src\main\java\
 
 Next Steps:
 -----------

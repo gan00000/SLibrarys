@@ -1,0 +1,28 @@
+apply plugin: 'com.android.application'
+android {
+
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        applicationId "com.efun.hh"
+        minSdkVersion 9
+        targetSdkVersion 25
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile project(':facebook:FacebookSDK-4.5.1-Src')
+}

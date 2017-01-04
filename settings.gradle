@@ -1,7 +1,15 @@
-include ':app', ':google-play-services_lib_9256000', ':FacebookSDK-4.5.1-Src'
-include ':efunUtilsCore_0000'
-include ':efunGooglePayWallet_New_v20'
-include ':efunAds'
-include ':efunGooglePayWallet'
-include ':HelloFacebookSampleActivity'
-include ':EfunLoginCommon'
+include ':app'
+
+include ':google:google-play-services_lib_9256000'
+
+
+include ':facebook:FacebookSDK-4.5.1-Src'
+//include ':facebook:HelloFacebookSampleActivity'
+
+
+include ':libraries-src:efunUtilsCore_0000'
+include ':libraries-src:efunGooglePayWallet_New_v20'
+include ':libraries-src:efunGooglePayWallet'
+include ':libraries-src:efunAds'
+include ':libraries-src:EfunLoginCommon'
+include ':libraries-src:PushNotifition'
