@@ -9,10 +9,13 @@ import com.efun.core.callback.EfunCallBack;
 
 public interface EfunSystemSettingCallback extends EfunCallBack {
 
+    int RESULT_CODE_LOGOUT = 1;
+
+
     /**
      * 系统设置回调方法
-     * @param what 功能code
+     * @param resultCode 返回功能code
      * @param obj 返回封装好的对象作为回参
      */
-    void onProcessFinished(int what, Object obj);
+    void onProcessFinished(int resultCode, Object obj);
 }
