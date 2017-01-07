@@ -1,15 +1,22 @@
 package com.efun.core.tools;
 
-import java.io.File;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+
+import com.efun.core.callback.SavePhotoCallback;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 public class ScreenshotUtil {
 
@@ -56,5 +63,73 @@ public class ScreenshotUtil {
 		Log.e("efun", "insertImage==path:" + path);
 		MediaScanner mediaScanner = new MediaScanner(context.getApplicationContext());
 		mediaScanner.scanFile(new File(path), "image/jpeg");
+	}
+
+
+	/**
+	 *保存图片到相册Camera目录
+	 * @param context
+	 * @param bitmap        保存的图片bitmap
+	 * @param savePhotoCallback  保存图片回调
+     */
+	public static void saveImageToGallery2(Context context, Bitmap bitmap, SavePhotoCallback savePhotoCallback) {
+		// Create screenshot directory if it doesn't exist
+
+		if (bitmap == null) {
+			if (savePhotoCallback != null) {
+				savePhotoCallback.onSaveFailure();
+			}
+			return;
+		}
+		if (!(PermissionUtil.hasSelfPermission(context,
+				Manifest.permission.WRITE_EXTERNAL_STORAGE))) {
+			if (context instanceof Activity) {
+				PermissionUtil.requestPermission((Activity) context, Manifest.permission.WRITE_EXTERNAL_STORAGE, 1717);
+			}
+			if (savePhotoCallback != null) {
+				savePhotoCallback.onSaveFailure();
+			}
+			return;
+		}
+
+		String dirName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + File.separator + "Camera";
+		File fileDir = new File(dirName);
+		if (!fileDir.exists()) {
+			fileDir.mkdir();
+		}
+		long mImageTime = System.currentTimeMillis();//取当前系统时间
+		// media provider uses seconds for DATE_MODIFIED and DATE_ADDED, but milliseconds
+		// for DATE_TAKEN
+		long dateSeconds = mImageTime / 1000;
+		String mImageFileName = dateSeconds + ".png"; //以保存时间命名
+		String mImageFilePath = dirName + File.separator + mImageFileName; //注意这里的mImageFilePath是： 目录名称+文件名
+
+		EfunLogUtil.logD("mImageFilePath:" + mImageFilePath);
+
+		Long start = System.currentTimeMillis();
+		try {
+			File file = new File(mImageFilePath);
+			OutputStream out = new FileOutputStream(new File(mImageFilePath));
+			try {
+				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+			} finally {
+				out.close();
+				if (bitmap != null) {
+					bitmap.recycle();
+					bitmap = null;
+				}
+			}
+			context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));// 刷新系统相册
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (savePhotoCallback != null) {
+				savePhotoCallback.onSaveFailure();
+			}
+		}
+		if (savePhotoCallback != null) {
+			savePhotoCallback.onSaveSuccess(mImageFilePath);
+		}
+		Long end = System.currentTimeMillis();
+		EfunLogUtil.logD("end-start:" + (end-start));
 	}
 }
