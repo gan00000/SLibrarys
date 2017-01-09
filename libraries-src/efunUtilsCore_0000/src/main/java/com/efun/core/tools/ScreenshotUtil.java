@@ -72,7 +72,7 @@ public class ScreenshotUtil {
 	 * @param bitmap        保存的图片bitmap
 	 * @param savePhotoCallback  保存图片回调
      */
-	public static void saveImageToGallery2(Context context, Bitmap bitmap, SavePhotoCallback savePhotoCallback) {
+	public static void insertImage(Context context, Bitmap bitmap, SavePhotoCallback savePhotoCallback) {
 		// Create screenshot directory if it doesn't exist
 
 		if (bitmap == null) {
