@@ -109,7 +109,7 @@ public class ScreenshotUtil {
 		Long start = System.currentTimeMillis();
 		try {
 			File file = new File(mImageFilePath);
-			OutputStream out = new FileOutputStream(new File(mImageFilePath));
+			OutputStream out = new FileOutputStream(file);
 			try {
 				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 			} finally {
