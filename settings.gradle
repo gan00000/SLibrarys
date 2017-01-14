@@ -1,5 +1,4 @@
 include ':app'
-
 include ':google:google-play-services_lib_9256000'
 
 
@@ -13,3 +12,4 @@ include ':libraries-src:efunGooglePayWallet'
 include ':libraries-src:efunAds'
 include ':libraries-src:EfunLoginCommon'
 include ':libraries-src:PushNotifition'
+include ':libraries-src:Efun-Interface-lib'
