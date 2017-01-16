@@ -11,7 +11,7 @@ import android.webkit.WebView;
 
 public class BaseWebView extends WebView {
 
-    BaseWebChromeClient chromeClient;
+    BaseWebChromeClient efunWebChromeClient;
 
     public BaseWebView(Context context) {
         super(context);
@@ -35,15 +35,21 @@ public class BaseWebView extends WebView {
     }
 
 
+    public void setEfunWebChromeClient(BaseWebChromeClient efunWebChromeClient)
+    {
+        this.setWebChromeClient(efunWebChromeClient);
+        this.efunWebChromeClient = efunWebChromeClient;
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     protected void initBaseWebView() {
 
         if (getContext() instanceof  Activity){
-            chromeClient = new BaseWebChromeClient((Activity) getContext());
+            efunWebChromeClient = new BaseWebChromeClient((Activity) getContext());
         }else{
-            chromeClient = new BaseWebChromeClient();
+            efunWebChromeClient = new BaseWebChromeClient();
         }
-        this.setWebChromeClient(chromeClient);
+        this.setWebChromeClient(efunWebChromeClient);
 
         WebSettings ws = this.getSettings();
 
@@ -77,8 +83,8 @@ public class BaseWebView extends WebView {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (chromeClient != null) {
-            chromeClient.onActivityResult(requestCode, resultCode, intent);
+        if (efunWebChromeClient != null) {
+            efunWebChromeClient.onActivityResult(requestCode, resultCode, intent);
         }
     }
 }
