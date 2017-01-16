@@ -1,4 +1,3 @@
-include ':app'
 include ':google:google-play-services_lib_9256000'
 
 
