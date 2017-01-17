@@ -1,12 +1,15 @@
 package com.facebook.efun;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -37,16 +40,13 @@ import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.GameRequestDialog;
 import com.facebook.share.widget.ShareDialog;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class EfunFacebookProxy {
 
@@ -593,13 +593,78 @@ public class EfunFacebookProxy {
 	public void inviteFriends(Activity activity,List<InviteFriend> inviteFriendIdsList,String message,final EfunFbInviteFriendsCallBack efunFbInviteFriendsCallBack) {
 		
 		if (inviteFriendIdsList != null && !inviteFriendIdsList.isEmpty()) {
-			StringBuilder stringBuilder = new StringBuilder();
-			for (InviteFriend inviteFriend : inviteFriendIdsList) {
-				stringBuilder.append(inviteFriend.getId()).append(",");
+//			StringBuilder stringBuilder = new StringBuilder();
+//			for (InviteFriend inviteFriend : inviteFriendIdsList) {
+//				stringBuilder.append(inviteFriend.getId()).append(",");
+//			}
+//		//	inviteFriendIdsString = inviteFriendIdsString.substring(0, inviteFriendIdsString.length()-1);
+//			inviteFriends(activity, stringBuilder.toString(), message, efunFbInviteFriendsCallBack);
+			List<InviteFriend> invitingList = new ArrayList<>();
+			for (InviteFriend friend : inviteFriendIdsList){
+				if(!TextUtils.isEmpty(friend.getId())){
+					invitingList.add(friend);
+				}
 			}
-		//	inviteFriendIdsString = inviteFriendIdsString.substring(0, inviteFriendIdsString.length()-1);
-			inviteFriends(activity, stringBuilder.toString(), message, efunFbInviteFriendsCallBack);
+
+//			List<InviteFriend> invitingList = inviteFriendIdsList.subList(0, inviteFriendIdsList.size());
+			List<String> fbids = new ArrayList<String>();
+
+			inviteFriendinBatches(activity,invitingList,"",fbids,message,efunFbInviteFriendsCallBack);
 		}
+	}
+
+	/* 处理分批次邀请的逻辑*/
+	private void inviteFriendinBatches(final Activity activity, final List<InviteFriend>
+			invitingList,final String requestId, final List<String> fbids, final String message, final EfunFbInviteFriendsCallBack callback) {
+
+		final List<InviteFriend> currentList = new ArrayList<InviteFriend>();
+		while (currentList.size() < 40 && invitingList.size() > 0) {
+			currentList.add(invitingList.remove(0));
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+		for (InviteFriend inviteFriend : currentList) {
+			stringBuilder.append(inviteFriend.getId()).append(",");
+		}
+
+		inviteFriends(activity, stringBuilder.toString(), message, new EfunFacebookProxy
+				.EfunFbInviteFriendsCallBack() {
+
+
+			@Override
+			public void onCancel() {
+				if (!TextUtils.isEmpty(requestId)) {
+					callback.onSuccess(requestId,fbids);
+				} else {
+					callback.onCancel();
+				}
+			}
+
+			@Override
+			public void onError(String s) {
+				Log.e(TAG,"inviteFriendinBatches " + s);
+				if (!TextUtils.isEmpty(requestId)) {
+					callback.onSuccess(requestId,fbids);
+				} else {
+					callback.onError(s);
+				}
+			}
+
+			@Override
+			public void onSuccess(String id, List<String> currentfbids) {
+				Log.e(TAG,"inviteFriendsinBatches onSuccess" + id +
+						"currentfbids size " + currentfbids.size());
+				fbids.addAll(currentfbids);
+
+				if (invitingList.size() > 0) {
+					inviteFriendinBatches(activity, invitingList, id, fbids, message,
+							callback);
+				} else {
+					callback.onSuccess(id, fbids);
+				}
+
+			}
+		});
+
 	}
 	
 	
