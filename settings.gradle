@@ -1,4 +1,6 @@
 include ':google:google-play-services_lib_9256000'
+include ':google:google-play-service-src'
+include ':google:google-play-service-demo'
 
 
 include ':facebook:FacebookSDK-4.5.1-Src'
