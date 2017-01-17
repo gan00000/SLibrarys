@@ -24,10 +24,11 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:25.0.0'
     //    compile files('libs/efun-google-service-9256000-8.jar')
-    compile files('libs/efun-google-service-1119256000-8.jar')
     compile files('libs/gson-2.2.4.jar')
+    compile project(':google:google-play-services_lib_9256000')
 }
 
+/*
 def getVersionName() {
     return "5.4.1"
 }
@@ -43,4 +44,4 @@ task makeJar(type: Copy) {
     rename ('classes.jar', "efun-utils-${getVersionName()}.jar")
 }
 
-makeJar.dependsOn(clearJar, build)
+makeJar.dependsOn(clearJar, build)*/
