@@ -124,7 +124,7 @@ public class GoogleSignIn implements GoogleApiClient.OnConnectionFailedListener,
 	    //   GoogleSignInApi.getSignInIntent(...);
 	    if (requestCode == RC_SIGN_IN) {
 	        GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-	        if (result.isSuccess()) {
+	        if (result != null && result.isSuccess()) {
 	            GoogleSignInAccount acct = result.getSignInAccount();
 	            // Get account information
 	            String mFullName = acct.getDisplayName();
@@ -194,7 +194,9 @@ public class GoogleSignIn implements GoogleApiClient.OnConnectionFailedListener,
 
 		if (mGoogleApiClient != null && fragmentActivity != null) {
 			Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-			fragmentActivity.startActivityForResult(signInIntent, RC_SIGN_IN);
+			if (signInIntent != null) {
+				fragmentActivity.startActivityForResult(signInIntent, RC_SIGN_IN);
+			}
 		}
 	}
    // [END signIn]

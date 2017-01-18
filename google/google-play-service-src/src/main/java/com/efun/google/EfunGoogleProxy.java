@@ -40,7 +40,7 @@ public class EfunGoogleProxy {
 	private static final String TAG = "EfunGoogleProxy";
 
 	public static void setMessageIcon(Context context,String name){
-        setMessageIcon(context, EfunResourceUtil.findStringIdByName(context,name));
+        setMessageIcon(context, EfunResourceUtil.findDrawableIdByName(context,name));
     }
 
     public static void setMessageIcon(Context context,int resId){
