@@ -8,11 +8,11 @@
 
     <LinearLayout android:layout_width="@dimen/px_600"
                   android:layout_height="@dimen/px_480"
-                  android:layout_centerInParent="true"
-                  android:background="@drawable/py_page_bg"
+        android:background="@drawable/py_page_bg"
                   android:orientation="vertical"
                   android:gravity="center_horizontal"
-    >
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <!--标题-->
        <include layout="@layout/py_title_layout"/>
@@ -48,6 +48,7 @@
                           android:background="@null"
                           android:gravity="center_vertical"
                           android:textSize="@dimen/sp_22"
+                    android:id="@+id/py_account_login_main_account"
 
                 />
 
@@ -96,7 +97,6 @@
                           android:paddingRight="@dimen/px_10"
                           android:layout_marginTop="@dimen/px_20"
                           android:gravity="center"
-                          android:id="@+id/doLogin"
             >
                 <TextView android:layout_width="match_parent"
                           android:layout_height="match_parent"
@@ -104,6 +104,7 @@
                           android:textStyle="bold"
                           android:gravity="center"
                           android:textSize="@dimen/sp_24"
+                        android:id="@+id/py_account_main_login"
                 />
 
             </LinearLayout>
@@ -126,7 +127,7 @@
                               android:textSize="@dimen/sp_24"
                               android:layout_alignParentRight="true"
                               android:layout_marginRight="@dimen/px_20"
-                              android:id="@+id/py_login_register"
+                              android:id="@+id/py_login_main_register"
                     />
                 </RelativeLayout>
 

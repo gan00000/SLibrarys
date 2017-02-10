@@ -17,6 +17,7 @@ public class AccountLoginRequest extends LoginBaseRequest{
 		super(context);
 	}
 
+
 	private String name;//用户账号名
 	private String pwd;
 	private String newPwd;

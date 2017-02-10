@@ -42,14 +42,7 @@ public abstract class EfunBaseLoginDao implements IEfunLoginDao {
 	}
 
 
-	protected String checkUserAndPwd(LoginBaseRequest parameters){
-		
-		if (SStringUtil.isAllEmpty(parameters.getUserName(), parameters.getPassword())){
-			return emptyReturn();
-		}
-		return null;
-	}
-	
+
 
 	protected String checkUrl(String url){
 		

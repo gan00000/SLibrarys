@@ -1,6 +1,7 @@
 package com.starpy.model.login.bean.request;
 
 import android.content.Context;
+import android.provider.Settings;
 
 import com.core.base.utils.EfunLogUtil;
 import com.starpy.base.bean.BaseReqeustBean;
@@ -28,7 +29,7 @@ public class LoginBaseRequest extends BaseReqeustBean {
 
     private String advertisingId = "";
 
-    private String timestamp = "";
+    private String timestamp = System.currentTimeMillis() + "";
 
     private String signature = "";
 

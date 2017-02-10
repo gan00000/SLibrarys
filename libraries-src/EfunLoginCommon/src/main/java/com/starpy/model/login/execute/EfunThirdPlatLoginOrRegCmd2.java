@@ -22,30 +22,20 @@ public class EfunThirdPlatLoginOrRegCmd2 extends EfunBaseCmd {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EfunThirdPlatLoginOrRegCmd2(Context context, String thirdPlateId, String advertisersName, String partnerName, String platForm, String thirdPlate,
-			String bussessIds) {
+	public EfunThirdPlatLoginOrRegCmd2(Context context, String thirdPlateId, String thirdPlate,	String bussessIds) {
 		super(context);
 		
 		if (!TextUtils.isEmpty(thirdPlate) && thirdPlate.equals("mac")){//6.0系统无法获取mac，使用植入SD卡uuid代替
 			thirdPlateId = ApkInfoUtil.getEfunUUid(context);
 		}
 		
-		baseRequest.setThirdPlateId(thirdPlateId);
-		
-		baseRequest.setPartner(partnerName);
-		
-		baseRequest.setThirdPlate(thirdPlate);
-		baseRequest.setPlatForm(platForm);
-		baseRequest.setAdvertisersName(advertisersName);
-		
+
 		if (!TextUtils.isEmpty(thirdPlate) && thirdPlate.equals("fb")) {
 			if (TextUtils.isEmpty(bussessIds)) {
 				//throw new IllegalArgumentException("FB login must have bussess Ids, now Ids is empty");
 				EfunLogUtil.logE("FB login must have bussess Ids, now Ids is empty");
 			}
 			String fbTokenBusiness = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,FB_TOKEN_FOR_BUSINESS);
-			baseRequest.setApps(bussessIds);
-			baseRequest.setToken_for_business(fbTokenBusiness);
 		}
 	
 	}

@@ -18,6 +18,8 @@ import com.core.base.task.STaskExecutor;
 import com.core.base.task.command.abstracts.EfunCommand;
 import com.starpy.model.login.execute.AccountRegisterCmd;
 import com.startpy.sdk.R;
+import com.startpy.sdk.utils.StarPyUtil;
+import com.startpy.sdk.utils.ToastUtils;
 
 /**
  * Created by Efun on 2017/2/6.
@@ -126,22 +128,28 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
     private void register() {
         String account = registerAccountEditText.getEditableText().toString();
         if (TextUtils.isEmpty(account)){
-
+            ToastUtils.toast(getActivity(),R.string.py_account_empty);
             return;
         }
         account = account.trim();
 
         String password = registerPasswordEditText.getEditableText().toString();
         if (TextUtils.isEmpty(password)){
-
+            ToastUtils.toast(getActivity(),R.string.py_password_empty);
             return;
         }
         password = password.trim();
 
-        AccountRegisterCmd efunUserRegisterCmd = new AccountRegisterCmd(getActivity(),account,password,"","","android");
-        efunUserRegisterCmd.setAppKey("dajajd");
-        efunUserRegisterCmd.setGameCode("aaa");
-        efunUserRegisterCmd.setPreferredUrl("10:10:10:106:8080/");
+        if (!StarPyUtil.checkAccount(account)){
+            ToastUtils.toast(getActivity(),R.string.py_account_error);
+            return;
+        }
+        if (!StarPyUtil.checkPassword(password)){
+            ToastUtils.toast(getActivity(),R.string.py_password_error);
+            return;
+        }
+
+        AccountRegisterCmd efunUserRegisterCmd = new AccountRegisterCmd(getActivity(),account,password);
         efunUserRegisterCmd.setCallback(new EfunCommandCallBack() {
             @Override
             public void cmdCallBack(EfunCommand command) {
