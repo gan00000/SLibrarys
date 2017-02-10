@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.util.Log;
 
 import com.e.g.Bdown;
-import com.efun.google.EfunGoogleProxy;
+import com.starpy.google.EfunGoogleProxy;
 
 import java.util.HashMap;
 import java.util.Map;

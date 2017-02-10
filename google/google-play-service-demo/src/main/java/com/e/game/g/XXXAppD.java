@@ -1,15 +1,10 @@
 package com.e.game.g;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.efun.core.tools.ApkUtil;
 import com.efun.download.EfunDownLoader;
 import com.efun.download.listener.EfunDownLoadListener;
-import com.efun.google.bean.EfunFirebaseKey;
-
-import java.util.Map;
 
 public class XXXAppD {
 

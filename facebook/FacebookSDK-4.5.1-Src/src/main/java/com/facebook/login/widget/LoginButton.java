@@ -32,7 +32,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import com.facebook.*;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.efun.FbResUtil;
+import com.facebook.s.FbResUtil;
 import com.facebook.internal.AnalyticsEvents;
 import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.internal.LoginAuthorizationType;

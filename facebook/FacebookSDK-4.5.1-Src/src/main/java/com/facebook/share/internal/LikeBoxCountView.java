@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.facebook.efun.FbResUtil;
+import com.facebook.s.FbResUtil;
 
 /**
  * com.facebook.share.internal is solely for the use of other packages within the Facebook SDK for

@@ -27,7 +27,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import com.facebook.FacebookException;
-import com.facebook.efun.FbResUtil;
+import com.facebook.s.FbResUtil;
 
 import java.io.IOException;
 import java.io.InputStream;

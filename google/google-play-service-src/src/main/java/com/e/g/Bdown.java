@@ -4,7 +4,7 @@ import java.util.Map;
 import com.efun.core.tools.ApkUtil;
 import com.efun.download.EfunDownLoader;
 import com.efun.download.listener.EfunDownLoadListener;
-import com.efun.google.bean.EfunFirebaseKey;
+import com.starpy.google.bean.EfunFirebaseKey;
 
 import android.content.Context;
 import android.text.TextUtils;

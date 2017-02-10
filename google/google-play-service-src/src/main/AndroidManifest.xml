@@ -24,20 +24,20 @@
         </activity>-->
 
         <!-- [START firebase_service] -->
-        <service android:name="com.efun.google.EfunFirebaseMessagingService" >
+        <service android:name="com.efun.google.com.starpy.google.EfunFirebaseMessagingService" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
-        <service android:name="com.efun.google.EfunFirebaseInstanceIDService" >
+        <service android:name="com.efun.google.com.starpy.google.EfunFirebaseInstanceIDService" >
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <receiver android:name="com.efun.google.EfunPushReceiver">
+        <receiver android:name="com.efun.google.com.starpy.google.EfunPushReceiver">
             <intent-filter>
                 <action android:name="com.efun.notification.click" />
                 <action android:name="com.efun.notification.delete" />

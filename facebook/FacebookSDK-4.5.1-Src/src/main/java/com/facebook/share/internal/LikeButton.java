@@ -23,7 +23,7 @@ package com.facebook.share.internal;
 import android.content.Context;
 import android.util.AttributeSet;
 import com.facebook.FacebookButtonBase;
-import com.facebook.efun.FbResUtil;
+import com.facebook.s.FbResUtil;
 import com.facebook.internal.AnalyticsEvents;
 
 /**

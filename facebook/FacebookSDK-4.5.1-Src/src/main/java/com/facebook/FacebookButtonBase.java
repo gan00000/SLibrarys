@@ -35,7 +35,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.efun.FbResUtil;
+import com.facebook.s.FbResUtil;
 
 /**
  * A base class for a facebook button.

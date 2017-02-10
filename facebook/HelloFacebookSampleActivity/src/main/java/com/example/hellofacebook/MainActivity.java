@@ -8,21 +8,19 @@ import org.json.JSONObject;
 
 import com.efun.hh.R;
 import com.facebook.appevents.AppEventsConstants;
-import com.facebook.efun.EfunFacebookProxy;
-import com.facebook.efun.EfunFacebookProxy.EfunFbBusinessIdCallBack;
-import com.facebook.efun.EfunFacebookProxy.EfunFbGetInviteFriendsCallBack;
-import com.facebook.efun.EfunFacebookProxy.EfunFbInviteFriendsCallBack;
-import com.facebook.efun.EfunFacebookProxy.EfunFbLoginCallBack;
-import com.facebook.efun.EfunFacebookProxy.EfunFbMyFriendsCallBack;
-import com.facebook.efun.EfunFacebookProxy.EfunFbShareCallBack;
-import com.facebook.efun.EfunFacebookProxy.User;
-import com.facebook.efun.InviteFriend;
+import com.facebook.s.SFacebookProxy;
+import com.facebook.s.SFacebookProxy.EfunFbBusinessIdCallBack;
+import com.facebook.s.SFacebookProxy.EfunFbGetInviteFriendsCallBack;
+import com.facebook.s.SFacebookProxy.EfunFbInviteFriendsCallBack;
+import com.facebook.s.SFacebookProxy.EfunFbLoginCallBack;
+import com.facebook.s.SFacebookProxy.EfunFbMyFriendsCallBack;
+import com.facebook.s.SFacebookProxy.EfunFbShareCallBack;
+import com.facebook.s.SFacebookProxy.User;
+import com.facebook.s.InviteFriend;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -32,12 +30,12 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 
-	protected static final String TAG = "EfunFacebookProxy";
+	protected static final String TAG = "SFacebookProxy";
 	Button fbButtonLogin;
 	Button fbButtonLogout;
 	Button fbButtonShare;
 	Button fbButtonShareLocalImage;
-	EfunFacebookProxy efp;
+	SFacebookProxy efp;
 	protected EfunFbShareCallBack efunFbShareCallBack;
 	List<InviteFriend> ifs;
 
@@ -52,9 +50,9 @@ public class MainActivity extends Activity {
 		fbButtonShareLocalImage = (Button) findViewById(R.id.fbShareLocalImage);
 		
 		//广告
-		EfunFacebookProxy.activateApp(this);
+		SFacebookProxy.activateApp(this);
 		// 1.实例EfunFacebookProxy
-		efp = new EfunFacebookProxy(this);
+		efp = new SFacebookProxy(this);
 		// 2.初始化fb sdk
 		efp.initFbSdk(this);
 		 Bundle b = new Bundle();
