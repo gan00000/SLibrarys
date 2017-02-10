@@ -13,10 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.starpy.base.task.EfunCommandCallBack;
-import com.starpy.base.task.STaskExecutor;
-import com.starpy.base.task.command.abstracts.EfunCommand;
-import com.starpy.model.login.execute.EfunUserRegisterCmd;
+import com.core.base.task.EfunCommandCallBack;
+import com.core.base.task.STaskExecutor;
+import com.core.base.task.command.abstracts.EfunCommand;
+import com.starpy.model.login.execute.AccountRegisterCmd;
 import com.startpy.sdk.R;
 
 /**
@@ -138,7 +138,7 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
         }
         password = password.trim();
 
-        EfunUserRegisterCmd efunUserRegisterCmd = new EfunUserRegisterCmd(getActivity(),account,password,"","","android");
+        AccountRegisterCmd efunUserRegisterCmd = new AccountRegisterCmd(getActivity(),account,password,"","","android");
         efunUserRegisterCmd.setAppKey("dajajd");
         efunUserRegisterCmd.setGameCode("aaa");
         efunUserRegisterCmd.setPreferredUrl("10:10:10:106:8080/");

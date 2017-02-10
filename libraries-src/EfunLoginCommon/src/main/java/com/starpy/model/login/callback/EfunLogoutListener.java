@@ -1,6 +1,6 @@
 package com.starpy.model.login.callback;
 
-import com.starpy.base.callback.EfunCallBack;
+import com.core.base.callback.EfunCallBack;
 
 /**
  * 退出登陆回调

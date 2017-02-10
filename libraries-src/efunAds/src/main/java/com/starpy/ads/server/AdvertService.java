@@ -112,8 +112,8 @@ public class AdvertService {
 		
 		if (SStringUtil.isEmpty(this.efunThirdPlat)) {
 			Log.i("efunLog","efunThirdPlat is empty");
-			String adsPreferredUrl = EfunResConfiguration.getAdsPreferredUrl(this.context);
-			String adsSpareUrl = EfunResConfiguration.getAdsSpareUrl(this.context);
+			String adsPreferredUrl = SConfig.getAdsPreferredUrl(this.context);
+			String adsSpareUrl = SConfig.getAdsSpareUrl(this.context);
 			if (SStringUtil.isAllEmpty(adsPreferredUrl,adsSpareUrl)) {
 				Log.e("efunLog","广告url设置有误");
 				return;
@@ -127,8 +127,8 @@ public class AdvertService {
 			adsRespone = SendPostService.startSendPost(params,adsPreferredUrl,adsSpareUrl);
 		} else {
 			Log.i("efunLog","efunThirdPlat is not empty");
-			String efunThirdPlatPreferredUrl = EfunResConfiguration.getAdsPreferredUrl(context);
-			String efunThirdPlatSpareUrl = EfunResConfiguration.getAdsSpareUrl(context);
+			String efunThirdPlatPreferredUrl = SConfig.getAdsPreferredUrl(context);
+			String efunThirdPlatSpareUrl = SConfig.getAdsSpareUrl(context);
 			if (SStringUtil.isAllEmpty(efunThirdPlatPreferredUrl,efunThirdPlatSpareUrl)) {
 				Log.e("efunLog","广告url设置有误");
 				return;
@@ -192,17 +192,17 @@ public class AdvertService {
 	
 	public  Map<String, String> initAdsPostParams(Context context) {
 		
-		String localAndroidId = (null == ApkInfoUtil.getLocalAndroidId(context)?"":ApkInfoUtil.getLocalAndroidId(context));
-		String localMacAddress = (null == ApkInfoUtil.getLocalMacAddress(context)?"":ApkInfoUtil.getLocalMacAddress(context));
-		String localImeiAddress = (null == ApkInfoUtil.getLocalImeiAddress(context)?"":ApkInfoUtil.getLocalImeiAddress(context));
+		String localAndroidId = (null == ApkInfoUtil.getAndroidId(context)?"":ApkInfoUtil.getAndroidId(context));
+		String localMacAddress = (null == ApkInfoUtil.getMacAddress(context)?"":ApkInfoUtil.getMacAddress(context));
+		String localImeiAddress = (null == ApkInfoUtil.getImeiAddress(context)?"":ApkInfoUtil.getImeiAddress(context));
 		String localIpAddress = (null == ApkInfoUtil.getLocalIpAddress(context)?"":ApkInfoUtil.getLocalIpAddress(context));
 		String appPlatform = context.getResources().getString(EfunResourceUtil.findStringIdByName(context, "efunAppPlatform"));
 		if (SStringUtil.isEmpty(appPlatform)) {
 			throw new RuntimeException("please configure the efunAppPlatform in xml file,must not be null or “”");
 		}
 		
-		String gameCode = EfunResConfiguration.getGameCode(context);
-		String appKey = EfunResConfiguration.getAppKey(context);
+		String gameCode = SConfig.getGameCode(context);
+		String appKey = SConfig.getAppKey(context);
 		
 		if (SStringUtil.isEmpty(gameCode) || SStringUtil.isEmpty(appKey)) {
 			throw new RuntimeException("请先AndroidManifest.xml配置好广告url、gameCode、appKey");

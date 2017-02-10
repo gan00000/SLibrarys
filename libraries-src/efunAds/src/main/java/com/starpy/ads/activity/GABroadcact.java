@@ -4,13 +4,13 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.core.base.res.SConfig;
 import com.starpy.ads.analytics.GoogleAnalytics;
 import com.starpy.ads.callback.GAListener;
 import com.starpy.ads.server.AdsRequest;
 import com.starpy.ads.util.SPUtil;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -42,7 +42,7 @@ public class GABroadcact extends BroadcastReceiver {
 		
 		try {
 			
-			String galistener = EfunResConfiguration.getGAListenerName(ctx);
+			String galistener = SConfig.getGAListenerName(ctx);
 			
 			if (SStringUtil.isNotEmpty(galistener) && galistener.startsWith("com.")) {
 				
@@ -66,7 +66,7 @@ public class GABroadcact extends BroadcastReceiver {
 		
 		EfunLogUtil.logI( "GABroadcact BroadcastReceiver");
 
-		if (!TextUtils.isEmpty(referrer) && !TextUtils.isEmpty(EfunResConfiguration.getGoogleAnalyticsTrackingId(ctx))) {
+		if (!TextUtils.isEmpty(referrer) && !TextUtils.isEmpty(SConfig.getGoogleAnalyticsTrackingId(ctx))) {
 			try {
 				GoogleAnalytics.tarckerEvent(ctx, referrer);
 			} catch (Exception e) {

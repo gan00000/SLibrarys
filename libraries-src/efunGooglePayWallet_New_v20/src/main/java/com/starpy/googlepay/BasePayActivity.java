@@ -6,9 +6,9 @@ package com.starpy.googlepay;
 import java.util.List;
 import java.util.Vector;
 
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.res.SConfig;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.EfunPayError;
 import com.starpy.googlepay.bean.EfunQueryInventoryState;
 import com.starpy.googlepay.bean.EfunWalletBean;
@@ -184,7 +184,7 @@ public abstract class BasePayActivity extends Activity {
 		}
 		
 		if (SStringUtil.isEmpty(_GoogleOrderBean.getGameCode())) {
-			_gameCode = EfunResConfiguration.getGameCode(this);
+			_gameCode = SConfig.getGameCode(this);
 			if (SStringUtil.isEmpty(_gameCode)) {
 				throw new RuntimeException("请先配置好gamecode");
 			}
@@ -194,7 +194,7 @@ public abstract class BasePayActivity extends Activity {
 		}
 		
 		if (SStringUtil.isEmpty(_GoogleOrderBean.getLanguage())) {
-			_language = EfunResConfiguration.getLanguage(this);
+			_language = SConfig.getLanguage(this);
 			_GoogleOrderBean.setLanguage(_language);
 		}else{
 			_language = _GoogleOrderBean.getLanguage();

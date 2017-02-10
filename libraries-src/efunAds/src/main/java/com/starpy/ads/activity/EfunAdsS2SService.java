@@ -5,9 +5,9 @@ import com.starpy.ads.callback.S2SListener;
 import com.starpy.ads.server.AdsRequest;
 import com.starpy.ads.util.AdsHelper;
 import com.starpy.ads.util.SPUtil;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.res.SConfig;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 
 import android.app.Service;
 import android.content.Context;
@@ -56,7 +56,7 @@ public class EfunAdsS2SService extends Service {
 		 if (s2sListener == null) {
 			//获取在应用<meta-data>元素。
 			try {
-				String s2slistener = EfunResConfiguration.getS2SListenerName(this);
+				String s2slistener = SConfig.getS2SListenerName(this);
 	
 				EfunLogUtil.logI("s2slistener: " + s2slistener);
 				if (SStringUtil.isNotEmpty(s2slistener) && s2slistener.startsWith("com.")) {

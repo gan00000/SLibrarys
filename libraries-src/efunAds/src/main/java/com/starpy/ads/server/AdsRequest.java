@@ -13,8 +13,8 @@ import com.starpy.ads.impl.AdsImpl;
 import com.starpy.ads.util.AdsHelper;
 import com.starpy.ads.util.EfunJsonUtil;
 import com.starpy.ads.util.SPUtil;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 
 import android.content.Context;
 import android.os.Handler;

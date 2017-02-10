@@ -1,6 +1,6 @@
 package com.starpy.push.utils;
 
-import com.starpy.base.utils.SPUtil;
+import com.core.base.utils.SPUtil;
 
 import android.content.Context;
 import android.content.SharedPreferences;

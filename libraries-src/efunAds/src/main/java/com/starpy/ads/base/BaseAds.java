@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.starpy.ads.bean.AdsHttpParams;
 import com.starpy.ads.util.SPUtil;
-import com.starpy.base.http.HttpRequest;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.http.HttpRequest;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 
 import android.content.Context;
 import android.text.TextUtils;

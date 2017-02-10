@@ -1,6 +1,6 @@
 package com.starpy.googlepay.callback;
 
-import com.starpy.base.callback.EfunCallBack;
+import com.core.base.callback.EfunCallBack;
 import com.starpy.googlepay.bean.EfunBaseWalletBean;
 
 /**

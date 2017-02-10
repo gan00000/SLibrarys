@@ -2,13 +2,13 @@ package com.starpy.ads.util;
 
 import java.util.Locale;
 
+import com.core.base.res.SConfig;
 import com.starpy.ads.bean.AdsHttpParams;
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.ResUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.SPUtil;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.ResUtil;
+import com.core.base.utils.SStringUtil;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -38,14 +38,14 @@ public class AdsHelper {
 			e.printStackTrace();
 		}
 		if (SStringUtil.isEmpty(adsHttpParams.getGameCode())) {
-			String gameCode = EfunResConfiguration.getGameCode(context);
+			String gameCode = SConfig.getGameCode(context);
 			if (SStringUtil.isEmpty(gameCode )) {
 				throw new NullPointerException("please configure the gameCode in xml file,must not be null or “”");
 			}
 			adsHttpParams.setGameCode(gameCode);
 		}
 		if (SStringUtil.isEmpty(adsHttpParams.getAppKey())) {
-			String appKey = EfunResConfiguration.getAppKey(context);
+			String appKey = SConfig.getAppKey(context);
 			if (SStringUtil.isEmpty(appKey)) {
 				throw new NullPointerException("please configure the appKey in xml file,must not be null or “”");
 			}
@@ -87,9 +87,9 @@ public class AdsHelper {
 	}
 
 	private static void initLocalInfo(Context context, AdsHttpParams adsHttpParams) {
-		String localAndroidId = (null == ApkInfoUtil.getLocalAndroidId(context) ? "" : ApkInfoUtil.getLocalAndroidId(context));
-		String localMacAddress = (null == ApkInfoUtil.getLocalMacAddress(context) ? "" : ApkInfoUtil.getLocalMacAddress(context));
-		String localImeiAddress = (null == ApkInfoUtil.getLocalImeiAddress(context) ? "" : ApkInfoUtil.getLocalImeiAddress(context));
+		String localAndroidId = (null == ApkInfoUtil.getAndroidId(context) ? "" : ApkInfoUtil.getAndroidId(context));
+		String localMacAddress = (null == ApkInfoUtil.getMacAddress(context) ? "" : ApkInfoUtil.getMacAddress(context));
+		String localImeiAddress = (null == ApkInfoUtil.getImeiAddress(context) ? "" : ApkInfoUtil.getImeiAddress(context));
 		String localIpAddress = (null == ApkInfoUtil.getLocalIpAddress(context) ? "" : ApkInfoUtil.getLocalIpAddress(context));
 		adsHttpParams.setOs_language(Locale.getDefault().getLanguage());
 		adsHttpParams.setLocalAndroidId(localAndroidId);

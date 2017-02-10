@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import com.starpy.base.http.HttpRequest;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.http.HttpRequest;
+import com.core.base.res.SConfig;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;
 import com.starpy.googlepay.bean.GoogleOrderBean;
@@ -49,10 +49,10 @@ public class EfunWalletApi {
 				&& SStringUtil.isNotEmpty(moneyType) && SStringUtil.isNotEmpty(serverCode) && SStringUtil.isNotEmpty(gameCode)
 				&& SStringUtil.isNotEmpty(payFrom)&& SStringUtil.isNotEmpty(payType)) {
 			
-			String localMacAddress = ApkInfoUtil.getLocalMacAddress(context);
-			String localImeiAddress = ApkInfoUtil.getLocalImeiAddress(context);
+			String localMacAddress = ApkInfoUtil.getMacAddress(context);
+			String localImeiAddress = ApkInfoUtil.getImeiAddress(context);
 			String localIpAddress = ApkInfoUtil.getLocalIpAddress(context);
-			String localAndroidId = ApkInfoUtil.getLocalAndroidId(context);
+			String localAndroidId = ApkInfoUtil.getAndroidId(context);
 			
 			params.put("mac", localMacAddress);
 			params.put("imei", localImeiAddress);
@@ -133,7 +133,7 @@ public class EfunWalletApi {
 		}
 		
 		if (TextUtils.isEmpty(gameCode)) {
-			gameCode = EfunResConfiguration.getGameCode(context);
+			gameCode = SConfig.getGameCode(context);
 		}
 		
 		if (TextUtils.isEmpty(userId) || TextUtils.isEmpty(serverCode) || TextUtils.isEmpty(creditId) || TextUtils.isEmpty(gameCode)) {

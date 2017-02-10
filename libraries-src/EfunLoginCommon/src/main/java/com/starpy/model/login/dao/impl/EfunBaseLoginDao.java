@@ -5,12 +5,12 @@ package com.starpy.model.login.dao.impl;
 
 import java.util.Map;
 
-import com.starpy.base.exception.EfunException;
-import com.starpy.base.http.HttpRequest;
-import com.starpy.base.http.HttpResponse;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
-import com.starpy.model.login.bean.ListenerParameters;
+import com.core.base.exception.EfunException;
+import com.core.base.http.HttpRequest;
+import com.core.base.http.HttpResponse;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
+import com.starpy.model.login.bean.request.LoginBaseRequest;
 import com.starpy.model.login.dao.IEfunLoginDao;
 
 /**
@@ -22,7 +22,7 @@ import com.starpy.model.login.dao.IEfunLoginDao;
  */
 public abstract class EfunBaseLoginDao implements IEfunLoginDao {
 
-	protected ListenerParameters parameters = null;
+	protected LoginBaseRequest parameters = null;
 	protected String preferredUrl = null;
 	protected String sparedUrl = null;
 	
@@ -42,7 +42,7 @@ public abstract class EfunBaseLoginDao implements IEfunLoginDao {
 	}
 
 
-	protected String checkUserAndPwd(ListenerParameters parameters){
+	protected String checkUserAndPwd(LoginBaseRequest parameters){
 		
 		if (SStringUtil.isAllEmpty(parameters.getUserName(), parameters.getPassword())){
 			return emptyReturn();
@@ -105,14 +105,14 @@ public abstract class EfunBaseLoginDao implements IEfunLoginDao {
 	/**
 	 * @return the parameters
 	 */
-	public ListenerParameters getParameters() {
+	public LoginBaseRequest getParameters() {
 		return parameters;
 	}
 
 	/**
 	 * @param parameters the parameters to set
 	 */
-	public void setParameters(ListenerParameters parameters) {
+	public void setParameters(LoginBaseRequest parameters) {
 		this.parameters = parameters;
 	}
 

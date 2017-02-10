@@ -3,7 +3,7 @@
  */
 package com.starpy.model.login.dao;
 
-import com.starpy.base.exception.EfunException;
+import com.core.base.exception.EfunException;
 
 /**
  * <p>Title: IEfunLoginDao</p>

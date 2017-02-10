@@ -3,7 +3,7 @@ package com.starpy.ads.util;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.utils.SStringUtil;
 
 public class EfunJsonUtil {
 	

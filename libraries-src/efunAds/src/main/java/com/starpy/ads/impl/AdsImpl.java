@@ -1,11 +1,11 @@
 package com.starpy.ads.impl;
 
+import com.core.base.res.SConfig;
 import com.starpy.ads.base.BaseAds;
 import com.starpy.ads.util.EfunDomainSite;
 import com.starpy.ads.util.SPUtil;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.ResUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.utils.ResUtil;
+import com.core.base.utils.SStringUtil;
 
 public class AdsImpl extends BaseAds {
 
@@ -21,8 +21,8 @@ public class AdsImpl extends BaseAds {
 			httpParams.setRegion(region);
 			//mPreferredUrl = ResUtil.findStringByName(context,region.toLowerCase() + "_efunAdsPreferredUrl");
 			//mSpareUrl = ResUtil.findStringByName(context,region.toLowerCase() + "_efunAdsSpareUrl");
-			mPreferredUrl = EfunResConfiguration.efunGetConfigUrl(context,region.toLowerCase() + "_efunAdsPreferredUrl");
-			mSpareUrl = EfunResConfiguration.efunGetConfigUrl(context,region.toLowerCase() + "_efunAdsSpareUrl");
+			mPreferredUrl = SConfig.efunGetConfigUrl(context,region.toLowerCase() + "_efunAdsPreferredUrl");
+			mSpareUrl = SConfig.efunGetConfigUrl(context,region.toLowerCase() + "_efunAdsSpareUrl");
 			//根據區域獲取gamecode
 			String gameCode = ResUtil.findStringByName(context,region.toLowerCase() + "_efunGameCode");
 			httpParams.setGameCode(gameCode);
@@ -34,8 +34,8 @@ public class AdsImpl extends BaseAds {
 		}
 		
 		if (SStringUtil.isEmpty(mPreferredUrl) && null != context) {// 获取默认配置文件中的域名
-			mPreferredUrl = EfunResConfiguration.getAdsPreferredUrl(this.context);
-			mSpareUrl = EfunResConfiguration.getAdsSpareUrl(this.context);
+			mPreferredUrl = SConfig.getAdsPreferredUrl(this.context);
+			mSpareUrl = SConfig.getAdsSpareUrl(this.context);
 		}
 		
 		//添加正式&备用域名的后缀
@@ -107,8 +107,8 @@ public class AdsImpl extends BaseAds {
 			httpParams.setRegion(region);
 //			mPreferredUrl = ResUtil.findStringByName(context,region.toLowerCase() + "_efunFbPreferredUrl");
 //			mSpareUrl = ResUtil.findStringByName(context,region.toLowerCase() + "_efunFbSpareUrl");
-			mPreferredUrl = EfunResConfiguration.efunGetConfigUrl(context,region.toLowerCase() + "_efunFbPreferredUrl");
-			mSpareUrl = EfunResConfiguration.efunGetConfigUrl(context,region.toLowerCase() + "_efunFbSpareUrl");
+			mPreferredUrl = SConfig.efunGetConfigUrl(context,region.toLowerCase() + "_efunFbPreferredUrl");
+			mSpareUrl = SConfig.efunGetConfigUrl(context,region.toLowerCase() + "_efunFbSpareUrl");
 			//根據區域獲取gamecode
 			String gameCode = ResUtil.findStringByName(context,region.toLowerCase() + "_efunGameCode");
 			httpParams.setGameCode(gameCode);
@@ -123,8 +123,8 @@ public class AdsImpl extends BaseAds {
 			try {
 //				mPreferredUrl = ResUtil.findStringByName(context, "efunFbPreferredUrl");
 //				mSpareUrl = ResUtil.findStringByName(context, "efunFbSpareUrl");
-				mPreferredUrl = EfunResConfiguration.getFBPreferredUrl(context);
-				mSpareUrl = EfunResConfiguration.getFBSpareUrl(context);
+				mPreferredUrl = SConfig.getFBPreferredUrl(context);
+				mSpareUrl = SConfig.getFBSpareUrl(context);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -3,8 +3,8 @@ package com.starpy.push.alarmpush;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.utils.EfunLogUtil;
+import com.core.base.utils.SPUtil;
+import com.core.base.utils.EfunLogUtil;
 import com.starpy.push.client.bean.NotificationMessage;
 import com.starpy.push.client.receiver.EfunPushReceiver;
 import com.starpy.push.client.utils.PushHelper;
@@ -146,10 +146,10 @@ public class AlarmPushHelper {
 		} 
 		String newContent = week + "#" + hour + "#" + minute + "#" + content;
 		
-		String existingContents = SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY );
+		String existingContents = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY );
 		if (TextUtils.isEmpty(existingContents)) {
 			EfunLogUtil.logI("setAlarmPushContent:" + newContent);
-			SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY , newContent);
+			SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY , newContent);
 		}else {
 			String[] alarmPushContent = getAlarmPushContent(context);
 			for (int i = 0; i < alarmPushContent.length; i++) {
@@ -159,7 +159,7 @@ public class AlarmPushHelper {
 				}
 			}
 			EfunLogUtil.logI("setAlarmPushContent:" + newContent);
-			SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY ,existingContents +REGULAR + newContent);
+			SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY ,existingContents +REGULAR + newContent);
 		}
 		
 	}
@@ -240,7 +240,7 @@ public class AlarmPushHelper {
 		}
 		
 		EfunLogUtil.logI("setAlarmPushContent:" + contents);
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY_YMD ,contents);
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY_YMD ,contents);
 				
 	}
 	
@@ -249,7 +249,7 @@ public class AlarmPushHelper {
 	 * @return
 	 */
 	public static String[] getAlarmPushContent(Context context) {
-		String content = SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY );
+		String content = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY );
 		if (TextUtils.isEmpty(content)) {
 			return null;
 		} else {
@@ -259,7 +259,7 @@ public class AlarmPushHelper {
 	}
 	
 	public static ArrayList<String> getAlarmPushContentYMD(Context context) {
-		String content = SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY_YMD );
+		String content = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY_YMD );
 		ArrayList<String> mList = new ArrayList<String>();
 		if (!TextUtils.isEmpty(content)) {
 			String[] stringArray = content.split(REGULAR);
@@ -274,8 +274,8 @@ public class AlarmPushHelper {
 	 * @param context
 	 */
 	public static void clearAlarmPushContent(Context context) {
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY , "");
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY_YMD , "");
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY , "");
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY_YMD , "");
 	}
 	
 	
@@ -286,16 +286,16 @@ public class AlarmPushHelper {
 	 * @param interval 间隔、分
 	 */
 	public static void saveAlarmPushTime(Context context,int minute, int interval) {
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_TIME_MINUTI, minute+"");
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_TIME_INTERVAL, interval + "");
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_TIME_MINUTI, minute+"");
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_TIME_INTERVAL, interval + "");
 	}	
 	
 	public static String getAlarmPushTimeMinute(Context context) {
-		return SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_TIME_MINUTI);
+		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_TIME_MINUTI);
 	}
 	
 	public static String getAlarmPushTimeInterval(Context context) {
-		return SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, EFUN_ALARMPUSH_TIME_INTERVAL);
+		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_TIME_INTERVAL);
 	}
 	
 	/**  判断日期是否已过期

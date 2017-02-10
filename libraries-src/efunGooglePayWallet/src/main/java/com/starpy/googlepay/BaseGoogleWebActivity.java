@@ -16,9 +16,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.WebOrderBean;
 import com.starpy.googlepay.callback.EfunWalletListener;
 import com.starpy.googlepay.constants.EfunDomainSite;

@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.ApkInfoUtil.NetworkType;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.ApkInfoUtil.NetworkType;
 import com.starpy.push.alarmpush.AlarmPushReceiver;
 import com.starpy.push.client.service.EfunPushService;
 import com.starpy.push.client.utils.PushHelper;

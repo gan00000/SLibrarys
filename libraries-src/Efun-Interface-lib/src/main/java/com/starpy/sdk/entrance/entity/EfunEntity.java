@@ -3,7 +3,7 @@ package com.starpy.sdk.entrance.entity;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-import com.starpy.base.callback.EfunCallBack;
+import com.core.base.callback.EfunCallBack;
 
 public class EfunEntity implements Serializable {
 
@@ -38,14 +38,14 @@ public class EfunEntity implements Serializable {
 	}
 
 	/**
-	 * @return the language
+	 * @return the gameLanguage
 	 */
 	public String getLanguage() {
 		return language;
 	}
 
 	/**
-	 * @param language the language to set
+	 * @param language the gameLanguage to set
 	 */
 	public void setLanguage(String language) {
 		this.language = language;

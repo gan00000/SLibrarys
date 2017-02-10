@@ -17,9 +17,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.res.SConfig;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.constants.EfunDomainSite;
 import com.starpy.googlepay.constants.GooglePayContant;
 import com.starpy.googlepay.efuntask.Prompt;
@@ -75,10 +75,10 @@ public abstract class EfunWebBillActivity extends Activity {
 		initPay();
 	    efunWebPayParams =  getIntent().getStringExtra(GooglePayContant.ExtraGWKey);
 		if (SStringUtil.isEmpty(payPreferredUrl)) {
-			payPreferredUrl = EfunResConfiguration.getEfunPayPreferredUrl(this);
+			payPreferredUrl = SConfig.getEfunPayPreferredUrl(this);
 		}
 		if (SStringUtil.isEmpty(paySpareUrl)) {
-			paySpareUrl = EfunResConfiguration.getEfunPaySpareUrl(this);
+			paySpareUrl = SConfig.getEfunPaySpareUrl(this);
 		}
 		
 		if (SStringUtil.isNotEmpty(efunWebPayParams)) {

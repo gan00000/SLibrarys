@@ -1,6 +1,6 @@
 package com.starpy.googlepay;
 
-import com.starpy.base.utils.EfunLogUtil;
+import com.core.base.utils.EfunLogUtil;
 
 import android.content.Context;
 import android.content.Intent;

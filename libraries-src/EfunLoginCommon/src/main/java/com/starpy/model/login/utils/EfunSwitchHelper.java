@@ -3,7 +3,7 @@ package com.starpy.model.login.utils;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.starpy.base.utils.SPUtil;
+import com.core.base.utils.SPUtil;
 
 public class EfunSwitchHelper {	
 	
@@ -15,15 +15,15 @@ public class EfunSwitchHelper {
 		if (!TextUtils.isEmpty(oldTypeNames)) {
 			typeNames = oldTypeNames + "*" + typeNames;
 		}
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, "EFUN_SWITCH_TYPENAMES", typeNames);
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, "EFUN_SWITCH_TYPENAMES", typeNames);
 	}
 
 	public static void cleanSwitchTypeNames(Context context) {
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, "EFUN_SWITCH_TYPENAMES", "");
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, "EFUN_SWITCH_TYPENAMES", "");
 	}
 
 	public static String getSwitchTypeNames(Context context) {
-		return SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, "EFUN_SWITCH_TYPENAMES");
+		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, "EFUN_SWITCH_TYPENAMES");
 	}
 
 	public static void cleanUnifySwitch(final Context context) {
@@ -34,7 +34,7 @@ public class EfunSwitchHelper {
 		String[] types = typeNames.split("\\*");
 		for (int i = 0; i < types.length; i++) {
 			if (!TextUtils.isEmpty(types[i])) {
-				SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, types[i], "");
+				SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, types[i], "");
 			}
 		}
 		cleanSwitchTypeNames(context);
@@ -99,15 +99,15 @@ public class EfunSwitchHelper {
 //	}
 
 //	public static void appSwitchInit(final Context context, String typeName, String appPlatform, String gameCode,
-//			String language, final EfunCommandCallBack callBack) {
-//		String unionInterfacePreferredUrl = EfunDynamicUrl.getDynamicUrl(context, "unionInterfacePreferredUrl",EfunResConfiguration.getGamePreferredUrl(context));
-//		String unionInterfaceSpareUrl = EfunDynamicUrl.getDynamicUrl(context, "unionInterfaceSpareUrl",EfunResConfiguration.getGameSpareUrl(context));
+//			String gameLanguage, final EfunCommandCallBack callBack) {
+//		String unionInterfacePreferredUrl = EfunDynamicUrl.getDynamicUrl(context, "unionInterfacePreferredUrl",SConfig.getGamePreferredUrl(context));
+//		String unionInterfaceSpareUrl = EfunDynamicUrl.getDynamicUrl(context, "unionInterfaceSpareUrl",SConfig.getGameSpareUrl(context));
 //		final EfunSwitchCmd efunSwitchCmd = new EfunSwitchCmd(context, typeName);// app
 //		efunSwitchCmd.setPreferredUrl(unionInterfacePreferredUrl);
 //		efunSwitchCmd.setSparedUrl(unionInterfaceSpareUrl);
 //		efunSwitchCmd.setAppPlatform(appPlatform);// app需要设置，SDK有配置文件，可以不设置
 //		efunSwitchCmd.setGameCode(gameCode);
-//		efunSwitchCmd.setLanguage(language);
+//		efunSwitchCmd.setGameLanguage(gameLanguage);
 //		efunSwitchCmd.setCallback(new EfunCommandCallBack() {
 //
 //			@Override
@@ -135,13 +135,13 @@ public class EfunSwitchHelper {
 //	}
 
 //	public static void sdkSwitchInit(final Context context, final EfunCommandCallBack callBack) {
-//		String unionInterfacePreferredUrl = EfunDynamicUrl.getDynamicUrl(context, "unionInterfacePreferredUrl",EfunResConfiguration.getGamePreferredUrl(context));
-//		String unionInterfaceSpareUrl = EfunDynamicUrl.getDynamicUrl(context, "unionInterfaceSpareUrl",EfunResConfiguration.getGameSpareUrl(context));
+//		String unionInterfacePreferredUrl = EfunDynamicUrl.getDynamicUrl(context, "unionInterfacePreferredUrl",SConfig.getGamePreferredUrl(context));
+//		String unionInterfaceSpareUrl = EfunDynamicUrl.getDynamicUrl(context, "unionInterfaceSpareUrl",SConfig.getGameSpareUrl(context));
 ////		savaUnifySwitch(context, "");// 清空本地数据
 //		EfunSwitchCmd efunSwitchCmd = new EfunSwitchCmd(context, "sdk");// SDK
 //		efunSwitchCmd.setPreferredUrl(unionInterfacePreferredUrl);
 //		efunSwitchCmd.setSparedUrl(unionInterfaceSpareUrl);
-//		efunSwitchCmd.setLanguage(EfunResConfiguration.getSDKLanguage(context));
+//		efunSwitchCmd.setGameLanguage(SConfig.getSDKLanguage(context));
 //		efunSwitchCmd.setCallback(new EfunCommandCallBack() {
 //			
 //			@Override
@@ -188,20 +188,20 @@ public class EfunSwitchHelper {
 //	}
 
 //	public static void savaUnifySwitch(Context context, String uniSwitch) {
-//		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, "EFUN_UNIFY_SWITCH", uniSwitch);
+//		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, "EFUN_UNIFY_SWITCH", uniSwitch);
 //	}
 
 //	public static String getUnifySwitch(Context context) {
-//		return SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, "EFUN_UNIFY_SWITCH");
+//		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, "EFUN_UNIFY_SWITCH");
 //	}
 
 	/*
 	 * public static void saveNotice(Context context, String notice) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_NOTICE", notice); }
 	 * 
 	 * public static String getNotice(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_NOTICE"); }
 	 */
 
@@ -217,11 +217,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveInvite(Context context, String invite) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_INVITE", invite); }
 	 * 
 	 * public static String getInvite(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_INVITE"); }
 	 */
 	
@@ -294,11 +294,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveKakaoShare(Context context, String kakaoShare) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_KAKAOSHARE", kakaoShare); }
 	 * 
 	 * public static String getKakaoShare(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_KAKAOSHARE"); }
 	 */
 
@@ -313,11 +313,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveTwitterShare(Context context, String twitterShare)
-	 * { SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * { SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_TWITTERSHARE", twitterShare); }
 	 * 
 	 * public static String getTwitterShare(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_TWITTERSHARE"); }
 	 */
 
@@ -331,11 +331,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveLineShare(Context context, String lineShare) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_LINESHARE", lineShare); }
 	 * 
 	 * public static String getLineShare(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_LINESHARE"); }
 	 */
 
@@ -351,11 +351,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveVKShare(Context context, String vkShare) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_VKSHARE", vkShare); }
 	 * 
 	 * public static String getVKShare(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_VKSHARE"); }
 	 */
 
@@ -370,11 +370,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveLogin(Context context, String login) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_LOGIN", login); }
 	 * 
 	 * public static String getLogin(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_LOGIN"); }
 	 */
 
@@ -389,11 +389,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void savePlug(Context context, String plug) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_PLUG", plug); }
 	 * 
 	 * public static String getPlug(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_PLUG"); }
 	 */
 
@@ -408,11 +408,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveService(Context context, String service) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_SERVICE", service); }
 	 * 
 	 * public static String getService(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_SERVICE"); }
 	 */
 
@@ -427,11 +427,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveSocial(Context context, String social) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_SOCIAL", social); }
 	 * 
 	 * public static String getSocial(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_SOCIAL"); }
 	 */
 
@@ -446,11 +446,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveCafe(Context context, String cafe) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_SOCIAL", cafe); }
 	 * 
 	 * public static String getCafe(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_SOCIAL"); }
 	 */
 
@@ -465,11 +465,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveManagement(Context context, String management) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_MANAGEMENT", management); }
 	 * 
 	 * public static String getManagement(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_MANAGEMENT"); }
 	 */
 
@@ -485,11 +485,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveTransfer(Context context, String transfer) {
-	 * SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_TRANSFER", transfer); }
 	 * 
 	 * public static String getTransfer(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_TRANSFER"); }
 	 */
 
@@ -504,11 +504,11 @@ public class EfunSwitchHelper {
 
 	/*
 	 * public static void saveCheckversoin(Context context, String checkversoin)
-	 * { SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE,
+	 * { SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_CHECKVERSION", checkversoin); }
 	 * 
 	 * public static String getCheckversoin(Context context) { return
-	 * SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,
+	 * SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,
 	 * "EFUN_SWITCH_CHECKVERSION"); }
 	 */
 

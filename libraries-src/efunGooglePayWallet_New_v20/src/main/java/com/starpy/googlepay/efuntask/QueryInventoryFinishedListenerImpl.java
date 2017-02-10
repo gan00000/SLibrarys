@@ -2,7 +2,7 @@ package com.starpy.googlepay.efuntask;
 
 import java.util.List;
 
-import com.starpy.base.utils.EfunLogUtil;
+import com.core.base.utils.EfunLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;
 import com.starpy.util.IabHelper;

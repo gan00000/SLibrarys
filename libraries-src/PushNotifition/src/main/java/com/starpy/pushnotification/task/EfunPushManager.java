@@ -4,8 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.ResUtil;
+import com.core.base.res.SConfig;
+import com.core.base.utils.ResUtil;
 import com.starpy.push.client.MessageDispatcher;
 import com.starpy.push.client.PushRequest;
 import com.starpy.push.client.utils.PushHelper;
@@ -66,8 +66,8 @@ public class EfunPushManager {
 			try {
 //				gamePreferredDomainUrl = ResUtil.findStringByName(mContext, "efunGamePreferredDomainUrl");
 //				gameSpareDomainUrl = ResUtil.findStringByName(mContext, "efunGameSpareDomainUrl");
-				gamePreferredDomainUrl = EfunResConfiguration.getGamePreferredUrl(mContext);
-				gameSpareDomainUrl = EfunResConfiguration.getGameSpareUrl(mContext);
+				gamePreferredDomainUrl = SConfig.getGamePreferredUrl(mContext);
+				gameSpareDomainUrl = SConfig.getGameSpareUrl(mContext);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

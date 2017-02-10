@@ -2,10 +2,10 @@ package com.starpy.sdk.entrance;
 
 import java.util.List;
 
-import com.starpy.base.callback.EfunCallBack;
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.PermissionUtil;
+import com.core.base.callback.EfunCallBack;
+import com.core.base.res.SConfig;
+import com.core.base.utils.SPUtil;
+import com.core.base.utils.PermissionUtil;
 import com.starpy.sdk.entrance.constant.EfunChannelType;
 import com.starpy.sdk.entrance.constant.EfunPayType;
 import com.starpy.sdk.entrance.constant.EfunShareType;
@@ -168,7 +168,7 @@ public abstract class EfunSDK {
 	 */
 	
 	public void efunLogin(Context context,EfunLoginEntity entity){
-		EfunResConfiguration.clearLoginMsg(context);
+		SConfig.clearLoginMsg(context);
 		if (entity.getEfunCallBack() == null) {
 			Log.e(SDK_TAG, "login call back is null");
 		}
@@ -184,7 +184,7 @@ public abstract class EfunSDK {
 	 */
 	public void efunLogout(Context context, EfunLogoutEntity entity) {
 		checkContext(context);
-		EfunResConfiguration.clearLoginMsg(context);
+		SConfig.clearLoginMsg(context);
 	}
 
 	/**
@@ -316,8 +316,8 @@ public abstract class EfunSDK {
 	 * @date 2016年3月10日
 	 */
 	public void efunSetLanguage(Context context, String language) {
-		Log.d(SDK_TAG, "set language:" + language);
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_SDK_LANGUAGE, language);
+		Log.d(SDK_TAG, "set gameLanguage:" + language);
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_SDK_LANGUAGE, language);
 	}
 
 	// ===========================================================================================================================

@@ -3,9 +3,9 @@ package com.starpy.model.login.execute;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.EfunLogUtil;
+import com.core.base.utils.SPUtil;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.EfunLogUtil;
 
 /**
 * <p>Title: EfunThirdPlatLoginOrRegCmd2</p>
@@ -30,22 +30,22 @@ public class EfunThirdPlatLoginOrRegCmd2 extends EfunBaseCmd {
 			thirdPlateId = ApkInfoUtil.getEfunUUid(context);
 		}
 		
-		listenerParameters.setThirdPlateId(thirdPlateId);
+		baseRequest.setThirdPlateId(thirdPlateId);
 		
-		listenerParameters.setPartner(partnerName);
+		baseRequest.setPartner(partnerName);
 		
-		listenerParameters.setThirdPlate(thirdPlate);
-		listenerParameters.setPlatForm(platForm);
-		listenerParameters.setAdvertisersName(advertisersName);
+		baseRequest.setThirdPlate(thirdPlate);
+		baseRequest.setPlatForm(platForm);
+		baseRequest.setAdvertisersName(advertisersName);
 		
 		if (!TextUtils.isEmpty(thirdPlate) && thirdPlate.equals("fb")) {
 			if (TextUtils.isEmpty(bussessIds)) {
 				//throw new IllegalArgumentException("FB login must have bussess Ids, now Ids is empty");
 				EfunLogUtil.logE("FB login must have bussess Ids, now Ids is empty");
 			}
-			String fbTokenBusiness = SPUtil.getSimpleString(context, SPUtil.EFUN_FILE,FB_TOKEN_FOR_BUSINESS);
-			listenerParameters.setApps(bussessIds);
-			listenerParameters.setToken_for_business(fbTokenBusiness);
+			String fbTokenBusiness = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE,FB_TOKEN_FOR_BUSINESS);
+			baseRequest.setApps(bussessIds);
+			baseRequest.setToken_for_business(fbTokenBusiness);
 		}
 	
 	}

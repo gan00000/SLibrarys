@@ -9,9 +9,9 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.res.SConfig;
+import com.core.base.utils.SPUtil;
+import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.constants.GooglePayContant;
 
@@ -20,7 +20,7 @@ public class EfunPayHelper {
 	public static String getPreferredUrl(BasePayActivity payActivity){
 		String preferredUrl = payActivity.getPayPreferredUrl();
 		if (SStringUtil.isEmpty(preferredUrl)) {
-			preferredUrl = EfunResConfiguration.getEfunPayPreferredUrl(payActivity);
+			preferredUrl = SConfig.getEfunPayPreferredUrl(payActivity);
 		}
 		return checkUrl(preferredUrl);
 	}
@@ -28,7 +28,7 @@ public class EfunPayHelper {
 	public static String getSpareUrl(BasePayActivity payActivity){
 		String spareUrl = payActivity.getPaySpareUrl();
 		if (SStringUtil.isEmpty(spareUrl)) {
-			spareUrl = EfunResConfiguration.getEfunPaySpareUrl(payActivity);
+			spareUrl = SConfig.getEfunPaySpareUrl(payActivity);
 		}
 		return checkUrl(spareUrl);
 	}
@@ -105,7 +105,7 @@ public class EfunPayHelper {
 	 * @date 2016年2月24日
 	 */
 	public static String getLoginSign(Context context){
-//		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, "EFUN_LOGIN_SIGN");
-		return SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, "EFUN_LOGIN_SIGN");
+//		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, "EFUN_LOGIN_SIGN");
+		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, "EFUN_LOGIN_SIGN");
 	}
 }

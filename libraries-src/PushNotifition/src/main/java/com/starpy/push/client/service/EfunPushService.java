@@ -2,9 +2,9 @@ package com.starpy.push.client.service;
 
 import java.util.ArrayList;
 
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.utils.ApkInfoUtil.NetworkType;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.SPUtil;
+import com.core.base.utils.ApkInfoUtil.NetworkType;
 import com.starpy.push.client.MessageDispatcher;
 import com.starpy.push.client.PushConstant;
 import com.starpy.push.client.bean.NotificationMessage;
@@ -152,8 +152,8 @@ public class EfunPushService extends Service {
 
 	protected void resetClient() {
 		//SharedPreferences account = this.getSharedPreferences(PushParams.DEFAULT_PRE_NAME, Context.MODE_PRIVATE);
-		String serverIp = SPUtil.getSimpleString(this, SPUtil.EFUN_FILE, PushConstant.PUSH_SERVER_IP);//account.getString(PushParams.SERVER_IP, "");
-		String serverPort = SPUtil.getSimpleString(this, SPUtil.EFUN_FILE, PushConstant.PUSH_SERVER_PORT);// account.getString(PushParams.SERVER_PORT, "");
+		String serverIp = SPUtil.getSimpleString(this, SPUtil.STAR_PY_SP_FILE, PushConstant.PUSH_SERVER_IP);//account.getString(PushParams.SERVER_IP, "");
+		String serverPort = SPUtil.getSimpleString(this, SPUtil.STAR_PY_SP_FILE, PushConstant.PUSH_SERVER_PORT);// account.getString(PushParams.SERVER_PORT, "");
 	//	String pushPort = "57112";//account.getString(PushParams.PUSH_PORT, "");
 	//	String userName = account.getString(PushParams.USER_NAME, "");
 		if (TextUtils.isEmpty(serverPort) || TextUtils.isEmpty(serverPort.trim())) {

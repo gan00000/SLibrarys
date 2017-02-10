@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.s.SFacebookProxy;
-import com.starpy.base.utils.PL;
+import com.core.base.utils.PL;
 import com.startpy.sdk.R;
 
 /**

@@ -1,6 +1,6 @@
 package com.starpy.model.login.bean;
 
-import com.starpy.base.beans.EfunOutputParams;
+import com.core.base.beans.EfunOutputParams;
 
 public class EfunPerson extends EfunOutputParams {
 

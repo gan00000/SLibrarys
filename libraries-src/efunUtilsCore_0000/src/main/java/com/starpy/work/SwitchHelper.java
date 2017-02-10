@@ -4,15 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
-import com.starpy.base.beans.GameNoticeConfigBean;
-import com.starpy.base.beans.InviteConfigBean;
-import com.starpy.base.task.EfunCommandCallBack;
-import com.starpy.base.task.STaskExecutor;
-import com.starpy.base.task.command.abstracts.EfunCommand;
-import com.starpy.base.task.command.impl.EfunGameNoticeConfigCmd;
-import com.starpy.base.task.command.impl.EfunInviteConfigCmd;
-import com.starpy.base.utils.SStringUtil;
-import com.starpy.base.url.EfunDynamicUrl;
+import com.core.base.beans.GameNoticeConfigBean;
+import com.core.base.beans.InviteConfigBean;
+import com.core.base.task.EfunCommandCallBack;
+import com.core.base.task.STaskExecutor;
+import com.core.base.task.command.abstracts.EfunCommand;
+import com.core.base.task.command.impl.EfunGameNoticeConfigCmd;
+import com.core.base.task.command.impl.EfunInviteConfigCmd;
+import com.core.base.utils.SStringUtil;
+import com.core.base.url.EfunDynamicUrl;
 
 import android.content.Context;
 

@@ -5,11 +5,11 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.res.SConfig;
+import com.core.base.utils.SPUtil;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 import com.starpy.push.client.PushConstant;
 import com.starpy.push.client.bean.NotificationMessage;
 import com.starpy.push.client.im.Message;
@@ -60,7 +60,7 @@ public class PushHelper {
 		//Log.d(TAG, "server name:" + EfunPushService.class.getCanonicalName());
 
 		String serverName = EfunPushService.class.getCanonicalName();
-		/*if (EfunResConfiguration.getSDKLanguage(context).equals("zh_HK")) {//港台
+		/*if (SConfig.getSDKLanguage(context).equals("zh_HK")) {//港台
 			serverName = EfunPushServiceTW.class.getCanonicalName();
 		}*/
 		for (RunningServiceInfo rsi : runningServiceInfos) {
@@ -177,7 +177,7 @@ public class PushHelper {
 	public static void processMessage(Context context, String message) {
 
 		NotificationMessage notificationMessage = PushHelper.parseMessage(message);
-		String messageId = SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, EFUN_PUSH_MESSAGE_ID);
+		String messageId = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, EFUN_PUSH_MESSAGE_ID);
 		//出现相同messageid不显示消息
 		if (!TextUtils.isEmpty(messageId) && messageId.equals(notificationMessage.getMessageId())) {
 			return;
@@ -282,7 +282,7 @@ public class PushHelper {
 		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 //		notificationManager.notify(EfunPushService.getNotificationId(), notification);
 		//保存上一次的message id,下次出现相同messageid不显示消息
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_PUSH_MESSAGE_ID, notificationMessage.getMessageId());
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_PUSH_MESSAGE_ID, notificationMessage.getMessageId());
 		notificationManager.notify(100, notification);
 
 	}*/
@@ -353,7 +353,7 @@ public class PushHelper {
 		PendingIntent clickPendIntent = PendingIntent.getBroadcast(context, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(clickPendIntent);
 
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, EFUN_PUSH_MESSAGE_ID, notificationMessage.getMessageId());
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_PUSH_MESSAGE_ID, notificationMessage.getMessageId());
 		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		// mId allows you to update the notification later on.
 		mNotificationManager.notify(100, mBuilder.build());
@@ -366,14 +366,14 @@ public class PushHelper {
 		if (TextUtils.isEmpty(serverIp)) {
 			throw new IllegalArgumentException("serverIp must not be null");
 		}
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, PushConstant.PUSH_SERVER_IP, serverIp);
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, PushConstant.PUSH_SERVER_PORT, serverPort);
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, PushConstant.PUSH_SERVER_IP, serverIp);
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, PushConstant.PUSH_SERVER_PORT, serverPort);
 	}
 
 	public static String getGameCode(Context context) {
 		String gameCode = PushSPUtil.takeGameCode(context, "");
 		if (TextUtils.isEmpty(gameCode)) {
-			gameCode = EfunResConfiguration.getGameCode(context);
+			gameCode = SConfig.getGameCode(context);
 		}
 		return gameCode;
 	}
@@ -381,17 +381,17 @@ public class PushHelper {
 	public static String getAppPlatform(Context context) {
 		String appPlatform = PushSPUtil.takeAppPlatform(context);
 		if (TextUtils.isEmpty(appPlatform)) {
-			appPlatform = EfunResConfiguration.getAppPlatform(context);
+			appPlatform = SConfig.getAppPlatform(context);
 		}
 		return appPlatform;
 	}
 
 	public static String generateUUID(Context context) {
-		return SStringUtil.toMd5(ApkInfoUtil.getDeviceType() + "_" + ApkInfoUtil.getLocalAndroidId(context), true);
+		return SStringUtil.toMd5(ApkInfoUtil.getDeviceType() + "_" + ApkInfoUtil.getAndroidId(context), true);
 	}
 	
 	public static String getAdvertisers(Context context) {
-		return SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, SPUtil.ADS_ADVERTISERS_NAME);
+		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.ADS_ADVERTISERS_NAME);
 	}
 	
 	

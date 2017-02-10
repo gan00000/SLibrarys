@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import com.starpy.base.http.HttpRequest;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.task.SCommandAsyncTask;
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.SStringUtil;
-import com.starpy.base.utils.GoogleAdUtil;
+import com.core.base.http.HttpRequest;
+import com.core.base.res.SConfig;
+import com.core.base.task.SCommandAsyncTask;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.SStringUtil;
+import com.core.base.utils.GoogleAdUtil;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -49,20 +49,20 @@ public class EfunSdkEventsLogger {
 		m.put("parentEvent", sdkEvent.getParentEvent());
 		m.put("childEvent", sdkEvent.getChildEvent());
 		if (TextUtils.isEmpty(sdkEvent.getGameCode())) {
-			m.put("gameCode", EfunResConfiguration.getGameCode(context));
+			m.put("gameCode", SConfig.getGameCode(context));
 		}else{
 			m.put("gameCode", sdkEvent.getGameCode());
 		}
-		m.put("mac", ApkInfoUtil.getLocalMacAddress(context));
-		m.put("imei", ApkInfoUtil.getLocalImeiAddress(context));
-		m.put("androidid", ApkInfoUtil.getLocalAndroidId(context));
+		m.put("mac", ApkInfoUtil.getMacAddress(context));
+		m.put("imei", ApkInfoUtil.getImeiAddress(context));
+		m.put("androidid", ApkInfoUtil.getAndroidId(context));
 		m.put("osVersion", ApkInfoUtil.getOsVersion());
 		m.put("phoneModel", ApkInfoUtil.getDeviceType());
 		m.put("wifi", ApkInfoUtil.isWifiAvailable(context) ? "yes" : "no");
 		m.put("language", Locale.getDefault().getLanguage());
 		//m.put("userAgent", new WebView(context).getSettings().getUserAgentString());
-		m.put("sign", EfunResConfiguration.getSDKLoginSign(context));
-		m.put("loginTimestamp", EfunResConfiguration.getSDKLoginTimestamp(context));
+		m.put("sign", SConfig.getSDKLoginSign(context));
+		m.put("loginTimestamp", SConfig.getSDKLoginTimestamp(context));
 		
 		
 		if (extraEvent != null && !extraEvent.isEmpty()) {
@@ -74,9 +74,9 @@ public class EfunSdkEventsLogger {
 		}
 		
 		if (TextUtils.isEmpty(postUrl)) {
-			String adsUrl = EfunResConfiguration.getAdsPreferredUrl(context);
+			String adsUrl = SConfig.getAdsPreferredUrl(context);
 			if (TextUtils.isEmpty(adsUrl)) {
-				adsUrl = EfunResConfiguration.getAdsSpareUrl(context);
+				adsUrl = SConfig.getAdsSpareUrl(context);
 			}
 			if (TextUtils.isEmpty(adsUrl)) {
 				return;

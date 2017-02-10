@@ -8,12 +8,12 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.starpy.base.task.SRequestAsyncTask;
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.http.HttpRequest;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.EfunFileUtil;
+import com.core.base.res.SConfig;
+import com.core.base.task.SRequestAsyncTask;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.SPUtil;
+import com.core.base.http.HttpRequest;
+import com.core.base.utils.EfunFileUtil;
 
 import android.content.Context;
 import android.os.Looper;
@@ -58,9 +58,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 		if (crashObj == null) {
 			crashObj = new JSONObject();
 			try {
-				crashObj.put("mac", ApkInfoUtil.getLocalMacAddress(context));
-				crashObj.put("imei", ApkInfoUtil.getLocalImeiAddress(context));
-				crashObj.put("androidid", ApkInfoUtil.getLocalAndroidId(context));
+				crashObj.put("mac", ApkInfoUtil.getMacAddress(context));
+				crashObj.put("imei", ApkInfoUtil.getImeiAddress(context));
+				crashObj.put("androidid", ApkInfoUtil.getAndroidId(context));
 				crashObj.put("osVersion", ApkInfoUtil.getOsVersion());
 				crashObj.put("phoneModel", ApkInfoUtil.getDeviceType());
 
@@ -70,11 +70,11 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 				crashObj.put("gameVersion", ApkInfoUtil.getVersionName(context));
 				
 				if(TextUtils.isEmpty(gameCode)) {
-					crashObj.put("gameCode", EfunResConfiguration.getGameCode(context));
+					crashObj.put("gameCode", SConfig.getGameCode(context));
 				}else{
 					crashObj.put("gameCode", gameCode);
 				}
-				String efunUserId = SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, SPUtil.EFUN_LOGIN_USER_ID);
+				String efunUserId = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_USER_ID);
 				crashObj.put("userid", efunUserId);//需要取得UID
 				
 			} catch (JSONException e) {

@@ -10,12 +10,12 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.ResUtil;
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.res.EfunResConfiguration;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.res.SConfig;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.ResUtil;
+import com.core.base.utils.SPUtil;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.WebOrderBean;
 import com.starpy.googlepay.constants.GooglePayContant;
@@ -181,10 +181,10 @@ public class EfunPayUtil {
 	}
 
 	private static void appendLocalInfo(Context context, StringBuffer sb) {
-		String localMacAddress = (null == ApkInfoUtil.getLocalMacAddress(context)?"": ApkInfoUtil.getLocalMacAddress(context));
-		String localImeiAddress = (null == ApkInfoUtil.getLocalImeiAddress(context)?"": ApkInfoUtil.getLocalImeiAddress(context));
+		String localMacAddress = (null == ApkInfoUtil.getMacAddress(context)?"": ApkInfoUtil.getMacAddress(context));
+		String localImeiAddress = (null == ApkInfoUtil.getImeiAddress(context)?"": ApkInfoUtil.getImeiAddress(context));
 		String localIpAddress = (null == ApkInfoUtil.getLocalIpAddress(context)?"": ApkInfoUtil.getLocalIpAddress(context));
-		String localAndroidId = (null == ApkInfoUtil.getLocalAndroidId(context)?"": ApkInfoUtil.getLocalAndroidId(context));
+		String localAndroidId = (null == ApkInfoUtil.getAndroidId(context)?"": ApkInfoUtil.getAndroidId(context));
 		
 		sb.append("&mac=").append(localMacAddress).
 		append("&imei=").append(localImeiAddress).
@@ -204,7 +204,7 @@ public class EfunPayUtil {
 	*/
 	private static void checkWebOrderBean(Context context,WebOrderBean webOrderBean,int pageMark){
 		if (SStringUtil.isEmpty(webOrderBean.getGameCode())) {
-			String gameCode = EfunResConfiguration.getGameCode(context);
+			String gameCode = SConfig.getGameCode(context);
 			if (SStringUtil.isEmpty(gameCode)) {
 				throw new RuntimeException("请先配置好gamecode");
 			}
@@ -212,10 +212,10 @@ public class EfunPayUtil {
 		}
 
 		if (SStringUtil.isEmpty(webOrderBean.getLanguage())) {
-			webOrderBean.setLanguage(EfunResConfiguration.getLanguage(context));
+			webOrderBean.setLanguage(SConfig.getLanguage(context));
 		}
 		if (SStringUtil.isEmpty(webOrderBean.getVh())) {
-			String vh = EfunResConfiguration.getScreenOrientation(context);
+			String vh = SConfig.getScreenOrientation(context);
 			if (SStringUtil.isEmpty(vh)) {
 				vh = "";
 			}
@@ -283,12 +283,12 @@ public class EfunPayUtil {
 			sb.append(string + ";");
 		}
 		String skuString = sb.substring(0, sb.length());
-		SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, BasePayActivity.EFUN_GOOGLE_PAY_LIST_SKUS, skuString);
+		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, BasePayActivity.EFUN_GOOGLE_PAY_LIST_SKUS, skuString);
 	}
 	
 	public static List<String> getListSkus(Context context){
 		ArrayList<String> a = new ArrayList<String>();
-		String skuString = SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, BasePayActivity.EFUN_GOOGLE_PAY_LIST_SKUS);
+		String skuString = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, BasePayActivity.EFUN_GOOGLE_PAY_LIST_SKUS);
 		if (!TextUtils.isEmpty(skuString)) {
 			String[] mSku = skuString.split(";");
 			for (int i = 0; i < mSku.length; i++) {

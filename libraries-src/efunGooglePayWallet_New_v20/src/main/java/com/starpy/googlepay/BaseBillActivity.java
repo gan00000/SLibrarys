@@ -2,8 +2,8 @@ package com.starpy.googlepay;
 
 import java.util.List;
 
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.EfunLogUtil;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.EfunLogUtil;
 import com.starpy.googlepay.bean.WebOrderBean;
 import com.starpy.googlepay.efuntask.EfunPayUtil;
 

@@ -1,6 +1,6 @@
 package com.starpy.googlepay.efuntask;
 
-import com.starpy.base.utils.EfunLogUtil;
+import com.core.base.utils.EfunLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;
 

@@ -3,11 +3,11 @@ package com.starpy.googlepay.efuntask;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.starpy.base.http.HttpRequest;
-import com.starpy.base.utils.EfunJSONUtil;
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.EfunLogUtil;
-import com.starpy.base.utils.SStringUtil;
+import com.core.base.http.HttpRequest;
+import com.core.base.utils.EfunJSONUtil;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.GoogleOrderBean;
 import com.starpy.googlepay.constants.EfunDomainSite;
@@ -48,10 +48,10 @@ public class EfunWalletApi {
 				&& SStringUtil.isNotEmpty(moneyType) && SStringUtil.isNotEmpty(serverCode) && SStringUtil.isNotEmpty(gameCode)
 				&& SStringUtil.isNotEmpty(payFrom)&& SStringUtil.isNotEmpty(payType)) {
 			
-			String localMacAddress = (null == ApkInfoUtil.getLocalMacAddress(payActivity)?"": ApkInfoUtil.getLocalMacAddress(payActivity));
-			String localImeiAddress = (null == ApkInfoUtil.getLocalImeiAddress(payActivity)?"": ApkInfoUtil.getLocalImeiAddress(payActivity));
+			String localMacAddress = (null == ApkInfoUtil.getMacAddress(payActivity)?"": ApkInfoUtil.getMacAddress(payActivity));
+			String localImeiAddress = (null == ApkInfoUtil.getImeiAddress(payActivity)?"": ApkInfoUtil.getImeiAddress(payActivity));
 			String localIpAddress = (null == ApkInfoUtil.getLocalIpAddress(payActivity)?"": ApkInfoUtil.getLocalIpAddress(payActivity));
-			String localAndroidId = (null == ApkInfoUtil.getLocalAndroidId(payActivity)?"": ApkInfoUtil.getLocalAndroidId(payActivity));
+			String localAndroidId = (null == ApkInfoUtil.getAndroidId(payActivity)?"": ApkInfoUtil.getAndroidId(payActivity));
 			
 			params.put("mac", localMacAddress);
 			params.put("imei", localImeiAddress);

@@ -6,11 +6,11 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.starpy.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.SPUtil;
-import com.starpy.base.http.HttpRequest;
-import com.starpy.base.task.SRequestAsyncTask;
-import com.starpy.base.utils.EfunLogUtil;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.SPUtil;
+import com.core.base.http.HttpRequest;
+import com.core.base.task.SRequestAsyncTask;
+import com.core.base.utils.EfunLogUtil;
 import com.starpy.push.client.utils.PushHelper;
 
 import android.content.Context;
@@ -55,14 +55,14 @@ public class PushRequest{
 	
 	public void sendUUIDToServer(final Context context){
 		
-		/*String sendUUIDSuccess = SPUtil.getSimpleString(context, SPUtil.EFUN_FILE, SEND_UUID_SUCCESS_KEY);
+		/*String sendUUIDSuccess = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SEND_UUID_SUCCESS_KEY);
 		if (sendUUIDSuccess.equals(SEND_UUID_SUCCESS_VALUE)) {
 			Log.d(TAG, "SEND_UUID_SUCCESS_VALUE:" + sendUUIDSuccess);
 			return;
 		}*/
 		
-		String mac = ApkInfoUtil.getLocalMacAddress(context);
-		String imei = ApkInfoUtil.getLocalImeiAddress(context);
+		String mac = ApkInfoUtil.getMacAddress(context);
+		String imei = ApkInfoUtil.getImeiAddress(context);
 		paramsMap.put(GAMECODE, gameCode);
 		paramsMap.put(VERSIONCODE, ApkInfoUtil.getVersionName(context));
 		paramsMap.put(MAC, mac);
@@ -84,7 +84,7 @@ public class PushRequest{
 			protected void onPostExecute(String result) {
 				super.onPostExecute(result);
 				if (!TextUtils.isEmpty(result) && "1000".equals(result)) {
-					SPUtil.saveSimpleInfo(context, SPUtil.EFUN_FILE, SEND_UUID_SUCCESS_KEY, SEND_UUID_SUCCESS_VALUE);
+					SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, SEND_UUID_SUCCESS_KEY, SEND_UUID_SUCCESS_VALUE);
 				}
 			}
 

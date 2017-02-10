@@ -1,6 +1,6 @@
 package com.starpy.model.login.callback;
 
-import com.starpy.base.callback.EfunCallBack;
+import com.core.base.callback.EfunCallBack;
 import com.starpy.model.login.bean.LoginParameters;
 
 
