@@ -67,6 +67,9 @@ public class SStringUtil {
 		return false;
 	}
 
+	public static boolean isEqual(String str1, String str2){
+		return str1.equals(str2);
+	}
 
 	/**
 	 * 邮箱验证

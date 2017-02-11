@@ -34,7 +34,7 @@ import android.util.Log;
  */
 public class ApkInfoUtil {
 	
-	public static String efun_uuid = "";
+	public static String customizedUniqueId = "";
 
 	/**
 	 * 获取当前的包信息
@@ -75,7 +75,6 @@ public class ApkInfoUtil {
 	public static String getMacAddress(Context ctx) {
 		SConfig.getSDKLoginSign(ctx);//初始化一下sign值，为请求网络使用
 		SConfig.getSDKLoginTimestamp(ctx);
-		getEfunUUid(ctx);
 		WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		WifiInfo info = wifi.getConnectionInfo();
 		String macTmp = info.getMacAddress();
@@ -93,16 +92,16 @@ public class ApkInfoUtil {
 	 * @return
 	 * @date 2015年10月12日
 	 */
-	public static synchronized String getEfunUUid(Context ctx) {
-		//SConfig.getSDKLoginSign(ctx);
-		if (!TextUtils.isEmpty(efun_uuid) && efun_uuid.length() > 30) {
-			return efun_uuid;
+	public static synchronized String getCustomizedUniqueId(Context ctx) {
+
+		if (!TextUtils.isEmpty(customizedUniqueId) && customizedUniqueId.length() > 30) {
+			return customizedUniqueId;
 		}
-		if (EfunStorageUtil.isAccess()) {
+		if (StorageUtil.isExternalStorageExist()) {
 			String sdcardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 			String dataPath = sdcardPath + File.separator + "Android" + File.separator + "data" + File.separator;
 			
-			String efundataPathDir = dataPath + "efun" + File.separator;
+			String efundataPathDir = dataPath + "stardata" + File.separator;
 			File dir = new File(efundataPathDir);
 			if (!dir.exists()) {
 				if(!dir.mkdirs()){
@@ -114,24 +113,22 @@ public class ApkInfoUtil {
 				return "";
 			}
 
-			String efundataPath = efundataPathDir +"efundata-uuid.txt";
-			// String efundata2Path = dataPath + "data/efundata2.txt";
-			// String efundata3Path = dataPath + "data/efundata3.txt";
+			String efundataPath = efundataPathDir +"stardata-uuid.txt";
 
 			try {
-				efun_uuid = EfunFileUtil.readFile(efundataPath);
-				if (!TextUtils.isEmpty(efun_uuid)) {
-					return efun_uuid;
+				customizedUniqueId = EfunFileUtil.readFile(efundataPath);
+				if (!TextUtils.isEmpty(customizedUniqueId)) {
+					return customizedUniqueId;
 				}
 				String uuid = UUID.randomUUID().toString();
 				if (EfunFileUtil.writeFileData(ctx, efundataPath, uuid)) {
-					efun_uuid = uuid;
+					customizedUniqueId = uuid;
 				}
 			} catch (IOException e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-			return efun_uuid;
+			return customizedUniqueId;
 
 		}
 		return "";
@@ -146,7 +143,6 @@ public class ApkInfoUtil {
 	public static String getImeiAddress(Context ctx) {
 		SConfig.getSDKLoginSign(ctx);// 初始化一下sign值，为请求网络使用
 		SConfig.getSDKLoginTimestamp(ctx);
-		getEfunUUid(ctx);
 		String imei = "";
 		try {
 			if (PermissionUtil.hasSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE)) {

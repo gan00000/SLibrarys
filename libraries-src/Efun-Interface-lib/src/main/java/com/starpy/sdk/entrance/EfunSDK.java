@@ -2,7 +2,7 @@ package com.starpy.sdk.entrance;
 
 import java.util.List;
 
-import com.core.base.callback.EfunCallBack;
+import com.core.base.callback.ISCallBack;
 import com.core.base.res.SConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.PermissionUtil;
@@ -169,7 +169,7 @@ public abstract class EfunSDK {
 	
 	public void efunLogin(Context context,EfunLoginEntity entity){
 		SConfig.clearLoginMsg(context);
-		if (entity.getEfunCallBack() == null) {
+		if (entity.getISCallBack() == null) {
 			Log.e(SDK_TAG, "login call back is null");
 		}
 	}
@@ -446,7 +446,7 @@ public abstract class EfunSDK {
 
 	}
 
-	public void efunFuc(Context context, EfunCallBack callBack, String... s) {
+	public void efunFuc(Context context, ISCallBack callBack, String... s) {
 
 	}
 	

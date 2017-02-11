@@ -1,8 +1,8 @@
 package com.starpy.sdk.callback;
 
-import com.core.base.callback.EfunCallBack;
+import com.core.base.callback.ISCallBack;
 
-public interface ProtocolCompleteListener extends EfunCallBack {
+public interface ProtocolCompleteListener extends ISCallBack {
 	
 	void onCancel();
 	

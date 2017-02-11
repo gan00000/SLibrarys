@@ -7,7 +7,7 @@ public class EfunWalletService {
 	
 	private static EfunWalletService walletService = null;
 	
-	private static Vector<EfunWalletListener> walletListeners = new Vector<EfunWalletListener>();
+	private static Vector<ISWalletListener> walletListeners = new Vector<ISWalletListener>();
 	
 	private EfunWalletService(){}
 	
@@ -22,11 +22,11 @@ public class EfunWalletService {
 		return walletService;
 	}
 
-	public  Vector<EfunWalletListener> getWalletListeners() {
+	public  Vector<ISWalletListener> getWalletListeners() {
 		return walletListeners;
 	}
 
-	public  void addWalletListeners(EfunWalletListener walletListeners) {
+	public  void addWalletListeners(ISWalletListener walletListeners) {
 		if (walletListeners != null) {
 			EfunWalletService.walletListeners.add(walletListeners);
 		}

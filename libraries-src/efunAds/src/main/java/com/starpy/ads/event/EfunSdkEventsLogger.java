@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.core.base.http.HttpRequest;
 import com.core.base.res.SConfig;
-import com.core.base.task.SCommandAsyncTask;
+import com.core.base.request.SCommandAsyncTask;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.GoogleAdUtil;

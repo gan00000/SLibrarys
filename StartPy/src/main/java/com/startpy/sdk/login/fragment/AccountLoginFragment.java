@@ -6,9 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.core.base.callback.ISReqCallBack;
+import com.core.base.utils.SStringUtil;
 import com.facebook.s.SFacebookProxy;
 import com.core.base.utils.PL;
+import com.starpy.model.login.bean.SLoginResponse;
+import com.starpy.model.login.bean.request.MacLoginRegRequest;
+import com.starpy.model.login.execute.MacLoginRegCmd;
 import com.startpy.sdk.R;
+import com.startpy.sdk.utils.DialogUtil;
+import com.startpy.sdk.utils.ToastUtils;
 
 /**
  * Created by Efun on 2017/2/6.
@@ -75,13 +82,34 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                 sLoginActivity.replaceFragment(new AccountLoginMainFragment());
                 break;
             case R.id.py_account_login_mac:
+                macLogin();
                 break;
             default:
         }
     }
 
-    private void sFbLogin() {
+    private void macLogin() {
 
+        MacLoginRegCmd macLoginRegCmd = new MacLoginRegCmd(getActivity());
+        macLoginRegCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
+        macLoginRegCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
+            @Override
+            public void callBack(SLoginResponse sLoginResponse) {
+                if (sLoginResponse != null && (sLoginResponse.isRequestSuccess() || SStringUtil.isEqual("1001", sLoginResponse.getCode()))) {
+                    ToastUtils.toast(getActivity(), R.string.py_login_success);
+                } else {
+                    ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                }
+            }
+        });
+        macLoginRegCmd.excute(SLoginResponse.class);
+
+    }
+
+    private void sFbLogin() {
+        if (sLoginActivity.getsFacebookProxy() == null) {
+            return;
+        }
         sLoginActivity.getsFacebookProxy().fbLogin(sLoginActivity, new SFacebookProxy.EfunFbLoginCallBack() {
             @Override
             public void onCancel() {
@@ -96,7 +124,24 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onSuccess(SFacebookProxy.User user) {
                 PL.d("fb uid:" + user.getUserId());
+                requestBusinessId();
             }
         });
+    }
+
+    private void requestBusinessId(){
+
+        sLoginActivity.getsFacebookProxy().requestBusinessId(sLoginActivity, new SFacebookProxy.EfunFbBusinessIdCallBack() {
+            @Override
+            public void onError() {
+
+            }
+
+            @Override
+            public void onSuccess(String businessId) {
+                PL.d("fb businessId:" + businessId);
+            }
+        });
+
     }
 }

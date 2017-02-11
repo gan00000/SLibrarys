@@ -157,7 +157,7 @@ public class Native2JS {
 	
 	@JavascriptInterface
 	public String getLanguage(){
-		return SConfig.getSDKLanguage(context);
+		return SConfig.getGameLanguage(context);
 	}
 	
 	@JavascriptInterface

@@ -20,7 +20,7 @@ import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.EfunLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.WebOrderBean;
-import com.starpy.googlepay.callback.EfunWalletListener;
+import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.constants.EfunDomainSite;
 import com.starpy.googlepay.constants.GooglePayContant;
 import com.starpy.googlepay.efuntask.EfunPayUtil;
@@ -157,7 +157,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 				if (walletBean != null && walletBean.getPurchaseState() != GooglePayContant.PURCHASESUCCESS) {
 					walletBean.setPurchaseState(GooglePayContant.PURCHASEFAILURE);
 				}
-				for (EfunWalletListener walletListener : walletListeners) {
+				for (ISWalletListener walletListener : walletListeners) {
 					if (walletListener != null) {
 						walletListener.efunWallet(walletBean);
 					}

@@ -3,18 +3,19 @@
  */
 package com.starpy.model.login.execute;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.core.base.http.HttpRequest;
 import com.core.base.http.HttpResponse;
+import com.core.base.request.AbsHttpRequest;
+import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.res.SConfig;
-import com.core.base.task.command.abstracts.EfunCommand;
 import com.core.base.utils.GoogleAdUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
-import com.starpy.base.bean.BaseReqeustBean;
 import com.starpy.model.login.bean.CmdResponse;
 import com.starpy.model.login.bean.request.LoginBaseRequest;
 import com.starpy.model.login.utils.PyLoginHelper;
@@ -26,12 +27,7 @@ import com.starpy.model.login.utils.PyLoginHelper;
  * @author GanYuanrong
  * @date 2013年12月10日
  */
-public abstract class EfunBaseCmd extends EfunCommand {
-
-	/**
-	 * serialVersionUID
-	 */
-	private static final long serialVersionUID = 1L;
+public abstract class EfunBaseCmd extends AbsHttpRequest {
 
 	protected Context context;
 
@@ -39,42 +35,19 @@ public abstract class EfunBaseCmd extends EfunCommand {
 
 	protected String mResponse;
 
-	protected CmdResponse cmdResponse;
-
 	public EfunBaseCmd(Context context) {
 		super();
 		this.context = context;
 	}
 
 
-
-	/**
-	 * @return the cmdResponse
-	 */
-	public CmdResponse getCmdResponse() {
-		return cmdResponse;
-	}
-
-	/**
-	 * @param cmdResponse the cmdResponse to set
-	 */
-	public void setCmdResponse(CmdResponse cmdResponse) {
-		this.cmdResponse = cmdResponse;
-	}
-
 	@Override
-	public String getResponse() {
-		return mResponse;
-	}
-
-	@Override
-	public void execute() throws Exception {
-
+	public BaseReqeustBean onHttpRequest() {
 		if (this.context == null) {
 			PL.d("execute context is null");
-			return;
+			return null;
 		}
-		
+
 		if (SStringUtil.isEmpty(baseRequest.getRequestUrl())) {
 			baseRequest.setRequestUrl(SConfig.getLoginPreferredUrl(context));
 		}
@@ -90,7 +63,7 @@ public abstract class EfunBaseCmd extends EfunCommand {
 
 
 		if(SStringUtil.isEmpty(baseRequest.getGameLanguage())){
-			baseRequest.setGameLanguage(SConfig.getSDKLanguage(context));
+			baseRequest.setGameLanguage(SConfig.getGameLanguage(context));
 		}
 
 		baseRequest.setReferrer(PyLoginHelper.takeReferrer(context, ""));
@@ -110,10 +83,32 @@ public abstract class EfunBaseCmd extends EfunCommand {
 			e.printStackTrace();
 		}
 		baseRequest.setAdvertisingId(advertisingId);
-		
+
+		return baseRequest;
 	}
 
-	protected void handleLoginResult() {
+	@Override
+	public <T> BaseReqeustBean onHttpSucceess(T responseModel) {
+		return null;
+	}
+
+	@Override
+	public void onTimeout(String result) {
+
+	}
+
+	@Override
+	public void onNoData(String result) {
+
+	}
+
+
+	public String getResponse() {
+		return mResponse;
+	}
+
+
+	/*protected void handleLoginResult() {
 		this.cmdResponse  = PyLoginHelper.parseResult(mResponse);
 
 		if(cmdResponse == null){
@@ -127,27 +122,10 @@ public abstract class EfunBaseCmd extends EfunCommand {
 
 		}
 
-	}
+	}*/
 
 	protected void saveLoginReponse(String reponse){
 		PyLoginHelper.saveLoginReponse(context, reponse);
-	}
-
-
-	/**
-	 * <p>Title: doRequest</p>
-	 * <p>Description: 实际网络请求</p>
-	 * @return
-	 */
-	public String doRequest(BaseReqeustBean baseReqeustBean){
-		String efunResponse = "";
-		if (SStringUtil.isNotEmpty(baseReqeustBean.getCompleteUrl())) {
-			HttpRequest httpRequest = new HttpRequest();
-			HttpResponse hr = httpRequest.postReuqest(baseReqeustBean.getCompleteUrl(), baseReqeustBean.buildPostMapInField());
-			efunResponse = hr.getResult();
-			requestCompleteUrl = hr.getRequestCompleteUrl();
-		}
-		return efunResponse;
 	}
 
 

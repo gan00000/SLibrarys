@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
 import com.core.base.http.HttpRequest;
-import com.core.base.task.SRequestAsyncTask;
+import com.core.base.request.SRequestAsyncTask;
 import com.core.base.utils.EfunLogUtil;
 import com.starpy.push.client.utils.PushHelper;
 
@@ -72,7 +72,7 @@ public class PushRequest{
 		paramsMap.put(TOKEN, "");
 		paramsMap.put(ADVERTISER, advertiser);
 		paramsMap.put(ORGUUID, PushHelper.generateUUID(context));
-		paramsMap.put("eid", ApkInfoUtil.getEfunUUid(context));
+		paramsMap.put("eid", ApkInfoUtil.getCustomizedUniqueId(context));
 		new SRequestAsyncTask() {
 			
 			@Override

@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">StartPy</string>
 
+    <!-- fb配置 -->
+    <!-- 必须跟fb后台一致的名字 -->
+    <string name="facebook_app_name">stargame</string>
+    <string name="facebook_app_id">1286278484776251</string>
+    <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1286278484776251</string>
+    <!-- fb配置end -->
+
     <string name="py_account_login">帳號登入</string>
     <string name="py_account">帳號:</string>
     <string name="py_account_hit">帳號</string>
@@ -18,6 +25,10 @@
     <string name="py_account_error">帳號格式錯誤</string>
     <string name="py_account_empty">帳號不能為空</string>
     <string name="py_password_empty">密碼不能為空</string>
+    <string name="py_password_equal_account">帳號、密碼不能一樣</string>
+    <string name="py_select_terms">請勾選同意服務條款</string>
+    <string name="py_register_success">註冊成功</string>
+    <string name="py_login_success">登入成功</string>
 
 
 

@@ -128,7 +128,7 @@ public class EfunLog {
             if (!TextUtils.isEmpty(gameCode)) {
                 info.put("gameCode", gameCode);
             }
-            String efunUUid = ApkInfoUtil.getEfunUUid(context);
+            String efunUUid = ApkInfoUtil.getCustomizedUniqueId(context);
             if (!TextUtils.isEmpty(efunUUid)) {
                 info.put("efunUUid", efunUUid);
             }

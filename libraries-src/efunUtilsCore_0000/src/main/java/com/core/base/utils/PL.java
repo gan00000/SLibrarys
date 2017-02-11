@@ -17,4 +17,12 @@ public class PL {
     public static void d(String tag, String msg){
         Log.d(tag,msg + "");
     }
+
+    public static void i(String msg){
+        i(PL_LOG,msg + "");
+    }
+
+    public static void i(String tag, String msg){
+        Log.i(tag,msg + "");
+    }
 }

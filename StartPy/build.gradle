@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'star'
+            keyPassword '000000'
+            storeFile file('E:/aspro/SLibrarys2/keystore/pykeystore.jks')
+            storePassword '000000'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
-
     defaultConfig {
         applicationId "com.startpy.sdk"
         minSdkVersion 11
@@ -15,6 +22,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
 }

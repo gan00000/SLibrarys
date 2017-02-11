@@ -3,7 +3,7 @@ package com.starpy.sdk.entrance.entity;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-import com.core.base.callback.EfunCallBack;
+import com.core.base.callback.ISCallBack;
 
 public class EfunEntity implements Serializable {
 
@@ -12,9 +12,9 @@ public class EfunEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private EfunCallBack efunCallBack;
+	private ISCallBack ISCallBack;
 	
-	private EfunCallBack efunCallBack2;
+	private ISCallBack ISCallBack2;
 
 	private String language;
 	
@@ -24,17 +24,17 @@ public class EfunEntity implements Serializable {
 //	private String reservedTwo;
 
 	/**
-	 * @return the efunCallBack
+	 * @return the ISCallBack
 	 */
-	public EfunCallBack getEfunCallBack() {
-		return efunCallBack;
+	public ISCallBack getISCallBack() {
+		return ISCallBack;
 	}
 
 	/**
-	 * @param efunCallBack the efunCallBack to set
+	 * @param ISCallBack the ISCallBack to set
 	 */
-	public void setEfunCallBack(EfunCallBack efunCallBack) {
-		this.efunCallBack = efunCallBack;
+	public void setISCallBack(ISCallBack ISCallBack) {
+		this.ISCallBack = ISCallBack;
 	}
 
 	/**
@@ -51,12 +51,12 @@ public class EfunEntity implements Serializable {
 		this.language = language;
 	}
 
-	public EfunCallBack getEfunCallBack2() {
-		return efunCallBack2;
+	public ISCallBack getISCallBack2() {
+		return ISCallBack2;
 	}
 
-	public void setEfunCallBack2(EfunCallBack efunCallBack2) {
-		this.efunCallBack2 = efunCallBack2;
+	public void setISCallBack2(ISCallBack ISCallBack2) {
+		this.ISCallBack2 = ISCallBack2;
 	}
 
 

@@ -13,11 +13,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.core.base.task.EfunCommandCallBack;
-import com.core.base.task.STaskExecutor;
-import com.core.base.task.command.abstracts.EfunCommand;
+import com.core.base.callback.ISReqCallBack;
+import com.core.base.request.EfunCommandCallBack;
+import com.core.base.request.STaskExecutor;
+import com.core.base.request.command.abstracts.EfunCommand;
+import com.core.base.utils.SStringUtil;
+import com.starpy.model.login.bean.SLoginResponse;
 import com.starpy.model.login.execute.AccountLoginCmd;
 import com.startpy.sdk.R;
+import com.startpy.sdk.utils.DialogUtil;
 import com.startpy.sdk.utils.StarPyUtil;
 import com.startpy.sdk.utils.ToastUtils;
 
@@ -29,7 +33,7 @@ public class AccountLoginMainFragment extends BaseFragment {
 
     private View contentView;
 
-    private TextView loginRegisterBtn,loginMainLoginBtn;
+    private TextView loginMainGoRegisterBtn, loginMainLoginBtn;
 
     private ImageView eyeImageView;
     private EditText loginPasswordEditText, loginAccountEditText;
@@ -38,10 +42,10 @@ public class AccountLoginMainFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        contentView = inflater.inflate(R.layout.py_account_login_mian,container,false);
+        contentView = inflater.inflate(R.layout.py_account_login_mian, container, false);
 
         backView = contentView.findViewById(R.id.py_back_button);
-        loginRegisterBtn = (TextView) contentView.findViewById(R.id.py_login_main_register);
+        loginMainGoRegisterBtn = (TextView) contentView.findViewById(R.id.py_login_main_register);
         eyeImageView = (ImageView) contentView.findViewById(R.id.py_eye_imageview_id);
 
         loginAccountEditText = (EditText) contentView.findViewById(R.id.py_account_login_main_account);
@@ -57,7 +61,7 @@ public class AccountLoginMainFragment extends BaseFragment {
             }
         });
 
-        loginRegisterBtn.setOnClickListener(new View.OnClickListener() {
+        loginMainGoRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sLoginActivity.replaceFragmentBackToStack(new AccountRegisterFragment());
@@ -67,11 +71,11 @@ public class AccountLoginMainFragment extends BaseFragment {
         eyeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (eyeImageView.isSelected()){
+                if (eyeImageView.isSelected()) {
                     eyeImageView.setSelected(false);
                     // 显示为密码
                     loginPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                }else{
+                } else {
                     eyeImageView.setSelected(true);
                     // 显示为普通文本
                     loginPasswordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
@@ -93,39 +97,47 @@ public class AccountLoginMainFragment extends BaseFragment {
 
     private void login() {
 
-            String account = loginAccountEditText.getEditableText().toString();
-            if (TextUtils.isEmpty(account)){
-                ToastUtils.toast(getActivity(),R.string.py_account_empty);
-                return;
-            }
-            account = account.trim();
+        String account = loginAccountEditText.getEditableText().toString();
+        if (TextUtils.isEmpty(account)) {
+            ToastUtils.toast(getActivity(), R.string.py_account_empty);
+            return;
+        }
+        account = account.trim();
 
-            String password = loginPasswordEditText.getEditableText().toString();
-            if (TextUtils.isEmpty(password)){
-                ToastUtils.toast(getActivity(),R.string.py_password_empty);
-                return;
-            }
-            password = password.trim();
+        String password = loginPasswordEditText.getEditableText().toString();
+        if (TextUtils.isEmpty(password)) {
+            ToastUtils.toast(getActivity(), R.string.py_password_empty);
+            return;
+        }
+        password = password.trim();
 
-            if (!StarPyUtil.checkAccount(account)){
-                ToastUtils.toast(getActivity(),R.string.py_account_error);
-                return;
-            }
-            if (!StarPyUtil.checkPassword(password)){
-                ToastUtils.toast(getActivity(),R.string.py_password_error);
-                return;
-            }
+        if (SStringUtil.isEqual(account, password)) {
+            ToastUtils.toast(getActivity(), R.string.py_password_equal_account);
+            return;
+        }
 
-        AccountLoginCmd accountLoginCmd = new AccountLoginCmd(getActivity(),account,password);
-        accountLoginCmd.setCallback(new EfunCommandCallBack() {
-                @Override
-                public void cmdCallBack(EfunCommand command) {
+        if (!StarPyUtil.checkAccount(account)) {
+            ToastUtils.toast(getActivity(), R.string.py_account_error);
+            return;
+        }
+        if (!StarPyUtil.checkPassword(password)) {
+            ToastUtils.toast(getActivity(), R.string.py_password_error);
+            return;
+        }
 
+        AccountLoginCmd accountLoginCmd = new AccountLoginCmd(getActivity(), account, password);
+        accountLoginCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(),"Loading..."));
+        accountLoginCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
+            @Override
+            public void callBack(SLoginResponse sLoginResponse) {
+                if (sLoginResponse != null && sLoginResponse.isRequestSuccess()){
+                    ToastUtils.toast(getActivity(),R.string.py_login_success);
+                }else{
+                    ToastUtils.toast(getActivity(),sLoginResponse.getMessage());
                 }
-            });
-            STaskExecutor.getInstance().asynExecute(getActivity(),accountLoginCmd);
-
-
+            }
+        });
+        accountLoginCmd.excute(SLoginResponse.class);
     }
 
     @Override

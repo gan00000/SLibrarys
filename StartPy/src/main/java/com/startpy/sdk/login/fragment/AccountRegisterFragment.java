@@ -13,11 +13,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.core.base.task.EfunCommandCallBack;
-import com.core.base.task.STaskExecutor;
-import com.core.base.task.command.abstracts.EfunCommand;
+import com.core.base.callback.ISReqCallBack;
+import com.core.base.request.EfunCommandCallBack;
+import com.core.base.request.STaskExecutor;
+import com.core.base.request.command.abstracts.EfunCommand;
+import com.core.base.utils.SStringUtil;
+import com.starpy.model.login.bean.SLoginResponse;
+import com.starpy.model.login.bean.request.AccountRegRequest;
 import com.starpy.model.login.execute.AccountRegisterCmd;
 import com.startpy.sdk.R;
+import com.startpy.sdk.utils.DialogUtil;
 import com.startpy.sdk.utils.StarPyUtil;
 import com.startpy.sdk.utils.ToastUtils;
 
@@ -38,10 +43,13 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         contentView = inflater.inflate(R.layout.py_account_register, container, false);
+
+        backView = contentView.findViewById(R.id.py_back_button);
+
         termsSelectImageView = (ImageView) contentView.findViewById(R.id.py_register_account_terms_check);
         termsTextView = (TextView) contentView.findViewById(R.id.py_register_terms_text_id);
 
-        backView = contentView.findViewById(R.id.py_back_button);
+
         eyeImageView = (ImageView) contentView.findViewById(R.id.py_eye_imageview_id);
         registerPasswordEditText = (EditText) contentView.findViewById(R.id.py_register_password);
         registerAccountEditText = (EditText) contentView.findViewById(R.id.py_register_account);
@@ -55,6 +63,7 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
         termsTextView.setOnClickListener(this);
         backView.setOnClickListener(this);
         registerConfirm.setOnClickListener(this);
+
         return contentView;
     }
 
@@ -126,6 +135,7 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
     }
 
     private void register() {
+
         String account = registerAccountEditText.getEditableText().toString();
         if (TextUtils.isEmpty(account)){
             ToastUtils.toast(getActivity(),R.string.py_account_empty);
@@ -140,6 +150,15 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
         }
         password = password.trim();
 
+        if (!termsSelectImageView.isSelected()){
+            ToastUtils.toast(getActivity(),R.string.py_select_terms);
+        }
+
+        if (SStringUtil.isEqual(account, password)) {
+            ToastUtils.toast(getActivity(), R.string.py_password_equal_account);
+            return;
+        }
+
         if (!StarPyUtil.checkAccount(account)){
             ToastUtils.toast(getActivity(),R.string.py_account_error);
             return;
@@ -149,14 +168,20 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
             return;
         }
 
-        AccountRegisterCmd efunUserRegisterCmd = new AccountRegisterCmd(getActivity(),account,password);
-        efunUserRegisterCmd.setCallback(new EfunCommandCallBack() {
+        AccountRegisterCmd accountRegisterCmd = new AccountRegisterCmd(getActivity(),account,password);
+        accountRegisterCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(),"Loading..."));
+        accountRegisterCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
-            public void cmdCallBack(EfunCommand command) {
-
+            public void callBack(SLoginResponse accountRegRequest) {
+                if (accountRegRequest != null && accountRegRequest.isRequestSuccess()){
+                    ToastUtils.toast(getActivity(),R.string.py_register_success);
+                }else{
+                    ToastUtils.toast(getActivity(),accountRegRequest.getMessage());
+                }
             }
+
         });
-        STaskExecutor.getInstance().asynExecute(getActivity(),efunUserRegisterCmd);
+        accountRegisterCmd.excute(SLoginResponse.class);
 
 
     }

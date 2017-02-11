@@ -131,54 +131,6 @@ public class HttpRequest {
 		}
 		return result;
 	}
-	
-	public static String postIn2Url(String preUrl,String sprUrl,String mInterfaceName,Map<String, String> dataMap) {
-		preUrl = SStringUtil.checkUrl(preUrl) + mInterfaceName;
-		String result = post(preUrl, dataMap);
-		
-		if (TextUtils.isEmpty(result)) {//备用域名请求
-			sprUrl = SStringUtil.checkUrl(sprUrl) + mInterfaceName;
-			result = post(sprUrl, dataMap);
-		}
-		return result;
-	}
-	
-	
-	public static String postJsonObject(String urlStr,JSONObject jsonObject) {
-		HttpRequestCore requestCore = new HttpRequestCore();
-		requestCore.setSendData(jsonObject.toString());
-		requestCore.setRequestUrl(urlStr);
-		requestCore.setContentType("application/json");
-		return requestCore.doPost().getResult();
-	}
-	
-	public static boolean downLoadUrlFile(String downLoadFileUrl,String savePath) {
-		HttpRequestCore requestCore = new HttpRequestCore();
-		return requestCore.downLoadUrlFile(downLoadFileUrl, savePath);
-	}
-	
-	
-	private static Map<String, String> putCommonParams(Map<String, String> dataMap){
-		if (dataMap == null) { 
-			return null;
-		}
-		
-		/*if (!dataMap.containsKey("sign")) {
-			dataMap.put("sign", SConfig.getLoginSign());
-		}
-		if (!dataMap.containsKey("loginTimestamp")) {
-			dataMap.put("loginTimestamp", SConfig.getLoginTimestamp());
-		}*/
-
-		if (!dataMap.containsKey("eid")) {
-			dataMap.put("eid", ApkInfoUtil.efun_uuid);
-		}
-		
-		if (!TextUtils.isEmpty(SConfig.getSDKLoginReturnData())) {
-			dataMap.put("accessToken", SConfig.getSDKLoginReturnData());
-		}
-		return dataMap;
-	}
 
 	/**
 	 * 上传文件
@@ -193,5 +145,53 @@ public class HttpRequest {
 	 */
 	public static String uploadFile(Map<String, String> params, File uploadFile, String newFileName, String urlStr){
 		return HttpFileUploadRequest.uploadFile(params, uploadFile, newFileName, urlStr);
+	}
+
+
+	public static String postIn2Url(String preUrl,String sprUrl,String mInterfaceName,Map<String, String> dataMap) {
+		preUrl = SStringUtil.checkUrl(preUrl) + mInterfaceName;
+		String result = post(preUrl, dataMap);
+
+		if (TextUtils.isEmpty(result)) {//备用域名请求
+			sprUrl = SStringUtil.checkUrl(sprUrl) + mInterfaceName;
+			result = post(sprUrl, dataMap);
+		}
+		return result;
+	}
+
+	public static String postJsonObject(String urlStr,JSONObject jsonObject) {
+		HttpRequestCore requestCore = new HttpRequestCore();
+		requestCore.setSendData(jsonObject.toString());
+		requestCore.setRequestUrl(urlStr);
+		requestCore.setContentType("application/json");
+		return requestCore.doPost().getResult();
+	}
+
+
+	public static boolean downLoadUrlFile(String downLoadFileUrl,String savePath) {
+		HttpRequestCore requestCore = new HttpRequestCore();
+		return requestCore.downLoadUrlFile(downLoadFileUrl, savePath);
+	}
+
+	private static Map<String, String> putCommonParams(Map<String, String> dataMap){
+		if (dataMap == null) {
+			return null;
+		}
+
+		/*if (!dataMap.containsKey("sign")) {
+			dataMap.put("sign", SConfig.getLoginSign());
+		}
+		if (!dataMap.containsKey("loginTimestamp")) {
+			dataMap.put("loginTimestamp", SConfig.getLoginTimestamp());
+		}*/
+
+		if (!dataMap.containsKey("eid")) {
+			dataMap.put("eid", ApkInfoUtil.customizedUniqueId);
+		}
+
+		if (!TextUtils.isEmpty(SConfig.getSDKLoginReturnData())) {
+			dataMap.put("accessToken", SConfig.getSDKLoginReturnData());
+		}
+		return dataMap;
 	}
 }

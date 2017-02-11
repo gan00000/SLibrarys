@@ -80,10 +80,10 @@ public class SFacebookProxy {
 	
 	public static void activateApp(Context context){
 		
-		if (TextUtils.isEmpty(FbResUtil.findStringByName(context,"efunFBApplicationId"))) {
+		if (TextUtils.isEmpty(FbResUtil.findStringByName(context,"FacebookApplicationId"))) {
 			Toast.makeText(context, "fb applicationId is empty", Toast.LENGTH_LONG).show();
 		}else{
-			activateApp(context, FbResUtil.findStringByName(context,"efunFBApplicationId"));
+			activateApp(context, FbResUtil.findStringByName(context,"FacebookApplicationId"));
 		}
 		
 	}

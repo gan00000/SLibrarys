@@ -127,7 +127,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 				if (walletBean != null && walletBean.getPurchaseState() != GooglePayContant.PURCHASESUCCESS) {
 					walletBean.setPurchaseState(GooglePayContant.PURCHASEFAILURE);
 				}
-				for (EfunWalletListener walletListener : walletListeners) {
+				for (ISWalletListener walletListener : walletListeners) {
 					if (walletListener != null) {
 						walletListener.efunWallet(walletBean);
 					}

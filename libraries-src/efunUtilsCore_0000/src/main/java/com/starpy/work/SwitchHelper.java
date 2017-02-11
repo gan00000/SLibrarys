@@ -6,11 +6,11 @@ import java.io.ObjectInputStream;
 
 import com.core.base.beans.GameNoticeConfigBean;
 import com.core.base.beans.InviteConfigBean;
-import com.core.base.task.EfunCommandCallBack;
-import com.core.base.task.STaskExecutor;
-import com.core.base.task.command.abstracts.EfunCommand;
-import com.core.base.task.command.impl.EfunGameNoticeConfigCmd;
-import com.core.base.task.command.impl.EfunInviteConfigCmd;
+import com.core.base.request.EfunCommandCallBack;
+import com.core.base.request.STaskExecutor;
+import com.core.base.request.command.abstracts.EfunCommand;
+import com.core.base.request.command.impl.EfunGameNoticeConfigCmd;
+import com.core.base.request.command.impl.EfunInviteConfigCmd;
 import com.core.base.utils.SStringUtil;
 import com.core.base.url.EfunDynamicUrl;
 

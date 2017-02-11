@@ -3,7 +3,7 @@ package com.starpy.googlepay.efuntask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.core.base.task.SRequestAsyncTask;
+import com.core.base.request.SRequestAsyncTask;
 import com.core.base.utils.EfunJSONUtil;
 import com.core.base.utils.EfunLogUtil;
 import com.starpy.googlepay.BasePayActivity;

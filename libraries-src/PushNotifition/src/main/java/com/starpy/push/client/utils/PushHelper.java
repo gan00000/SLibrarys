@@ -60,7 +60,7 @@ public class PushHelper {
 		//Log.d(TAG, "server name:" + EfunPushService.class.getCanonicalName());
 
 		String serverName = EfunPushService.class.getCanonicalName();
-		/*if (SConfig.getSDKLanguage(context).equals("zh_HK")) {//港台
+		/*if (SConfig.getGameLanguage(context).equals("zh_HK")) {//港台
 			serverName = EfunPushServiceTW.class.getCanonicalName();
 		}*/
 		for (RunningServiceInfo rsi : runningServiceInfos) {

@@ -207,7 +207,7 @@ public class EfunPayUtil {
 		}
 
 		if (SStringUtil.isEmpty(webOrderBean.getLanguage())) {
-			webOrderBean.setLanguage(SConfig.getLanguage(context));
+			webOrderBean.setLanguage(SConfig.getGameLanguage(context));
 		}
 		if (SStringUtil.isEmpty(webOrderBean.getVh())) {
 			String vh = SConfig.getScreenOrientation(context);

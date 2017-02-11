@@ -14,7 +14,7 @@ import com.starpy.googlepay.bean.EfunQueryInventoryState;
 import com.starpy.googlepay.bean.EfunWalletBean;
 import com.starpy.googlepay.bean.GoogleOrderBean;
 import com.starpy.googlepay.bean.WebOrderBean;
-import com.starpy.googlepay.callback.EfunWalletListener;
+import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.callback.EfunWalletService;
 import com.starpy.googlepay.callback.QueryItemListener;
 import com.starpy.googlepay.constants.GooglePayContant;
@@ -61,7 +61,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	/**
 	 * walletListeners 储值页面关闭回调对象
 	 */
-	protected Vector<EfunWalletListener> walletListeners;
+	protected Vector<ISWalletListener> walletListeners;
 	/**
 	 * efunPayError 错误提示语封装
 	 */
@@ -173,7 +173,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		}
 		
 		if (SStringUtil.isEmpty(_GoogleOrderBean.getLanguage())) {
-			_language = SConfig.getLanguage(this);
+			_language = SConfig.getGameLanguage(this);
 			_GoogleOrderBean.setLanguage(_language);
 		}else{
 			_language = _GoogleOrderBean.getLanguage();
@@ -311,11 +311,11 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		this.walletBean = walletBean;
 	}
 
-	public Vector<EfunWalletListener> getWalletListeners() {
+	public Vector<ISWalletListener> getWalletListeners() {
 		return walletListeners;
 	}
 
-	public void setWalletListeners(Vector<EfunWalletListener> walletListeners) {
+	public void setWalletListeners(Vector<ISWalletListener> walletListeners) {
 		this.walletListeners = walletListeners;
 	}
 

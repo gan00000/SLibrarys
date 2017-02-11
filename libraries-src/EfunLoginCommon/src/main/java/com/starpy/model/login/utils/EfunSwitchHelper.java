@@ -141,7 +141,7 @@ public class EfunSwitchHelper {
 //		EfunSwitchCmd efunSwitchCmd = new EfunSwitchCmd(context, "sdk");// SDK
 //		efunSwitchCmd.setPreferredUrl(unionInterfacePreferredUrl);
 //		efunSwitchCmd.setSparedUrl(unionInterfaceSpareUrl);
-//		efunSwitchCmd.setGameLanguage(SConfig.getSDKLanguage(context));
+//		efunSwitchCmd.setGameLanguage(SConfig.getGameLanguage(context));
 //		efunSwitchCmd.setCallback(new EfunCommandCallBack() {
 //			
 //			@Override

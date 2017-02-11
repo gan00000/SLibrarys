@@ -40,13 +40,4 @@ public class AccountLoginCmd extends EfunBaseCmd {
 
 	}
 	
-	
-	@Override
-	public void execute() throws Exception {
-		super.execute();
-
-		mResponse = doRequest(accountLoginRequest);
-		saveLoginReponse(mResponse);
-	}
-	
 }

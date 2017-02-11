@@ -119,7 +119,7 @@ public class SConfig {
 	}
 
 	public static String getApplicationId(Context context) {
-		return efunGetString(context, "efunFBApplicationId");
+		return efunGetString(context, "FacebookApplicationId");
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class SConfig {
 	}
 
 
-	public static String getSDKLanguage(Context context) {
+	public static String getGameLanguage(Context context) {
 		String language = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_SDK_LANGUAGE);
 		if (TextUtils.isEmpty(language)) {
 			language =  efunGetString(context, "efunLanguage");
@@ -151,8 +151,8 @@ public class SConfig {
 		return language;
 	}
 	
-	public static String getSDKLanguageLower(Context context){
-		return getSDKLanguage(context).toLowerCase();
+	public static String getGameLanguageLower(Context context){
+		return getGameLanguage(context).toLowerCase();
 	}
 	
 	public static String getSDKLoginSign(Context context){
@@ -388,7 +388,6 @@ public class SConfig {
 		mContext = context.getApplicationContext();
 		getSDKLoginSign(context);//初始化一下sign值，为请求网络使用
 		getSDKLoginTimestamp(context);
-		ApkInfoUtil.getEfunUUid(context);
 		String xmlSchemaContent = "";
 		try {
 			xmlSchemaContent = context.getResources().getString(ResUtil.findStringIdByName(context, xmlSchemaName));

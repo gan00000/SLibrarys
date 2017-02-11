@@ -10,7 +10,7 @@ import com.core.base.utils.EfunFileUtil;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.EfunLogUtil;
 import com.core.base.utils.ResUtil;
-import com.core.base.utils.EfunStorageUtil;
+import com.core.base.utils.StorageUtil;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.PermissionUtil;
 
@@ -71,7 +71,7 @@ public class EfunLogFileUtil {
      */
     protected static String getLogFilePath(final Context cxt){
         String logFilePath = null;
-        if(null != cxt && EfunStorageUtil.isExternalStorageExist() && PermissionUtil.hasSelfPermission(cxt, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+        if(null != cxt && StorageUtil.isExternalStorageExist() && PermissionUtil.hasSelfPermission(cxt, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
             File cachePath = cxt.getExternalCacheDir();
             if(cachePath != null) {
                 logFilePath = cachePath.getAbsolutePath() + "/" + FILE_NAME_LOG;
