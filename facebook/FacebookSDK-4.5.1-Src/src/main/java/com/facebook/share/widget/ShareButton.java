@@ -24,7 +24,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.facebook.s.FbResUtil;
+import com.facebook.sfb.FbResUtil;
 import com.facebook.internal.AnalyticsEvents;
 import com.facebook.internal.CallbackManagerImpl;
 

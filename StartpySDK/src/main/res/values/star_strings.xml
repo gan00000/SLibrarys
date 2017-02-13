@@ -1,0 +1,44 @@
+<resources>
+
+    <!-- fb配置 -->
+    <!-- 必须跟fb后台一致的名字 -->
+    <string name="facebook_app_name">stargame</string>
+    <string name="facebook_app_id">1286278484776251</string>
+    <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1286278484776251</string>
+    <!-- fb配置end -->
+
+    <string name="py_account_login">帳號登入</string>
+    <string name="py_account">帳號:</string>
+    <string name="py_account_hit">帳號</string>
+    <string name="py_password">密碼:</string>
+    <string name="py_password_hit">密碼</string>
+    <string name="py_login">登入</string>
+    <string name="py_register_account">註冊賬號</string>
+    <string name="py_login_fb">Facebook登入</string>
+    <string name="py_login_star">star帳號登入</string>
+    <string name="py_login_mac">免註冊登入</string>
+    <string name="py_register_account_hit">6~18字符,僅限字母或數字</string>
+    <string name="py_confire">確認</string>
+    <string name="py_register_account_terms">我已閱讀并同意《會員條款及管理規章》</string>
+    <string name="py_password_error">密碼格式錯誤</string>
+    <string name="py_account_error">帳號格式錯誤</string>
+    <string name="py_account_empty">帳號不能為空</string>
+    <string name="py_password_empty">密碼不能為空</string>
+    <string name="py_password_equal_account">帳號、密碼不能一樣</string>
+    <string name="py_select_terms">請勾選同意服務條款</string>
+    <string name="py_register_success">註冊成功</string>
+    <string name="py_login_success">登入成功</string>
+
+
+
+    <string name="py_account_register_terms_text">欢迎您使用腾讯的服务！
+        　　为使用腾讯的服务，您应当阅读并遵守《腾讯服务协议》（以下简称“本协议”）和《QQ号码规则》。请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款、管辖与法律适用条款，以及开通或使用某项服务的单独协议。限制、免责条款可能以黑体加粗或加下划线的形式提示您重点注意。除非您已阅读并接受本协议所有条款，否则您无权使用腾讯提供的服务。您使用腾讯的服务即视为您已阅读并同意上述协议的约束。
+        　　如果您未满18周岁，请在法定监护人的陪同下阅读本协议，并特别注意未成年人使用条款。 　　一、【协议的范围】
+        　　1.1本协议是您与腾讯之间关于用户使用腾讯相关服务所订立的协议。“腾讯”是指腾讯公司及其相关服务可能存在的运营关联单位。“用户”是指使用腾讯相关服务的使用人，在本协议中更多地称为“您”。
+        　　1.2本协议项下的服务是指腾讯向用户提供的包括但不限于即时通讯、网络媒体、互联网增值、互动娱乐、电子商务和广告等产品及服务（以下简称“本服务”）。
+        　　1.3本协议内容同时包括《QQ号码规则》（链接地址： http://zc.qq.com/chs/agreement1_chs.html）和《隐私政策》（链接地址：
+        http://www.qq.com/privacy.htm）,且您在使用腾讯某一特定服务时，该服务可能会另有单独的协议、相关业务规则等（以下统称为“单独协议”）。上述内容一经正式发布，即为本协议不可分割的组成部分，您同样应当遵守。您对前述任何业务规则、单独协议的接受，即视为您对本协议全部的接受。
+        　　二、【帐号与密码安全】 　　2.1您在使用腾讯的服务时可能需要注册一个帐号。关于您使用帐号的具体规则，请遵守《QQ号码规则》和单独协议。
+        　　2.2腾讯特别提醒您应妥善保管您的帐号和密码。当您使用完毕后，应安全退出。因您保管不善可能导致遭受盗号或密码失窃，责任由您自行承担。
+    </string>
+</resources>

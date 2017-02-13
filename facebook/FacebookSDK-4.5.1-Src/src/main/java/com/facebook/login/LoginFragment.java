@@ -31,7 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.s.FbResUtil;
+import com.facebook.sfb.FbResUtil;
 
 /**
  * This Fragment is a necessary part of the overall Facebook login process

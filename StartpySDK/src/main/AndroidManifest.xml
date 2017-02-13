@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.startpy.sdk">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+
+    <application
+           >
+
+        <activity android:name="com.startpy.sdk.login.SLoginActivity"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:screenOrientation="landscape">
+        </activity>
+
+        <!-- ==========================共同需要的配置============================ -->
+
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"/>
+
+
+        <!-- =======================4.x要配置=============================== -->
+
+        <activity
+                android:name="com.facebook.FacebookActivity"
+                android:label="@string/app_name"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationName"
+                android:value="@string/facebook_app_name"/>
+
+        <provider
+                android:name="com.facebook.FacebookContentProvider"
+                android:authorities="@string/facebook_authorities"
+                android:exported="true"/>
+
+    </application>
+
+</manifest>

@@ -31,7 +31,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.facebook.s.FbResUtil;
+import com.facebook.sfb.FbResUtil;
 
 import java.lang.ref.WeakReference;
 

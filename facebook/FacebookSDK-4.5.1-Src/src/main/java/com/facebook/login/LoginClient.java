@@ -33,7 +33,7 @@ import android.text.TextUtils;
 import com.facebook.AccessToken;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsConstants;
-import com.facebook.s.FbResUtil;
+import com.facebook.sfb.FbResUtil;
 import com.facebook.FacebookException;
 import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.internal.Utility;

@@ -8,15 +8,15 @@ import org.json.JSONObject;
 
 import com.efun.hh.R;
 import com.facebook.appevents.AppEventsConstants;
-import com.facebook.s.SFacebookProxy;
-import com.facebook.s.SFacebookProxy.EfunFbBusinessIdCallBack;
-import com.facebook.s.SFacebookProxy.EfunFbGetInviteFriendsCallBack;
-import com.facebook.s.SFacebookProxy.EfunFbInviteFriendsCallBack;
-import com.facebook.s.SFacebookProxy.EfunFbLoginCallBack;
-import com.facebook.s.SFacebookProxy.EfunFbMyFriendsCallBack;
-import com.facebook.s.SFacebookProxy.EfunFbShareCallBack;
-import com.facebook.s.SFacebookProxy.User;
-import com.facebook.s.InviteFriend;
+import com.facebook.sfb.SFacebookProxy;
+import com.facebook.sfb.SFacebookProxy.EfunFbBusinessIdCallBack;
+import com.facebook.sfb.SFacebookProxy.EfunFbGetInviteFriendsCallBack;
+import com.facebook.sfb.SFacebookProxy.EfunFbInviteFriendsCallBack;
+import com.facebook.sfb.SFacebookProxy.EfunFbLoginCallBack;
+import com.facebook.sfb.SFacebookProxy.EfunFbMyFriendsCallBack;
+import com.facebook.sfb.SFacebookProxy.EfunFbShareCallBack;
+import com.facebook.sfb.SFacebookProxy.User;
+import com.facebook.sfb.InviteFriend;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -277,4 +277,80 @@ public class MainActivity extends Activity {
 		efp.onDestroy(this);
 	}
 
+	/**
+	 * Called after {@link #onRestoreInstanceState}, {@link #onRestart}, or {@link #onPause}, for
+	 * your activity to start interacting with the user. This is a good place to begin animations,
+	 * open exclusive-access devices (such as the camera), etc.
+	 *
+	 * <p>Keep in mind that onResume is not the best indicator that your activity is visible to the
+	 * user; a system window such as the keyguard may be in front.  Use {@link
+	 * #onWindowFocusChanged} to know for certain that your activity is visible to the user (for
+	 * example, to resume a game).
+	 *
+	 * <p><em>Derived classes must call through to the super class's implementation of this method.
+	 * If they do not, an exception will be thrown.</em></p>
+	 *
+	 * @see #onRestoreInstanceState
+	 * @see #onRestart
+	 * @see #onPostResume
+	 * @see #onPause
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+
+	/**
+	 * Called as part of the activity lifecycle when an activity is going into the background, but
+	 * has not (yet) been killed.  The counterpart to {@link #onResume}.
+	 *
+	 * <p>When activity B is launched in front of activity A, this callback will be invoked on A.  B
+	 * will not be created until A's {@link #onPause} returns, so be sure to not do anything lengthy
+	 * here.
+	 *
+	 * <p>This callback is mostly used for saving any persistent state the activity is editing, to
+	 * present a "edit in place" model to the user and making sure nothing is lost if there are not
+	 * enough resources to start the new activity without first killing this one.  This is also a
+	 * good place to do things like stop animations and other things that consume a noticeable
+	 * amount of CPU in order to make the switch to the next activity as fast as possible, or to
+	 * close resources that are exclusive access such as the camera.
+	 *
+	 * <p>In situations where the system needs more memory it may kill paused processes to reclaim
+	 * resources.  Because of this, you should be sure that all of your state is saved by the time
+	 * you return from this function.  In general {@link #onSaveInstanceState} is used to save
+	 * per-instance state in the activity and this method is used to store global persistent data
+	 * (in content providers, files, etc.)
+	 *
+	 * <p>After receiving this call you will usually receive a following call to {@link #onStop}
+	 * (after the next activity has been resumed and displayed), however in some cases there will be
+	 * a direct call back to {@link #onResume} without going through the stopped state.
+	 *
+	 * <p><em>Derived classes must call through to the super class's implementation of this method.
+	 * If they do not, an exception will be thrown.</em></p>
+	 *
+	 * @see #onResume
+	 * @see #onSaveInstanceState
+	 * @see #onStop
+	 */
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
+	/**
+	 * Called when you are no longer visible to the user.  You will next receive either {@link
+	 * #onRestart}, {@link #onDestroy}, or nothing, depending on later user activity.
+	 *
+	 * <p><em>Derived classes must call through to the super class's implementation of this method.
+	 * If they do not, an exception will be thrown.</em></p>
+	 *
+	 * @see #onRestart
+	 * @see #onResume
+	 * @see #onSaveInstanceState
+	 * @see #onDestroy
+	 */
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
 }

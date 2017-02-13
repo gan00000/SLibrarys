@@ -20,7 +20,7 @@
 
 package com.facebook;
 
-import com.facebook.s.FbResUtil;
+import com.facebook.sfb.FbResUtil;
 import com.facebook.internal.FacebookDialogFragment;
 import com.facebook.internal.NativeProtocol;
 import com.facebook.login.LoginFragment;

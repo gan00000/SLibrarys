@@ -42,7 +42,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.facebook.*;
-import com.facebook.s.FbResUtil;
+import com.facebook.sfb.FbResUtil;
 
 import java.util.Locale;
 

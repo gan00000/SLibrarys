@@ -15,7 +15,7 @@ import com.starpy.model.login.bean.request.ThirdLoginRegRequest;
  */
 public class FBLoginRegCmd extends EfunBaseCmd {
 
-    public FBLoginRegCmd(Context context, String faceScopeId, String fbApps, String fbTokenBusiness) {
+    public FBLoginRegCmd(Context context, String fbScopeId, String fbApps, String fbTokenBusiness) {
         super(context);
 
         ThirdLoginRegRequest macLoginRegRequest = new ThirdLoginRegRequest(context);
@@ -23,7 +23,7 @@ public class FBLoginRegCmd extends EfunBaseCmd {
         baseRequest = macLoginRegRequest;
 
         macLoginRegRequest.setRegistPlatform("fb");
-        macLoginRegRequest.setThirdPlatId(faceScopeId);
+        macLoginRegRequest.setThirdPlatId(fbScopeId);
         macLoginRegRequest.setApps(fbApps);
         macLoginRegRequest.setTokenBusiness(fbTokenBusiness);
 

@@ -33,7 +33,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.facebook.FacebookException;
 import com.facebook.LoggingBehavior;
-import com.facebook.s.FbResUtil;
+import com.facebook.sfb.FbResUtil;
 import com.facebook.internal.*;
 
 /**

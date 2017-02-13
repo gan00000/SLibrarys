@@ -40,7 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.FacebookException;
-import com.facebook.s.FbResUtil;
+import com.facebook.sfb.FbResUtil;
 import com.facebook.internal.*;
 import com.facebook.share.internal.LikeActionController;
 import com.facebook.share.internal.LikeBoxCountView;
