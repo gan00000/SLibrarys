@@ -16,10 +16,10 @@ import android.widget.TextView;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.SStringUtil;
 import com.starpy.model.login.bean.SLoginResponse;
-import com.starpy.model.login.execute.AccountRegisterCmd;
+import com.starpy.model.login.execute.AccountRegisterRequest;
 import com.startpy.sdk.R;
 import com.startpy.sdk.utils.DialogUtil;
-import com.startpy.sdk.utils.StarPyUtil;
+import com.starpy.base.StarPyUtil;
 import com.core.base.utils.ToastUtils;
 
 /**
@@ -157,13 +157,16 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
             return;
         }
 
-        AccountRegisterCmd accountRegisterCmd = new AccountRegisterCmd(getActivity(), account, password);
+        AccountRegisterRequest accountRegisterCmd = new AccountRegisterRequest(getActivity(), account, password);
         accountRegisterCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         accountRegisterCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
-            public void callBack(SLoginResponse accountRegRequest) {
+            public void callBack(SLoginResponse accountRegRequest,String rawResult) {
                 if (accountRegRequest != null && accountRegRequest.isRequestSuccess()) {
                     ToastUtils.toast(getActivity(), R.string.py_register_success);
+                    sLoginActivity.setLoginResponse(accountRegRequest);
+                    getActivity().finish();
+
                 } else {
                     ToastUtils.toast(getActivity(), accountRegRequest.getMessage());
                 }

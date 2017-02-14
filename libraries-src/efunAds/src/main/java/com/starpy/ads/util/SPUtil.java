@@ -27,7 +27,7 @@ public class SPUtil {
 	
 	public static final String ADS_ONLYONCE_KEY = "ADS_ONLYONCE_KEY";
 	public static final String ADS_ONLYONCE_CODE = "ADS_ONLYONCE_CODE";
-	public static final String EFUN_GOOGLE_ADVERTISING_ID = "EFUN_GOOGLE_ADVERTISING_ID";
+	public static final String EFUN_GOOGLE_ADVERTISING_ID = "GOOGLE_ADVERTISING_ID";
 	
 	public static final String ADVERTISERS_S2S_KEY = "efunAdvertisersKey";
 	public static final String ADVERTISERS_S2S_RESULT = "ADVERTISERS_SUCCESS_200";

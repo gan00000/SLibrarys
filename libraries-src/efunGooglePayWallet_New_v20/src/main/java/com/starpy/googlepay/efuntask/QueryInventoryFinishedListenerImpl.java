@@ -2,7 +2,7 @@ package com.starpy.googlepay.efuntask;
 
 import java.util.List;
 
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;
 import com.starpy.util.IabHelper;
@@ -39,20 +39,20 @@ public class QueryInventoryFinishedListenerImpl implements IabHelper.QueryInvent
 	public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
 		List<Purchase> purchases = null;
 		if (result.isFailure()) {
-			EfunLogUtil.logD("onQueryInventoryFinished result is failure");
-			EfunLogUtil.logD("Failed to query inventory: " + result.getMessage());
+			SLogUtil.logD("onQueryInventoryFinished result is failure");
+			SLogUtil.logD("Failed to query inventory: " + result.getMessage());
 		} else {
-			EfunLogUtil.logD("query inventory was successful.");
+			SLogUtil.logD("query inventory was successful.");
 			//Log.d(BasePayActivity.TAG, "need to consume:" + inventory.getAllOwnedSkus());
 			purchases = inventory.getAllPurchases();
 
-			EfunLogUtil.logD("purchases size: " + purchases.size());
+			SLogUtil.logD("purchases size: " + purchases.size());
 			if (null != purchases && purchases.size() == 1) {
-				EfunLogUtil.logD("mConsumeFinishedListener. 消费一个");
+				SLogUtil.logD("mConsumeFinishedListener. 消费一个");
 				mHelper.consumeAsync(purchases.get(0), mConsumeFinishedListener);
 				return;
 			} else if (null != purchases && purchases.size() > 1) {
-				EfunLogUtil.logD("mConsumeMultiFinishedListener.消费多个");
+				SLogUtil.logD("mConsumeMultiFinishedListener.消费多个");
 				mHelper.consumeAsync(purchases, mConsumeMultiFinishedListener);
 				return;
 			}
@@ -82,17 +82,17 @@ public class QueryInventoryFinishedListenerImpl implements IabHelper.QueryInvent
 
 		@Override
 		public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
-			EfunLogUtil.logD("Consume Multiple finished.");
+			SLogUtil.logD("Consume Multiple finished.");
 			disDialog();
 			for (int i = 0; i < purchases.size(); i++) {
 				if (results.get(i).isSuccess()) {
-					EfunLogUtil.logD("sku: " + purchases.get(i).getSku() + " Consume finished success");
+					SLogUtil.logD("sku: " + purchases.get(i).getSku() + " Consume finished success");
 				} else {
-					EfunLogUtil.logD("sku: " + purchases.get(i).getSku() + " Consume finished fail");
-					EfunLogUtil.logD(purchases.get(i).getSku() + "consumption is not success, yet to be consumed.");
+					SLogUtil.logD("sku: " + purchases.get(i).getSku() + " Consume finished fail");
+					SLogUtil.logD(purchases.get(i).getSku() + "consumption is not success, yet to be consumed.");
 				}
 			}
-			EfunLogUtil.logD("End consumption flow.");
+			SLogUtil.logD("End consumption flow.");
 
 			if (payActivity != null && payActivity.getQueryItemListener() != null) {
 				payActivity.getQueryItemListener().onQueryFinish();
@@ -108,22 +108,22 @@ public class QueryInventoryFinishedListenerImpl implements IabHelper.QueryInvent
 	private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
 		public void onConsumeFinished(Purchase purchase, IabResult result) {
 			disDialog();
-			EfunLogUtil.logD("Consumption finished");
+			SLogUtil.logD("Consumption finished");
 			if (null != purchase) {
-				EfunLogUtil.logD("Purchase: " + purchase.toString() + ", result: " + result);
+				SLogUtil.logD("Purchase: " + purchase.toString() + ", result: " + result);
 			} else {
-				EfunLogUtil.logD("Purchase is null");
+				SLogUtil.logD("Purchase is null");
 			}
 
 			if (result.isSuccess()) {
-				EfunLogUtil.logD("Consumption successful.");
+				SLogUtil.logD("Consumption successful.");
 				if (purchase != null) {
-					EfunLogUtil.logD("sku: " + purchase.getSku() + " Consume finished success");
+					SLogUtil.logD("sku: " + purchase.getSku() + " Consume finished success");
 				}
 			} else {
-				EfunLogUtil.logD("consumption is not success, yet to be consumed.");
+				SLogUtil.logD("consumption is not success, yet to be consumed.");
 			}
-			EfunLogUtil.logD("End consumption flow.");
+			SLogUtil.logD("End consumption flow.");
 			if (payActivity != null && payActivity.getQueryItemListener() != null) {
 				payActivity.getQueryItemListener().onQueryFinish();
 			}else if (payActivity != null) {

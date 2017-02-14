@@ -21,7 +21,7 @@ import java.util.List;
 import org.json.JSONException;
 
 import com.android.vending.billing.IInAppBillingService;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;
 import com.starpy.googlepay.constants.GooglePayContant;
@@ -463,7 +463,7 @@ public class IabHelper {
 		if (mAsyncInProgress) {
 			// basePayActivity.getPrompt().dismissProgressDialog();
 			act.getLaunchPurchaseDialog().dismissProgressDialog();
-			EfunLogUtil.logD("mAsyncInProgress...");
+			SLogUtil.logD("mAsyncInProgress...");
 			return;
 		}
 		flagStartAsync("launchPurchaseFlow");
@@ -477,7 +477,7 @@ public class IabHelper {
 		}
 
 	/*	if (EfunGooglePayService.getPayActivity() != null && EfunGooglePayService.getPayActivity().getPrompt().isCancel()) {
-			EfunLogUtil.logD("cancel...");
+			SLogUtil.logD("cancel...");
 			mAsyncInProgress = true;
 			return;
 		}*/
@@ -504,7 +504,7 @@ public class IabHelper {
 				return ;
 			}
 		/*	if (EfunGooglePayService.getPayActivity() != null && EfunGooglePayService.getPayActivity().getPrompt().isCancel()) {
-				EfunLogUtil.logD("cancel...");
+				SLogUtil.logD("cancel...");
 				return;
 			}*/
 			String previousOrderId = EfunPayHelper.getPreviousOrderId(act);
@@ -563,7 +563,7 @@ public class IabHelper {
 	 */
 	public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
 		
-		EfunLogUtil.logD("iabhelper handleActivityResult");
+		SLogUtil.logD("iabhelper handleActivityResult");
 		IabResult result;
 		// end of async purchase operation
 		flagEndAsync();
@@ -572,7 +572,7 @@ public class IabHelper {
 			return false;
 		// checkNotDisposed();
 		if (mDisposed) {
-			EfunLogUtil.logE("iabhelper handleActivityResult,iab is disposed");
+			SLogUtil.logE("iabhelper handleActivityResult,iab is disposed");
 			return true;
 		}
 		checkSetupDone("handleActivityResult");
@@ -965,7 +965,7 @@ public class IabHelper {
 			if (EfunGooglePayService.getPayActivity() != null) {
 				EfunGooglePayService.getPayActivity().getPayPrompt().complainCloseAct("Google pay service set up error，please try again");
 			}
-			EfunLogUtil.logE("Google IAB set up error，please try again");
+			SLogUtil.logE("Google IAB set up error，please try again");
 			// logError("Illegal state for operation (" + operation + "): IAB
 			// helper is not set up.");
 			// throw new IllegalStateException("IAB helper is not set up. Can't
@@ -1013,7 +1013,7 @@ public class IabHelper {
 		if (mAsyncInProgress) {
 			// basePayActivity.getPrompt().dismissProgressDialog();
 			dismissProgressDialog();
-			EfunLogUtil
+			SLogUtil
 					.logD("Can't start async operation (" + operation + ") because another async operation(" + mAsyncOperation + ") is in progress.");
 			return;
 			// throw new IllegalStateException("Can't start async operation (" +
@@ -1064,7 +1064,7 @@ public class IabHelper {
 				String signature = signatureList.get(i);
 				String sku = ownedSkus.get(i);
 
-				EfunLogUtil.logI("验证查询未消费的订单，sku: " + sku);
+				SLogUtil.logI("验证查询未消费的订单，sku: " + sku);
 				if (EfunPayRequest.requestSendStoneForQuery(context, purchaseData, signature)) {
 					// if (true) {
 					logDebug("Sku is owned: " + sku);

@@ -7,7 +7,7 @@ import java.util.Map;
 import com.core.base.beans.EfunLogEntity;
 import com.core.base.res.SConfig;
 import com.core.base.utils.ApkInfoUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -40,101 +40,6 @@ public class EfunLog {
         return instance;
     }
 
-
-    /**
-     * 记录日志
-     * @param event 事件
-     * @param remark 备注
-     */
-    public void log(@NonNull final Context context, final String event, final String remark){
-        synchronized (mLock) {
-            Map<String, String> info = getInfoMap(context);
-            EfunLogEntity logEntity = new EfunLogEntity(event, info, remark);
-            EfunLogFileUtil.writeLog(context, logEntity);
-            checkUpload(context);
-        }
-    }
-
-    /**
-     * 记录日志
-     * @param event 事件
-     * @param infoMap 信息
-     * @param remark 备注
-     */
-    public void log(@NonNull final Context context, final String event, final Map<String, String> infoMap, final String remark){
-        synchronized (mLock) {
-            Map<String, String> info = getInfoMap(context);
-            if(infoMap != null && infoMap.size() > 0){
-                info.putAll(infoMap);
-            }
-            EfunLogEntity logEntity = new EfunLogEntity(event, info, remark);
-            EfunLogFileUtil.writeLog(context, logEntity);
-            checkUpload(context);
-        }
-    }
-
-    /**
-     * 记录日志
-     * @param event 事件
-     * @param infoMap 消息
-     */
-    public void log(@NonNull final Context context, final String event, final Map<String, String> infoMap){
-        synchronized (mLock) {
-            Map<String, String> info = getInfoMap(context);
-            if(infoMap != null && infoMap.size() > 0){
-                info.putAll(infoMap);
-            }
-            EfunLogEntity logEntity = new EfunLogEntity(event, info, null);
-            EfunLogFileUtil.writeLog(context, logEntity);
-            checkUpload(context);
-        }
-    }
-
-    /**
-     * 记录日志
-     * @param event 事件
-     */
-    public void log(@NonNull final Context context, final String event){
-        synchronized (mLock) {
-            Map<String, String> info = getInfoMap(context);
-            EfunLogEntity logEntity = new EfunLogEntity(event, info, null);
-            EfunLogFileUtil.writeLog(context, logEntity);
-            checkUpload(context);
-        }
-    }
-
-
-
-    /**
-     * 获取必要的信息，比如版本号，gameCode，包名
-     * @return  info
-     */
-    private Map<String, String> getInfoMap(final Context context){
-        Map<String, String> info = new HashMap<>();
-        PackageInfo packageInfo = ApkInfoUtil.getPackageInfo(context);
-        info.put("systemVersion", ApkInfoUtil.getOsVersion());
-        try{
-            info.put("userId", SConfig.getCurrentEfunUserId(context));
-        } catch (Exception | Error  ex ){
-            EfunLogUtil.logD(ex.getMessage());
-        }
-        if(packageInfo != null) {
-            info.put("versionCode", packageInfo.versionCode + "");
-            info.put("packageName", packageInfo.packageName);
-        }
-
-        if(null != context) {
-            String gameCode = SConfig.getGameCode(context);
-            if (!TextUtils.isEmpty(gameCode)) {
-                info.put("gameCode", gameCode);
-            }
-            String efunUUid = ApkInfoUtil.getCustomizedUniqueId(context);
-            if (!TextUtils.isEmpty(efunUUid)) {
-                info.put("efunUUid", efunUUid);
-            }
-        }
-        return info;
-    }
 
 
     /**

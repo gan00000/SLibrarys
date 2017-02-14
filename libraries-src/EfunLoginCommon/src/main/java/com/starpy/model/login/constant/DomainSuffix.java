@@ -1,15 +1,18 @@
 /**
  * 
- */
+ *//*
+
 package com.starpy.model.login.constant;
 
+*/
 /**
  * <p>Title: DomainSuffix</p>
  * <p>Description: </p>
  * <p>Company: EFun</p> 
  * @author GanYuanrong
  * @date 2013年12月7日
- */
+ *//*
+
 public class DomainSuffix {
 
 	public static final String ACTION_NAME = "standard_";
@@ -44,3 +47,4 @@ public class DomainSuffix {
 	public static final String URL_THIRD_IS_BIND_EFUN_ACCOUNT = "third_checkBind.shtml";//检查是否绑定了efun账号
 	
 }
+*/

@@ -1,8 +1,11 @@
 package com.core.base.request;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.core.base.callback.ISReqCallBack;
@@ -15,13 +18,25 @@ import com.core.base.utils.SStringUtil;
 import java.net.HttpURLConnection;
 
 
-public abstract class AbsHttpRequest implements ISRqeust {
+public class CfgFileRequest implements ISRqeust {
 
     private HttpResponse coreHttpResponse;
 
     private Dialog loadDialog;
 
     private ISReqCallBack reqCallBack;
+
+    private BaseReqeustBean baseReqeustBean;
+
+    private Context context;
+
+    public CfgFileRequest(Context context) {
+        this.context = context;
+    }
+
+    public void setBaseReqeustBean(BaseReqeustBean baseReqeustBean) {
+        this.baseReqeustBean = baseReqeustBean;
+    }
 
     public void setReqCallBack(ISReqCallBack reqCallBack) {
         this.reqCallBack = reqCallBack;
@@ -43,25 +58,34 @@ public abstract class AbsHttpRequest implements ISRqeust {
             protected void onPreExecute() {
                 super.onPreExecute();
                 if (loadDialog != null && !loadDialog.isShowing()){
-                    loadDialog.show();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && loadDialog.getOwnerActivity() != null && !loadDialog.getOwnerActivity().isDestroyed()) {
+                        loadDialog.show();
+                    }else if (loadDialog.getOwnerActivity() != null && !loadDialog.getOwnerActivity().isFinishing()){
+                        loadDialog.show();
+                    }
                 }
 
             }
 
             @Override
             protected String doInBackground(String... params) {
-                BaseReqeustBean baseReqeustBean = onHttpRequest();
-                if (baseReqeustBean == null) {
+
+                if (baseReqeustBean == null){
                     return "";
                 }
+
                 String rawResponse = doRequest(baseReqeustBean);
 
                 //解析json数据
                 if (!TextUtils.isEmpty(rawResponse) && classOfT != null) {
-                    Gson gson = new Gson();
-                    responseModule = gson.fromJson(rawResponse, classOfT);
-                    if (responseModule != null && (responseModule instanceof BaseResponseModel)) {
-                        ((BaseResponseModel) responseModule).setRawResponse(rawResponse);
+                    try {
+                        Gson gson = new Gson();
+                        responseModule = gson.fromJson(rawResponse, classOfT);
+                        if (responseModule != null && (responseModule instanceof BaseResponseModel)) {
+                            ((BaseResponseModel) responseModule).setRawResponse(rawResponse);
+                        }
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
                     }
 
                 }
@@ -100,10 +124,30 @@ public abstract class AbsHttpRequest implements ISRqeust {
     public String doRequest(BaseReqeustBean baseReqeustBean) {
         if (SStringUtil.isNotEmpty(baseReqeustBean.getCompleteUrl())) {
             HttpRequest httpRequest = new HttpRequest();
-            coreHttpResponse = httpRequest.postReuqest(baseReqeustBean.getCompleteUrl(), baseReqeustBean.buildPostMapInField());
+            coreHttpResponse = httpRequest.getReuqest(baseReqeustBean.getCompleteUrl());
             return coreHttpResponse.getResult();
         }
         return "";
+    }
+
+    @Override
+    public <T> void onHttpSucceess(T responseModel) {
+
+    }
+
+    @Override
+    public void onNoData(String result) {
+
+    }
+
+    @Override
+    public void onTimeout(String result) {
+
+    }
+
+    @Override
+    public BaseReqeustBean onHttpRequest() {
+        return null;
     }
 
     public void setLoadDialog(Dialog loadDialog) {

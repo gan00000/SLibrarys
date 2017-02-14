@@ -16,7 +16,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-public class EfunFileUtil {
+public class FileUtil {
 	
 	public static String readFile(String fileName) throws IOException{
 		return readFile(null, fileName);

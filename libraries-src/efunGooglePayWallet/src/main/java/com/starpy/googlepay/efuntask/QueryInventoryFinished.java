@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.json.JSONException;
 
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.EfunQueryInventoryState;
@@ -44,17 +44,17 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 			Log.d("efun", "query result:" + result.getMessage());
 			if (null != payActivity.getQueryInventoryState()
 					&& payActivity.getQueryInventoryState().getQueryFailState() == EfunQueryInventoryState.SEND_STONE_FAIL) {
-				EfunLogUtil.logD("getQueryInventoryState is 1");
+				SLogUtil.logD("getQueryInventoryState is 1");
 				//prompt.complain("Failed to query inventory: SENDIND_FAIL");
 			} else if (null != payActivity.getQueryInventoryState()
 					&& payActivity.getQueryInventoryState().getQueryFailState() == EfunQueryInventoryState.SERVER_TIME_OUT) {
-				EfunLogUtil.logD("getQueryInventoryState is 2");
+				SLogUtil.logD("getQueryInventoryState is 2");
 				//payActivity.showGoogleServiceErrorMessage();
 			} else {
-				EfunLogUtil.logD("getQueryInventoryState is 3");
+				SLogUtil.logD("getQueryInventoryState is 3");
 			//	prompt.complain("Failed to query inventory: " + result.getMessage());
 			}
-			EfunLogUtil.logD("getQueryInventoryState is null");
+			SLogUtil.logD("getQueryInventoryState is null");
 			/*if (payActivity != null && payActivity.isCloseActivityUserCancel()) {
 				payActivity.finish();
 			}*/
@@ -63,11 +63,11 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 		}
         
 //        sendLocalToServer();
-		EfunLogUtil.logD( "Query inventory was successful.");
+		SLogUtil.logD( "Query inventory was successful.");
      /*   List<Purchase> purchases = new ArrayList<Purchase>();
         for (int i=0;i<skuList.size(); i++) {
         	if (inventory.hasPurchase(skuList.get(i))) {
-        		EfunLogUtil.logD( "We have " + skuList.get(i) + " need to consume,Consuming it.");
+        		SLogUtil.logD( "We have " + skuList.get(i) + " need to consume,Consuming it.");
         		final Purchase mPurchase = inventory.getPurchase(skuList.get(i));
         		purchases.add(mPurchase);
         		Log.d("efun", "query inventory PurchaseState:" + mPurchase.getPurchaseState());
@@ -87,19 +87,19 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 			}
 		}
 	        
-		EfunLogUtil.logD("purchases size: " + purchases.size());
+		SLogUtil.logD("purchases size: " + purchases.size());
         if (null == purchases || purchases.isEmpty()) {
         	//sendLocalFileToServer();
 			prompt.dismissProgressDialog();
-			EfunLogUtil.logD( "purchases is empty.purchases size: " + purchases.size());
+			SLogUtil.logD( "purchases is empty.purchases size: " + purchases.size());
 		//	isTaskFinish = true;
 
 			onQueryProcessFinish();
 		}else  if (purchases.size() == 1) {
-        	EfunLogUtil.logD("mConsumeFinishedListener. 消费一个");
+        	SLogUtil.logD("mConsumeFinishedListener. 消费一个");
         	mHelper.consumeAsync(purchases.get(0), mConsumeFinishedListener);
 		} else if (purchases.size() > 1){
-			EfunLogUtil.logD("mConsumeMultiFinishedListener.消费多个");
+			SLogUtil.logD("mConsumeMultiFinishedListener.消费多个");
 			mHelper.consumeAsync(purchases, mConsumeMultiFinishedListener);
 		}
     
@@ -152,10 +152,10 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 				
 				@Override
 				public void run() {
-					EfunLogUtil.logD("send the local purchase data to server");
+					SLogUtil.logD("send the local purchase data to server");
 					EfunVerifyTask efunVerifyTask = new EfunVerifyTask();
 					if (efunVerifyTask.verifyQueryInventory(payActivity, purchaseInfo, purchaseSign, "isSharedPreferences")) {
-						EfunLogUtil.logD("send the local purchase data to server,server return success");
+						SLogUtil.logD("send the local purchase data to server,server return success");
 						try {
 							final Purchase mPurchase = new Purchase(IabHelper.ITEM_TYPE_INAPP, purchaseInfo, purchaseSign);
 							if (mPurchase != null && mHelper != null) {
@@ -172,7 +172,7 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 							e.printStackTrace();
 						}
 					}else {
-						EfunLogUtil.logD("send the local purchase data to server,server return fail");
+						SLogUtil.logD("send the local purchase data to server,server return fail");
 						//if (isTaskFinish) {
 							payActivity.runOnUiThread(new Runnable() {
 								
@@ -202,20 +202,20 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 			
 			@Override
 			public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
-				EfunLogUtil.logD( "Consume Multiple finished.");
+				SLogUtil.logD( "Consume Multiple finished.");
 				//sendLocalFileToServer();
 				//if (isTaskFinish) {
 					prompt.dismissProgressDialog();
 				//}
 				for (int i = 0; i < purchases.size(); i++) {
 					if (results.get(i).isSuccess()) {
-						EfunLogUtil.logD( "sku: " + purchases.get(i).getSku() + " Consume finished success");
+						SLogUtil.logD( "sku: " + purchases.get(i).getSku() + " Consume finished success");
 					} else  {
-						EfunLogUtil.logD( "sku: " + purchases.get(i).getSku() + " Consume finished fail");
-						EfunLogUtil.logD( purchases.get(i).getSku() + "consumption is not success, yet to be consumed.");
+						SLogUtil.logD( "sku: " + purchases.get(i).getSku() + " Consume finished fail");
+						SLogUtil.logD( purchases.get(i).getSku() + "consumption is not success, yet to be consumed.");
 					}
 				}
-				EfunLogUtil.logD( "End consumption flow.");
+				SLogUtil.logD( "End consumption flow.");
 				//isTaskFinish = true;
 				onQueryProcessFinish();
 			}
@@ -226,25 +226,25 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 		 */
 		private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
 	        public void onConsumeFinished(Purchase purchase, IabResult result) {
-	        	EfunLogUtil.logD("Consumption finished");
+	        	SLogUtil.logD("Consumption finished");
 	        	if ( null != purchase) {
-					EfunLogUtil.logD("Purchase: " + purchase.toString() + ", result: " + result);
+					SLogUtil.logD("Purchase: " + purchase.toString() + ", result: " + result);
 				} else {
-					EfunLogUtil.logD("Purchase is null");
+					SLogUtil.logD("Purchase is null");
 				}
 				//sendLocalFileToServer();
 	    		//if (isTaskFinish) {
 	    			prompt.dismissProgressDialog();
 	    		//}
 	    		if (result.isSuccess()) {
-	    			EfunLogUtil.logD( "Consumption successful.");
+	    			SLogUtil.logD( "Consumption successful.");
 	    			if (purchase != null) {
-	    				EfunLogUtil.logD( "sku: " + purchase.getSku() + " Consume finished success");
+	    				SLogUtil.logD( "sku: " + purchase.getSku() + " Consume finished success");
 	    			}
 	    		} else {
-	    			EfunLogUtil.logD( "consumption is not success, yet to be consumed.");
+	    			SLogUtil.logD( "consumption is not success, yet to be consumed.");
 	    		}
-	    		EfunLogUtil.logD( "End consumption flow.");
+	    		SLogUtil.logD( "End consumption flow.");
 	    		
 	    		onQueryProcessFinish();
 	        }
@@ -255,27 +255,27 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 	     */
 	    private IabHelper.OnConsumeFinishedListener mConsumeFinishedCallback = new IabHelper.OnConsumeFinishedListener() {
 	    	public void onConsumeFinished(Purchase purchase, IabResult result) {
-	    		EfunLogUtil.logD("Consumption finished");
+	    		SLogUtil.logD("Consumption finished");
 	        	if ( null != purchase) {
-					EfunLogUtil.logD("Purchase: " + purchase.toString() + ", result: " + result);
+					SLogUtil.logD("Purchase: " + purchase.toString() + ", result: " + result);
 				} else {
-					EfunLogUtil.logD("Purchase is null");
+					SLogUtil.logD("Purchase is null");
 				}
 	    	//	if (isTaskFinish) {
 	    			prompt.dismissProgressDialog();
 	    		//}
 	    		//isTaskFinish = true;
 	    		if (result.isSuccess()) {
-	    			EfunLogUtil.logD( "Consumption successful.");
+	    			SLogUtil.logD( "Consumption successful.");
 	    			
 	    			if (purchase == null) {
 	    				return;
 	    			}
-	    			EfunLogUtil.logD( "sku: " + purchase.getSku() + " Consume finished success");
+	    			SLogUtil.logD( "sku: " + purchase.getSku() + " Consume finished success");
 	    		} else {
-	    			EfunLogUtil.logD( "consumption is not success, yet to be consumed.");
+	    			SLogUtil.logD( "consumption is not success, yet to be consumed.");
 	    		}
-	    		EfunLogUtil.logD( "End consumption flow.");
+	    		SLogUtil.logD( "End consumption flow.");
 	    		onQueryProcessFinish();
 	    	}
 	    };

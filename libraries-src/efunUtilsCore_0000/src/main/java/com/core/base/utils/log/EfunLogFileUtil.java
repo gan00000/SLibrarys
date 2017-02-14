@@ -6,9 +6,9 @@ import android.text.TextUtils;
 
 import com.core.base.beans.EfunLogEntity;
 import com.core.base.http.HttpRequest;
-import com.core.base.utils.EfunFileUtil;
+import com.core.base.utils.FileUtil;
 import com.core.base.utils.ApkInfoUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.StorageUtil;
 import com.core.base.utils.SStringUtil;
@@ -60,7 +60,7 @@ public class EfunLogFileUtil {
     protected static void writeLog(final Context cxt, EfunLogEntity logEntity){
         String logFilePath = getLogFilePath(cxt);
         if(!TextUtils.isEmpty(logFilePath)){
-            EfunFileUtil.writeFile(logFilePath, logEntity.toString(), true);
+            FileUtil.writeFile(logFilePath, logEntity.toString(), true);
         }
     }
 
@@ -136,14 +136,14 @@ public class EfunLogFileUtil {
         @Override
         public void run() {
             if(mContext.get() == null){
-                EfunLogUtil.logD(TAG, "上传失败，上下文已经被销毁！！");
+                SLogUtil.logD(TAG, "上传失败，上下文已经被销毁！！");
                 return;
             }
-            EfunLogUtil.logD(TAG, "开始上传文件");
+            SLogUtil.logD(TAG, "开始上传文件");
             String preferredUploadUrl = ResUtil.findStringByName(mContext.get(), KEY_LOG_UPLOAD_PREFERRED_URL);
             String spareUploadUrl = ResUtil.findStringByName(mContext.get(), KEY_LOG_UPLOAD_SPARE_URL);
             if(SStringUtil.isEmpty(preferredUploadUrl) && SStringUtil.isEmpty(preferredUploadUrl)){
-                EfunLogUtil.logD(TAG, "上传失败，没有找到上传地址，销毁日志文件！！");
+                SLogUtil.logD(TAG, "上传失败，没有找到上传地址，销毁日志文件！！");
                 mLogFile.delete();
                 return;
             }
@@ -155,17 +155,17 @@ public class EfunLogFileUtil {
                     int responseCode = jsonObject.getInt("code");
                     String responseMsg = jsonObject.getString("message");
                     if(responseCode == 1000){
-                        EfunLogUtil.logD(TAG, "上传日志成功！！！");
+                        SLogUtil.logD(TAG, "上传日志成功！！！");
                         mLogFile.delete();
                     } else {
-                        EfunLogUtil.logE("上传日志失败！！" + (responseMsg == null ? "" : responseMsg));
+                        SLogUtil.logE("上传日志失败！！" + (responseMsg == null ? "" : responseMsg));
                     }
                 }catch (JSONException ex){
                     ex.printStackTrace();
-                    EfunLogUtil.logE("上传日志失败！！json解析失败。。。");
+                    SLogUtil.logE("上传日志失败！！json解析失败。。。");
                 }
             } else {
-                EfunLogUtil.logE("上传日志失败！！服务端请求失败。。。");
+                SLogUtil.logE("上传日志失败！！服务端请求失败。。。");
             }
             mIsUploadingLogFile = false;
             mInstance = null;
@@ -180,14 +180,14 @@ public class EfunLogFileUtil {
         String doRequest(String preferredUrl, String sparedUrl) {
             String response = "";
             if(SStringUtil.isNotEmpty(preferredUrl)) {
-                EfunLogUtil.logD("upload log preferredUrl:" + preferredUrl);
+                SLogUtil.logD("upload log preferredUrl:" + preferredUrl);
                 response = HttpRequest.uploadFile(null, mLogFile, FILE_NAME_UPLOAD_LOG, preferredUrl);
-                EfunLogUtil.logD("upload log preferredUrl response: " + (response == null ? "null" : response));
+                SLogUtil.logD("upload log preferredUrl response: " + (response == null ? "null" : response));
             }
             if(SStringUtil.isEmpty(response) && SStringUtil.isNotEmpty(sparedUrl)) {
-                EfunLogUtil.logD("upload log spareUrl Url: " + sparedUrl);
+                SLogUtil.logD("upload log spareUrl Url: " + sparedUrl);
                 response = HttpRequest.uploadFile(null, mLogFile, FILE_NAME_UPLOAD_LOG, sparedUrl);
-                EfunLogUtil.logD("upload log spareUrl response: " + (response == null ? "null" : response));
+                SLogUtil.logD("upload log spareUrl response: " + (response == null ? "null" : response));
             }
             return response;
         }

@@ -32,13 +32,16 @@ public class BaseReqeustBean extends AbsReqeustBean {
         systemVersion = ApkInfoUtil.getOsVersion();
         deviceType = ApkInfoUtil.getDeviceType();
         androidid = ApkInfoUtil.getAndroidId(context);
-        imei = ApkInfoUtil.getImeiAddress(context);
-        mac = ApkInfoUtil.getMacAddress(context);
         osLanguage = ApkInfoUtil.getOsLanguage();
 
-        packageName = context.getPackageName();
-        versionCode = ApkInfoUtil.getVersionCode(context);
-        versionName = ApkInfoUtil.getVersionName(context);
+        if (context != null) {
+            imei = ApkInfoUtil.getImeiAddress(context);
+            mac = ApkInfoUtil.getMacAddress(context);
+
+            packageName = context.getPackageName();
+            versionCode = ApkInfoUtil.getVersionCode(context);
+            versionName = ApkInfoUtil.getVersionName(context);
+        }
     }
 
 

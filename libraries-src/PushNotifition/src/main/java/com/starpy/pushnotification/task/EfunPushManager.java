@@ -80,7 +80,7 @@ public class EfunPushManager {
 
 	/*private void initPullTimer(Context mContext) {
 		Log.d("efun", "push-notifition 1.1");
-		EfunLogUtil.logI("设置推送定时器....");
+		SLogUtil.logI("设置推送定时器....");
 		PushSPUtil.savePullTime(mContext, System.currentTimeMillis());// 记录设置推送的日期
 		AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
 		Intent mIntent = new Intent(mContext, ScheduleService.class);

@@ -14,7 +14,7 @@ import com.core.base.res.SConfig;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.SPUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.WebOrderBean;
@@ -59,7 +59,7 @@ public class EfunPayUtil {
 	private static void doOtherWallet(Context context, WebOrderBean webOrderBean, Intent otherPayIntent) {
 		String otherParams = buildWebPayUrlParams(context, webOrderBean, SERCET_KEY);
 		otherPayIntent.putExtra(GooglePayContant.ExtraOtherKey, otherParams);
-		EfunLogUtil.logD("otherPayParams:" + otherParams);
+		SLogUtil.logD("otherPayParams:" + otherParams);
 		otherPayIntent.putExtra(GooglePayContant.ExtraOtherWebOrderBean, webOrderBean);
 		context.startActivity(otherPayIntent);
 	}
@@ -100,14 +100,14 @@ public class EfunPayUtil {
 		String url = buildWebPayUrlParams(context, webOrderBean,SERCET_KEY_GW);
 		GWPayIntent.putExtra(GooglePayContant.ExtraGWKey, url);
 		GWPayIntent.putExtra(GooglePayContant.ExtraGWWebOrderBean, webOrderBean);
-		EfunLogUtil.logD("GWPayParams:" + url);
+		SLogUtil.logD("GWPayParams:" + url);
 		context.startActivity(GWPayIntent);
 	}
 	
 	public static String buildGoogleGoodsUrl(Context context, WebOrderBean webOrderBean){
 		checkWebOrderBean(context, webOrderBean, SERCET_KEY_GOODLIST);
 		String url = buildWebPayUrlParams(context, webOrderBean,SERCET_KEY_GOODLIST);
-		EfunLogUtil.logD("gw url:" + url);
+		SLogUtil.logD("gw url:" + url);
 		return url;
 	}
 
@@ -158,7 +158,7 @@ public class EfunPayUtil {
 							webOrderBean.getTime() + 
 							webOrderBean.getSecretKey(), false));
 			
-			EfunLogUtil.logD("md5Str:" + webOrderBean.getGameCode() + 
+			SLogUtil.logD("md5Str:" + webOrderBean.getGameCode() +
 					webOrderBean.getServerCode() + 
 					webOrderBean.getEfunRole() +
 					webOrderBean.getEfunLevel() + 
@@ -258,7 +258,7 @@ public class EfunPayUtil {
 				webOrderBean.setPhoneNumber(phoneNumber);
 			}
 		}*/
-		EfunLogUtil.logD("webOrderBean:" + webOrderBean.toString());
+		SLogUtil.logD("webOrderBean:" + webOrderBean.toString());
 	}
 
 	private static void checkSecretKey(WebOrderBean webOrderBean, int pageMark) {

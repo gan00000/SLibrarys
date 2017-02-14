@@ -29,7 +29,7 @@ public class ResUtil {
 	 * @return
 	 */
 	public static int getResourcesIdByName(Context context, String packageName, String resourcesName) {
-		SConfig.mContext = context.getApplicationContext();
+
 		Resources resources = context.getResources();
 		int id = resources.getIdentifier(resourcesName, packageName, context.getPackageName());
 		if (id == 0) {

@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 
 import com.core.base.utils.EfunJSONUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.EfunQueryInventoryState;
@@ -50,7 +50,7 @@ public class EfunVerifyTask {
 	          if (mHandler == null) {
 	        	  mHandler = new Handler();
 				}
-	          EfunLogUtil.logD( "开始验证订单是否真实，商品sku:" + sku);
+	          SLogUtil.logD( "开始验证订单是否真实，商品sku:" + sku);
 	          new Thread(new Runnable() {
 				
 				@Override
@@ -58,7 +58,7 @@ public class EfunVerifyTask {
 					String result = EfunWalletApi.exchage(payActivity,purchaseData, dataSignature);//请求服务器验证购买的订单并且是否发放砖石
 					if (result != null && SStringUtil.isNotEmpty(result)) {
 						
-						EfunLogUtil.logD( "result返回：" + result);
+						SLogUtil.logD( "result返回：" + result);
 						
 						try {
 							final JSONObject json = new JSONObject(result);
@@ -68,12 +68,12 @@ public class EfunVerifyTask {
 								serverBackProcess(payActivity, mPurchaseListener, purchase, sku, json);
 								
 							}else{//server not connect
-								EfunLogUtil.logW("do not clear local purchaseData,server not connect.");
+								SLogUtil.logW("do not clear local purchaseData,server not connect.");
 								mHandler.post(new Runnable() {
 									
 									@Override
 									public void run() {
-										EfunLogUtil.logW("server internet is not connect.");
+										SLogUtil.logW("server internet is not connect.");
 										//网络连接超时的回调
 										IabResult iabResult = new IabResult(GooglePayContant.IAB_STATE, payActivity.getEfunPayError().getEfunGoogleServerError());
 										if (mPurchaseListener != null) mPurchaseListener.onIabPurchaseFinished(iabResult, purchase);
@@ -81,7 +81,7 @@ public class EfunVerifyTask {
 								});
 							}
 						} catch (JSONException e) {
-							EfunLogUtil.logW( "EfunVerifyUtil json异常");
+							SLogUtil.logW( "EfunVerifyUtil json异常");
 							e.printStackTrace();
 						}
 					}
@@ -112,29 +112,29 @@ public class EfunVerifyTask {
 		}
 		
 		if (!TextUtils.isEmpty(result)) {
-//			EfunLogUtil.logI( "result返回：" + result);
+//			SLogUtil.logI( "result返回：" + result);
 			try {
 				JSONObject json = new JSONObject(result);
 				if (EfunJSONUtil.efunVerificationRequest(json)) {
 					checkAndClearData(payActivity, json);
 					if (!json.isNull("result") && json.optString("result", "").equals("0000")) {
 						if ("true".equals(json.optString("isSign"))) {//判断订单是否验证成功
-							EfunLogUtil.logI( "验证订单是否真实>>>>>成功");
-							EfunLogUtil.logI( "此订单已经成功，并且发放砖石，began to consume");
+							SLogUtil.logI( "验证订单是否真实>>>>>成功");
+							SLogUtil.logI( "此订单已经成功，并且发放砖石，began to consume");
 						//	return true;
 						}
 					} else {
-						EfunLogUtil.logI( "发送钻石失败.");
+						SLogUtil.logI( "发送钻石失败.");
 						payActivity.getQueryInventoryState().setQueryFailState(EfunQueryInventoryState.SEND_STONE_FAIL);
 						//return false;
 					}
 					
 				} else {
-					EfunLogUtil.logI( "server connect timeout...");
+					SLogUtil.logI( "server connect timeout...");
 					payActivity.getQueryInventoryState().setQueryFailState(EfunQueryInventoryState.SERVER_TIME_OUT);
 				}
 			} catch (JSONException e) {
-				EfunLogUtil.logW( "query jsonexception...");
+				SLogUtil.logW( "query jsonexception...");
 				e.printStackTrace();
 				//return false;
 			}
@@ -153,13 +153,13 @@ public class EfunVerifyTask {
 		String efunPurchaseData = getPurchaseData(json);
 		SharedPreferences preferences = payActivity.getSharedPreferences(GooglePayContant.EFUNFILENAME, Context.MODE_PRIVATE);
 		String localPurchaseData = preferences.getString(GooglePayContant.PURCHASE_DATA_ONE, "");
-		EfunLogUtil.logI("efunPurchaseData:" + efunPurchaseData);
-		EfunLogUtil.logI("localPurchaseData:" + localPurchaseData);
+		SLogUtil.logI("efunPurchaseData:" + efunPurchaseData);
+		SLogUtil.logI("localPurchaseData:" + localPurchaseData);
 		if (efunPurchaseData.equals(localPurchaseData)) {
-			EfunLogUtil.logI("query clear local purchaseData");
+			SLogUtil.logI("query clear local purchaseData");
 			preferences.edit().clear().commit();
 		} else {
-			EfunLogUtil.logI("query do not clear local purchaseData");
+			SLogUtil.logI("query do not clear local purchaseData");
 		}
 	}
 
@@ -187,7 +187,7 @@ public class EfunVerifyTask {
 			walletBean.setItemNum("1");//购买的商品个数
 			String purchaseData = getPurchaseData(json);
 			if (SStringUtil.isNotEmpty(purchaseData)) {
-				//			EfunLogUtil.logI("purchaseData处理后：" + purchaseData);
+				//			SLogUtil.logI("purchaseData处理后：" + purchaseData);
 				try {
 					JSONObject purchaseDataJson = new JSONObject(purchaseData);
 					walletBean.setGoogleOrderId(purchaseDataJson.optString("orderId", ""));//google订单号
@@ -196,13 +196,13 @@ public class EfunVerifyTask {
 						JSONObject developerPayloadJson = new JSONObject(efunDeveloperPayload);
 						if (developerPayloadJson != null) {
 							String orderId = developerPayloadJson.optString("orderId", "");//efun订单号
-							EfunLogUtil.logD("orderId:" + orderId);
+							SLogUtil.logD("orderId:" + orderId);
 							walletBean.setEfunOrderId(orderId);
 						}
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
-					EfunLogUtil.logW("purchaseData不能转化为jsonObject");
+					SLogUtil.logW("purchaseData不能转化为jsonObject");
 				}
 			}
 		}
@@ -214,7 +214,7 @@ public class EfunVerifyTask {
 	* @param payActivity
 	*/
 	private void clearPurchaseData(final BasePayActivity payActivity) {
-		EfunLogUtil.logD("clear local wallet data");
+		SLogUtil.logD("clear local wallet data");
 		SharedPreferences preferences = payActivity.getSharedPreferences(GooglePayContant.EFUNFILENAME, Context.MODE_PRIVATE);
 		preferences.edit().clear().commit();
 	}
@@ -236,7 +236,7 @@ public class EfunVerifyTask {
 		clearPurchaseData(payActivity);
 		
 		if("true".equals(json.optString("isSign"))){//判断订单在服务器是否验证通过
-			EfunLogUtil.logD( "验证订单是否真实--->成功");
+			SLogUtil.logD( "验证订单是否真实--->成功");
 			
 			if ("0000".equals(json.optString("result"))){//判断服务器返回的result结果是否为发放砖石成功
 				
@@ -258,7 +258,7 @@ public class EfunVerifyTask {
 					
 					@Override
 					public void run() {
-						EfunLogUtil.logW("result is not 0000.");
+						SLogUtil.logW("result is not 0000.");
 						//服务器返回失败状态的回调
 						IabResult iabResult = new IabResult(GooglePayContant.IAB_STATE, json.optString("msg", null));
 						if (mPurchaseListener != null) mPurchaseListener.onIabPurchaseFinished(iabResult, purchase);
@@ -266,7 +266,7 @@ public class EfunVerifyTask {
 				});
 			}
 		}else {
-			EfunLogUtil.logW("verify is false.");
+			SLogUtil.logW("verify is false.");
 			
 			mHandler.post(new Runnable() {
 				

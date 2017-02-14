@@ -3,6 +3,7 @@ package com.startpy.sdk.out;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.model.login.bean.SLoginResponse;
 import com.startpy.sdk.login.ILoginCallBack;
 import com.startpy.sdk.login.SLoginActivity;
@@ -17,7 +18,8 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void initSDK(Activity activity) {
-
+        ConfigRequest.requestCfg(activity.getApplicationContext());//下载配置文件
+        ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
     }
 
     @Override

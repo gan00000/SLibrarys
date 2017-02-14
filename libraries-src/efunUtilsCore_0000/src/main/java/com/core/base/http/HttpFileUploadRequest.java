@@ -1,6 +1,6 @@
 package com.core.base.http;
 
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -64,7 +64,7 @@ public class HttpFileUploadRequest {
         try {
             byte[] headerInfo = sb.toString().getBytes("UTF-8");
             byte[] endInfo = ("\r\n--" + BOUNDARY + "--\r\n").getBytes("UTF-8");
-            EfunLogUtil.logD("HttpFileUploadRequest", sb.toString());
+            SLogUtil.logD("HttpFileUploadRequest", sb.toString());
             URL url = new URL(urlStr);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -87,7 +87,7 @@ public class HttpFileUploadRequest {
             out.write(endInfo);
 
             if (conn.getResponseCode() == 200) {
-                EfunLogUtil.logD("上传成功");
+                SLogUtil.logD("上传成功");
                 /* 取得Response内容 */
                 is = conn.getInputStream();
                 int ch;
@@ -112,7 +112,7 @@ public class HttpFileUploadRequest {
                 }
                 if(conn != null) {
                     conn.disconnect();
-                    EfunLogUtil.logD("HttpFileUploadRequest", "urlConnection.disconnect()");
+                    SLogUtil.logD("HttpFileUploadRequest", "urlConnection.disconnect()");
                 }
             }catch (IOException ex){
                 ex.printStackTrace();

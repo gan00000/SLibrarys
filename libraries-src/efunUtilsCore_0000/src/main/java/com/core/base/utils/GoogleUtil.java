@@ -10,12 +10,20 @@ import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 
-public class GoogleAdUtil {
+public class GoogleUtil {
 	
 	static String advertisingId = "";
-	
+
+	/**
+	 * 非UI线程调用，UI线程调用造成anr
+	 * @param mContext
+	 * @return
+	 */
 	public static String getAdvertisingId(Context mContext){
-		
+
+		if (!ClassUtil.existClass("com.google.android.gms.ads.identifier.AdvertisingIdClient")) {//判断google-play-server.jar是否存在
+			return "";
+		}
 		if (!TextUtils.isEmpty(advertisingId)) {
 			return advertisingId;
 		}

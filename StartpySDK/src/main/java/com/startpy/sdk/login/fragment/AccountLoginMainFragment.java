@@ -16,10 +16,10 @@ import android.widget.TextView;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.SStringUtil;
 import com.starpy.model.login.bean.SLoginResponse;
-import com.starpy.model.login.execute.AccountLoginCmd;
+import com.starpy.model.login.execute.AccountLoginRequest;
 import com.startpy.sdk.R;
 import com.startpy.sdk.utils.DialogUtil;
-import com.startpy.sdk.utils.StarPyUtil;
+import com.starpy.base.StarPyUtil;
 import com.core.base.utils.ToastUtils;
 
 /**
@@ -122,13 +122,15 @@ public class AccountLoginMainFragment extends BaseFragment {
             return;
         }
 
-        AccountLoginCmd accountLoginCmd = new AccountLoginCmd(getActivity(), account, password);
+        AccountLoginRequest accountLoginCmd = new AccountLoginRequest(getActivity(), account, password);
         accountLoginCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(),"Loading..."));
         accountLoginCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
-            public void callBack(SLoginResponse sLoginResponse) {
+            public void callBack(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null && sLoginResponse.isRequestSuccess()){
                     ToastUtils.toast(getActivity(),R.string.py_login_success);
+                    sLoginActivity.setLoginResponse(sLoginResponse);
+                    getActivity().finish();
                 }else{
                     ToastUtils.toast(getActivity(),sLoginResponse.getMessage());
                 }

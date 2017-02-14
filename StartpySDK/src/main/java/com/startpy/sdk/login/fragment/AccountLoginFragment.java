@@ -11,9 +11,10 @@ import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.FbSp;
 import com.facebook.sfb.SFacebookProxy;
 import com.core.base.utils.PL;
+import com.starpy.base.StarPyUtil;
 import com.starpy.model.login.bean.SLoginResponse;
-import com.starpy.model.login.execute.FBLoginRegCmd;
-import com.starpy.model.login.execute.MacLoginRegCmd;
+import com.starpy.model.login.execute.FBLoginRegRequest;
+import com.starpy.model.login.execute.MacLoginRegRequest;
 import com.startpy.sdk.R;
 import com.startpy.sdk.utils.DialogUtil;
 import com.core.base.utils.ToastUtils;
@@ -90,13 +91,17 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
     private void macLogin() {
 
-        MacLoginRegCmd macLoginRegCmd = new MacLoginRegCmd(getActivity());
+        MacLoginRegRequest macLoginRegCmd = new MacLoginRegRequest(getActivity());
         macLoginRegCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         macLoginRegCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
-            public void callBack(SLoginResponse sLoginResponse) {
+            public void callBack(SLoginResponse sLoginResponse,String rawResult) {
                 if (sLoginResponse != null && (sLoginResponse.isRequestSuccess() || SStringUtil.isEqual("1001", sLoginResponse.getCode()))) {
                     ToastUtils.toast(getActivity(), R.string.py_login_success);
+                    StarPyUtil.saveSdkLoginData(getContext(),rawResult);
+                    StarPyUtil.saveUid(getContext(),sLoginResponse.getUserId());
+                    sLoginActivity.setLoginResponse(sLoginResponse);
+                    getActivity().finish();
                 } else {
                     ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
                 }
@@ -148,13 +153,15 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
     private void fbThirdLogin(String fbScopeId, String fbApps, String fbTokenBusiness) {
 
-        FBLoginRegCmd cmd = new FBLoginRegCmd(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
+        FBLoginRegRequest cmd = new FBLoginRegRequest(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
-            public void callBack(SLoginResponse sLoginResponse) {
+            public void callBack(SLoginResponse sLoginResponse,String rawResult) {
                 if (sLoginResponse != null && (sLoginResponse.isRequestSuccess() || SStringUtil.isEqual("1001", sLoginResponse.getCode()))) {
                     ToastUtils.toast(getActivity(), R.string.py_login_success);
+                    sLoginActivity.setLoginResponse(sLoginResponse);
+                    getActivity().finish();
                 } else {
                     ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
                 }

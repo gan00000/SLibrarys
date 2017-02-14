@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Vector;
 
 import com.core.base.res.SConfig;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.EfunPayError;
 import com.starpy.googlepay.bean.EfunQueryInventoryState;
@@ -215,7 +215,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	* @param sku 商品编号（标识）
 	*/
 	protected synchronized void startPurchase(String sku) {
-		EfunLogUtil.logI("EndFlag: " + EndFlag.isEndFlag());
+		SLogUtil.logI("EndFlag: " + EndFlag.isEndFlag());
 		this._currentPurchaseSku = sku;
 		if (EndFlag.isEndFlag()) {
 			EndFlag.setEndFlag(false);
@@ -238,7 +238,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		if (null != mHelper && !mHelper.ismSetupDone()) {
 			mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
 				public void onIabSetupFinished(IabResult result) {
-					EfunLogUtil.logI("startSetup onIabSetupFinished.");
+					SLogUtil.logI("startSetup onIabSetupFinished.");
 					if (!result.isSuccess()) {
 						prompt.dismissProgressDialog();
 						supportGooglePlay = false;
@@ -251,7 +251,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 
 				@Override
 				public void onError(String message) {//发生错误时提示
-					EfunLogUtil.logI("message:" + message);
+					SLogUtil.logI("message:" + message);
 					supportGooglePlay = false;
 					prompt.dismissProgressDialog();
 					prompt.complainCloseAct(message);

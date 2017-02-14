@@ -6,7 +6,7 @@ import java.util.Map;
 import com.core.base.http.HttpRequest;
 import com.core.base.utils.EfunJSONUtil;
 import com.core.base.utils.ApkInfoUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.GoogleOrderBean;
@@ -41,7 +41,7 @@ public class EfunWalletApi {
 		String payFrom = orderBean.getPayFrom();
 		String payType = orderBean.getPayType();
 		
-		EfunLogUtil.logD("GoogleOrderBean hashCode:" + orderBean.hashCode() + ",userId:" + userId + ",creditId:" + creditId + ",sku:" + goodsId + ",moneyType:" + 
+		SLogUtil.logD("GoogleOrderBean hashCode:" + orderBean.hashCode() + ",userId:" + userId + ",creditId:" + creditId + ",sku:" + goodsId + ",moneyType:" +
 		moneyType + ",serverCode:" + serverCode + ",gameCode:" + gameCode + ",payFrom:" + payFrom+ ",payType:" + payType);
 		
 		if (SStringUtil.isNotEmpty(userId)&& SStringUtil.isNotEmpty(creditId) && SStringUtil.isNotEmpty(goodsId)
@@ -82,7 +82,7 @@ public class EfunWalletApi {
 //			params.put("googlepayversion", BasePayActivity.GOOGLE_PAY_VERSION);
 			params.put("accessToken", EfunPayHelper.getLoginSign(payActivity));
 			
-			EfunLogUtil.logI("玩家点击储值. params: " + params.toString());
+			SLogUtil.logI("玩家点击储值. params: " + params.toString());
 			
 			return EfunJSONUtil.efunTransformToJSONStr(doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_CREATE_ORDER, params));
 		} else {
@@ -145,9 +145,9 @@ public class EfunWalletApi {
 //		verifyParams.put("roleId", googleOrderBean.getRoleId());
 		verifyParams.put("sign", EfunPayHelper.getLoginSign(payActivity));
 		
-		EfunLogUtil.logI("purchaseData: " + purchaseData);
-		EfunLogUtil.logI("dataSignature: " + dataSignature);
-		EfunLogUtil.logI("exchage params: " + verifyParams.toString());
+		SLogUtil.logI("purchaseData: " + purchaseData);
+		SLogUtil.logI("dataSignature: " + dataSignature);
+		SLogUtil.logI("exchage params: " + verifyParams.toString());
 		
 //		return EfunJSONUtil.efunTransformToJSONStr(doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_SEND_STONE, verifyParams));
 		return EfunJSONUtil.efunTransformToJSONStr(doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_PAY_STONE, verifyParams));
@@ -173,7 +173,7 @@ public class EfunWalletApi {
 		// http://pay.efuntw.com/googlePlay_logPint.shtml
 		
 		String efunResponse = doRequest(payActivity, EfunDomainSite.EFUN_REPORT_REFUND, postParams);
-		EfunLogUtil.logD("efun", "efunResponse:" + efunResponse);
+		SLogUtil.logD("efun", "efunResponse:" + efunResponse);
 		return efunResponse;
 
 	}
@@ -193,17 +193,17 @@ public class EfunWalletApi {
 		String efunResponse = "";
 		if (SStringUtil.isNotEmpty(preferredUrl)) {
 			preferredUrl = preferredUrl + efunDomainSite;
-			EfunLogUtil.logD("preferredUrl:" + preferredUrl);
+			SLogUtil.logD("preferredUrl:" + preferredUrl);
 			//efunResponse = EfunHttpUtil.efunExecutePostRequest(preferredUrl, requestParams);
 			efunResponse = HttpRequest.post(preferredUrl,requestParams);
-			EfunLogUtil.logD("preferredUrl response: " + efunResponse);
+			SLogUtil.logD("preferredUrl response: " + efunResponse);
 		}
 		if (SStringUtil.isEmpty(efunResponse) && SStringUtil.isNotEmpty(spareUrl)) {
 			spareUrl = spareUrl + efunDomainSite;
-			EfunLogUtil.logD("spareUrl Url: " + spareUrl);
+			SLogUtil.logD("spareUrl Url: " + spareUrl);
 			//efunResponse = EfunHttpUtil.efunExecutePostRequest(spareUrl, requestParams);
 			efunResponse = HttpRequest.post(spareUrl,requestParams);
-			EfunLogUtil.logD("spareUrl response: " + efunResponse);
+			SLogUtil.logD("spareUrl response: " + efunResponse);
 		}
 		return efunResponse;
 	}

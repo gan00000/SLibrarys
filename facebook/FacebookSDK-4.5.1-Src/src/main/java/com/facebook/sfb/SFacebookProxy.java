@@ -165,6 +165,7 @@ public class SFacebookProxy {
 					user.setUserId(result.getAccessToken().getUserId());
 				}
 				//fbLoginCallBack.onSuccess(user);
+				FbSp.saveFbId(activity,user.getUserId());
 				requestTokenForBusines(activity,user, fbLoginCallBack);
 			}
 
@@ -208,6 +209,7 @@ public class SFacebookProxy {
 					user.setMiddleName(p.getMiddleName());
 					user.setLinkUri(p.getLinkUri());
 //					fbLoginCallBack.onSuccess(user);
+					FbSp.saveFbId(activity,user.getUserId());
 					requestTokenForBusines(activity,user, fbLoginCallBack);
 				}
 			}

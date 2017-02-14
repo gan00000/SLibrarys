@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.ThreadUtil;
 
 import android.os.AsyncTask;
@@ -77,11 +77,11 @@ public abstract class SRequestAsyncTask extends AsyncTask<String, Integer, Strin
 				return this;
 			}
 		} catch (InvocationTargetException e) {
-			EfunLogUtil.logW("e:" + e.getMessage());
+			SLogUtil.logW("e:" + e.getMessage());
 			//e.printStackTrace();
 			// fall-through
 		} catch (IllegalAccessException e) {
-			EfunLogUtil.logW("e:" + e.getMessage());
+			SLogUtil.logW("e:" + e.getMessage());
 			//e.printStackTrace();
 			// fall-through
 		}

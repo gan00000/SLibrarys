@@ -5,81 +5,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.core.base.utils.ResUtil;
-import com.core.base.utils.SPUtil;
-import com.core.base.utils.ApkInfoUtil;
 
 public class SConfig {
-	//此处静态变量原因如下：
-	//由于需要在http请求中拼接此参数，但由于HttpRequest类接口中无上下文传进来，无法取得保存的这些数据，并且又需要对外接口保持防止大改动，故在一些特殊方法中获取一下值保存在这里的静态变量
-	private static String region = "";
-	private static String loginSign = "";
-	private static String loginTimestamp = "";
-	public static Context mContext;
-	
-	public static void clearLoginMsg(Context context) {
-		region = "";
-		loginSign = "";
-		loginTimestamp = "";
-		mContext = context.getApplicationContext();
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_SIGN, "");// 广告启动（每次启动游戏）清除掉sign
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_TIMESTAMP, "");
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_SERVER_RETURN_DATA, "");
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_USER_ID, "");
-	}
-	
-	public static String getSDKLoginReturnData() {
-		if (mContext == null) {
-			return "";
-		}
-		return getSDKLoginReturnData(mContext);
-	}
-	
-	public static String getSDKLoginReturnData(Context context) {
-		if (context == null) {
-			return "";
-		}
-		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_SERVER_RETURN_DATA);
-	}
-	
-	/**
-	 * @return the loginSign  用来http拼接
-	 */
-	public static String getLoginSign() {
-		if (TextUtils.isEmpty(loginSign) && mContext != null) {
-			return getSDKLoginSign(mContext);
-		}
-		return loginSign;
-	}
-	
-	public static String getLoginTimestamp() {
-		if (TextUtils.isEmpty(loginTimestamp) && mContext != null) {
-			return getSDKLoginTimestamp(mContext);
-		}
-		return loginTimestamp;
-	}
 
-	/**
-	 * @param loginSign the loginSign to set
-	 */
-	public static void setLoginSign(Context context,String loginSign) {
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_SIGN, loginSign);
-		SConfig.loginSign = loginSign;
-	}
-
-	public static void setRegion(Context context,String region){
-		SConfig.region = region;
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_GAME_REGION, region);
-	}
-	
-	public static String getRegion(Context context){
-		if (TextUtils.isEmpty(region)) {
-			region = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_GAME_REGION);
-		}
-		return region;
-	}
-	
-	
-	//===========================================参数配置start===============================================	
+	//===========================================参数配置start===============================================
 	//===========================================每個遊戲每個渠道都可能不一樣=======================================
 	//===========================================参数配置start================================================
 
@@ -108,67 +37,24 @@ public class SConfig {
 		return efunGetString(context, "efunAppKey");
 	}
 
-	/**
-	 * 获取gameShortName
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static String getGameShortName(Context context) {
-		return efunGetString(context, "efunGameShortName");
-	}
-
 	public static String getApplicationId(Context context) {
-		return efunGetString(context, "FacebookApplicationId");
-	}
-
-	/**
-	 * 获取前缀
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static String getPrefixName(Context context) {
-		return efunGetString(context, "efunPrefixName");
-	}
-
-	/**
-	 * 获取屏幕方向
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static String getScreenOrientation(Context context) {
-		return efunGetString(context, "efunScreenOrientation");
+		return efunGetString(context, "facebook_app_id");
 	}
 
 
 	public static String getGameLanguage(Context context) {
-		String language = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_SDK_LANGUAGE);
-		if (TextUtils.isEmpty(language)) {
-			language =  efunGetString(context, "efunLanguage");
-		}
+		//String language = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_SDK_LANGUAGE);
+//		if (TextUtils.isEmpty(language)) {
+//			language =  efunGetString(context, "efunLanguage");
+//		}
+		String language =  efunGetString(context, "efunLanguage");
 		return language;
 	}
 	
 	public static String getGameLanguageLower(Context context){
 		return getGameLanguage(context).toLowerCase();
 	}
-	
-	public static String getSDKLoginSign(Context context){
-		loginSign = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_SIGN);
-		return loginSign;
-	}
-	
-	public static String getSDKLoginTimestamp(Context context){
-		loginTimestamp = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_TIMESTAMP);
-		return loginTimestamp;
-	}
-	
-	public static String getCurrentEfunUserId(Context context){
-		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_USER_ID);
-	}
-	
+
 	public static String getEfunAppPlatform(Context context) {
 		return efunGetString(context, "efunAppPlatform");
 	}
@@ -304,12 +190,7 @@ public class SConfig {
 	public static String getPushServerSpareUrl(Context context) {
 		return efunGetConfigUrl(context, "efunPushSpareUrl");
 	}
-	
-/*	public static String getEfunLuaSwitchUrl(Context context) {
-		return efunGetConfigUrl(context, "efunLuaSwitchUrl");
-	}*/
-	
-	
+
 //===========================================域名获取end===============================================	
 //===========================================域名获取end===============================================	
 //===========================================域名获取end===============================================	
@@ -356,24 +237,9 @@ public class SConfig {
 		return efunGetString(context, "efunGAListenerName");
 	}
 	
-	public static String getEfunLoginListener(Context context) {
-		return efunGetString(context, "efunLoginListenerName");
-	}
-	
-	
 	//<string name="reg_jp_efunAdsPreferredUrl">http://ad.efunjp.com/</string>
 	public static String efunGetConfigUrl(Context context,String xmlSchemaName){
-		mContext = context.getApplicationContext();
-		String region = getRegion(context);
-		String url = "";
-		if (!TextUtils.isEmpty(region)) {
-			String xmlSchemaNameTmp = region.toLowerCase() + "_" + xmlSchemaName;
-			url = efunGetString(context, xmlSchemaNameTmp);
-		}
-		
-		if (TextUtils.isEmpty(url)) {
-			url = efunGetString(context, xmlSchemaName);
-		}
+		String url = efunGetString(context, xmlSchemaName);
 		
 		if (TextUtils.isEmpty(url)) {
 			return "";
@@ -385,9 +251,7 @@ public class SConfig {
 	}
 	
 	private static String efunGetString(Context context,String xmlSchemaName){
-		mContext = context.getApplicationContext();
-		getSDKLoginSign(context);//初始化一下sign值，为请求网络使用
-		getSDKLoginTimestamp(context);
+
 		String xmlSchemaContent = "";
 		try {
 			xmlSchemaContent = context.getResources().getString(ResUtil.findStringIdByName(context, xmlSchemaName));

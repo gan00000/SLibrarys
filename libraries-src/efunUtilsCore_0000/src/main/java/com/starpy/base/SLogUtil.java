@@ -1,4 +1,4 @@
-package com.core.base.utils;
+package com.starpy.base;
 
 import java.io.File;
 import java.util.Map;
@@ -10,10 +10,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-public class EfunLogUtil {
+import com.core.base.utils.FileUtil;
+import com.core.base.utils.SStringUtil;
+
+public class SLogUtil {
 	
 
-	private static final String TAG = "efunLog";
+	private static final String S_LOG_TAG = "S_LOG";
 
 	private static final int CAN_LOG = 2;
 	private static final int CAN_NOT_LOG = 3;
@@ -28,15 +31,15 @@ public class EfunLogUtil {
 	private static boolean isInit = false;
 	
 	public static void enableDebug(boolean debug){
-		EfunLogUtil.mDebugLog = debug;
+		SLogUtil.mDebugLog = debug;
 	}
 	
 	public static void enableInfo(boolean mInfo){
-		EfunLogUtil.mInfo = mInfo;
+		SLogUtil.mInfo = mInfo;
 	}
 	
 	public static  void logD(String msg) {
-        if (mDebugLog) Log.d(TAG, msg + "");
+        if (mDebugLog) Log.d(S_LOG_TAG, msg + "");
         efunDebug("", msg + "");
     }
 	
@@ -46,7 +49,7 @@ public class EfunLogUtil {
     }
 	
 	public static void logI(String msg) {
-		if (mInfo) Log.i(TAG, msg + "");
+		if (mInfo) Log.i(S_LOG_TAG, msg + "");
 		efunInfo("", msg + "");
 	}
 	
@@ -56,11 +59,11 @@ public class EfunLogUtil {
 	}
 	
 	public static void logE(String msg) {
-		Log.e(TAG,  msg);
+		Log.e(S_LOG_TAG,  msg);
 	}
 	
 	public static void logW(String msg) {
-		Log.w(TAG, msg);
+		Log.w(S_LOG_TAG, msg);
 	}
 	
 	public static void logUrl(final String url, final Map<String, String> params){
@@ -71,7 +74,7 @@ public class EfunLogUtil {
 		String urlString = url + "?" + SStringUtil.map2strData(params);
 		
 		if (mDebugLog) {
-			EfunLogUtil.logD("http url:" + urlString);
+			SLogUtil.logD("http url:" + urlString);
 		}else{
 			efunDebug("", "http url:" + urlString);
 		}
@@ -86,7 +89,7 @@ public class EfunLogUtil {
 		}
 		if (logFlag == CAN_LOG && can_log_debug.equals("true")) {
 			if (TextUtils.isEmpty(tag)) {
-				Log.d(TAG, msg);
+				Log.d(S_LOG_TAG, msg);
 			}else{
 				Log.d(tag, msg);
 			}
@@ -101,7 +104,7 @@ public class EfunLogUtil {
 		}
 		if (logFlag == CAN_LOG && can_log_info.equals("true")) {
 			if (TextUtils.isEmpty(tag)) {
-				Log.i(TAG, msg);
+				Log.i(S_LOG_TAG, msg);
 			}else{
 				Log.i(tag, msg);
 			}
@@ -124,9 +127,9 @@ public class EfunLogUtil {
 	private static void initLog() {
 		try {
 			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-				String logPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "efunlog" + File.separator
+				String logPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "star" + File.separator
 						+ "efunlog.properties";
-				Properties prop = EfunFileUtil.readProterties(logPath);
+				Properties prop = FileUtil.readProterties(logPath);
 				if (null != prop) {
 					if (prop.getProperty("debug", "").equals("true")) {
 						can_log_debug = "true";

@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import com.core.base.request.SRequestAsyncTask;
 import com.core.base.utils.EfunJSONUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.GoogleOrderBean;
 import com.starpy.googlepay.constants.GooglePayContant;
@@ -42,7 +42,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 	@Override
 	protected String doInBackground(String... params) {
 		String respone = EfunWalletApi.pay(act);
-		EfunLogUtil.logI("click stored value result with " + respone);
+		SLogUtil.logI("click stored value result with " + respone);
 		try {
 			final String sku = orderBean.getSku();
 			mHelper.efunQuerySkuDetails(sku, new QueryInventoryFinishedListener() {
@@ -50,7 +50,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 				@Override
 				public void onQueryInventoryFinished(IabResult result, Inventory inv) {
 					if (result != null && result.isSuccess() && inv != null && inv.hasDetails(sku)) {
-						EfunLogUtil.logD("SkuDetails:" + inv.getSkuDetails(sku).toString());
+						SLogUtil.logD("SkuDetails:" + inv.getSkuDetails(sku).toString());
 						SkuDetails skuDetails = inv.getSkuDetails(sku);
 						if (skuDetails != null) {
 							act.setSkuDetails(skuDetails);
@@ -62,7 +62,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		EfunLogUtil.logD("respone return");
+		SLogUtil.logD("respone return");
 		return respone;
 	}
 
@@ -134,28 +134,28 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 //			}
 			
 		} catch (JSONException e) {
-			EfunLogUtil.logI("JSONException异常");
+			SLogUtil.logI("JSONException异常");
 			e.printStackTrace();
 		}
 		String developerPayload = mjson.toString();
 		if (developerPayload.length() > 256) {
-			EfunLogUtil.logW("developerPayload length > 256");
+			SLogUtil.logW("developerPayload length > 256");
 			developerPayload = developerPayload.substring(0, 256);
 		}
-		EfunLogUtil.logI("developerPayload: " + developerPayload + " developerPayload length:" + developerPayload.length());
-		EfunLogUtil.logI("开始google购买流程launchPurchaseFlow");
+		SLogUtil.logI("developerPayload: " + developerPayload + " developerPayload length:" + developerPayload.length());
+		SLogUtil.logI("开始google购买流程launchPurchaseFlow");
 		//developerPayload: optional argument to be sent back with the purchase information,最大256 characters.否则报错code:"IAB-DPTL" 
 		mHelper.launchPurchaseFlow(act, extraOrderBean.getSku(),GooglePayContant.RC_REQUEST,
 				new IabHelper.OnIabPurchaseFinishedListener() {
 					public void onIabPurchaseFinished(final IabResult result, final Purchase purchase) {
 
-						EfunLogUtil.logI("购买流程完毕并且回调onIabPurchaseFinished");
+						SLogUtil.logI("购买流程完毕并且回调onIabPurchaseFinished");
 						if (purchase == null) {
-							EfunLogUtil.logI("purchase is null.");
+							SLogUtil.logI("purchase is null.");
 							EndFlag.setEndFlag(true);
 							prompt.dismissProgressDialog();
 							if (result.getResponse() == IabHelper.IABHELPER_USER_CANCELLED) {
-								EfunLogUtil.logI("info: " + result.getMessage());
+								SLogUtil.logI("info: " + result.getMessage());
 								if (act.isCloseActivityUserCancel()) {
 									act.finish();
 								}
@@ -180,7 +180,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 						}
 						//服务端订单验证失败（公密googleKey进行数据验证失败）
 						if (result != null && result.getResponse() == IabHelper.IABHELPER_VERIFICATION_FAILED && null == result.getmEfunState()) {
-							EfunLogUtil.logI("本次购买失败: " + result.getMessage());
+							SLogUtil.logI("本次购买失败: " + result.getMessage());
 							prompt.dismissProgressDialog();
 							EndFlag.setEndFlag(true);
 							prompt.complainCloseAct(act.getEfunPayError().getEfunGoogleBuyFailError());
@@ -188,7 +188,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 						}
 						//请求验证订单的时候服务器超时或者返回结果失败
 						if (null != result.getmEfunState() && GooglePayContant.IAB_STATE .equals(result.getmEfunState()) && null != result.getMessage()) {
-							EfunLogUtil.logI("msg : " + result.getMessage());
+							SLogUtil.logI("msg : " + result.getMessage());
 							prompt.dismissProgressDialog();
 							EndFlag.setEndFlag(true);
 							prompt.complainCloseAct(result.getMessage());
@@ -199,7 +199,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 							// 消费
 							mHelper.consumeAsync(purchase, mConsumeFinishedListener);
 						} else {
-							EfunLogUtil.logI("本次购买失败...");
+							SLogUtil.logI("本次购买失败...");
 							EndFlag.setEndFlag(true);
 							prompt.dismissProgressDialog();
 							if (act != null) {
@@ -214,9 +214,9 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 	private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
 		public void onConsumeFinished(Purchase purchase, IabResult result) {
 			if (result.isSuccess()) {
-				EfunLogUtil.logI("消费成功");
+				SLogUtil.logI("消费成功");
 			} else {
-				EfunLogUtil.logI("消费失败");
+				SLogUtil.logI("消费失败");
 			}
 			EndFlag.setEndFlag(true);
 			prompt.dismissProgressDialog();

@@ -12,8 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
-import com.core.base.utils.EfunFileUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.core.base.utils.FileUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 
 import android.text.TextUtils;
@@ -74,14 +74,6 @@ public class HttpRequestCore{
 	}
 
 	
-/*	public String get() {
-		return doReuqestByGet().getResult();
-	}
-	
-	public String post() {
-		return doReuqestByPost().getResult();
-	}*/
-	
 	public HttpResponse excuteGetRequest(String urlStr,Map<String, String> dataMap) {
 		if (TextUtils.isEmpty(urlStr)) {
 			return null;
@@ -100,7 +92,7 @@ public class HttpRequestCore{
 		}else{
 			getUrl = urlStr + "?" + getData;
 		}
-		EfunLogUtil.logD("http request:" + getUrl);
+		SLogUtil.logD("http request:" + getUrl);
 		return excuteGetRequest(getUrl);
 		
 	}
@@ -112,28 +104,7 @@ public class HttpRequestCore{
 		return httpResponse;
 	}
 	
-	/**
-	 * <p>Description: 发送post请求</p>
-	 * @param urlStr 请求地址
-	 * @param data 参数键值
-	 * @return  请求的结果
-	 * @date 2015年10月9日
-	 */
-/*	public String post(String urlStr,Map<String, String> dataMap) {
-		
-		if (TextUtils.isEmpty(urlStr)) {
-			return "";
-		}
-		
-		this.requestUrl = urlStr;
 
-		String postData = SStringUtil.map2strData(dataMap);
-		EfunLogUtil.logD("http request:" + urlStr + "?" + postData);
-		this.sendData = postData;
-		return doReuqestByPost().getResult();
-	
-	}*/
-	
 	public HttpResponse excutePostRequest(String urlStr,Map<String, String> dataMap) {
 		
 		String postData = SStringUtil.map2strData(dataMap);
@@ -147,7 +118,7 @@ public class HttpRequestCore{
 		}
 		this.requestUrl = urlStr;
 		this.sendData = postData;
-		EfunLogUtil.logD("http request:" + urlStr + "?" + postData);
+		SLogUtil.logD("http request:" + urlStr + "?" + postData);
 		doPost();
 		httpResponse.setRequestCompleteUrl(urlStr + "?" + postData);
 		return httpResponse;
@@ -208,11 +179,11 @@ public class HttpRequestCore{
 			int code = urlConnection.getResponseCode();
 			httpResponse.setHttpResponseCode(code);
 			String message = urlConnection.getResponseMessage();
-			EfunLogUtil.logD("request code:" + code + ",code message:" + message);
+			SLogUtil.logD("request code:" + code + ",code message:" + message);
 			if (code == HttpURLConnection.HTTP_OK) {
 				result = readStream(urlConnection.getInputStream());
 			}
-			//EfunLogUtil.logD(result);
+			//SLogUtil.logD(result);
 			if (httpResponse != null) {
 				httpResponse.setResult(result);
 				httpResponse.setServerTime(urlConnection.getHeaderField("Date"));
@@ -236,7 +207,6 @@ public class HttpRequestCore{
 
 	/**
 	 * <p>Description: </p>
-	 * @param out
 	 * @param data  格式必须为（key=value&key1=value1）
 	 * @throws IOException 
 	 * @throws UnsupportedEncodingException 
@@ -318,9 +288,9 @@ public class HttpRequestCore{
 		FileOutputStream fileOutputStream = null;
 		InputStream is = null;
 		try {
-			EfunLogUtil.logD("start down load...");
+			SLogUtil.logD("start down load...");
 			checkHttpsUrl(downLoadFileUrl);
-			EfunLogUtil.logD("http request:" + downLoadFileUrl);
+			SLogUtil.logD("http request:" + downLoadFileUrl);
 			URL url = new URL(downLoadFileUrl);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setConnectTimeout(5 * 1000);
@@ -336,7 +306,7 @@ public class HttpRequestCore{
 			Log.d("efun", "域名文件 http response code:" + code);
 			if (200 == code) {
 				File saveFile = new File(savePath);
-				EfunFileUtil.deleteFile(saveFile);
+				FileUtil.deleteFile(saveFile);
 				if (!saveFile.exists()) {
 					if(saveFile.getParentFile()!= null){
 						saveFile.getParentFile().mkdirs();

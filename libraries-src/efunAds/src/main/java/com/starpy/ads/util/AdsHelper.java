@@ -6,7 +6,7 @@ import com.core.base.res.SConfig;
 import com.starpy.ads.bean.AdsHttpParams;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.SStringUtil;
 
@@ -143,13 +143,13 @@ public class AdsHelper {
 		SharedPreferences settings = context.getSharedPreferences(com.starpy.ads.util.SPUtil.ads_efun, Context.MODE_PRIVATE);
 		String advertisersResult = settings.getString(com.starpy.ads.util.SPUtil.ADVERTISERS_S2S_KEY, null);
 		if (null != advertisersResult && advertisersResult.equals(com.starpy.ads.util.SPUtil.ADVERTISERS_S2S_RESULT)) {
-			EfunLogUtil.logD( "has old local data--ADVERTISERS_SUCCESS_200...Efun.ads");
+			SLogUtil.logD( "has old local data--ADVERTISERS_SUCCESS_200...Efun.ads");
 			com.starpy.ads.util.SPUtil.saveResponeCode(context, "1000");
 			return true;
 		}
 		advertisersResult = context.getSharedPreferences(com.starpy.ads.util.SPUtil.ads_efun_older, Context.MODE_PRIVATE).getString(com.starpy.ads.util.SPUtil.ADVERTISERS_S2S_KEY, null);
 		if (null != advertisersResult && (advertisersResult.equals(com.starpy.ads.util.SPUtil.ADVERTISERS_S2S_RESULT))) {
-			EfunLogUtil.logD( "has old local data--ADVERTISERS_SUCCESS_200...ads.efun");
+			SLogUtil.logD( "has old local data--ADVERTISERS_SUCCESS_200...ads.efun");
 			com.starpy.ads.util.SPUtil.saveResponeCode(context, "1000");
 			return true;
 		}

@@ -2,11 +2,13 @@ package com.startpy.sdk.login.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.starpy.base.StarPyUtil;
 import com.startpy.sdk.R;
 
 /**
@@ -33,6 +35,11 @@ public class AccountRegisterTermsFragment extends BaseFragment{
                 sLoginActivity.popBackStack();
             }
         });
+
+        String serverTermsContent = StarPyUtil.getSdkLoginTerms(getContext());//优先设置服务器获取的配置
+        if (!TextUtils.isEmpty(serverTermsContent)){
+            termsTextView.setText(serverTermsContent);
+        }
 
         return contentView;
     }

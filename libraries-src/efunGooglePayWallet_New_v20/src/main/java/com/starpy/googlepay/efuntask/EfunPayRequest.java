@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.core.base.request.SRequestAsyncTask;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.EfunGooglePayService;
 import com.starpy.googlepay.bean.EfunQueryInventoryState;
@@ -43,7 +43,7 @@ public class EfunPayRequest {
 	*/
 	public static void requestSendStone2222222(final Context context, final Purchase purchase, final IabHelper.OnIabPurchaseFinishedListener mPurchaseListener){
 
-		  EfunLogUtil.logD( "start request send stone");
+		  SLogUtil.logD( "start request send stone");
 		  
 		  new SRequestAsyncTask() {
 			
@@ -61,7 +61,7 @@ public class EfunPayRequest {
 			protected void onPostExecute(String result) {
 				// TODO Auto-generated method stub
 				super.onPostExecute(result);
-				EfunLogUtil.logD("result返回：" + result);
+				SLogUtil.logD("result返回：" + result);
 				if (!TextUtils.isEmpty(result)) {
 
 					try {
@@ -70,15 +70,15 @@ public class EfunPayRequest {
 						serverResponseProcess(context, mPurchaseListener, purchase, json);
 						return;
 					} catch (JSONException e) {
-						EfunLogUtil.logW("EfunVerifyUtil json异常");
+						SLogUtil.logW("EfunVerifyUtil json异常");
 						e.printStackTrace();
 					}
 					
 				} 
 
 				// server not connect
-				EfunLogUtil.logW("do not clear local purchaseData,server not connect.");
-				EfunLogUtil.logW("server connect error.");
+				SLogUtil.logW("do not clear local purchaseData,server not connect.");
+				SLogUtil.logW("server connect error.");
 				// 网络连接超时的回调
 				IabResult iabResult = new IabResult(GooglePayContant.EFUN_SERVER_RESPONE_FAIL,
 						EfunGooglePayService.getPayActivity().getEfunPayError().getEfunGoogleServerError());
@@ -117,25 +117,25 @@ public class EfunPayRequest {
 		
 		String result = EfunWalletApi.sendStoneForNormalPurchase(context, requestMap);
 
-		EfunLogUtil.logD("result返回：" + result);
+		SLogUtil.logD("result返回：" + result);
 		if (!TextUtils.isEmpty(result)) {
 			try {
 				JSONObject json = new JSONObject(result);
 				checkAndClearData(context, json);
 				if ("true".equals(json.optString("isSign"))) {// 判断订单是否验证成功
-					EfunLogUtil.logD("query order sign:true");
+					SLogUtil.logD("query order sign:true");
 				}
 				if (json.optString("result", "").equals("0000")) {
-					EfunLogUtil.logD("stone send success");
+					SLogUtil.logD("stone send success");
 				}
 
 			} catch (JSONException e) {
-				EfunLogUtil.logW("query jsonexception...");
+				SLogUtil.logW("query jsonexception...");
 				e.printStackTrace();
 			}
 
 		}else {
-			EfunLogUtil.logD("server connect timeout...");
+			SLogUtil.logD("server connect timeout...");
 			if (EfunGooglePayService.getPayActivity() != null) {
 				EfunGooglePayService.getPayActivity().getQueryInventoryState().setQueryFailState(EfunQueryInventoryState.SERVER_TIME_OUT);
 			}
@@ -154,23 +154,23 @@ public class EfunPayRequest {
 	 */
 	public static boolean requestSendStoneForQueryInventoryOrder_PromoCode(final Context context,String purchaseData, String dataSignature) {
 		String result =  EfunWalletApi.sendStoneForPromoCode(context, purchaseData, dataSignature,null);
-		EfunLogUtil.logD( "result返回：" + result);
+		SLogUtil.logD( "result返回：" + result);
 		if (!TextUtils.isEmpty(result)) {
 			try {
 				JSONObject json = new JSONObject(result);
 				if (json.optString("resultCode", "").equals("0000")) {//判断订单是否验证成功
-					EfunLogUtil.logD("query order sign:true;stone send success");
+					SLogUtil.logD("query order sign:true;stone send success");
 					return true;
 				}else{
-					EfunLogUtil.logD("error msg:" + json.optString("message", ""));
+					SLogUtil.logD("error msg:" + json.optString("message", ""));
 				}
 			} catch (JSONException e) {
-				EfunLogUtil.logW( "query jsonexception...");
+				SLogUtil.logW( "query jsonexception...");
 				e.printStackTrace();
 			}
 
 		}else {
-			EfunLogUtil.logD("server connect timeout...");
+			SLogUtil.logD("server connect timeout...");
 		}
 		return false;
 	}
@@ -185,13 +185,13 @@ public class EfunPayRequest {
 		String efunPurchaseData = getPurchaseData(json);
 		SharedPreferences preferences = context.getSharedPreferences(GooglePayContant.EFUNFILENAME, Context.MODE_PRIVATE);
 		String localPurchaseData = preferences.getString(GooglePayContant.PURCHASE_DATA_ONE, "");
-		EfunLogUtil.logD("efunPurchaseData:" + efunPurchaseData);
-		EfunLogUtil.logD("localPurchaseData:" + localPurchaseData);
+		SLogUtil.logD("efunPurchaseData:" + efunPurchaseData);
+		SLogUtil.logD("localPurchaseData:" + localPurchaseData);
 		if (efunPurchaseData.equals(localPurchaseData)) {
-			EfunLogUtil.logD("query clear local purchaseData");
+			SLogUtil.logD("query clear local purchaseData");
 			preferences.edit().clear().commit();
 		} else {
-			EfunLogUtil.logD("query do not clear local purchaseData");
+			SLogUtil.logD("query do not clear local purchaseData");
 		}
 	}
 
@@ -223,7 +223,7 @@ public class EfunPayRequest {
 			walletBean.setGoogleResponeCode(IabHelper.BILLING_RESPONSE_RESULT_OK);
 			String purchaseData = getPurchaseData(json);
 			if (SStringUtil.isNotEmpty(purchaseData)) {
-				//			EfunLogUtil.logD("purchaseData处理后：" + purchaseData);
+				//			SLogUtil.logD("purchaseData处理后：" + purchaseData);
 				try {
 					JSONObject purchaseDataJson = new JSONObject(purchaseData);
 					walletBean.setGoogleOrderId(purchaseDataJson.optString("orderId", ""));//google订单号
@@ -232,13 +232,13 @@ public class EfunPayRequest {
 						JSONObject developerPayloadJson = new JSONObject(efunDeveloperPayload);
 						if (developerPayloadJson != null) {
 							String orderId = developerPayloadJson.optString("orderId", "");//efun订单号
-							EfunLogUtil.logD("orderId:" + orderId);
+							SLogUtil.logD("orderId:" + orderId);
 							walletBean.setEfunOrderId(orderId);
 						}
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
-					EfunLogUtil.logW("purchaseData不能转化为jsonObject");
+					SLogUtil.logW("purchaseData不能转化为jsonObject");
 				}
 			}
 		}
@@ -250,7 +250,7 @@ public class EfunPayRequest {
 	* @param payActivity
 	*/
 	public static void clearPurchaseData(final Context context) {
-		EfunLogUtil.logD("clear local wallet data");
+		SLogUtil.logD("clear local wallet data");
 		SharedPreferences preferences = context.getSharedPreferences(GooglePayContant.EFUNFILENAME, Context.MODE_PRIVATE);
 		preferences.edit().clear().commit();
 	}
@@ -271,25 +271,25 @@ public class EfunPayRequest {
 		clearPurchaseData(context);//清空本地保存的订单数据
 
 		//if ("true".equals(responseJson.optString("isSign",""))) {// 判断订单在服务器是否验证通过
-		//	EfunLogUtil.logD("buy order server sign:true");
+		//	SLogUtil.logD("buy order server sign:true");
 			if ("0000".equals(responseJson.optString("result","")) || "0000".equals(responseJson.optString("resultCode",""))) {// 判断服务器返回的result结果是否为发放砖石成功
-				EfunLogUtil.logD("buy order server result:0000. send stone success");
+				SLogUtil.logD("buy order server result:0000. send stone success");
 				setWalletBean(context, responseJson);
 
 				// 购买成功并且发放砖石回调
-				EfunLogUtil.logD("order success,send stone,began to consume");
+				SLogUtil.logD("order success,send stone,began to consume");
 				IabResult result = new IabResult(IabHelper.BILLING_RESPONSE_RESULT_OK, "Success");
 				if (mPurchaseListener != null)
 					mPurchaseListener.onIabPurchaseFinished(result, purchase);
 
 			} else {//发送砖石失败
 
-				EfunLogUtil.logW("result is not 0000.send stone fail");
+				SLogUtil.logW("result is not 0000.send stone fail");
 				String message = responseJson.optString("message", "");
 				if (TextUtils.isEmpty(message)) {
 					message = responseJson.optString("msg", "");
 				}
-				EfunLogUtil.logD("error msg:" + message);
+				SLogUtil.logD("error msg:" + message);
 				// 服务器返回失败状态的回调
 				IabResult iabResult = new IabResult(GooglePayContant.EFUN_SERVER_RESPONE_FAIL, message);
 				if (mPurchaseListener != null)
@@ -297,7 +297,7 @@ public class EfunPayRequest {
 
 			}
 //		} else {
-//			EfunLogUtil.logW("verify is false.");
+//			SLogUtil.logW("verify is false.");
 //
 //			// 订单验证失败的回调
 //			IabResult iabResult = new IabResult(IabHelper.IABHELPER_VERIFICATION_FAILED,

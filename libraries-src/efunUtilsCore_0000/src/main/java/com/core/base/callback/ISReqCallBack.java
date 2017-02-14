@@ -5,6 +5,6 @@ package com.core.base.callback;
  */
 public interface ISReqCallBack<T> extends ISCallBack<T> {
 
-    void callBack(T t);
+    void callBack(T t,String rawResult);
 
 }

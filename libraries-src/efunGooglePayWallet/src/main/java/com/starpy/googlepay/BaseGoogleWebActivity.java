@@ -17,7 +17,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import com.core.base.utils.ApkInfoUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.WebOrderBean;
 import com.starpy.googlepay.callback.ISWalletListener;
@@ -113,7 +113,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		EfunLogUtil.logI("onActivityResult(" + requestCode + "," + resultCode + "," + data);
+		SLogUtil.logI("onActivityResult(" + requestCode + "," + resultCode + "," + data);
 		handlerActivityResult(requestCode, resultCode, data);
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -125,7 +125,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 		super.onDestroy();
 		// very important:
 		if (mHelper != null){
-			EfunLogUtil.logI("mHelper.dispose");
+			SLogUtil.logI("mHelper.dispose");
 			mHelper.dispose();
 		}
 		mHelper = null;
@@ -153,7 +153,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 
 		try {
 			if (null != walletListeners && !walletListeners.isEmpty()) {
-				EfunLogUtil.logI("walletListeners size:" + walletListeners.size());
+				SLogUtil.logI("walletListeners size:" + walletListeners.size());
 				if (walletBean != null && walletBean.getPurchaseState() != GooglePayContant.PURCHASESUCCESS) {
 					walletBean.setPurchaseState(GooglePayContant.PURCHASEFAILURE);
 				}
@@ -163,7 +163,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 					}
 				}
 			} else {
-				EfunLogUtil.logI("不回调");
+				SLogUtil.logI("不回调");
 			}
 		} catch (Exception e) {
 			Log.i("efun", e.getMessage() + "");
@@ -187,9 +187,9 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 			// not handled, so handle it ourselves (here's where you'd
 			// perform any handling of activity results not related to in-app
 			// billing...
-			EfunLogUtil.logI("onActivityResult handled by IABUtil. the result was related to a purchase flow and was handled");
+			SLogUtil.logI("onActivityResult handled by IABUtil. the result was related to a purchase flow and was handled");
 		} else {
-			EfunLogUtil.logI("onActivityResult handled by IABUtil.the result was not related to a purchase");
+			SLogUtil.logI("onActivityResult handled by IABUtil.the result was not related to a purchase");
 			EndFlag.setEndFlag(true);
 			prompt.complainCloseAct(efunPayError.getEfunGoogleBuyFailError());
 		}
@@ -216,12 +216,12 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 	    settings.setBuiltInZoomControls(true);
 	    settings.setSupportZoom(true);
 	    webView.addJavascriptInterface(efunJS, EFUNANDROIDOBJECT);//JS对象
-	    EfunLogUtil.logD("设置webView");
+	    SLogUtil.logD("设置webView");
 	    
 	    webView.setWebChromeClient(new WebChromeClient());
 	    webOrderBean = initWebOrderBean();
 	    urlParams = EfunPayUtil.buildGoogleGoodsUrl(this, webOrderBean);
-	    EfunLogUtil.logD("urlParams:" + urlParams);
+	    SLogUtil.logD("urlParams:" + urlParams);
 	    efunDomainPreferredUrl = EfunPayHelper.getPreferredUrl(BaseGoogleWebActivity.this);
 	    efunDomainSpareUrl = EfunPayHelper.getSpareUrl(BaseGoogleWebActivity.this);
 		
@@ -231,12 +231,12 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 			mPreferredUrl = efunDomainPreferredUrl + efunDomainSite + urlParams;
 		}
 	    
-		EfunLogUtil.logD("preferredUrl: " + mPreferredUrl);
+		SLogUtil.logD("preferredUrl: " + mPreferredUrl);
 	    
 	    webView.setWebViewClient(new WebViewClient() {
 			
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				EfunLogUtil.logD("shouldOverrideUrlLoading:initEfunGoogleSkus()" + url);
+				SLogUtil.logD("shouldOverrideUrlLoading:initEfunGoogleSkus()" + url);
 				view.loadUrl(url);
 				return true;
 			}
@@ -247,13 +247,13 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				super.onPageStarted(view, url, favicon);
-				EfunLogUtil.logD("onPageStarted");
+				SLogUtil.logD("onPageStarted");
 			}
 
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
-				EfunLogUtil.logD("onPageFinished url:" + url);
+				SLogUtil.logD("onPageFinished url:" + url);
 				/*if (googlePay || url.contains("google_efun.html")) {
 				} else if(prompt != null){
 					prompt.dismissProgressDialog();
@@ -267,7 +267,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 				super.onReceivedError(view, errorCode, description, failingUrl);
 				Log.d("efunLog", "onReceivedError  errorCode:" + errorCode);
-				EfunLogUtil.logD("failingUrl:" + failingUrl);
+				SLogUtil.logD("failingUrl:" + failingUrl);
 				//如果首选域名访问超时，则转向备用域名
 				if ((WebViewClient.ERROR_TIMEOUT == errorCode || WebViewClient.ERROR_CONNECT == errorCode) && failingUrl.contains(BaseGoogleWebActivity.this.efunDomainPreferredUrl)) {
 					if(TextUtils.isEmpty(efunDomainSite)){
@@ -275,7 +275,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 					}else{
 						mPreferredUrl = efunDomainPreferredUrl + efunDomainSite + urlParams;
 					}
-					EfunLogUtil.logD("spareUrl: " + mSpareUrl);
+					SLogUtil.logD("spareUrl: " + mSpareUrl);
 					if (SStringUtil.isNotEmpty(BaseGoogleWebActivity.this.mSpareUrl)) {
 						//备用域名访问
 						view.loadUrl(BaseGoogleWebActivity.this.mSpareUrl);
@@ -328,7 +328,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 		//如果应用设置argetSdkVersion 17 或者更高需要加上@JavascriptInterface
 		@JavascriptInterface   
 		public void startGooglePay(String sku){
-			EfunLogUtil.logD("google sku from js:" + sku);
+			SLogUtil.logD("google sku from js:" + sku);
 			final String mSku = sku;
 			BaseGoogleWebActivity.this.runOnUiThread(new Runnable() {
 				
@@ -366,17 +366,17 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 			//googlePay = true;
 			if (SStringUtil.isNotEmpty(skus_string)) {
 				skus_string = skus_string.trim();
-				EfunLogUtil.logD("skus from html:" + skus_string);
+				SLogUtil.logD("skus from html:" + skus_string);
 				String[] mSkus = skus_string.split(",");
 				for (int i = 0; i < mSkus.length; i++) {
 					if (SStringUtil.isNotEmpty(mSkus[i])) {
-						EfunLogUtil.logD("sku id:" + mSkus[i]);
+						SLogUtil.logD("sku id:" + mSkus[i]);
 						list.add(mSkus[i]);
 					}
 				}
 				BaseGoogleWebActivity.this.set_skus(list);
 			}else{
-				EfunLogUtil.logD("skus is empty");
+				SLogUtil.logD("skus is empty");
 			}
 			BaseGoogleWebActivity.this.runOnUiThread(new Runnable() {
 				

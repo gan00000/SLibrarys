@@ -35,7 +35,7 @@ public class AccountLoginRequest extends LoginBaseRequest{
 	}
 
 	public void setPwd(String pwd) {
-		this.pwd = SStringUtil.toMd5(pwd);
+		this.pwd = pwd;
 	}
 
 	public String getNewPwd() {

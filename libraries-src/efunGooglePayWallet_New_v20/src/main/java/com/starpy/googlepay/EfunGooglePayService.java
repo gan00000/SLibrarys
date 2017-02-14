@@ -1,6 +1,6 @@
 package com.starpy.googlepay;
 
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.GoogleOrderBean;
 import com.starpy.googlepay.efuntask.SAsyncPurchaseTask;
@@ -95,7 +95,7 @@ public class EfunGooglePayService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		EfunLogUtil.logD("startId:" + startId);
+		SLogUtil.logD("startId:" + startId);
 		
 		if (intent == null) {
 			return super.onStartCommand(intent, flags, startId);
@@ -114,7 +114,7 @@ public class EfunGooglePayService extends Service {
 		mHelper.enableDebugLogging(true);
 		
 		String payFucType = intent.getStringExtra(GooglePayFunctionType);//获取打开server的作用功能
-		EfunLogUtil.logD("payFucType:" + payFucType);
+		SLogUtil.logD("payFucType:" + payFucType);
 		if (!TextUtils.isEmpty(payFucType)) {
 			if (payFucType.equals(GooglePaySetUp)) {//启动储值原厂服务
 				setUpTiming = intent.getIntExtra(GooglePaySetUpTiming, 0);
@@ -165,14 +165,14 @@ public class EfunGooglePayService extends Service {
 			showProgressDialog();
 		}
 		if (null != mHelper) {
-				EfunLogUtil.logD("startSetup iab.");
+				SLogUtil.logD("startSetup iab.");
 				if (!mHelper.isSetupDone() || !mHelper.inappServiceOK()) {
 				mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
 
 					public void onIabSetupFinished(IabResult result) {
-						EfunLogUtil.logD("startSetup onIabSetupFinished.");
+						SLogUtil.logD("startSetup onIabSetupFinished.");
 						if (!result.isSuccess()) {
-							EfunLogUtil.logD("start set up not success:" + result.getMessage());
+							SLogUtil.logD("start set up not success:" + result.getMessage());
 						//	supportGooglePay = false;
 							if (isInView && payActivity != null) {//弹框提示
 								dismissProgressDialog();
@@ -180,7 +180,7 @@ public class EfunGooglePayService extends Service {
 							}
 							return;
 						}
-						EfunLogUtil.logD("开始检查有没有消费的商品");
+						SLogUtil.logD("开始检查有没有消费的商品");
 						startQueryInventory();
 						//mHelper.getPuchase();
 					}
@@ -189,16 +189,16 @@ public class EfunGooglePayService extends Service {
 				startQueryInventory();
 			}
 		}else{
-			EfunLogUtil.logD("mHelper is null");
+			SLogUtil.logD("mHelper is null");
 			complainCloseAct("error");
 		}
 
 	}
 	
 	private void startQueryInventory(){
-		EfunLogUtil.logD("set up timing:" + setUpTiming);
+		SLogUtil.logD("set up timing:" + setUpTiming);
 		if (EfunGooglePayService.mHelper.isAsyncInProgress()) {
-			EfunLogUtil.logD("startQueryInventory isAsyncInProgress true");
+			SLogUtil.logD("startQueryInventory isAsyncInProgress true");
 			complain("error,try again");
 			return;
 		}
@@ -212,7 +212,7 @@ public class EfunGooglePayService extends Service {
 	public synchronized void startPurchase(String sku){
 		
 		if (SStringUtil.isEmpty(sku)) {
-			EfunLogUtil.logD("sku is empty");
+			SLogUtil.logD("sku is empty");
 			return;
 		}
 		
@@ -220,14 +220,14 @@ public class EfunGooglePayService extends Service {
 			GoogleOrderBean gob = payActivity.get_GoogleOrderBean();
 			GoogleOrderBean gobClone = (GoogleOrderBean)gob.cloneGoogleOrderBean();
 			if (gob != gobClone) {
-				EfunLogUtil.logD("gob != gobClone");
+				SLogUtil.logD("gob != gobClone");
 				new SAsyncPurchaseTask(payActivity, EfunGooglePayService.mHelper,gobClone).asyncExcute();
 			}else{
-				EfunLogUtil.logD("gob == gobClone");
+				SLogUtil.logD("gob == gobClone");
 				new SAsyncPurchaseTask(payActivity, EfunGooglePayService.mHelper,gobClone).asyncExcute();
 			}
 		}else{
-			EfunLogUtil.logE("payActivity is null || isAsyncInProgress");
+			SLogUtil.logE("payActivity is null || isAsyncInProgress");
 		}
 	}
 	

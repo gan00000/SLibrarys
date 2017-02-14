@@ -1,6 +1,6 @@
 package com.starpy.googlepay.efuntask;
 
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -190,7 +190,7 @@ public class Prompt {
 			});
 		}catch(Exception e){
 			e.printStackTrace();
-			EfunLogUtil.logI("On progressDialog " + e.getStackTrace());
+			SLogUtil.logI("On progressDialog " + e.getStackTrace());
 		}
 	}
 

@@ -3,7 +3,7 @@ package com.starpy.push.alarmpush;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ public class AlarmPushReceiver  {
 	public static void onReceive(Context context, Intent intent) {
 		
 		if ("com.efun.alarmpush".equals(intent.getAction())) {
-			EfunLogUtil.logI("com.efun.alarmpush action");
+			SLogUtil.logI("com.efun.alarmpush action");
 			
 //			SimpleDateFormat sdf = new SimpleDateFormat("kk:mm:ss", Locale.ROOT);
 //			String str = sdf.format(new Date());
@@ -35,7 +35,7 @@ public class AlarmPushReceiver  {
 			int minute = mCalendar.get(Calendar.MINUTE);
 			int second = mCalendar.get(Calendar.SECOND);
 			
-			EfunLogUtil.logI(" week: "+week+" hour: "+hour+" minute: "+minute+" second: "+second);
+			SLogUtil.logI(" week: "+week+" hour: "+hour+" minute: "+minute+" second: "+second);
 			
 			long current = hour*60*60*1000l + minute*60*1000l + second*1000l; 
 			
@@ -45,7 +45,7 @@ public class AlarmPushReceiver  {
 			if (stringArray != null) {
 				for (int i = 0; i < stringArray.length; i++) {
 					String stringItem = stringArray[i];
-					EfunLogUtil.logI("推送内容时间---->"+stringItem);
+					SLogUtil.logI("推送内容时间---->"+stringItem);
 					
 					String[] split = stringItem.split("#");
 					int pushweek = Integer.parseInt(split[0]);
@@ -53,7 +53,7 @@ public class AlarmPushReceiver  {
 					int pushminute = Integer.parseInt(split[2]);
 					String messageContent = split[3];
 					if (week == pushweek) {
-						EfunLogUtil.logI("推送内容时间---->"+"pushhour:"+pushhour+"  pushminute:"+pushminute+"  messageContent:"+messageContent);
+						SLogUtil.logI("推送内容时间---->"+"pushhour:"+pushhour+"  pushminute:"+pushminute+"  messageContent:"+messageContent);
 						long pushtimemin = pushhour * 60 * 60 * 1000l + pushminute * 60 *1000l - 1 * 60 * 1000l;
 						long pushtimemax = pushhour * 60 * 60 * 1000l + pushminute * 60 *1000l + 2 * 60 * 1000l;
 						if (current >= pushtimemin && current <= pushtimemax) {
@@ -69,7 +69,7 @@ public class AlarmPushReceiver  {
 			ArrayList<String> ymdList = AlarmPushHelper.getAlarmPushContentYMD(context);
 			if (ymdList != null) {
 				 for (int i = 0; i < ymdList.size(); i++) {
-					EfunLogUtil.logI("推送内容时间---->"+ymdList.get(i));
+					SLogUtil.logI("推送内容时间---->"+ymdList.get(i));
 					
 					String[] split = ymdList.get(i).split("#");
 					int pyuer = Integer.parseInt(split[0]);
@@ -80,7 +80,7 @@ public class AlarmPushReceiver  {
 					String messageContent = split[5];
 					
 					if (year == pyuer && month == pmonth && day == pday) {
-						EfunLogUtil.logI("推送内容时间---->"+"phour:"+phour+"  pminute:"+pminute+"  messageContent:"+messageContent);
+						SLogUtil.logI("推送内容时间---->"+"phour:"+phour+"  pminute:"+pminute+"  messageContent:"+messageContent);
 						long pushtimemin = phour * 60 * 60 * 1000l + pminute * 60 *1000l - 1 * 60 * 1000l;
 						long pushtimemax = phour * 60 * 60 * 1000l + pminute * 60 *1000l + 2 * 60 * 1000l;
 						if (current >= pushtimemin && current <= pushtimemax) {
@@ -101,10 +101,10 @@ public class AlarmPushReceiver  {
 				int m = Integer.parseInt(munite);
 				int c = Integer.parseInt(cycle);
 
-				EfunLogUtil.logI("定時推送广播开始分鐘 --> " + m);
-				EfunLogUtil.logI("定時推送广播周期 --> " + c);
+				SLogUtil.logI("定時推送广播开始分鐘 --> " + m);
+				SLogUtil.logI("定時推送广播周期 --> " + c);
 				AlarmPushHelper.setAlarmPush(context, m, c);
-				EfunLogUtil.logI("AlarmPushReceiver had run when system start!");
+				SLogUtil.logI("AlarmPushReceiver had run when system start!");
 			}
 		}
 

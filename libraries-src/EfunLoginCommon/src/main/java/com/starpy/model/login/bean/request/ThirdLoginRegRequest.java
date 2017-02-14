@@ -2,8 +2,6 @@ package com.starpy.model.login.bean.request;
 
 import android.content.Context;
 
-import com.core.base.utils.EfunLogUtil;
-
 /**
 * <p>Title: LoginBaseRequest</p>
 * <p>Description: 接口请求参数实体</p>

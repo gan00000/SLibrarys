@@ -16,7 +16,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.core.base.res.SConfig;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.constants.EfunDomainSite;
 import com.starpy.googlepay.constants.GooglePayContant;
@@ -98,8 +98,8 @@ public abstract class EfunWebBillActivity extends Activity {
 				}
 			}
 		}
-		EfunLogUtil.logD("efunWebPayReferredUrl:" + efunWebPayReferredUrl);
-	    EfunLogUtil.logD("efunWebPaySpareUrl:" + efunWebPaySpareUrl);
+		SLogUtil.logD("efunWebPayReferredUrl:" + efunWebPayReferredUrl);
+	    SLogUtil.logD("efunWebPaySpareUrl:" + efunWebPaySpareUrl);
 	}
 	
 	@Override
@@ -122,7 +122,7 @@ public abstract class EfunWebBillActivity extends Activity {
 		
 				_efunWebView = initEfunWebView();
 				if ( null == _efunWebView) {
-					EfunLogUtil.logE("efunWebView is null");
+					SLogUtil.logE("efunWebView is null");
 					return;
 				}
 				 LayoutParams params = _efunWebView.getLayoutParams();
@@ -131,7 +131,7 @@ public abstract class EfunWebBillActivity extends Activity {
 					params.width = LayoutParams.FILL_PARENT;
 				}
 				if (SStringUtil.isEmpty(efunWebPayReferredUrl) && SStringUtil.isEmpty(efunWebPaySpareUrl)) {
-					EfunLogUtil.logE("efunUrl is empty");
+					SLogUtil.logE("efunUrl is empty");
 					return;
 				}
 				WebSettings settings = _efunWebView.getSettings(); 
@@ -159,7 +159,7 @@ public abstract class EfunWebBillActivity extends Activity {
 				_efunWebView.setWebViewClient(new WebViewClient() {
 		
 					public boolean shouldOverrideUrlLoading(WebView view, String url) {
-						EfunLogUtil.logD("shouldOverrideUrlLoading:" + url);
+						SLogUtil.logD("shouldOverrideUrlLoading:" + url);
 						view.loadUrl(url);
 						return true;
 					}
@@ -170,13 +170,13 @@ public abstract class EfunWebBillActivity extends Activity {
 					@Override
 					public void onPageStarted(WebView view, String url, Bitmap favicon) {
 						super.onPageStarted(view, url, favicon);
-						EfunLogUtil.logD("onPageStarted");
+						SLogUtil.logD("onPageStarted");
 					}
 
 					@Override
 					public void onPageFinished(WebView view, String url) {
 						super.onPageFinished(view, url);
-						EfunLogUtil.logD("onPageFinished url:" + url);
+						SLogUtil.logD("onPageFinished url:" + url);
 						mPrompt.dismissProgressDialog();
 					}
 		
@@ -184,7 +184,7 @@ public abstract class EfunWebBillActivity extends Activity {
 					public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 						super.onReceivedError(view, errorCode, description, failingUrl);
 						Log.d("efunLog", "onReceivedError  errorCode:" + errorCode);
-						EfunLogUtil.logD("failingUrl:" + failingUrl);
+						SLogUtil.logD("failingUrl:" + failingUrl);
 						//如果首选域名访问超时，则转向备用域名
 						if ((WebViewClient.ERROR_TIMEOUT == errorCode || WebViewClient.ERROR_CONNECT == errorCode) && failingUrl.contains(EfunWebBillActivity.this.payPreferredUrl) && SStringUtil.isNotEmpty(EfunWebBillActivity.this.efunWebPaySpareUrl)) {
 							view.loadUrl(EfunWebBillActivity.this.efunWebPaySpareUrl);

@@ -13,7 +13,7 @@ import com.starpy.ads.impl.AdsImpl;
 import com.starpy.ads.util.AdsHelper;
 import com.starpy.ads.util.EfunJsonUtil;
 import com.starpy.ads.util.SPUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 
 import android.content.Context;
@@ -77,7 +77,7 @@ public class AdsRequest {
 		}
 		
 		AdsHelper.initParams(context, adsHttpParams);
-		EfunLogUtil.logD("before send post.");
+		SLogUtil.logD("before send post.");
 //		params.put("efunthirdplat", this.efunThirdPlat);
 		
 		efunThirdPlat = SPUtil.takeEfunAdsThirdPlat(context, "");
@@ -116,17 +116,17 @@ public class AdsRequest {
 
 					@Override
 					public void run() {
-						EfunLogUtil.logD("ads save return code:" + adsCode);
+						SLogUtil.logD("ads save return code:" + adsCode);
 						SPUtil.saveResponeCode(AdsRequest.this.context, adsCode);
 						mS2sListener.s2sResultRunOnlyOne(AdsRequest.this.context);
 					}
 				});
 			}
 //			} else {
-//				EfunLogUtil.logD("ads return code is not 1000,1001,1006,1003");
+//				SLogUtil.logD("ads return code is not 1000,1001,1006,1003");
 //			}
 		} else {
-			EfunLogUtil.logD("ads return code save fail");
+			SLogUtil.logD("ads return code save fail");
 		}
 	}
 
@@ -189,10 +189,10 @@ public class AdsRequest {
 //				AdsRequest.adsHttpParams.setPartner(partner);
 				AdsRequest.adsHttpParams.setReferrer(referrer);
 			}else{
-				EfunLogUtil.logW("adsHttpParams is null");
+				SLogUtil.logW("adsHttpParams is null");
 			}
 			this.efunThirdPlat = efunThirdPlat;
-			EfunLogUtil.logI("广告--GA广播到达");
+			SLogUtil.logI("广告--GA广播到达");
 			//通知线程
 			condition.signal();
 		} catch (Exception e) {

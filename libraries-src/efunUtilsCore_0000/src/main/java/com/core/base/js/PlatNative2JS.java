@@ -2,7 +2,7 @@ package com.core.base.js;
 
 import org.json.JSONObject;
 
-import com.core.base.component.SWebView;
+import com.core.base.SWebView;
 
 import android.content.Context;
 import android.os.Handler;

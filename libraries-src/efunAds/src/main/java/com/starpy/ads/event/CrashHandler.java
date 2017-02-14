@@ -13,7 +13,7 @@ import com.core.base.request.SRequestAsyncTask;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
 import com.core.base.http.HttpRequest;
-import com.core.base.utils.EfunFileUtil;
+import com.core.base.utils.FileUtil;
 
 import android.content.Context;
 import android.os.Looper;
@@ -87,7 +87,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 			@Override
 			protected String doInBackground(String... params) {
 				try {
-					String fileContent = EfunFileUtil.readFile(fileName);
+					String fileContent = FileUtil.readFile(fileName);
 					if (TextUtils.isEmpty(fileContent)) {
 						Log.d(TAG, "crash fileContent is empty");
 						return "";
@@ -114,7 +114,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 		if(Looper.myLooper() != Looper.getMainLooper()){
 			Log.d(TAG, "not main looper:" + Thread.currentThread().getName());
 			try {
-				String crashContent = EfunFileUtil.readFile(fileName);
+				String crashContent = FileUtil.readFile(fileName);
 				if (!TextUtils.isEmpty(crashContent)) {
 					reportCrash(crashContent);
 				}
@@ -136,7 +136,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 				String result = HttpRequest.postJsonObject(reportCrashUrl + "ad/ads_sdkLog.shtml", crashObj);
 				Log.d(TAG, "crash result=" + result);
 				if (result.contains("1000")) {
-					EfunFileUtil.writeFileData(null, EfunFileUtil.createFile(fileName), "");
+					FileUtil.writeFileData(null, FileUtil.createFile(fileName), "");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -159,7 +159,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 				return ;
 			}
 			
-			EfunFileUtil.createFile(fileName);
+			FileUtil.createFile(fileName);
 			
 			PrintStream err = new PrintStream(fileName);
 			ex.printStackTrace(err);

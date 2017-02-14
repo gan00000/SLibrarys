@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
-import com.core.base.component.SWebView;
+import com.core.base.SWebView;
 import com.core.base.res.SConfig;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
@@ -116,7 +116,7 @@ public class Native2JS {
 		return ApkInfoUtil.getVersionName(context);
 	}
 	
-	@JavascriptInterface
+/*	@JavascriptInterface
 	public String getUserName(){
 		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_USERNAME);
 	}
@@ -169,7 +169,7 @@ public class Native2JS {
 	public String getGameCode(){
 		return SConfig.getGameCode(context);
 	}
-	
+	*/
 	@JavascriptInterface
 	public void finishActivity(){
 		if (context != null && context instanceof Activity) {

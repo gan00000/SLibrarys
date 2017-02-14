@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.core.base.request.SRequestAsyncTask;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.GoogleOrderBean;
 import com.starpy.googlepay.constants.GooglePayContant;
@@ -55,7 +55,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		if (act == null || act.isPurchaseCancel()) {
 			return "";
 		}
-		EfunLogUtil.logD("click stored value result with " + respone);
+		SLogUtil.logD("click stored value result with " + respone);
 		try {
 			final String sku = orderBean.getSku();
 			mHelper.efunQuerySkuDetails(sku, new QueryInventoryFinishedListener() {
@@ -63,7 +63,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 				@Override
 				public void onQueryInventoryFinished(IabResult result, Inventory inv) {
 					if (result != null && result.isSuccess() && inv != null && inv.hasDetails(sku)) {
-						EfunLogUtil.logD("SkuDetails:" + inv.getSkuDetails(sku).toString());
+						SLogUtil.logD("SkuDetails:" + inv.getSkuDetails(sku).toString());
 						skuDetails = inv.getSkuDetails(sku);
 						if (act != null && skuDetails != null) {
 							act.setSkuDetails(skuDetails);
@@ -75,7 +75,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		EfunLogUtil.logD("respone return");
+		SLogUtil.logD("respone return");
 		return respone;
 	}
 
@@ -103,10 +103,10 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 					// developerPayload: optional argument to be sent back with the purchase
 					// information,最大256 characters.否则报错code:"IAB-DPTL"
 					if (developerPayload.length() > 256) {// developerPayload长度不能大于256
-						EfunLogUtil.logW("developerPayload length > 256");
+						SLogUtil.logW("developerPayload length > 256");
 						developerPayload = developerPayload.substring(0, 256);
 					}
-					EfunLogUtil.logD("developerPayload: " + developerPayload + " developerPayload length:" + developerPayload.length());
+					SLogUtil.logD("developerPayload: " + developerPayload + " developerPayload length:" + developerPayload.length());
 					
 					if (!TextUtils.isEmpty(orderBean.getSku()) && !TextUtils.isEmpty(orderBean.getOrderId())) {
 						launchPurchase(orderBean.getSku(), orderBean.getOrderId(),developerPayload);// 開始購買
@@ -115,7 +115,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 				}
 			}
 		} catch (JSONException e) {
-			EfunLogUtil.logD(e.getStackTrace().toString());
+			SLogUtil.logD(e.getStackTrace().toString());
 			e.printStackTrace();
 		}
 		if (act == null || act.isPurchaseCancel()) {
@@ -132,7 +132,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 	private void launchPurchase(String purchaseSku,String efunOrderId,String developerPayload) {
 	
 	
-		EfunLogUtil.logD("开始google购买流程launchPurchaseFlow");
+		SLogUtil.logD("开始google购买流程launchPurchaseFlow");
 		
 		if (act == null || act.isPurchaseCancel()) {
 			return;
@@ -144,12 +144,12 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 					act.getLaunchPurchaseDialog().dismissProgressDialog();
 					act.setLaunching(false);
 				}
-				EfunLogUtil.logD("购买流程完毕并且回调onIabPurchaseFinished");
+				SLogUtil.logD("购买流程完毕并且回调onIabPurchaseFinished");
 				if (purchase == null) {
-					EfunLogUtil.logD("purchase is null.");
+					SLogUtil.logD("purchase is null.");
 					prompt.dismissProgressDialog();
 					if (result.getResponse() == IabHelper.IABHELPER_USER_CANCELLED) {//用户取消购买
-						EfunLogUtil.logD("IABHELPER_USER_CANCELLED: " + result.getMessage());
+						SLogUtil.logD("IABHELPER_USER_CANCELLED: " + result.getMessage());
 						if (act != null) {
 							act.determineCloseActivity();//判断是否需要关闭activity
 						}
@@ -158,7 +158,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 					if (act != null) {
 						act.processPayCallBack(result.getResponse());// 储值回调
 					}
-					EfunLogUtil.logD("iabResult:" + result.getMessage());
+					SLogUtil.logD("iabResult:" + result.getMessage());
 					if (TextUtils.isEmpty(result.getMessage())) {
 						prompt.complainCloseAct("error");
 					}else{
@@ -170,7 +170,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 				
 				// 服务端订单验证失败（公密googleKey进行数据验证失败）
 				else if (result != null && result.getResponse() == IabHelper.IABHELPER_VERIFICATION_FAILED) {
-					EfunLogUtil.logD("本次购买失败: " + result.getMessage());
+					SLogUtil.logD("本次购买失败: " + result.getMessage());
 					prompt.dismissProgressDialog();
 					prompt.complainCloseAct(act.getEfunPayError().getEfunGoogleBuyFailError());
 					return;
@@ -182,7 +182,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 					//mHelper.consumeAsync(purchase, mConsumeFinishedListener);
 					requestSendStone2(act, purchase, orderBean);
 				} else {
-					EfunLogUtil.logD("本次购买失败...");
+					SLogUtil.logD("本次购买失败...");
 					prompt.dismissProgressDialog();
 					if (act != null) {
 						act.finish();
@@ -195,7 +195,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 	
 	public void requestSendStone2(final Context context,final Purchase purchase,GoogleOrderBean googleOrderBean){
 
-		  EfunLogUtil.logD( "start request send stone");
+		  SLogUtil.logD( "start request send stone");
 		  
 		  new SRequestAsyncTask() {
 			
@@ -248,8 +248,8 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 			protected void onPostExecute(String respone) {
 				// TODO Auto-generated method stub
 				super.onPostExecute(respone);
-				EfunLogUtil.logD("respone返回：" + respone);
-				EfunLogUtil.logD("orderBean:" + orderBean.toString());
+				SLogUtil.logD("respone返回：" + respone);
+				SLogUtil.logD("orderBean:" + orderBean.toString());
 				orderBean = null;
 				if (!TextUtils.isEmpty(respone)) {
 
@@ -257,33 +257,33 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 						JSONObject responseJson = new JSONObject(respone);
 						EfunPayRequest.clearPurchaseData(act);
 						if ("0000".equals(responseJson.optString("result","")) || "0000".equals(responseJson.optString("resultCode",""))) {// 判断服务器返回的result结果是否为发放砖石成功
-							EfunLogUtil.logD("buy order server result:0000. send stone success");
+							SLogUtil.logD("buy order server result:0000. send stone success");
 							// 发送游戏币成功回调
 							EfunPayRequest.setWalletBean(act, responseJson);
-							EfunLogUtil.logD("order success,send stone,began to consume");
+							SLogUtil.logD("order success,send stone,began to consume");
 							if (mHelper != null) {
 								mHelper.consumeAsync(purchase, mConsumeFinishedListener);
 								return;
 							}
 						} else {//发送砖石失败
 
-							EfunLogUtil.logW("result is not 0000.send stone fail");
+							SLogUtil.logW("result is not 0000.send stone fail");
 							String message = responseJson.optString("message", "");
 							if (TextUtils.isEmpty(message)) {
 								message = responseJson.optString("msg", "");
 								prompt.complainCloseAct(message);
 								return;
 							}
-							EfunLogUtil.logD("error msg:" + message);
+							SLogUtil.logD("error msg:" + message);
 
 						}
 					} catch (JSONException e) {
-						EfunLogUtil.logW("请求发币server response json异常");
+						SLogUtil.logW("请求发币server response json异常");
 						e.printStackTrace();
 					}
 
 				}else{
-					EfunLogUtil.logW("网络超时");
+					SLogUtil.logW("网络超时");
 					prompt.complainCloseAct("Network timeout");
 					return;
 				}
@@ -303,9 +303,9 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		public void onConsumeFinished(Purchase purchase, IabResult result) {
 			
 			if (result.isSuccess()) {
-				EfunLogUtil.logD("消费成功");
+				SLogUtil.logD("消费成功");
 			} else {
-				EfunLogUtil.logD("消费失败");
+				SLogUtil.logD("消费失败");
 			}
 			prompt.dismissProgressDialog();
 			if (act != null) {

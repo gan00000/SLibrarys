@@ -1,6 +1,6 @@
 package com.starpy.googlepay;
 
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +36,7 @@ public class EfunGooglePay {
 	public static void setUpGooglePay(Context context,String userId,String gameCode,String serverCode,String roleId,String roleName,String roleLevel){
 		
 		if (TextUtils.isEmpty(userId) || TextUtils.isEmpty(serverCode) || TextUtils.isEmpty(roleId)) {
-			EfunLogUtil.logE("userId、serverCode、roleId不能为空");
+			SLogUtil.logE("userId、serverCode、roleId不能为空");
 			return;
 		}
 		
@@ -78,7 +78,7 @@ public class EfunGooglePay {
 	public static void startGooglePurchase(BasePayActivity basePayActivity,String sku){
 		
 		if (TextUtils.isEmpty(sku)) {
-			EfunLogUtil.logD("sku is empty:" + sku);
+			SLogUtil.logD("sku is empty:" + sku);
 			return;
 		}
 		EfunGooglePayService.setPayActivity(basePayActivity);
@@ -106,7 +106,7 @@ public class EfunGooglePay {
 			}
 			return m;
 		}else{
-			EfunLogUtil.logD("EfunGooglePayService.getIabHelper() == null");
+			SLogUtil.logD("EfunGooglePayService.getIabHelper() == null");
 			if (activity != null) {
 				activity.setLaunching(false);
 			}

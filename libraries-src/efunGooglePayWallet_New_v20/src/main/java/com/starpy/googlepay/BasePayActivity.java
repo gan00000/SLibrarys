@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Vector;
 
 import com.core.base.res.SConfig;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.EfunPayError;
 import com.starpy.googlepay.bean.EfunQueryInventoryState;
@@ -265,12 +265,12 @@ public abstract class BasePayActivity extends Activity {
 		this.setLaunching(false);
 		this.googlePayOk = false;
 		queryItemListener = null;
-		EfunLogUtil.logD("_GoogleOrderBean:" + _GoogleOrderBean.toString());
+		SLogUtil.logD("_GoogleOrderBean:" + _GoogleOrderBean.toString());
 		_GoogleOrderBean = null;
 		if (launching && EfunGooglePayService.getIabHelper() != null) {
 			EfunGooglePayService.getIabHelper().setAsyncInProgress(false);
 		}
-		EfunLogUtil.logD("google pay onDestroy");
+		SLogUtil.logD("google pay onDestroy");
 		this.payPrompt.dismissProgressDialog();
 		this.launchPurchaseDialog.dismissProgressDialog();
 		EfunGooglePayService.setPayActivity(null);
@@ -296,9 +296,9 @@ public abstract class BasePayActivity extends Activity {
 			// not handled, so handle it ourselves (here's where you'd
 			// perform any handling of activity results not related to in-app
 			// billing...
-			EfunLogUtil.logI("onActivityResult handled by IABUtil. the result was related to a purchase flow and was handled");
+			SLogUtil.logI("onActivityResult handled by IABUtil. the result was related to a purchase flow and was handled");
 		} else {
-			EfunLogUtil.logI("onActivityResult handled by IABUtil.the result was not related to a purchase");
+			SLogUtil.logI("onActivityResult handled by IABUtil.the result was not related to a purchase");
 			processPayCallBack();
 			payPrompt.complainCloseAct(efunPayError.getEfunGoogleBuyFailError());
 		}
@@ -439,7 +439,7 @@ public abstract class BasePayActivity extends Activity {
 	public void processPayCallBack(int googleRespone) {
 		try{
 			if (null != walletListeners && !walletListeners.isEmpty() && null != walletBean) {
-				EfunLogUtil.logI("walletListeners size:" + walletListeners.size());
+				SLogUtil.logI("walletListeners size:" + walletListeners.size());
 				if (1122 != googleRespone) {
 					walletBean.setGoogleResponeCode(googleRespone);
 				}
@@ -452,7 +452,7 @@ public abstract class BasePayActivity extends Activity {
 					}
 				}
 			} else {
-				EfunLogUtil.logI("无回调");
+				SLogUtil.logI("无回调");
 			}
 		}catch(Exception e){
 			Log.d(BasePayActivity.TAG, e.getMessage() + "");

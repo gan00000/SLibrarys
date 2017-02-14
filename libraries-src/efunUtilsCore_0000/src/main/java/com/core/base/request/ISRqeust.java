@@ -14,7 +14,7 @@ public interface ISRqeust {
 
     BaseReqeustBean onHttpRequest();
 
-    <T> BaseReqeustBean onHttpSucceess(T responseModel);
+    <T> void onHttpSucceess(T responseModel);
 
     void onTimeout(String result);
 

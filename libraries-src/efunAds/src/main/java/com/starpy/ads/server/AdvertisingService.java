@@ -54,22 +54,22 @@ public class AdvertisingService implements Runnable {
 			Log.e("efunLog","广告url设置有误");
 			return;
 		}
-		EfunLogUtil.logI("adsPreferredUrl:" + adsPreferredUrl);
-		EfunLogUtil.logI("adsSpareUrl:" + adsSpareUrl);
+		SLogUtil.logI("adsPreferredUrl:" + adsPreferredUrl);
+		SLogUtil.logI("adsSpareUrl:" + adsSpareUrl);
 		this.ctx = ctx;
 		this.settings = this.ctx.getSharedPreferences("ads.efun", Context.MODE_APPEND);
 		this.settingsS2S = this.ctx.getSharedPreferences("ads.s2s.efun", this.ctx.MODE_PRIVATE);
 		this.settingsGA = this.ctx.getSharedPreferences("ads.ga.efun", this.ctx.MODE_PRIVATE);
 		int objectsLength = objects.length;
-		EfunLogUtil.logI( "init objectsLength with " + objectsLength + ".");
+		SLogUtil.logI( "init objectsLength with " + objectsLength + ".");
 		if(objectsLength < 2){
-			EfunLogUtil.logI("Class ActivationAdvertisingService does not match the number of parameters.At least two parameters.");
+			SLogUtil.logI("Class ActivationAdvertisingService does not match the number of parameters.At least two parameters.");
 			throw new RuntimeException("Class ActivationAdvertisingService does not match the number of parameters.At least two parameters.");
 		}
 		this.GAME_CODE = objects[0].toString();
 		this.APP_KEY = objects[1].toString();
 		if(objectsLength == 4){
-			EfunLogUtil.logI( "objectsLength is 4 add params.");
+			SLogUtil.logI( "objectsLength is 4 add params.");
 			this.ADVERTISERS_NAME = objects[2].toString();
 			this.PARTNER_NAME = objects[3].toString();
 		}
@@ -79,19 +79,19 @@ public class AdvertisingService implements Runnable {
 		String googleIsSuccess = settingsGA.getString(this.GA_RESULT_KEY , null);
 		
 		if(objectsLength == 2 && null != s2sIsSuccess && s2sIsSuccess.equals(S2S_RESULT_VALUE)){
-			EfunLogUtil.logI(s2sIsSuccess);
+			SLogUtil.logI(s2sIsSuccess);
 			return;
 		}else if(objectsLength == 4 && null !=googleIsSuccess && googleIsSuccess.equals(GA_RESULT_VALUE)){
-			EfunLogUtil.logI( googleIsSuccess);
+			SLogUtil.logI( googleIsSuccess);
 			return;
 		}else if(null != this.ctx && EfunLocalUtil.isNetworkAvaiable(this.ctx)){
 			Editor editor = settings.edit();
 			if(objectsLength == 2){
-				EfunLogUtil.logI( "start Thread with objectsLength is 2.");
+				SLogUtil.logI( "start Thread with objectsLength is 2.");
 				//editor = settingsS2S.edit();
 				editor.putString(this.S2S_RESULT_KEY, S2S_RESULT_VALUE);
 			} else if(objectsLength == 4){
-				EfunLogUtil.logI( "start Thread with objectsLength is 4.");
+				SLogUtil.logI( "start Thread with objectsLength is 4.");
 				//editor = settingsGA.edit();
 				editor.putString(this.GA_RESULT_KEY, GA_RESULT_VALUE);
 			}

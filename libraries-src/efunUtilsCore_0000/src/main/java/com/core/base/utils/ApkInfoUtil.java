@@ -73,8 +73,7 @@ public class ApkInfoUtil {
 	 */
 	
 	public static String getMacAddress(Context ctx) {
-		SConfig.getSDKLoginSign(ctx);//初始化一下sign值，为请求网络使用
-		SConfig.getSDKLoginTimestamp(ctx);
+
 		WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		WifiInfo info = wifi.getConnectionInfo();
 		String macTmp = info.getMacAddress();
@@ -116,12 +115,12 @@ public class ApkInfoUtil {
 			String efundataPath = efundataPathDir +"stardata-uuid.txt";
 
 			try {
-				customizedUniqueId = EfunFileUtil.readFile(efundataPath);
+				customizedUniqueId = FileUtil.readFile(efundataPath);
 				if (!TextUtils.isEmpty(customizedUniqueId)) {
 					return customizedUniqueId;
 				}
 				String uuid = UUID.randomUUID().toString();
-				if (EfunFileUtil.writeFileData(ctx, efundataPath, uuid)) {
+				if (FileUtil.writeFileData(ctx, efundataPath, uuid)) {
 					customizedUniqueId = uuid;
 				}
 			} catch (IOException e) {
@@ -141,8 +140,6 @@ public class ApkInfoUtil {
 	 * @date 2013-1-23
 	 */
 	public static String getImeiAddress(Context ctx) {
-		SConfig.getSDKLoginSign(ctx);// 初始化一下sign值，为请求网络使用
-		SConfig.getSDKLoginTimestamp(ctx);
 		String imei = "";
 		try {
 			if (PermissionUtil.hasSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE)) {
@@ -185,8 +182,6 @@ public class ApkInfoUtil {
 	 * @date 2013-1-25
 	 */
 	public static String getAndroidId(Context ctx) {
-		SConfig.getSDKLoginSign(ctx);//初始化一下sign值，为请求网络使用
-		SConfig.getSDKLoginTimestamp(ctx);
 		String mAndroidId = "";
 		try {
 			mAndroidId = android.provider.Settings.Secure.getString(ctx.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);

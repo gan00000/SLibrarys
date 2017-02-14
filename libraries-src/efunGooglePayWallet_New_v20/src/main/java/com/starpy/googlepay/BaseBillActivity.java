@@ -3,7 +3,7 @@ package com.starpy.googlepay;
 import java.util.List;
 
 import com.core.base.utils.ApkInfoUtil;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.starpy.googlepay.bean.WebOrderBean;
 import com.starpy.googlepay.efuntask.EfunPayUtil;
 
@@ -33,7 +33,7 @@ public abstract class BaseBillActivity extends BasePayActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		EfunLogUtil.logI("onActivityResult(" + requestCode + "," + resultCode + "," + data);
+		SLogUtil.logI("onActivityResult(" + requestCode + "," + resultCode + "," + data);
 		handlerActivityResult(requestCode, resultCode, data);
 		super.onActivityResult(requestCode, resultCode, data);
 	}

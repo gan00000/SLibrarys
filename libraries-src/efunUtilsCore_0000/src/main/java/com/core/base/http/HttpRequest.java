@@ -21,74 +21,20 @@ public class HttpRequest {
 	}
 	
 
-	public static String get(String urlStr,Map<String, String> dataMap) {
-		return getWithAccessToken(urlStr, dataMap, true);
-	}
-	
-	private static String getWithAccessToken(String urlStr,Map<String, String> dataMap,boolean accessToken) {
-		if (TextUtils.isEmpty(urlStr)) {
-			return "";
-		}
-		HttpRequestCore requestCore = new HttpRequestCore();
-		if (dataMap != null) {
-			dataMap = putCommonParams(dataMap);
-		}else{
-			try {//拼接accessToken请求
-				if (accessToken && !TextUtils.isEmpty(SConfig.getSDKLoginReturnData()) && !urlStr.contains("&accessToken=") && urlStr.contains("?")) {
-					String appendAccessTokenUrl = urlStr + "&accessToken=" + URLEncoder.encode(SConfig.getSDKLoginReturnData(), "UTF-8");
-					HttpResponse mHttpResponse = requestCore.excuteGetRequest(appendAccessTokenUrl, null);
-					if (mHttpResponse.getHttpResponseCode() == 200 && !TextUtils.isEmpty(mHttpResponse.getResult())) {
-						return mHttpResponse.getResult();
-					}
-				}
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		HttpResponse hr = requestCore.excuteGetRequest(urlStr, dataMap);
-		return hr.getResult();
-	}
-	
 	public static String get(String urlStr) {
-		return get(urlStr, null);
+		return getReuqest(urlStr).getResult();
 	}
 	
-	public static String get(String urlStr,boolean accessToken) {
-		return getWithAccessToken(urlStr, null, accessToken);
-	}
-	
-	public static String getIn2Url(String preUrl,String sprUrl) {
-		return getIn2Url(preUrl, sprUrl,true);
-	}
-	
-	public static String getIn2Url(String preUrl,String sprUrl,boolean accessToken) {
-		String preResult = get(preUrl,accessToken);
-		if (TextUtils.isEmpty(preResult)) {
-			return get(sprUrl,accessToken);
-		}
-		return preResult;
-	}
-	
-	public static String getVerticallineAccessToken(Context context, String urlStr) {
-		if (!TextUtils.isEmpty(urlStr) && urlStr.contains("|") && !TextUtils.isEmpty(SConfig.getSDKLoginReturnData(context))) {
-			urlStr = urlStr + "|" + SConfig.getSDKLoginReturnData(context);
-			HttpRequestCore requestCore = new HttpRequestCore();
-			return requestCore.excuteGetRequest(urlStr).getResult();
-		}
-		return "";
-	}
-	
-	public HttpResponse getReuqest(String urlStr) {
+
+	public static HttpResponse getReuqest(String urlStr) {
 		HttpRequestCore requestCore = new HttpRequestCore();
 		return requestCore.excuteGetRequest(urlStr);
 	}
 	
-	public HttpResponse getReuqestIn2Url(String preUrl,String sprUrl) {
+	public static HttpResponse getReuqestIn2Url(String preUrl,String sprUrl) {
 		HttpResponse s = getReuqest(preUrl);
 		if (s != null && TextUtils.isEmpty(s.getResult())) {
-			return getReuqest(preUrl);
+			return getReuqest(sprUrl);
 		}
 		return s;
 	}
@@ -101,9 +47,7 @@ public class HttpRequest {
 	 * @date 2015年10月9日
 	 */
 	public static String post(String urlStr,Map<String, String> dataMap) {
-		dataMap = putCommonParams(dataMap);
-		HttpRequestCore requestCore = new HttpRequestCore();
-		HttpResponse hr = requestCore.excutePostRequest(urlStr, dataMap);
+		HttpResponse hr = postReuqest(urlStr, dataMap);
 		if (hr != null) {
 			return hr.getResult();
 		}else{
@@ -111,8 +55,7 @@ public class HttpRequest {
 		}
 	}
 	
-	public  HttpResponse postReuqest(String urlStr,Map<String, String> dataMap) {
-		dataMap = putCommonParams(dataMap);
+	public  static HttpResponse postReuqest(String urlStr,Map<String, String> dataMap) {
 		HttpRequestCore requestCore = new HttpRequestCore();
 		return requestCore.excutePostRequest(urlStr, dataMap);
 	}
@@ -173,25 +116,4 @@ public class HttpRequest {
 		return requestCore.downLoadUrlFile(downLoadFileUrl, savePath);
 	}
 
-	private static Map<String, String> putCommonParams(Map<String, String> dataMap){
-		if (dataMap == null) {
-			return null;
-		}
-
-		/*if (!dataMap.containsKey("sign")) {
-			dataMap.put("sign", SConfig.getLoginSign());
-		}
-		if (!dataMap.containsKey("loginTimestamp")) {
-			dataMap.put("loginTimestamp", SConfig.getLoginTimestamp());
-		}*/
-
-		if (!dataMap.containsKey("eid")) {
-			dataMap.put("eid", ApkInfoUtil.customizedUniqueId);
-		}
-
-		if (!TextUtils.isEmpty(SConfig.getSDKLoginReturnData())) {
-			dataMap.put("accessToken", SConfig.getSDKLoginReturnData());
-		}
-		return dataMap;
-	}
 }

@@ -10,6 +10,10 @@ public class SLoginResponse extends BaseResponseModel {
 
     private String userId = "";
     private String accessTkoen = "";
+    /**
+     * 登陆成功时间戳
+     */
+    private String timestamp = "";
     private String freeRegisterName = "";
     private String freeRegisterPwd = "";
 
@@ -44,5 +48,13 @@ public class SLoginResponse extends BaseResponseModel {
 
     public void setFreeRegisterPwd(String freeRegisterPwd) {
         this.freeRegisterPwd = freeRegisterPwd;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -31,7 +31,6 @@ public class SCommandAsyncTask extends SRequestAsyncTask {
 		Log.i("SCommandAsyncTask", "onPreExecute");
 		//必须通过主线程调用
 		ThreadUtil.checkUiThread(context);
-		SConfig.getSDKLoginSign(context);
 		if (command.isShowProgress()) {//判断是否要显示进度条
 			if (!TextUtils.isEmpty(command.getCommandMsg())) {
 				if (context != null) {

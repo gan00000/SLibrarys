@@ -4,24 +4,24 @@ import android.content.Context;
 
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SStringUtil;
-import com.starpy.model.login.bean.request.MacLoginRegRequest;
+import com.starpy.model.login.constant.SLoginType;
 
 /**
- * <p>Title: MacLoginRegCmd</p> <p>Description: 新三方登陆&注册接口</p> <p>Company: EFun</p>
+ * <p>Title: MacLoginRegRequest</p> <p>Description: 新三方登陆&注册接口</p> <p>Company: EFun</p>
  *
  * @author GanYuanrong
  * @date 2014年9月16日
  */
-public class MacLoginRegCmd extends EfunBaseCmd {
+public class MacLoginRegRequest extends BaseRequest {
 
-    public MacLoginRegCmd(Context context) {
+    public MacLoginRegRequest(Context context) {
         super(context);
 
-        MacLoginRegRequest macLoginRegRequest = new MacLoginRegRequest(context);
+        com.starpy.model.login.bean.request.MacLoginRegRequest macLoginRegRequest = new com.starpy.model.login.bean.request.MacLoginRegRequest(context);
 
         baseRequest = macLoginRegRequest;
 
-        macLoginRegRequest.setRegistPlatform("mac");
+        macLoginRegRequest.setRegistPlatform(SLoginType.LOGIN_TYPE_MAC);
         macLoginRegRequest.setUniqueId(ApkInfoUtil.getCustomizedUniqueId(context));
 
         macLoginRegRequest.setCompleteUrl("http://10.10.10.110:8080/login/login");

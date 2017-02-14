@@ -9,7 +9,7 @@ import com.core.base.res.SConfig;
 import com.core.base.request.SCommandAsyncTask;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SStringUtil;
-import com.core.base.utils.GoogleAdUtil;
+import com.core.base.utils.GoogleUtil;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -90,7 +90,7 @@ public class EfunSdkEventsLogger {
 			@Override
 			public void run() {
 				if (TextUtils.isEmpty(advertisingId)) {
-					advertisingId = GoogleAdUtil.getAdvertisingId(context);
+					advertisingId = GoogleUtil.getAdvertisingId(context);
 				}
 				m.put("advertising_id", advertisingId);
 				String result = HttpRequest.post(postUrl, m);

@@ -156,17 +156,17 @@ public class AdvertService {
 						
 						@Override
 						public void run() {
-							EfunLogUtil.logD("ads save return code:" + adsCode);
+							SLogUtil.logD("ads save return code:" + adsCode);
 							SPUtil.saveResponeCode(AdvertService.this.context, adsCode);
 							mS2sListener.s2sResultRunOnlyOne(AdvertService.this.context);
 						}
 					});
 				}
 			} else {
-				EfunLogUtil.logD("ads return code is not 1000,1001,1006,1003");
+				SLogUtil.logD("ads return code is not 1000,1001,1006,1003");
 			}
 		} else {
-			EfunLogUtil.logD("ads return code save fail");
+			SLogUtil.logD("ads return code save fail");
 		}
 		
 	}
@@ -179,7 +179,7 @@ public class AdvertService {
 			this.partner = partner;
 			this.referrer = referrer;
 			this.efunThirdPlat = efunThirdPlat;
-			EfunLogUtil.logI("广告--GA广播到达");
+			SLogUtil.logI("广告--GA广播到达");
 			//通知线程
 			condition.signal();
 		} catch (Exception e) {

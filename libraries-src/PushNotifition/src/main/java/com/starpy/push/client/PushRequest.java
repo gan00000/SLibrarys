@@ -10,7 +10,7 @@ import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
 import com.core.base.http.HttpRequest;
 import com.core.base.request.SRequestAsyncTask;
-import com.core.base.utils.EfunLogUtil;
+import com.starpy.base.SLogUtil;
 import com.starpy.push.client.utils.PushHelper;
 
 import android.content.Context;
@@ -91,7 +91,7 @@ public class PushRequest{
 			@Override
 			protected String doInBackground(String... params) {
 				String result = HttpRequest.postIn2Url(preUrl, spaUrl, PUSH_RECEIVEPROPELL, paramsMap);
-				EfunLogUtil.logD("PushRequest:" + result);
+				SLogUtil.logD("PushRequest:" + result);
 				//{"code":"1000","message":"token或者orgUUID已保存過"}
 				if (TextUtils.isEmpty(result)) {
 					return "";
