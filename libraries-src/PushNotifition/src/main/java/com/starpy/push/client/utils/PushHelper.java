@@ -5,10 +5,10 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.push.client.PushConstant;
 import com.starpy.push.client.bean.NotificationMessage;

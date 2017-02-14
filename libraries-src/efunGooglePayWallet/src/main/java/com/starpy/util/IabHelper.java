@@ -38,7 +38,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.vending.billing.IInAppBillingService;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.constants.GooglePayContant;
 import com.starpy.googlepay.efuntask.EfunVerifyTask;

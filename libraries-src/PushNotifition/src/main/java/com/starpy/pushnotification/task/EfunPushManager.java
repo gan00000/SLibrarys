@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.core.base.utils.ResUtil;
 import com.starpy.push.client.MessageDispatcher;
 import com.starpy.push.client.PushRequest;

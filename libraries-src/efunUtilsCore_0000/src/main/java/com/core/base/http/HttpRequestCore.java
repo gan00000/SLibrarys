@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.Map;
 
 import com.core.base.utils.FileUtil;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 
 import android.text.TextUtils;

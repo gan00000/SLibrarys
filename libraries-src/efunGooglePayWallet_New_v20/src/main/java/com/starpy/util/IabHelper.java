@@ -21,7 +21,7 @@ import java.util.List;
 import org.json.JSONException;
 
 import com.android.vending.billing.IInAppBillingService;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;
 import com.starpy.googlepay.constants.GooglePayContant;

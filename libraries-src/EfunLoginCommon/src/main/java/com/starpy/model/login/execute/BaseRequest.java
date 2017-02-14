@@ -7,7 +7,7 @@ import android.content.Context;
 
 import com.core.base.request.AbsHttpRequest;
 import com.core.base.request.bean.BaseReqeustBean;
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.core.base.utils.GoogleUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;

@@ -1,19 +1,12 @@
 package com.starpy.base.cfg;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
 
-import com.core.base.beans.UrlFileContent;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.CfgFileRequest;
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
-import com.starpy.base.StarPyUtil;
-
-import org.json.JSONObject;
-
-import java.io.File;
+import com.starpy.base.utils.StarPyUtil;
 
 /**
  * Created by Efun on 2017/2/14.

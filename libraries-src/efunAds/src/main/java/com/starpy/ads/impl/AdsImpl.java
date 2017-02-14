@@ -1,6 +1,6 @@
 package com.starpy.ads.impl;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.starpy.ads.base.BaseAds;
 import com.starpy.ads.util.EfunDomainSite;
 import com.starpy.ads.util.SPUtil;

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.core.base.http.HttpRequestCore;
 import com.core.base.request.command.abstracts.EfunCommand;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 
 import android.content.Context;
 import android.text.TextUtils;

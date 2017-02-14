@@ -1,4 +1,4 @@
-package com.starpy.base;
+package com.starpy.base.utils;
 
 import android.content.Context;
 import android.text.TextUtils;

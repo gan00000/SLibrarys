@@ -6,19 +6,19 @@ package com.starpy.googlepay;
 import java.util.List;
 import java.util.Vector;
 
-import com.core.base.res.SConfig;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.cfg.SConfig;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.EfunPayError;
 import com.starpy.googlepay.bean.EfunQueryInventoryState;
 import com.starpy.googlepay.bean.EfunWalletBean;
-import com.starpy.googlepay.bean.GoogleOrderBean;
-import com.starpy.googlepay.bean.WebOrderBean;
+import com.starpy.googlepay.bean.GooglePayReqBean;
+import com.starpy.googlepay.bean.WebPayReqBean;
 import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.callback.EfunWalletService;
 import com.starpy.googlepay.callback.QueryItemListener;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.efuntask.EfunPayUtil;
+import com.starpy.googlepay.efuntask.PayUtil;
 import com.starpy.googlepay.efuntask.EndFlag;
 import com.starpy.googlepay.efuntask.Prompt;
 import com.starpy.googlepay.efuntask.PurchaseFlow;
@@ -52,7 +52,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	/**
 	 * _GoogleOrderBean Google储值购买订单参数封装
 	 */
-	protected volatile GoogleOrderBean _GoogleOrderBean = null;
+	protected volatile GooglePayReqBean _GoogleOrderBean = null;
 	
 	/**
 	 * walletBean 储值页面关闭回调结果封装
@@ -179,9 +179,6 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 			_language = _GoogleOrderBean.getLanguage();
 		}
 		
-		if (SStringUtil.isEmpty(_GoogleOrderBean.getMoneyType())) {
-			_GoogleOrderBean.setMoneyType(GooglePayContant.MONEY_TYPE);
-		}
 		if (SStringUtil.isEmpty(_GoogleOrderBean.getPayFrom())) {
 			_GoogleOrderBean.setPayFrom(GooglePayContant.PAY_FROM);
 		}
@@ -268,8 +265,8 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	}
 	
 	protected abstract List<String> initSku();
-	protected abstract GoogleOrderBean initGoogleOrderBean();
-	protected abstract WebOrderBean initWebOrderBean();
+	protected abstract GooglePayReqBean initGoogleOrderBean();
+	protected abstract WebPayReqBean initWebOrderBean();
 	protected void initEfunPayErrorMessage(EfunPayError efunPayError){}
 	protected void initPay(){}
 	
@@ -295,11 +292,11 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	}
 
 
-	public GoogleOrderBean get_orderBean() {
+	public GooglePayReqBean get_orderBean() {
 		return _GoogleOrderBean;
 	}
 
-	public void set_orderBean(GoogleOrderBean _orderBean) {
+	public void set_orderBean(GooglePayReqBean _orderBean) {
 		this._GoogleOrderBean = _orderBean;
 	}
 
@@ -375,21 +372,21 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	}
 	
 	protected void startWebClient(String intentAction){
-		WebOrderBean webOrderBean = this.initWebOrderBean();
+		WebPayReqBean webOrderBean = this.initWebOrderBean();
 		if (null == webOrderBean) {
 			throw new RuntimeException("webOrderBean is null");
 		}
-		EfunPayUtil.startOtherWallet(this, webOrderBean, intentAction);
+		PayUtil.startOtherWallet(this, webOrderBean, intentAction);
 		openGW = true;
 		this.finish();
 	}
 	
 	protected void startWebClient(Intent intent){
-		WebOrderBean webOrderBean = this.initWebOrderBean();
+		WebPayReqBean webOrderBean = this.initWebOrderBean();
 		if (null == webOrderBean) {
 			throw new RuntimeException("webOrderBean is null");
 		}
-		EfunPayUtil.startOtherWallet(this, webOrderBean, intent);
+		PayUtil.startOtherWallet(this, webOrderBean, intent);
 		openGW = true;
 		this.finish();
 	}
@@ -397,11 +394,11 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	protected void startWebGW(String intentAction){
 		/*Intent GWPayIntent = new Intent(action);
 		startGW(GWPayIntent);*/
-		WebOrderBean webOrderBean = this.initWebOrderBean();
+		WebPayReqBean webOrderBean = this.initWebOrderBean();
 		if (null == webOrderBean) {
 			throw new RuntimeException("webOrderBean is null");
 		}
-		EfunPayUtil.startGWWallet(this, webOrderBean, intentAction);
+		PayUtil.startGWWallet(this, webOrderBean, intentAction);
 		openGW = true;
 		this.finish();
 	}
@@ -409,11 +406,11 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	protected void startWebGW(Intent intent){
 		/*Intent GWPayIntent = new Intent(action);
 		startGW(GWPayIntent);*/
-		WebOrderBean webOrderBean = this.initWebOrderBean();
+		WebPayReqBean webOrderBean = this.initWebOrderBean();
 		if (null == webOrderBean) {
 			throw new RuntimeException("webOrderBean is null");
 		}
-		EfunPayUtil.startGWWallet(this, webOrderBean, intent);
+		PayUtil.startGWWallet(this, webOrderBean, intent);
 		openGW = true;
 		this.finish();
 	}

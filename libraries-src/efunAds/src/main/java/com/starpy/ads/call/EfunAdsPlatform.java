@@ -1,6 +1,6 @@
 package com.starpy.ads.call;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.starpy.ads.activity.EfunAdsS2SService;
 import com.starpy.ads.bean.AdsHttpParams;
 import com.core.base.utils.SPUtil;

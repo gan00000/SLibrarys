@@ -1,6 +1,6 @@
 package com.starpy.googlepay;
 
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 
 import android.content.Context;
 import android.content.Intent;

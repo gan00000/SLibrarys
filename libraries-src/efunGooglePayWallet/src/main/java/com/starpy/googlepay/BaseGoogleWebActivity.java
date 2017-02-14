@@ -17,13 +17,13 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
-import com.starpy.googlepay.bean.WebOrderBean;
+import com.starpy.googlepay.bean.WebPayReqBean;
 import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.constants.EfunDomainSite;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.efuntask.EfunPayUtil;
+import com.starpy.googlepay.efuntask.PayUtil;
 import com.starpy.googlepay.efuntask.EndFlag;
 import com.starpy.googlepay.util.EfunPayHelper;
 
@@ -34,7 +34,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 	private EfunAndroidJS efunJS;
 	private WebView webView;
 	
-	private WebOrderBean webOrderBean;
+	private WebPayReqBean webOrderBean;
 	
 	/**
 	 * efunDomainPreferredUrl 最终决定的首选域名
@@ -220,7 +220,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 	    
 	    webView.setWebChromeClient(new WebChromeClient());
 	    webOrderBean = initWebOrderBean();
-	    urlParams = EfunPayUtil.buildGoogleGoodsUrl(this, webOrderBean);
+	    urlParams = PayUtil.buildGoogleGoodsUrl(this, webOrderBean);
 	    SLogUtil.logD("urlParams:" + urlParams);
 	    efunDomainPreferredUrl = EfunPayHelper.getPreferredUrl(BaseGoogleWebActivity.this);
 	    efunDomainSpareUrl = EfunPayHelper.getSpareUrl(BaseGoogleWebActivity.this);

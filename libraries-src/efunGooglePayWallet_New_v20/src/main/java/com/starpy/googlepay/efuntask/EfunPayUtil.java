@@ -10,11 +10,11 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.SPUtil;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.WebOrderBean;

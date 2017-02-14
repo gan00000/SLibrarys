@@ -1,16 +1,8 @@
 package com.core.base.utils.log;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.core.base.beans.EfunLogEntity;
-import com.core.base.res.SConfig;
-import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.SLogUtil;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 

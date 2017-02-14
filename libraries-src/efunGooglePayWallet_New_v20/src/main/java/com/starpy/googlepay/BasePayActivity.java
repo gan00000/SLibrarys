@@ -6,8 +6,8 @@ package com.starpy.googlepay;
 import java.util.List;
 import java.util.Vector;
 
-import com.core.base.res.SConfig;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.cfg.SConfig;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.EfunPayError;
 import com.starpy.googlepay.bean.EfunQueryInventoryState;

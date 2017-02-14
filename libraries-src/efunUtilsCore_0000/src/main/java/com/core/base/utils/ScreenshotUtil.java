@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.core.base.callback.SavePhotoCallback;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;

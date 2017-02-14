@@ -2,11 +2,11 @@ package com.starpy.ads.util;
 
 import java.util.Locale;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.starpy.ads.bean.AdsHttpParams;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.SStringUtil;
 

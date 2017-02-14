@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.core.base.http.HttpRequest;
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;

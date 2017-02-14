@@ -19,7 +19,7 @@ import com.starpy.model.login.bean.SLoginResponse;
 import com.starpy.model.login.execute.AccountRegisterRequest;
 import com.startpy.sdk.R;
 import com.startpy.sdk.utils.DialogUtil;
-import com.starpy.base.StarPyUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.core.base.utils.ToastUtils;
 
 /**
@@ -33,6 +33,9 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
     private TextView termsTextView, registerConfirm;
 
     private EditText registerPasswordEditText, registerAccountEditText;
+
+    private String account;
+    private String password;
 
 
     @Nullable
@@ -125,14 +128,14 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
 
     private void register() {
 
-        String account = registerAccountEditText.getEditableText().toString();
+        account = registerAccountEditText.getEditableText().toString();
         if (TextUtils.isEmpty(account)) {
             ToastUtils.toast(getActivity(), R.string.py_account_empty);
             return;
         }
         account = account.trim();
 
-        String password = registerPasswordEditText.getEditableText().toString();
+        password = registerPasswordEditText.getEditableText().toString();
         if (TextUtils.isEmpty(password)) {
             ToastUtils.toast(getActivity(), R.string.py_password_empty);
             return;
@@ -161,14 +164,20 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
         accountRegisterCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         accountRegisterCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
-            public void callBack(SLoginResponse accountRegRequest,String rawResult) {
-                if (accountRegRequest != null && accountRegRequest.isRequestSuccess()) {
+            public void callBack(SLoginResponse sLoginResponse,String rawResult) {
+                if (sLoginResponse != null && sLoginResponse.isRequestSuccess()) {
                     ToastUtils.toast(getActivity(), R.string.py_register_success);
-                    sLoginActivity.setLoginResponse(accountRegRequest);
+                    sLoginActivity.setLoginResponse(sLoginResponse);
+
+                    StarPyUtil.saveUid(getContext(),sLoginResponse.getUserId());
+                    StarPyUtil.saveAccount(getContext(),account);
+                    StarPyUtil.savePassword(getContext(),password);
+                    StarPyUtil.saveSdkLoginData(getActivity(),sLoginResponse.getRawResponse());
+
                     getActivity().finish();
 
                 } else {
-                    ToastUtils.toast(getActivity(), accountRegRequest.getMessage());
+                    ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
                 }
             }
 

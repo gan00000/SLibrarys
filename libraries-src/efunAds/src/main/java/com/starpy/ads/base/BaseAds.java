@@ -6,7 +6,7 @@ import java.util.Map;
 import com.starpy.ads.bean.AdsHttpParams;
 import com.starpy.ads.util.SPUtil;
 import com.core.base.http.HttpRequest;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 
 import android.content.Context;

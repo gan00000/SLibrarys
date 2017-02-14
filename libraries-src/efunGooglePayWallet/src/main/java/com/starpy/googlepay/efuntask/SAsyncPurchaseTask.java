@@ -5,9 +5,9 @@ import org.json.JSONObject;
 
 import com.core.base.request.SRequestAsyncTask;
 import com.core.base.utils.EfunJSONUtil;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
-import com.starpy.googlepay.bean.GoogleOrderBean;
+import com.starpy.googlepay.bean.GooglePayReqBean;
 import com.starpy.googlepay.constants.GooglePayContant;
 import com.starpy.util.IabHelper;
 import com.starpy.util.IabHelper.QueryInventoryFinishedListener;
@@ -22,7 +22,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 
 	private IabHelper mHelper;
 	private BasePayActivity act;
-	private GoogleOrderBean orderBean;
+	private GooglePayReqBean orderBean;
 	private Prompt prompt;
 //	private SkuDetails skuDetails;
 
@@ -109,7 +109,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
         prompt.complain("create orderId error");
 	}
 
-	private void launchPurchase(GoogleOrderBean extraOrderBean, JSONObject resultJson) {
+	private void launchPurchase(GooglePayReqBean extraOrderBean, JSONObject resultJson) {
 		extraOrderBean.setGgmid(resultJson.optString("ggmid", ""));//数据库记录
 		extraOrderBean.setOrderId(resultJson.optString("orderId", ""));//efun订单号
 

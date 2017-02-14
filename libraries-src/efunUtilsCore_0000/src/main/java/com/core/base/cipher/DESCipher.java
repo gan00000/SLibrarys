@@ -17,15 +17,17 @@ import javax.crypto.spec.DESKeySpec;
 import android.util.Base64;
 import android.util.Log;
 
+import com.core.base.utils.SStringUtil;
+
 
 /**
-* <p>Title: EfunCipher</p>
+* <p>Title: DESCipher</p>
 * <p>Description: 加密解密类</p>
 * <p>Company: EFun</p> 
 * @author GanYuanrong
 * @date 2014年2月13日
 */
-public class EfunCipher {
+public class DESCipher {
 	
 	private final static String DES = "DES";
 
@@ -47,7 +49,7 @@ public class EfunCipher {
 			Cipher cipher = Cipher.getInstance(DES);//加密器
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey, random);
 			byte[] byteResult = cipher.doFinal(encryptData.getBytes());
-			String d = binaryToHexString(byteResult);
+			String d = SStringUtil.binaryToHexString(byteResult);
 			Log.d("efun", "byteResult:" + d);
 			result = Base64.encodeToString(byteResult, Base64.DEFAULT);
 		} catch (NoSuchAlgorithmException e) {
@@ -141,48 +143,5 @@ public class EfunCipher {
 //		return new String(decryptData, "utf-8");
 //
 //	}
-	 
-	
-    /** 
-     *  
-     * @param bytes 
-     * @return 将二进制转换为十六进制字符输出 
-     */  
-    public static String binaryToHexString(byte[] bytes){  
-    	String result = "";  
-        if (bytes == null) {
-        	return result; 
-		}
-        String hex = "";  
-        for(int i=0;i<bytes.length;i++){  
-            //字节高4位  
-            hex = String.valueOf(hexStr.charAt((bytes[i]&0xF0)>>4));  
-            //字节低4位  
-            hex += String.valueOf(hexStr.charAt(bytes[i]&0x0F));  
-            result +=hex;  
-        }  
-        return result;  
-    }  
-    
-    /** 
-     *  
-     * @param hexString 
-     * @return 将十六进制转换为字节数组 
-     */  
-	public static byte[] hexStringToBinary(String hexString) {
-		// hexString的长度对2取整，作为bytes的长度
-		int len = hexString.length() / 2;
-		byte[] bytes = new byte[len];
-		byte high = 0;// 字节高四位
-		byte low = 0;// 字节低四位
-		for (int i = 0; i < len; i++) {
-			// 右移四位得到高位
-			high = (byte) ((hexStr.indexOf(hexString.charAt(2 * i))) << 4);
-			low = (byte) hexStr.indexOf(hexString.charAt(2 * i + 1));
-			bytes[i] = (byte) (high | low);// 高地位做或运算
-		}
-		return bytes;
-	}  
 
-    private static String hexStr =  "0123456789ABCDEF";
 }

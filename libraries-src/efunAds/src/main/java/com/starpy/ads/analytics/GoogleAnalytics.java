@@ -1,6 +1,6 @@
 package com.starpy.ads.analytics;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.efun.google.EfunGoogleProxy;
 
 import android.content.Context;

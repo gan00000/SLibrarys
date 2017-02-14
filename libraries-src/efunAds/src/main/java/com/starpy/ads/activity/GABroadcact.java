@@ -4,12 +4,12 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.starpy.ads.analytics.GoogleAnalytics;
 import com.starpy.ads.callback.GAListener;
 import com.starpy.ads.server.AdsRequest;
 import com.starpy.ads.util.SPUtil;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 
 import android.content.BroadcastReceiver;

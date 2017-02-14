@@ -19,7 +19,7 @@ import com.starpy.model.login.bean.SLoginResponse;
 import com.starpy.model.login.execute.AccountLoginRequest;
 import com.startpy.sdk.R;
 import com.startpy.sdk.utils.DialogUtil;
-import com.starpy.base.StarPyUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.core.base.utils.ToastUtils;
 
 /**
@@ -34,6 +34,9 @@ public class AccountLoginMainFragment extends BaseFragment {
 
     private ImageView eyeImageView;
     private EditText loginPasswordEditText, loginAccountEditText;
+
+    private String account;
+    private String password;
 
     @Nullable
     @Override
@@ -89,19 +92,25 @@ public class AccountLoginMainFragment extends BaseFragment {
                 login();
             }
         });
+
+        account = StarPyUtil.getAccount(getContext());
+        password = StarPyUtil.getPassword(getContext());
+        loginAccountEditText.setText(account);
+        loginPasswordEditText.setText(password);
+
         return contentView;
     }
 
     private void login() {
 
-        String account = loginAccountEditText.getEditableText().toString();
+        account = loginAccountEditText.getEditableText().toString();
         if (TextUtils.isEmpty(account)) {
             ToastUtils.toast(getActivity(), R.string.py_account_empty);
             return;
         }
         account = account.trim();
 
-        String password = loginPasswordEditText.getEditableText().toString();
+        password = loginPasswordEditText.getEditableText().toString();
         if (TextUtils.isEmpty(password)) {
             ToastUtils.toast(getActivity(), R.string.py_password_empty);
             return;
@@ -130,6 +139,11 @@ public class AccountLoginMainFragment extends BaseFragment {
                 if (sLoginResponse != null && sLoginResponse.isRequestSuccess()){
                     ToastUtils.toast(getActivity(),R.string.py_login_success);
                     sLoginActivity.setLoginResponse(sLoginResponse);
+                    StarPyUtil.saveUid(getContext(),sLoginResponse.getUserId());
+                    StarPyUtil.saveAccount(getContext(),account);
+                    StarPyUtil.savePassword(getContext(),password);
+                    StarPyUtil.saveSdkLoginData(getActivity(),sLoginResponse.getRawResponse());
+
                     getActivity().finish();
                 }else{
                     ToastUtils.toast(getActivity(),sLoginResponse.getMessage());
@@ -137,6 +151,7 @@ public class AccountLoginMainFragment extends BaseFragment {
             }
         });
         accountLoginCmd.excute(SLoginResponse.class);
+
     }
 
     @Override

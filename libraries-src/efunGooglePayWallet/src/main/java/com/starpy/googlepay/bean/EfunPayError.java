@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import android.content.Context;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 
 public class EfunPayError implements Serializable{
 

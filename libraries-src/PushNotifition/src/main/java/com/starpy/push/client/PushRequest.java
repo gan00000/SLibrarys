@@ -10,7 +10,7 @@ import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
 import com.core.base.http.HttpRequest;
 import com.core.base.request.SRequestAsyncTask;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.starpy.push.client.utils.PushHelper;
 
 import android.content.Context;

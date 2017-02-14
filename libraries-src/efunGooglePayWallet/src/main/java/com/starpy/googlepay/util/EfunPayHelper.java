@@ -9,9 +9,10 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.constants.GooglePayContant;
 
@@ -106,6 +107,6 @@ public class EfunPayHelper {
 	 */
 	public static String getLoginSign(Context context){
 //		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, "EFUN_LOGIN_SIGN");
-		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, "EFUN_LOGIN_SIGN");
+		return SPUtil.getSimpleString(context, StarPyUtil.STAR_PY_SP_FILE, "EFUN_LOGIN_SIGN");
 	}
 }

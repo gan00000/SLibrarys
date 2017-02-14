@@ -1,19 +1,18 @@
 package com.starpy.googlepay.efuntask;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.core.base.http.HttpRequest;
 import com.core.base.utils.EfunJSONUtil;
-import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.SLogUtil;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
-import com.starpy.googlepay.bean.GoogleOrderBean;
+import com.starpy.googlepay.bean.GooglePayReqBean;
 import com.starpy.googlepay.constants.EfunDomainSite;
 import com.starpy.googlepay.util.EfunPayHelper;
 import com.starpy.util.Purchase;
 import com.starpy.util.SkuDetails;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EfunWalletApi {
 	
@@ -26,60 +25,41 @@ public class EfunWalletApi {
 	* @return 服务器返回的内容
 	*/
 	public static String pay(final BasePayActivity payActivity) {
-		GoogleOrderBean orderBean = payActivity.get_orderBean();
+		GooglePayReqBean orderBean = payActivity.get_orderBean();
 		if (orderBean  == null) {
 			throw new RuntimeException("请先初始化OrderBean");
 		}
-	//	List<NameValuePair> params = new ArrayList<NameValuePair>();
+
 		Map<String, String> params = new HashMap<String, String>();
 		String userId = orderBean.getUserId();
-		String creditId = orderBean.getCreditId();
 		String goodsId = orderBean.getSku();
-		String moneyType = orderBean.getMoneyType();
 		String serverCode = orderBean.getServerCode();
 		String gameCode = orderBean.getGameCode();
 		String payFrom = orderBean.getPayFrom();
 		String payType = orderBean.getPayType();
-		
-		SLogUtil.logD("GoogleOrderBean hashCode:" + orderBean.hashCode() + ",userId:" + userId + ",creditId:" + creditId + ",sku:" + goodsId + ",moneyType:" +
-		moneyType + ",serverCode:" + serverCode + ",gameCode:" + gameCode + ",payFrom:" + payFrom+ ",payType:" + payType);
-		
-		if (SStringUtil.isNotEmpty(userId)&& SStringUtil.isNotEmpty(creditId) && SStringUtil.isNotEmpty(goodsId)
-				&& SStringUtil.isNotEmpty(moneyType) && SStringUtil.isNotEmpty(serverCode) && SStringUtil.isNotEmpty(gameCode)
+
+		if (SStringUtil.isNotEmpty(userId) && SStringUtil.isNotEmpty(goodsId)
+				&& SStringUtil.isNotEmpty(serverCode) && SStringUtil.isNotEmpty(gameCode)
 				&& SStringUtil.isNotEmpty(payFrom)&& SStringUtil.isNotEmpty(payType)) {
-			
-			String localMacAddress = (null == ApkInfoUtil.getMacAddress(payActivity)?"": ApkInfoUtil.getMacAddress(payActivity));
-			String localImeiAddress = (null == ApkInfoUtil.getImeiAddress(payActivity)?"": ApkInfoUtil.getImeiAddress(payActivity));
-			String localIpAddress = (null == ApkInfoUtil.getLocalIpAddress(payActivity)?"": ApkInfoUtil.getLocalIpAddress(payActivity));
-			String localAndroidId = (null == ApkInfoUtil.getAndroidId(payActivity)?"": ApkInfoUtil.getAndroidId(payActivity));
-			
-			params.put("mac", localMacAddress);
-			params.put("imei", localImeiAddress);
-			params.put("ip", localIpAddress);
-			params.put("androidid", localAndroidId);
-			
+
 			params.put("userId", orderBean.getUserId());
-			//params.put("creditId", orderBean.getCreditId());
 			params.put("sku", orderBean.getSku());//google商品id
-//			params.put("moneyType", orderBean.getMoneyType());
 			params.put("serverCode", orderBean.getServerCode());
 			params.put("gameCode", orderBean.getGameCode());
 			params.put("payFrom", orderBean.getPayFrom());//web android
-//			params.put("payType", orderBean.getPayType());//支付类型
-//			params.put("version", orderBean.getVersion());
+			params.put("payType", orderBean.getPayType());//支付类型
 
 			params.put("language", orderBean.getLanguage());
-			params.put("extra", orderBean.getRemark());
-			params.put("roleName", orderBean.getEfunRole());
-			params.put("roleLevel", orderBean.getEfunLevel());
+			params.put("extra", orderBean.getExtra());
+			params.put("roleName", orderBean.getRoleName());
+			params.put("roleLevel", orderBean.getRoleLevel());
 			params.put("roleId", orderBean.getRoleId());
-			params.put("cpOrderId", orderBean.getRoleId());//cp 订单号
+			params.put("cpOrderId", orderBean.getCpOrderId());//cp 订单号
 
 			params.put("packageName", payActivity.getPackageName());//添加包名参数
 			params.put("versionCode", EfunPayHelper.getVersionCode(payActivity));//添加包版本号参数
 			params.put("versionName", EfunPayHelper.getVersionName(payActivity));//添加包版本名称参数
 
-//			params.put("googlepayversion", BasePayActivity.GOOGLE_PAY_VERSION);
 			params.put("accessToken", EfunPayHelper.getLoginSign(payActivity));
 			
 			SLogUtil.logI("玩家点击储值. params: " + params.toString());
@@ -110,7 +90,7 @@ public class EfunWalletApi {
 	public static String exchage(final BasePayActivity payActivity,String purchaseData, String dataSignature, String isSharedPreferencesMark) {
 //		List<NameValuePair> verifyParams = new ArrayList<NameValuePair>();
 		Map<String, String> verifyParams = new HashMap<String, String>();
-		GoogleOrderBean googleOrderBean = payActivity.get_orderBean();
+		GooglePayReqBean googleOrderBean = payActivity.get_orderBean();
 		
 		//添加包名参数，以备日后使用
 		verifyParams.put("packageName", payActivity.getPackageName());

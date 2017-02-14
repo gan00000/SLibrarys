@@ -6,11 +6,11 @@ import android.util.Log;
 
 import java.util.List;
 
-import com.starpy.base.SLogUtil;
-import com.starpy.googlepay.bean.WebOrderBean;
+import com.starpy.base.utils.SLogUtil;
+import com.starpy.googlepay.bean.WebPayReqBean;
 import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.efuntask.EfunPayUtil;
+import com.starpy.googlepay.efuntask.PayUtil;
 import com.starpy.googlepay.efuntask.EndFlag;
 
 public abstract class BaseBillActivity extends BasePayActivity {
@@ -108,11 +108,11 @@ public abstract class BaseBillActivity extends BasePayActivity {
 	* <p>Description: 启动更多储值支付页面</p>
 	*/
 	protected void startWebClient() {
-		WebOrderBean webOrderBean = this.initWebOrderBean();
+		WebPayReqBean webOrderBean = this.initWebOrderBean();
 		if (null == webOrderBean) {
 			throw new RuntimeException("webOrderBean is null");
 		}
-		EfunPayUtil.startOtherWallet(this, webOrderBean, "");
+		PayUtil.startOtherWallet(this, webOrderBean, "");
 		openGW = true;
 		this.finish();
 	}
@@ -122,11 +122,11 @@ public abstract class BaseBillActivity extends BasePayActivity {
 	protected void startWebGW(){
 		/*Intent GWPayIntent = new Intent(GooglePayContant.BillAction.EFUN_PAY_ACTIVITY_GW + _gameCode);
 		startGW(GWPayIntent);*/
-		WebOrderBean webOrderBean = this.initWebOrderBean();
+		WebPayReqBean webOrderBean = this.initWebOrderBean();
 		if (null == webOrderBean) {
 			throw new RuntimeException("webOrderBean is null");
 		}
-		EfunPayUtil.startGWWallet(this, webOrderBean, "");
+		PayUtil.startGWWallet(this, webOrderBean, "");
 		openGW = true;
 		this.finish();
 	}

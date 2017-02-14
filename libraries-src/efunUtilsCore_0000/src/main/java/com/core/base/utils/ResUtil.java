@@ -6,8 +6,6 @@ import java.io.InputStream;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.core.base.res.SConfig;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;

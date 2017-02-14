@@ -78,4 +78,39 @@ public class BaseReqeustBean extends AbsReqeustBean {
         return postParams;
     }
 
+    public String buildGetParamsInField() {
+
+        StringBuffer sb = new StringBuffer();
+        Class c = this.getClass();
+        while (c != null && c != BaseReqeustBean.class.getSuperclass()) {
+
+            Field[] fields = c.getDeclaredFields();
+            Field.setAccessible(fields, true);
+
+            for (int i = 0; i < fields.length; i++) {
+                try {
+                    Object value = null;
+                    if (fields[i].get(this) != null) {
+                        value = fields[i].get(this);
+                        if (fields[i].getType() == String.class) {
+                            //postParams.put(fields[i].getName(), (String) value);
+                            sb.append(fields[i].getName()).append("=").append((String) value).append("&");
+                        } else if (fields[i].getType() == int.class) {
+//                            postParams.put(fields[i].getName(), String.valueOf((int) value));
+                            sb.append(fields[i].getName()).append("=").append(String.valueOf((int) value)).append("&");
+                        }
+
+                    }
+
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            c = c.getSuperclass();
+        }
+        return sb.toString();
+    }
+
 }

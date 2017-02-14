@@ -8,7 +8,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.core.base.request.SRequestAsyncTask;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;

@@ -11,7 +11,7 @@ import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.FbSp;
 import com.facebook.sfb.SFacebookProxy;
 import com.core.base.utils.PL;
-import com.starpy.base.StarPyUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.model.login.bean.SLoginResponse;
 import com.starpy.model.login.execute.FBLoginRegRequest;
 import com.starpy.model.login.execute.MacLoginRegRequest;
@@ -100,6 +100,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                     ToastUtils.toast(getActivity(), R.string.py_login_success);
                     StarPyUtil.saveSdkLoginData(getContext(),rawResult);
                     StarPyUtil.saveUid(getContext(),sLoginResponse.getUserId());
+
                     sLoginActivity.setLoginResponse(sLoginResponse);
                     getActivity().finish();
                 } else {
@@ -161,6 +162,8 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                 if (sLoginResponse != null && (sLoginResponse.isRequestSuccess() || SStringUtil.isEqual("1001", sLoginResponse.getCode()))) {
                     ToastUtils.toast(getActivity(), R.string.py_login_success);
                     sLoginActivity.setLoginResponse(sLoginResponse);
+                    StarPyUtil.saveSdkLoginData(getContext(),rawResult);
+                    StarPyUtil.saveUid(getContext(),sLoginResponse.getUserId());
                     getActivity().finish();
                 } else {
                     ToastUtils.toast(getActivity(), sLoginResponse.getMessage());

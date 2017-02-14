@@ -12,9 +12,7 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.core.base.SWebView;
-import com.core.base.res.SConfig;
 import com.core.base.utils.ApkInfoUtil;
-import com.core.base.utils.SPUtil;
 
 public class Native2JS {
 

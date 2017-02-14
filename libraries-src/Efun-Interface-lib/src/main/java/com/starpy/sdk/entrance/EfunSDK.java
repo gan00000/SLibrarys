@@ -3,7 +3,7 @@ package com.starpy.sdk.entrance;
 import java.util.List;
 
 import com.core.base.callback.ISCallBack;
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.PermissionUtil;
 import com.starpy.sdk.entrance.constant.EfunChannelType;

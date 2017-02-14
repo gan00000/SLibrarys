@@ -8,7 +8,7 @@ import com.core.base.beans.EfunLogEntity;
 import com.core.base.http.HttpRequest;
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.StorageUtil;
 import com.core.base.utils.SStringUtil;

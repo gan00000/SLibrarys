@@ -9,8 +9,7 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.UUID;
 
-import com.core.base.cipher.EfunCipher;
-import com.core.base.res.SConfig;
+import com.core.base.cipher.DESCipher;
 
 import android.Manifest;
 import android.content.Context;
@@ -402,7 +401,7 @@ public class ApkInfoUtil {
 			if (mac == null) {
 				return "";
 			}
-			mac_s = EfunCipher.binaryToHexString(mac).trim();
+			mac_s = SStringUtil.binaryToHexString(mac).trim();
 			if (!TextUtils.isEmpty(mac_s)) {
 				StringBuilder stringBuilder = new StringBuilder(mac_s);
 				for (int i = 2; i < stringBuilder.length(); i = i + 2 + 1) {

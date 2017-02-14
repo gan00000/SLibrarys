@@ -1,6 +1,6 @@
 package com.starpy.ads.event;
 
-import com.core.base.res.SConfig;
+import com.starpy.base.cfg.SConfig;
 
 import android.content.Context;
 

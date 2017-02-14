@@ -5,8 +5,8 @@ import com.starpy.ads.callback.S2SListener;
 import com.starpy.ads.server.AdsRequest;
 import com.starpy.ads.util.AdsHelper;
 import com.starpy.ads.util.SPUtil;
-import com.core.base.res.SConfig;
-import com.starpy.base.SLogUtil;
+import com.starpy.base.cfg.SConfig;
+import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 
 import android.app.Service;

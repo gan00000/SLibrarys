@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.starpy.base.StarPyUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.startpy.sdk.R;
 
 /**

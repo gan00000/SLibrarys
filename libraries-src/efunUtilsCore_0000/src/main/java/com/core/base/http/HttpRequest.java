@@ -1,17 +1,12 @@
 package com.core.base.http;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import org.json.JSONObject;
 
-import com.core.base.res.SConfig;
-import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SStringUtil;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 public class HttpRequest {

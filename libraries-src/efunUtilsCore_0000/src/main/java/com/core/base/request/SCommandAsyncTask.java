@@ -1,6 +1,5 @@
 package com.core.base.request;
 
-import com.core.base.res.SConfig;
 import com.core.base.request.command.abstracts.EfunCommand;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.ThreadUtil;
