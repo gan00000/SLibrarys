@@ -13,6 +13,7 @@ import android.webkit.JavascriptInterface;
 
 import com.core.base.SWebView;
 import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.PL;
 
 public class Native2JS {
 
@@ -171,7 +172,7 @@ public class Native2JS {
 	@JavascriptInterface
 	public void finishActivity(){
 		if (context != null && context instanceof Activity) {
-			Log.d("efun", "activity finish");
+			PL.i("activity finish");
 			((Activity)context).finish();
 		}
 	}

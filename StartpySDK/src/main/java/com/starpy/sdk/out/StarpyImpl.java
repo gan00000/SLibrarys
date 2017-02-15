@@ -1,4 +1,4 @@
-package com.startpy.sdk.out;
+package com.starpy.sdk.out;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,8 +6,10 @@ import android.content.Intent;
 import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.response.SLoginResponse;
-import com.startpy.sdk.login.ILoginCallBack;
-import com.startpy.sdk.login.SLoginActivity;
+import com.starpy.data.login.ILoginCallBack;
+import com.starpy.data.pay.PayType;
+import com.starpy.sdk.SWebViewActivity;
+import com.starpy.sdk.login.SLoginActivity;
 
 /**
  * Created by Efun on 2017/2/13.
@@ -45,8 +47,17 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void pay(Activity activity, String cpOrderId, String productId, String roleLevel, String customize) {
+    public void pay(Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String customize) {
 
+        if (payType == PayType.OTHERS){//第三方储值
+
+            Intent i = new Intent(activity, SWebViewActivity.class);
+            i.putExtra(SWebViewActivity.PLAT_WEBVIEW_URL,"https://www.baidu.com/");
+            activity.startActivity(i);
+
+        }else{//默认Google储值
+
+        }
     }
 
     @Override

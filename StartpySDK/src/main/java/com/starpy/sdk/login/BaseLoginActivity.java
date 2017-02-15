@@ -1,4 +1,4 @@
-package com.startpy.sdk.login;
+package com.starpy.sdk.login;
 
 import com.core.base.SBaseActivity;
 

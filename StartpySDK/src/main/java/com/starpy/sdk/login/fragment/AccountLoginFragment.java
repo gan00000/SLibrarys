@@ -1,4 +1,4 @@
-package com.startpy.sdk.login.fragment;
+package com.starpy.sdk.login.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +16,7 @@ import com.starpy.data.login.execute.FBLoginRegRequestTask;
 import com.starpy.data.login.execute.MacLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.startpy.sdk.R;
-import com.startpy.sdk.utils.DialogUtil;
+import com.starpy.sdk.utils.DialogUtil;
 import com.core.base.utils.ToastUtils;
 
 /**

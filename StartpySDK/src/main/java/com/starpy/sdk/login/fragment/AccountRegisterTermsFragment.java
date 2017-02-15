@@ -1,4 +1,4 @@
-package com.startpy.sdk.login.fragment;
+package com.starpy.sdk.login.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

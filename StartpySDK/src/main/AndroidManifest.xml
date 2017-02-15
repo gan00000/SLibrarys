@@ -11,7 +11,11 @@
     <application
            >
 
-        <activity android:name="com.startpy.sdk.login.SLoginActivity"
+        <activity android:name="com.starpy.sdk.login.SLoginActivity"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:screenOrientation="landscape">
+        </activity>
+        <activity android:name="com.starpy.sdk.SWebViewActivity"
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:screenOrientation="landscape">
         </activity>

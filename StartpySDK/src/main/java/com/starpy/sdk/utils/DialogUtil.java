@@ -1,4 +1,4 @@
-package com.startpy.sdk.utils;
+package com.starpy.sdk.utils;
 
 import android.app.Dialog;
 import android.content.Context;

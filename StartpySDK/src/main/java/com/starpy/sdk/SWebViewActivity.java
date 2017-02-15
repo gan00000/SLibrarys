@@ -1,4 +1,4 @@
-package com.startpy.sdk;
+package com.starpy.sdk;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import com.core.base.BaseWebViewClient;
 import com.core.base.SBaseActivity;
 import com.core.base.SWebView;
 import com.core.base.utils.PL;
+import com.core.base.utils.ToastUtils;
+import com.startpy.sdk.R;
 
 /**
  * Created by Efun on 2016/12/1.
@@ -36,7 +38,7 @@ public class SWebViewActivity extends SBaseActivity {
         }
 
         if (TextUtils.isEmpty(webUrl)){
-            //ToastUtils.toast(getApplicationContext(),R.string.efun_pd_web_url_empty);
+            ToastUtils.toast(getApplicationContext(),"url error");
             PL.i("webUrl is empty");
             finish();
             return;

@@ -8,10 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.core.base.utils.SStringUtil;
-import com.starpy.model.login.bean.SLoginResponse;
-import com.startpy.sdk.login.ILoginCallBack;
-import com.startpy.sdk.out.IStarpy;
-import com.startpy.sdk.out.StarpyFactory;
+import com.starpy.data.login.ILoginCallBack;
+import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.data.pay.PayType;
+import com.starpy.sdk.out.IStarpy;
+import com.starpy.sdk.out.StarpyFactory;
 
 public class MainActivity extends Activity {
 
@@ -70,7 +71,7 @@ public class MainActivity extends Activity {
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, "cpOrderId", "productId", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, PayType.OTHERS, "cpOrderId", "productId", "roleLevel", "customize");
             }
         });
     }

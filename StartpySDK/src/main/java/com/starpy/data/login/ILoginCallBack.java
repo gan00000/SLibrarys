@@ -1,4 +1,4 @@
-package com.startpy.sdk.login;
+package com.starpy.data.login;
 
 import com.core.base.callback.ISCallBack;
 import com.starpy.data.login.response.SLoginResponse;

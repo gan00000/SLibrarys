@@ -1,4 +1,4 @@
-package com.startpy.sdk.login;
+package com.starpy.sdk.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.SConfig;
 import com.starpy.data.login.response.SLoginResponse;
 import com.startpy.sdk.R;
-import com.startpy.sdk.login.fragment.AccountLoginMainFragment;
-import com.startpy.sdk.login.fragment.BaseFragment;
+import com.starpy.sdk.login.fragment.AccountLoginMainFragment;
+import com.starpy.sdk.login.fragment.BaseFragment;
 import com.core.base.utils.FragmentUtil;
 
 public class SLoginActivity extends BaseLoginActivity {

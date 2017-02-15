@@ -1,16 +1,15 @@
-package com.startpy.sdk.login.fragment;
+package com.starpy.sdk.login.fragment;
 
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.startpy.sdk.login.SLoginActivity;
-import com.startpy.sdk.utils.DialogUtil;
+import com.starpy.sdk.login.SLoginActivity;
+import com.starpy.sdk.utils.DialogUtil;
 
 /**
  * Created by Efun on 2017/2/6.

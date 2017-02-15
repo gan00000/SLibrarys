@@ -11,7 +11,7 @@ import android.webkit.WebView;
 
 public class SBaseWebView extends WebView {
 
-    BaseWebChromeClient efunWebChromeClient;
+    private BaseWebChromeClient efunWebChromeClient;
 
     public SBaseWebView(Context context) {
         super(context);

@@ -1,4 +1,4 @@
-package com.startpy.sdk.out;
+package com.starpy.sdk.out;
 
 import android.app.Activity;
 import android.content.Intent;

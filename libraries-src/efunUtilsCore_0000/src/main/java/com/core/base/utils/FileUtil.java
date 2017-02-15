@@ -256,11 +256,15 @@ public class FileUtil {
 	public static String readAssetsTxtFile(Context context,String fileName){
 		try {
 			InputStream is = context.getAssets().open(fileName);
-			int lenght = is.available();
+			if (is != null) {
+				int lenght = is.available();
 
-			byte[] buffer = new byte[lenght];
-			is.read(buffer);
-			return new String(buffer, "utf8");
+				byte[] buffer = new byte[lenght];
+				is.read(buffer);
+
+				is.close();
+				return new String(buffer, "utf8");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

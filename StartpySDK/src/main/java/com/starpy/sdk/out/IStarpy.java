@@ -1,8 +1,9 @@
-package com.startpy.sdk.out;
+package com.starpy.sdk.out;
 
 import android.app.Activity;
 
-import com.startpy.sdk.login.ILoginCallBack;
+import com.starpy.data.login.ILoginCallBack;
+import com.starpy.data.pay.PayType;
 
 /**
  * Created by Efun on 2017/2/13.
@@ -18,6 +19,6 @@ public interface IStarpy extends IGameLifeCycle{
 
     public void login(Activity activity,ILoginCallBack iLoginCallBack);
 
-    public void pay(Activity activity, String cpOrderId, String productId, String roleLevel,String customize);
+    public void pay(Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String customize);
 
 }
