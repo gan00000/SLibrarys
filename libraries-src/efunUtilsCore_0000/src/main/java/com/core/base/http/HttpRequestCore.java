@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.Map;
 
 import com.core.base.utils.FileUtil;
+import com.core.base.utils.PL;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 
@@ -92,7 +93,7 @@ public class HttpRequestCore{
 		}else{
 			getUrl = urlStr + "?" + getData;
 		}
-		SLogUtil.logD("http request:" + getUrl);
+		PL.d("http request:" + getUrl);
 		return excuteGetRequest(getUrl);
 		
 	}
@@ -118,7 +119,7 @@ public class HttpRequestCore{
 		}
 		this.requestUrl = urlStr;
 		this.sendData = postData;
-		SLogUtil.logD("http request:" + urlStr + "?" + postData);
+		PL.i("http request:" + urlStr + "?" + postData);
 		doPost();
 		httpResponse.setRequestCompleteUrl(urlStr + "?" + postData);
 		return httpResponse;
@@ -179,7 +180,7 @@ public class HttpRequestCore{
 			int code = urlConnection.getResponseCode();
 			httpResponse.setHttpResponseCode(code);
 			String message = urlConnection.getResponseMessage();
-			SLogUtil.logD("request code:" + code + ",code message:" + message);
+			PL.i("request code:" + code + ",code message:" + message);
 			if (code == HttpURLConnection.HTTP_OK) {
 				result = readStream(urlConnection.getInputStream());
 			}
@@ -188,7 +189,7 @@ public class HttpRequestCore{
 				httpResponse.setResult(result);
 				httpResponse.setServerTime(urlConnection.getHeaderField("Date"));
 				httpResponse.setHeads(urlConnection.getHeaderFields());
-				Log.d(TAG, "request url:" + requestUrl + " --> result:" + httpResponse.getResult());
+				PL.i("request url:" + requestUrl + " --> result:" + httpResponse.getResult());
 			}
 			
 		}catch (IOException e) {

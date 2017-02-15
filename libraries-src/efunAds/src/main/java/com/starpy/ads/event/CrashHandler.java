@@ -14,6 +14,7 @@ import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
 import com.core.base.http.HttpRequest;
 import com.core.base.utils.FileUtil;
+import com.starpy.base.utils.StarPyUtil;
 
 import android.content.Context;
 import android.os.Looper;
@@ -74,7 +75,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 				}else{
 					crashObj.put("gameCode", gameCode);
 				}
-				String efunUserId = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_USER_ID);
+				String efunUserId = StarPyUtil.getUid(context);
 				crashObj.put("userid", efunUserId);//需要取得UID
 				
 			} catch (JSONException e) {

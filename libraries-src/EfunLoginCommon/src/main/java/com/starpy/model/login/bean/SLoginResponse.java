@@ -9,13 +9,32 @@ import com.core.base.request.bean.BaseResponseModel;
 public class SLoginResponse extends BaseResponseModel {
 
     private String userId = "";
-    private String accessTkoen = "";
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    private String accessToken = "";
     /**
      * 登陆成功时间戳
      */
     private String timestamp = "";
     private String freeRegisterName = "";
     private String freeRegisterPwd = "";
+
+    private String gameCode = "";
+
+    public String getGameCode() {
+        return gameCode;
+    }
+
+    public void setGameCode(String gameCode) {
+        this.gameCode = gameCode;
+    }
 
 
     public String getUserId() {
@@ -26,13 +45,6 @@ public class SLoginResponse extends BaseResponseModel {
         this.userId = userId;
     }
 
-    public String getAccessTkoen() {
-        return accessTkoen;
-    }
-
-    public void setAccessTkoen(String accessTkoen) {
-        this.accessTkoen = accessTkoen;
-    }
 
     public String getFreeRegisterName() {
         return freeRegisterName;

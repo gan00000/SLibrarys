@@ -33,7 +33,7 @@ import android.util.Log;
  */
 public class ApkInfoUtil {
 	
-	public static String customizedUniqueId = "";
+	private static String customizedUniqueId = "";
 
 	/**
 	 * 获取当前的包信息
@@ -76,13 +76,20 @@ public class ApkInfoUtil {
 		WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		WifiInfo info = wifi.getConnectionInfo();
 		String macTmp = info.getMacAddress();
-		if (TextUtils.isEmpty(macTmp) || macTmp.endsWith("00:00:00:00:00:00")) {
-			Log.d("efunLog", "getLocalMacAddressFromIp");
-			macTmp = getLocalMacAddressFromIp(ctx);
-		}
+//		if (TextUtils.isEmpty(macTmp) || macTmp.endsWith("00:00:00:00:00:00")) {
+//			Log.d("efunLog", "getLocalMacAddressFromIp");
+//			macTmp = getLocalMacAddressFromIp(ctx);
+//		}
 		return macTmp;
 	}
-	
+
+	public static  String getCustomizedUniqueIdOrAndroidId(Context ctx){
+		String s = getCustomizedUniqueIdOrAndroidId(ctx);
+		if (TextUtils.isEmpty(s)){
+			s = getAndroidId(ctx);
+		}
+		return s;
+	}
 
 	/**
 	 * <p>Description: 获取植入SD卡的uuid</p>
@@ -90,7 +97,7 @@ public class ApkInfoUtil {
 	 * @return
 	 * @date 2015年10月12日
 	 */
-	public static synchronized String getCustomizedUniqueId(Context ctx) {
+	private static synchronized String getCustomizedUniqueId(Context ctx) {
 
 		if (!TextUtils.isEmpty(customizedUniqueId) && customizedUniqueId.length() > 30) {
 			return customizedUniqueId;
@@ -151,7 +158,7 @@ public class ApkInfoUtil {
 		}
 		return imei;
 	}
-	
+
 	/**
 	 * getLocalIpAddress Method
 	 * Method Description : Ip Address
@@ -159,18 +166,18 @@ public class ApkInfoUtil {
 	 * @date 2013-1-23
 	 */
 	public static String getLocalIpAddress(Context ctx){
-		WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);  
-	    WifiInfo info = wifi.getConnectionInfo();  
+		WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+	    WifiInfo info = wifi.getConnectionInfo();
 	    int ipInt = info.getIpAddress();
 		String ipTmp = String.format("%d.%d.%d.%d", (ipInt & 0xff), (ipInt >> 8 & 0xff), (ipInt >> 16 & 0xff), (ipInt >> 24 & 0xff));
-	   
+
 	/*    if (TextUtils.isEmpty(ipTmp) || ipTmp.equals("0.0.0.0")) {
 	    	Log.d("efunLog", "getLocalIpAddress()");
 	    	ipTmp = getLocalIpAddress();
 		}*/
-	   
+
 	    return ipTmp;
-	    	    
+
 	}
 	
 	/**
@@ -376,81 +383,7 @@ public class ApkInfoUtil {
 		}
 		return NetworkType.NET_TYPE_UNKNOW;
 	}
-	
-	/*public static String getPhoneNumber(Context mContext){
-		TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-		String phoneNumber = tm.getLine1Number();
-		return phoneNumber;
-	}*/
-	
-	/**
-	 * 如果mac=00:00:00:00:00:00则采取下面的方式获取（这种方式必须wifi联网才能获取到）
-	 * @param context
-	 * @return
-	 */
-	public static String getLocalMacAddressFromIp(Context context) {
-		String mac_s = "";
-		try {
-			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
-				return mac_s;
-			}
-			byte[] mac;
-			NetworkInterface ne = NetworkInterface.getByInetAddress(InetAddress.getByName(getLocalIpAddress()));
 
-			mac = ne.getHardwareAddress();
-			if (mac == null) {
-				return "";
-			}
-			mac_s = SStringUtil.binaryToHexString(mac).trim();
-			if (!TextUtils.isEmpty(mac_s)) {
-				StringBuilder stringBuilder = new StringBuilder(mac_s);
-				for (int i = 2; i < stringBuilder.length(); i = i + 2 + 1) {
-					stringBuilder.insert(i, ':');
-				}
-				mac_s = stringBuilder.toString().toLowerCase();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return mac_s;
-	}
-
-/*	public static String byte2hexString(byte[] b) {
-		if (b == null) {
-			return null;
-		}
-		StringBuffer hs = new StringBuffer(b.length);
-		String stmp = "";
-		int len = b.length;
-		for (int n = 0; n < len; n++) {
-			stmp = Integer.toHexString(b[n] & 0xFF);
-			if (stmp.length() == 1) {
-				hs = hs.append("0").append(stmp);
-			} else {
-				hs = hs.append(stmp);
-			}
-		}
-		return String.valueOf(hs);
-	}*/
-	@Deprecated
-	public static String getLocalIpAddress() {
-		/*try {
-			String ipv4;
-			List<NetworkInterface> nilist = Collections.list(NetworkInterface.getNetworkInterfaces());
-			for (NetworkInterface ni : nilist) {
-				List<InetAddress> ialist = Collections.list(ni.getInetAddresses());
-				for (InetAddress address : ialist) {
-					if (!address.isLoopbackAddress() && InetAddressUtils.isIPv4Address(ipv4 = address.getHostAddress())) {
-						return ipv4;
-					}
-				}
-			}
-		} catch (SocketException ex) {
-			ex.printStackTrace();
-		}
-		return "";*/
-		return getHostIp();
-	}
 	
 	/***
 	 * 获取网关IP地址

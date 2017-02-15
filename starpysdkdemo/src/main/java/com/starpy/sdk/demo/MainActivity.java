@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.core.base.utils.SStringUtil;
 import com.starpy.model.login.bean.SLoginResponse;
 import com.startpy.sdk.login.ILoginCallBack;
 import com.startpy.sdk.out.IStarpy;
@@ -47,8 +48,11 @@ public class MainActivity extends Activity {
                     public void onLogin(SLoginResponse sLoginResponse) {
                         if (sLoginResponse != null){
                             String uid = sLoginResponse.getUserId();
-                            String accessToken = sLoginResponse.getAccessTkoen();
-                            Log.i("IStarpy","uid:" + uid + "accessToken:" + accessToken);
+                            String accessToken = sLoginResponse.getAccessToken();
+                            String timestamp = sLoginResponse.getTimestamp();
+                            Log.i("IStarpy","uid:" + uid + "  accessToken:" + accessToken + "  yanz:" +  SStringUtil.toMd5("DF7D80A64433C90E263F146315E17A79" +
+                                    uid + sLoginResponse.getGameCode() + timestamp));
+
                         }
                     }
                 });

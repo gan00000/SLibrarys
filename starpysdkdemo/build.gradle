@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'star'
             keyPassword '000000'
-            storeFile file('E:/aspro/SLibrarys2/keystore/pykeystore.jks')
+            storeFile file('../keystore/pykeystore.jks')
             storePassword '000000'
         }
     }
@@ -14,12 +14,14 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
 
+
     defaultConfig {
         applicationId "com.starpy.sdk.demo"
         minSdkVersion 11
-        targetSdkVersion 25
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
 
     }
 

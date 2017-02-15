@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import com.core.base.utils.PL;
 import com.core.base.utils.SignatureUtil;
 import com.facebook.sfb.SFacebookProxy;
+import com.starpy.base.cfg.SConfig;
 import com.starpy.model.login.bean.SLoginResponse;
 import com.startpy.sdk.R;
 import com.startpy.sdk.login.fragment.AccountLoginMainFragment;
@@ -20,7 +21,7 @@ public class SLoginActivity extends BaseLoginActivity {
     public static final int S_LOGIN_RESULT = 700;
     public static final String S_LOGIN_RESPONSE_OBJ = "S_LOGIN_RESPONSE_OBJ";
 
-    private SLoginResponse loginResponse;
+//    private SLoginResponse loginResponse;
 
     private FragmentManager fragmentManager;
     private RelativeLayout relativeLayout;
@@ -61,8 +62,14 @@ public class SLoginActivity extends BaseLoginActivity {
 //        onDestroy调用onDestroy
         sFacebookProxy.onDestroy(this);
 
+//        setResult();
+    }
+
+    public void setResult(SLoginResponse loginResponse) {
         if (loginResponse != null){
+            loginResponse.setGameCode(SConfig.getGameCode(this));
             Intent data = new Intent();
+
             data.putExtra(S_LOGIN_RESPONSE_OBJ, loginResponse);
             setResult(S_LOGIN_RESULT,data);
         }
@@ -83,7 +90,4 @@ public class SLoginActivity extends BaseLoginActivity {
         return sFacebookProxy;
     }
 
-    public void setLoginResponse(SLoginResponse loginResponse) {
-        this.loginResponse = loginResponse;
-    }
 }

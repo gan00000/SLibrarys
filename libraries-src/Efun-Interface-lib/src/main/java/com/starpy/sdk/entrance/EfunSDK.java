@@ -6,6 +6,7 @@ import com.core.base.callback.ISCallBack;
 import com.starpy.base.cfg.SConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.PermissionUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.entrance.constant.EfunChannelType;
 import com.starpy.sdk.entrance.constant.EfunPayType;
 import com.starpy.sdk.entrance.constant.EfunShareType;
@@ -168,7 +169,6 @@ public abstract class EfunSDK {
 	 */
 	
 	public void efunLogin(Context context,EfunLoginEntity entity){
-		SConfig.clearLoginMsg(context);
 		if (entity.getISCallBack() == null) {
 			Log.e(SDK_TAG, "login call back is null");
 		}
@@ -184,7 +184,6 @@ public abstract class EfunSDK {
 	 */
 	public void efunLogout(Context context, EfunLogoutEntity entity) {
 		checkContext(context);
-		SConfig.clearLoginMsg(context);
 	}
 
 	/**
@@ -317,7 +316,7 @@ public abstract class EfunSDK {
 	 */
 	public void efunSetLanguage(Context context, String language) {
 		Log.d(SDK_TAG, "set gameLanguage:" + language);
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_SDK_LANGUAGE, language);
+		SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, EFUN_SDK_LANGUAGE, language);
 	}
 
 	// ===========================================================================================================================

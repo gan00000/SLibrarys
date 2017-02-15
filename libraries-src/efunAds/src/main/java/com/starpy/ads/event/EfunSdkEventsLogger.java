@@ -10,6 +10,7 @@ import com.core.base.request.SCommandAsyncTask;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.GoogleUtil;
+import com.starpy.base.utils.StarPyUtil;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -61,8 +62,8 @@ public class EfunSdkEventsLogger {
 		m.put("wifi", ApkInfoUtil.isWifiAvailable(context) ? "yes" : "no");
 		m.put("language", Locale.getDefault().getLanguage());
 		//m.put("userAgent", new WebView(context).getSettings().getUserAgentString());
-		m.put("sign", SConfig.getSDKLoginSign(context));
-		m.put("loginTimestamp", SConfig.getSDKLoginTimestamp(context));
+		m.put("sign", SConfig.getGameLanguage(context));
+		m.put("loginTimestamp", StarPyUtil.getSdkLoginTerms(context));
 		
 		
 		if (extraEvent != null && !extraEvent.isEmpty()) {

@@ -14,19 +14,19 @@ import com.core.base.utils.SStringUtil;
 import com.starpy.model.login.bean.request.LoginBaseRequest;
 
 /**
- * <p>Title: BaseRequest</p>
+ * <p>Title: BaseRequestTask</p>
  * <p>Description: 请求接口对象封装类</p>
  * <p>Company: EFun</p> 
  * @author GanYuanrong
  * @date 2013年12月10日
  */
-public abstract class BaseRequest extends AbsHttpRequest {
+public abstract class BaseRequestTask extends AbsHttpRequest {
 
 	protected Context context;
 
 	protected LoginBaseRequest baseRequest;
 
-	public BaseRequest(Context context) {
+	public BaseRequestTask(Context context) {
 		this.context = context;
 	}
 
@@ -71,12 +71,12 @@ public abstract class BaseRequest extends AbsHttpRequest {
 
 	@Override
 	public void onTimeout(String result) {
-
+		PL.i("onTimeout");
 	}
 
 	@Override
 	public void onNoData(String result) {
-
+		PL.i("onNoData");
 	}
 
 

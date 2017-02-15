@@ -10,6 +10,7 @@ import com.core.base.utils.SPUtil;
 import com.core.base.utils.ApkInfoUtil;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.push.client.PushConstant;
 import com.starpy.push.client.bean.NotificationMessage;
 import com.starpy.push.client.im.Message;
@@ -177,7 +178,7 @@ public class PushHelper {
 	public static void processMessage(Context context, String message) {
 
 		NotificationMessage notificationMessage = PushHelper.parseMessage(message);
-		String messageId = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, EFUN_PUSH_MESSAGE_ID);
+		String messageId = SPUtil.getSimpleString(context, StarPyUtil.STAR_PY_SP_FILE, EFUN_PUSH_MESSAGE_ID);
 		//出现相同messageid不显示消息
 		if (!TextUtils.isEmpty(messageId) && messageId.equals(notificationMessage.getMessageId())) {
 			return;
@@ -353,7 +354,7 @@ public class PushHelper {
 		PendingIntent clickPendIntent = PendingIntent.getBroadcast(context, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(clickPendIntent);
 
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, EFUN_PUSH_MESSAGE_ID, notificationMessage.getMessageId());
+		SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, EFUN_PUSH_MESSAGE_ID, notificationMessage.getMessageId());
 		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		// mId allows you to update the notification later on.
 		mNotificationManager.notify(100, mBuilder.build());
@@ -366,8 +367,8 @@ public class PushHelper {
 		if (TextUtils.isEmpty(serverIp)) {
 			throw new IllegalArgumentException("serverIp must not be null");
 		}
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, PushConstant.PUSH_SERVER_IP, serverIp);
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, PushConstant.PUSH_SERVER_PORT, serverPort);
+		SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, PushConstant.PUSH_SERVER_IP, serverIp);
+		SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, PushConstant.PUSH_SERVER_PORT, serverPort);
 	}
 
 	public static String getGameCode(Context context) {
@@ -391,7 +392,7 @@ public class PushHelper {
 	}
 	
 	public static String getAdvertisers(Context context) {
-		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.ADS_ADVERTISERS_NAME);
+		return SPUtil.getSimpleString(context, StarPyUtil.STAR_PY_SP_FILE, StarPyUtil.ADS_ADVERTISERS_NAME);
 	}
 	
 	

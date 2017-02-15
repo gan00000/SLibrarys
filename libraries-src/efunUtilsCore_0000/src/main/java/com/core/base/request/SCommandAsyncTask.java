@@ -73,7 +73,6 @@ public class SCommandAsyncTask extends SRequestAsyncTask {
 	protected String doInBackground(String... params) {
 		Log.i("SCommandAsyncTask", "doInBackground");
 		try {
-			ApkInfoUtil.getCustomizedUniqueId(this.context);
 			if (canceled) {
 				return "";
 			}

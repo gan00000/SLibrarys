@@ -11,6 +11,7 @@ import com.core.base.utils.SPUtil;
 import com.core.base.http.HttpRequest;
 import com.core.base.request.SRequestAsyncTask;
 import com.starpy.base.utils.SLogUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.push.client.utils.PushHelper;
 
 import android.content.Context;
@@ -72,7 +73,7 @@ public class PushRequest{
 		paramsMap.put(TOKEN, "");
 		paramsMap.put(ADVERTISER, advertiser);
 		paramsMap.put(ORGUUID, PushHelper.generateUUID(context));
-		paramsMap.put("eid", ApkInfoUtil.getCustomizedUniqueId(context));
+		paramsMap.put("eid", ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(context));
 		new SRequestAsyncTask() {
 			
 			@Override
@@ -84,7 +85,7 @@ public class PushRequest{
 			protected void onPostExecute(String result) {
 				super.onPostExecute(result);
 				if (!TextUtils.isEmpty(result) && "1000".equals(result)) {
-					SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, SEND_UUID_SUCCESS_KEY, SEND_UUID_SUCCESS_VALUE);
+					SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, SEND_UUID_SUCCESS_KEY, SEND_UUID_SUCCESS_VALUE);
 				}
 			}
 

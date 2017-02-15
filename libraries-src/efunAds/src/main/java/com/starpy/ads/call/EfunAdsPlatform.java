@@ -4,6 +4,7 @@ import com.starpy.base.cfg.SConfig;
 import com.starpy.ads.activity.EfunAdsS2SService;
 import com.starpy.ads.bean.AdsHttpParams;
 import com.core.base.utils.SPUtil;
+import com.starpy.base.utils.StarPyUtil;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,14 +20,12 @@ public class EfunAdsPlatform {
 	*/
 	public static void initEfunAdsS2S(Activity currentActivity){
 		Log.i("efunLog", "initEfunAdsS2S 启动");
-		SConfig.clearLoginMsg(currentActivity);
 		EfunAdsManager.setActivity(currentActivity);
 		currentActivity.startService(new Intent(currentActivity, EfunAdsS2SService.class));
 	}
 	
 	public static void initEfunAdsS2S(Activity currentActivity,boolean runS2SFlag){
 		Log.i("efunLog", "initEfunAdsS2S 启动");
-		SConfig.clearLoginMsg(currentActivity);
 		EfunAdsManager.setActivity(currentActivity);
 		Intent intent = new Intent(currentActivity, EfunAdsS2SService.class);
 		intent.putExtra(EfunAdsS2SService.EFUN_S2S_RUN_FLAG, runS2SFlag);
@@ -35,7 +34,6 @@ public class EfunAdsPlatform {
 	
 	public static void initEfunAdsS2S(Activity currentActivity, AdsHttpParams adsHttpParams, boolean runS2SFlag){
 		Log.i("efunLog", "initEfunAdsS2S 启动");
-		SConfig.clearLoginMsg(currentActivity);
 		EfunAdsManager.setActivity(currentActivity);
 		Intent intent = new Intent(currentActivity, EfunAdsS2SService.class);
 		intent.setPackage(currentActivity.getPackageName());
@@ -55,7 +53,7 @@ public class EfunAdsPlatform {
 	* @param partner 合作商
 	*/
 	public static void initEfunAdsWithPartner(Activity currentActivity, String advertisersName, String partner){
-		SPUtil.saveSimpleInfo(currentActivity, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_SIGN, "");//广告启动（每次启动游戏）清除掉sign
+		SPUtil.saveSimpleInfo(currentActivity, StarPyUtil.STAR_PY_SP_FILE, StarPyUtil.EFUN_LOGIN_SIGN, "");//广告启动（每次启动游戏）清除掉sign
 		EfunAdsManager.setAdvertisersName(currentActivity, advertisersName);
 		EfunAdsManager.setPartnerName(currentActivity, partner);
 		initEfunAdsS2S(currentActivity);

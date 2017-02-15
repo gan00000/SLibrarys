@@ -20,7 +20,7 @@ public class SConfig {
 	 * @return
 	 */
 	public static String getGameCode(Context context) {
-		return efunGetString(context, "efunGameCode");
+		return efunGetString(context, "star_game_code");
 	}
 	
 	public static String getAppPlatform(Context context) {
@@ -34,7 +34,7 @@ public class SConfig {
 	 * @return
 	 */
 	public static String getAppKey(Context context) {
-		return efunGetString(context, "efunAppKey");
+		return efunGetString(context, "star_app_key");
 	}
 
 	public static String getApplicationId(Context context) {
@@ -47,7 +47,7 @@ public class SConfig {
 //		if (TextUtils.isEmpty(language)) {
 //			language =  efunGetString(context, "efunLanguage");
 //		}
-		String language =  efunGetString(context, "efunLanguage");
+		String language =  efunGetString(context, "star_game_language");
 		return language;
 	}
 	
@@ -80,11 +80,11 @@ public class SConfig {
 	 * @return
 	 */
 	public static String getLoginPreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "efunLoginPreferredUrl");
+		return efunGetConfigUrl(context, "star_py_login_pre_url");
 	}
 
 	public static String getLoginSpareUrl(Context context) {
-		return efunGetConfigUrl(context, "efunLoginSpareUrl");
+		return efunGetConfigUrl(context, "star_py_login_spa_url");
 	}
 
 	/**

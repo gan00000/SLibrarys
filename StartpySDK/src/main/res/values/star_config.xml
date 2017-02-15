@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- fb配置 -->
+    <!-- 必须跟fb后台一致的名字 -->
+    <string name="facebook_app_name">stargame</string>
+    <string name="facebook_app_id">1286278484776251</string>
+    <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1286278484776251</string>
+    <!-- fb配置end -->
+    <string name="star_py_login_pre_url">http://10.10.10.109:8080/</string>
+    <string name="star_py_login_spa_url"></string>
+    <string name="star_game_code">brmmd</string>
+    <string name="star_app_key">test123</string>
+    <string name="star_game_language">tw</string>
+
+
+
+</resources>

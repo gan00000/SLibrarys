@@ -1,12 +1,5 @@
 <resources>
 
-    <!-- fb配置 -->
-    <!-- 必须跟fb后台一致的名字 -->
-    <string name="facebook_app_name">stargame</string>
-    <string name="facebook_app_id">1286278484776251</string>
-    <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1286278484776251</string>
-    <!-- fb配置end -->
-
     <string name="py_account_login">帳號登入</string>
     <string name="py_account">帳號:</string>
     <string name="py_account_hit">帳號</string>

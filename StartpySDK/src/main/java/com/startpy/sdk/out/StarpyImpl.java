@@ -14,7 +14,7 @@ import com.startpy.sdk.login.SLoginActivity;
 
 public class StarpyImpl implements IStarpy {
 
-    private ILoginCallBack iLoginCallBack;
+    private static ILoginCallBack loginCallBack;
 
     @Override
     public void initSDK(Activity activity) {
@@ -35,7 +35,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void login(Activity activity,ILoginCallBack iLoginCallBack) {
 
-        this.iLoginCallBack = iLoginCallBack;
+        this.loginCallBack = iLoginCallBack;
 
         Intent intent = new Intent(activity,SLoginActivity.class);
 
@@ -63,7 +63,9 @@ public class StarpyImpl implements IStarpy {
 
         if (requestCode == SLoginActivity.S_LOGIN_REQUEST && resultCode == SLoginActivity.S_LOGIN_RESULT && data != null){
             SLoginResponse sLoginResponse = (SLoginResponse) data.getSerializableExtra(SLoginActivity.S_LOGIN_RESPONSE_OBJ);
-            iLoginCallBack.onLogin(sLoginResponse);
+            if (this.loginCallBack != null) {
+                this.loginCallBack.onLogin(sLoginResponse);
+            }
         }
     }
 

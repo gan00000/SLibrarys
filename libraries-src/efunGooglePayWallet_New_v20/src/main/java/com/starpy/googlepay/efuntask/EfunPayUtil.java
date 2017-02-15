@@ -16,6 +16,7 @@ import com.core.base.utils.ResUtil;
 import com.core.base.utils.SPUtil;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.WebOrderBean;
 import com.starpy.googlepay.constants.GooglePayContant;
@@ -200,7 +201,6 @@ public class EfunPayUtil {
 	* <p>Description: </p>
 	* @param context
 	* @param webOrderBean
-	* @param isGW 是否为官网
 	*/
 	private static void checkWebOrderBean(Context context,WebOrderBean webOrderBean,int pageMark){
 		if (SStringUtil.isEmpty(webOrderBean.getGameCode())) {
@@ -215,11 +215,7 @@ public class EfunPayUtil {
 			webOrderBean.setLanguage(SConfig.getGameLanguage(context));
 		}
 		if (SStringUtil.isEmpty(webOrderBean.getVh())) {
-			String vh = SConfig.getScreenOrientation(context);
-			if (SStringUtil.isEmpty(vh)) {
-				vh = "";
-			}
-			webOrderBean.setVh(vh);
+			webOrderBean.setVh("");
 		}
 		
 		if (SStringUtil.isEmpty(webOrderBean.getTime())) {
@@ -283,12 +279,12 @@ public class EfunPayUtil {
 			sb.append(string + ";");
 		}
 		String skuString = sb.substring(0, sb.length());
-		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, BasePayActivity.EFUN_GOOGLE_PAY_LIST_SKUS, skuString);
+		SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, BasePayActivity.EFUN_GOOGLE_PAY_LIST_SKUS, skuString);
 	}
 	
 	public static List<String> getListSkus(Context context){
 		ArrayList<String> a = new ArrayList<String>();
-		String skuString = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, BasePayActivity.EFUN_GOOGLE_PAY_LIST_SKUS);
+		String skuString = SPUtil.getSimpleString(context, StarPyUtil.STAR_PY_SP_FILE, BasePayActivity.EFUN_GOOGLE_PAY_LIST_SKUS);
 		if (!TextUtils.isEmpty(skuString)) {
 			String[] mSku = skuString.split(";");
 			for (int i = 0; i < mSku.length; i++) {

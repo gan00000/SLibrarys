@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.SStringUtil;
 import com.starpy.model.login.bean.SLoginResponse;
-import com.starpy.model.login.execute.AccountLoginRequest;
+import com.starpy.model.login.execute.AccountLoginRequestTask;
 import com.startpy.sdk.R;
 import com.startpy.sdk.utils.DialogUtil;
 import com.starpy.base.utils.StarPyUtil;
@@ -131,14 +131,14 @@ public class AccountLoginMainFragment extends BaseFragment {
             return;
         }
 
-        AccountLoginRequest accountLoginCmd = new AccountLoginRequest(getActivity(), account, password);
+        AccountLoginRequestTask accountLoginCmd = new AccountLoginRequestTask(getActivity(), account, password);
         accountLoginCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(),"Loading..."));
         accountLoginCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
             public void callBack(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null && sLoginResponse.isRequestSuccess()){
                     ToastUtils.toast(getActivity(),R.string.py_login_success);
-                    sLoginActivity.setLoginResponse(sLoginResponse);
+                    sLoginActivity.setResult(sLoginResponse);
                     StarPyUtil.saveUid(getContext(),sLoginResponse.getUserId());
                     StarPyUtil.saveAccount(getContext(),account);
                     StarPyUtil.savePassword(getContext(),password);

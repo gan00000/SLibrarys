@@ -13,8 +13,8 @@ import com.facebook.sfb.SFacebookProxy;
 import com.core.base.utils.PL;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.model.login.bean.SLoginResponse;
-import com.starpy.model.login.execute.FBLoginRegRequest;
-import com.starpy.model.login.execute.MacLoginRegRequest;
+import com.starpy.model.login.execute.FBLoginRegRequestTask;
+import com.starpy.model.login.execute.MacLoginRegRequestTask;
 import com.startpy.sdk.R;
 import com.startpy.sdk.utils.DialogUtil;
 import com.core.base.utils.ToastUtils;
@@ -78,8 +78,8 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
     public void onClick(View v) {
 
         if (v == fbLoginView){
-            sFbLogin();
-
+//            sFbLogin();
+            fbThirdLogin(FbSp.getFbId(getActivity()),FbSp.getAppsBusinessId(getActivity()),"");
         }else if (v == starLoginView){
 
             sLoginActivity.replaceFragment(new AccountLoginMainFragment());
@@ -91,7 +91,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
     private void macLogin() {
 
-        MacLoginRegRequest macLoginRegCmd = new MacLoginRegRequest(getActivity());
+        MacLoginRegRequestTask macLoginRegCmd = new MacLoginRegRequestTask(getActivity());
         macLoginRegCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         macLoginRegCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
@@ -101,7 +101,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                     StarPyUtil.saveSdkLoginData(getContext(),rawResult);
                     StarPyUtil.saveUid(getContext(),sLoginResponse.getUserId());
 
-                    sLoginActivity.setLoginResponse(sLoginResponse);
+                    sLoginActivity.setResult(sLoginResponse);
                     getActivity().finish();
                 } else {
                     ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
@@ -154,14 +154,14 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
     private void fbThirdLogin(String fbScopeId, String fbApps, String fbTokenBusiness) {
 
-        FBLoginRegRequest cmd = new FBLoginRegRequest(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
+        FBLoginRegRequestTask cmd = new FBLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
             public void callBack(SLoginResponse sLoginResponse,String rawResult) {
                 if (sLoginResponse != null && (sLoginResponse.isRequestSuccess() || SStringUtil.isEqual("1001", sLoginResponse.getCode()))) {
                     ToastUtils.toast(getActivity(), R.string.py_login_success);
-                    sLoginActivity.setLoginResponse(sLoginResponse);
+                    sLoginActivity.setResult(sLoginResponse);
                     StarPyUtil.saveSdkLoginData(getContext(),rawResult);
                     StarPyUtil.saveUid(getContext(),sLoginResponse.getUserId());
                     getActivity().finish();
