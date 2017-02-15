@@ -10,7 +10,7 @@ import com.starpy.base.cfg.SConfig;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.EfunPayError;
-import com.starpy.googlepay.bean.EfunQueryInventoryState;
+import com.starpy.googlepay.bean.QueryInventoryState;
 import com.starpy.googlepay.bean.EfunWalletBean;
 import com.starpy.googlepay.bean.GooglePayReqBean;
 import com.starpy.googlepay.bean.WebPayReqBean;
@@ -69,7 +69,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	/**
 	 * queryInventoryState 查询状态封装
 	 */
-	private EfunQueryInventoryState queryInventoryState;
+	private QueryInventoryState queryInventoryState;
 	
 	
 	protected boolean supportGooglePlay = true;
@@ -146,7 +146,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		walletBean = new EfunWalletBean();
 		
 		mHelper = new IabHelper(this);
-		queryInventoryState = new EfunQueryInventoryState();
+		queryInventoryState = new QueryInventoryState();
 		EndFlag.setCanPurchase(true);
 		EndFlag.setEndFlag(true);
 		mHelper.enableDebugLogging(false);
@@ -172,11 +172,11 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 			_gameCode = _GoogleOrderBean.getGameCode();
 		}
 		
-		if (SStringUtil.isEmpty(_GoogleOrderBean.getLanguage())) {
+		if (SStringUtil.isEmpty(_GoogleOrderBean.getGameLanguage())) {
 			_language = SConfig.getGameLanguage(this);
-			_GoogleOrderBean.setLanguage(_language);
+			_GoogleOrderBean.setGameLanguage(_language);
 		}else{
-			_language = _GoogleOrderBean.getLanguage();
+			_language = _GoogleOrderBean.getGameLanguage();
 		}
 		
 		if (SStringUtil.isEmpty(_GoogleOrderBean.getPayFrom())) {
@@ -363,11 +363,11 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		this.efunPayError = efunPayError;
 	}
 
-	public EfunQueryInventoryState getQueryInventoryState() {
+	public QueryInventoryState getQueryInventoryState() {
 		return queryInventoryState;
 	}
 
-	public void setQueryInventoryState(EfunQueryInventoryState queryInventoryState) {
+	public void setQueryInventoryState(QueryInventoryState queryInventoryState) {
 		this.queryInventoryState = queryInventoryState;
 	}
 	

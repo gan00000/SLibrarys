@@ -1,14 +1,14 @@
 package com.core.base.request.command.impl;
 
-import java.util.Date;
-
-import com.core.base.http.HttpRequestCore;
-import com.core.base.request.command.abstracts.EfunCommand;
-import com.starpy.base.utils.SLogUtil;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.core.base.http.HttpRequestCore;
+import com.core.base.request.command.abstracts.EfunCommand;
+import com.core.base.utils.PL;
+
+import java.util.Date;
 
 public class EfunReadFileConfigCmd extends EfunCommand {
 
@@ -61,7 +61,7 @@ public class EfunReadFileConfigCmd extends EfunCommand {
 			Log.e("efun", "fileUrl is empty");
 			return;
 		}
-		SLogUtil.logD("开始下载：" + fileUrl);
+		PL.d("开始下载：" + fileUrl);
 		requestTime = System.currentTimeMillis();
 	/*	HttpGet request = new HttpGet(fileUrl);
 		HttpClient client = new DefaultHttpClient();
@@ -71,10 +71,10 @@ public class EfunReadFileConfigCmd extends EfunCommand {
 		if (response == null) {
 			return;
 		}
-		SLogUtil.logD("file result code:" + response.getStatusLine().getStatusCode());
+		PL.d("file result code:" + response.getStatusLine().getStatusCode());
 		if (response.getStatusLine().getStatusCode() == 200) {
 			result = EntityUtils.toString(response.getEntity(), "UTF-8");
-			SLogUtil.logD("file result:" + result);
+			PL.d("file result:" + result);
 			if (result == null || "".equals(result.trim())) {
 				return;
 			}

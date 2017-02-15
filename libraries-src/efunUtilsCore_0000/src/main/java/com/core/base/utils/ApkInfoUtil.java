@@ -266,15 +266,6 @@ public class ApkInfoUtil {
 		return systemVersion == null ? "" : systemVersion;
 	}
 	
-	public static String getSimOperator(Context context){
-		TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-		String simOperator = telephonyManager.getSimOperator();
-		if (SStringUtil.isEmpty(simOperator)) {
-			simOperator = "";
-		}
-		return simOperator;
-	}
-	
 	public static String getVersionCode(Context context){
 		try {
 			PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -384,36 +375,12 @@ public class ApkInfoUtil {
 		return NetworkType.NET_TYPE_UNKNOW;
 	}
 
-	
-	/***
-	 * 获取网关IP地址
-	 * @return
-	 */
-	@Deprecated
-	public static String getHostIp() {
-		try {
-			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-				NetworkInterface intf = en.nextElement();
-				for (Enumeration<InetAddress> ipAddr = intf.getInetAddresses(); ipAddr.hasMoreElements();) {
-					InetAddress inetAddress = ipAddr.nextElement();
-					if (!inetAddress.isLoopbackAddress()) {
-						return inetAddress.getHostAddress().toString();
-						
-					}
-				}
-			}
-		} catch (SocketException ex) {
-		} catch (Exception e) {
-		}
-		return "";
+
+	public static String getSimOperator(Context context){
+		TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		return telephonyManager.getSimOperator();
 	}
-	
-	/*public static String getUserAgent(Context context){
-		WebView webView = new WebView(context);
-		String userAgentString = webView.getSettings().getUserAgentString();
-		webView = null;
-		return userAgentString;
-	}*/
+
 	
 	public static String getLocaleLanguage(){
 		return Locale.getDefault().getLanguage();

@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import com.starpy.base.cfg.SConfig;
 import com.core.base.request.SRequestAsyncTask;
 import com.core.base.utils.ApkInfoUtil;
-import com.core.base.utils.SPUtil;
 import com.core.base.http.HttpRequest;
 import com.core.base.utils.FileUtil;
 import com.starpy.base.utils.StarPyUtil;

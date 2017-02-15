@@ -46,7 +46,7 @@ public class GooglePayReqBean extends BasePayReqBean {
 		return orderId;
 	}
 	/**
-	 * @param orderId the orderId to set  efun订单号
+	 * @param orderId the orderId to set  订单号
 	 */
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;

@@ -1,7 +1,6 @@
 package com.starpy.googlepay.efuntask;
 
 import com.core.base.http.HttpRequest;
-import com.core.base.utils.EfunJSONUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
@@ -16,8 +15,6 @@ import java.util.Map;
 
 public class EfunWalletApi {
 	
-
-
 	/**
 	* <p>Title: pay</p>
 	* <p>Description: 请求生成订单</p>
@@ -49,22 +46,17 @@ public class EfunWalletApi {
 			params.put("payFrom", orderBean.getPayFrom());//web android
 			params.put("payType", orderBean.getPayType());//支付类型
 
-			params.put("language", orderBean.getLanguage());
+			params.put("language", orderBean.getGameLanguage());
 			params.put("extra", orderBean.getExtra());
 			params.put("roleName", orderBean.getRoleName());
 			params.put("roleLevel", orderBean.getRoleLevel());
 			params.put("roleId", orderBean.getRoleId());
 			params.put("cpOrderId", orderBean.getCpOrderId());//cp 订单号
 
-			params.put("packageName", payActivity.getPackageName());//添加包名参数
-			params.put("versionCode", EfunPayHelper.getVersionCode(payActivity));//添加包版本号参数
-			params.put("versionName", EfunPayHelper.getVersionName(payActivity));//添加包版本名称参数
 
-			params.put("accessToken", EfunPayHelper.getLoginSign(payActivity));
-			
 			SLogUtil.logI("玩家点击储值. params: " + params.toString());
 			
-			return EfunJSONUtil.efunTransformToJSONStr(doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_CREATE_ORDER, params));
+			return doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_CREATE_ORDER, params);
 		} else {
 			throw new RuntimeException("获取订单时设置的参数异常，请先设置好OrderBean参数");
 		}
@@ -97,11 +89,9 @@ public class EfunWalletApi {
 
 		verifyParams.put("purchaseData", purchaseData);
 		verifyParams.put("dataSignature", dataSignature);
-		verifyParams.put("versionCode", EfunPayHelper.getVersionCode(payActivity));
-		verifyParams.put("versionName", EfunPayHelper.getVersionName(payActivity));
 //		verifyParams.put("googlepayversion", BasePayActivity.GOOGLE_PAY_VERSION);
 		if (null != googleOrderBean) {
-			verifyParams.put("language", googleOrderBean.getLanguage());
+			verifyParams.put("language", googleOrderBean.getGameLanguage());
 //			verifyParams.put("version", googleOrderBean.getVersion());
 			
 //			verifyParams.put("creditId", googleOrderBean.getCreditId());
@@ -121,16 +111,12 @@ public class EfunWalletApi {
 			//verifyParams.put("productId", skuDetails.getSku()));
 		}
 		
-
-//		verifyParams.put("roleId", googleOrderBean.getRoleId());
-		verifyParams.put("sign", EfunPayHelper.getLoginSign(payActivity));
-		
 		SLogUtil.logI("purchaseData: " + purchaseData);
 		SLogUtil.logI("dataSignature: " + dataSignature);
 		SLogUtil.logI("exchage params: " + verifyParams.toString());
 		
-//		return EfunJSONUtil.efunTransformToJSONStr(doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_SEND_STONE, verifyParams));
-		return EfunJSONUtil.efunTransformToJSONStr(doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_PAY_STONE, verifyParams));
+//		return JsonUtil.efunTransformToJSONStr(doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_SEND_STONE, verifyParams));
+		return doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_PAY_STONE, verifyParams);
 	}
 	
 	

@@ -4,10 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.core.base.SBaseWebView;
 import com.core.base.js.Native2JS;
 import com.core.base.js.PlatNative2JS;
-import com.core.base.utils.EfunJSONUtil;
+import com.core.base.utils.JsonUtil;
 
 import org.json.JSONException;
 
@@ -53,7 +52,7 @@ public class SWebView extends SBaseWebView {
 	public void send2JS(Map<String, String> map) {
 		
 		try {
-			String mapString = EfunJSONUtil.map2jsonString(map);
+			String mapString = JsonUtil.map2jsonString(map);
 			map.put("all", mapString);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

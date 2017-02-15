@@ -8,7 +8,7 @@ import org.json.JSONException;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
-import com.starpy.googlepay.bean.EfunQueryInventoryState;
+import com.starpy.googlepay.bean.QueryInventoryState;
 import com.starpy.googlepay.constants.GooglePayContant;
 import com.starpy.util.IabHelper;
 import com.starpy.util.IabHelper.QueryInventoryFinishedListener;
@@ -43,11 +43,11 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 			prompt.dismissProgressDialog();
 			Log.d("efun", "query result:" + result.getMessage());
 			if (null != payActivity.getQueryInventoryState()
-					&& payActivity.getQueryInventoryState().getQueryFailState() == EfunQueryInventoryState.SEND_STONE_FAIL) {
+					&& payActivity.getQueryInventoryState().getQueryFailState() == QueryInventoryState.SEND_STONE_FAIL) {
 				SLogUtil.logD("getQueryInventoryState is 1");
 				//prompt.complain("Failed to query inventory: SENDIND_FAIL");
 			} else if (null != payActivity.getQueryInventoryState()
-					&& payActivity.getQueryInventoryState().getQueryFailState() == EfunQueryInventoryState.SERVER_TIME_OUT) {
+					&& payActivity.getQueryInventoryState().getQueryFailState() == QueryInventoryState.SERVER_TIME_OUT) {
 				SLogUtil.logD("getQueryInventoryState is 2");
 				//payActivity.showGoogleServiceErrorMessage();
 			} else {

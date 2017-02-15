@@ -6,14 +6,16 @@ import com.starpy.googlepay.constants.GooglePayContant;
 
 public class WebPayReqBean extends BasePayReqBean {
 
-	private String time;
+	private String time = System.currentTimeMillis() + "";
 	
 	private String payType = GooglePayContant.THIRDPAYTYPE;
 
 	private String simOperator;
 
 	private String appPlatFrom;
-	
+
+	private String secretKey;
+
 
 	/**
 	 * 级别类型，此参数设定是否使用级别类型，比如有些游戏内置储值需要达到级别才可以看到第三方储值金流；
@@ -31,12 +33,6 @@ public class WebPayReqBean extends BasePayReqBean {
 	 */
 	public String getTime() {
 		return time;
-	}
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(String time) {
-		this.time = time;
 	}
 
 	/**
@@ -77,6 +73,12 @@ public class WebPayReqBean extends BasePayReqBean {
 	public void setLevelType(String levelType) {
 		this.levelType = levelType;
 	}
-	
 
+	public String getSecretKey() {
+		return secretKey;
+	}
+
+	public void setSecretKey(String secretKey) {
+		this.secretKey = secretKey;
+	}
 }

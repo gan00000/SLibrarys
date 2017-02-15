@@ -2,30 +2,56 @@ package com.starpy.googlepay.bean;
 
 import android.content.Context;
 
-import java.io.Serializable;
-
 import com.core.base.request.bean.BaseReqeustBean;
+import com.starpy.base.cfg.SConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.googlepay.constants.GooglePayContant;
 
 public class BasePayReqBean extends BaseReqeustBean {
 
 	private String userId;
-	private String serverCode;
 	private String gameCode;
 	private String payFrom = GooglePayContant.PAY_FROM;
-	private String extra = "";
-	private String roleName = "";
-	private String roleLevel = "";
+
+	private String serverCode;
+	private String serverName;
 	private String roleId = "";
+	private String roleName = "";
+
+	private String extra = "";
+
+	private String roleLevel = "";
 	private String cpOrderId = "";
-	private String secretKey;
-	
-	private String language;
+
+	private String gameLanguage;
 	private String accessToken;
+
+/*	public BasePayReqBean(Context context, String extra, String roleLevel, String cpOrderId) {
+		super(context);
+		this.extra = extra;
+		this.roleLevel = roleLevel;
+		this.cpOrderId = cpOrderId;
+		init(context);
+
+	}*/
 
 	public BasePayReqBean(Context context) {
 		super(context);
+
+		init(context);
+
+	}
+
+	private void init(Context context) {
+		userId = StarPyUtil.getUid(context);
+		accessToken = StarPyUtil.getSdkAccessToken(context);
+		gameCode = SConfig.getGameCode(context);
+		gameLanguage = SConfig.getGameLanguage(context);
+
+		serverCode = StarPyUtil.getServerCode(context);
+		serverName = StarPyUtil.getServerName(context);
+		roleName = StarPyUtil.getRoleName(context);
+		roleId = StarPyUtil.getRoleId(context);
 	}
 
 	public String getUserId() {
@@ -100,20 +126,13 @@ public class BasePayReqBean extends BaseReqeustBean {
 		this.cpOrderId = cpOrderId;
 	}
 
-	public String getSecretKey() {
-		return secretKey;
+
+	public String getGameLanguage() {
+		return gameLanguage;
 	}
 
-	public void setSecretKey(String secretKey) {
-		this.secretKey = secretKey;
-	}
-
-	public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
+	public void setGameLanguage(String gameLanguage) {
+		this.gameLanguage = gameLanguage;
 	}
 
 	public String getAccessToken() {

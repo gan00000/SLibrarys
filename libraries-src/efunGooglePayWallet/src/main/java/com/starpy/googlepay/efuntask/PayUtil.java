@@ -1,20 +1,17 @@
 package com.starpy.googlepay.efuntask;
 
-import java.net.URLEncoder;
-
 import android.content.Context;
 import android.content.Intent;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.starpy.base.cfg.SConfig;
 import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.cfg.SConfig;
+import com.starpy.base.utils.SLogUtil;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.googlepay.bean.WebPayReqBean;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.util.EfunPayHelper;
 
 public class PayUtil {
 
@@ -116,7 +113,7 @@ public class PayUtil {
 		sb.append("&userId=" + webOrderBean.getUserId());
 		sb.append("&payFrom=" + webOrderBean.getPayFrom());
 		sb.append("&time=" + webOrderBean.getTime());
-		sb.append("&language=").append(webOrderBean.getLanguage());//tw
+		sb.append("&language=").append(webOrderBean.getGameLanguage());//tw
 		sb.append("&appPlatFrom=").append(webOrderBean.getAppPlatFrom());
 		
 		sb.append("&remark=" + webOrderBean.getRemark());
@@ -131,11 +128,32 @@ public class PayUtil {
 		sb.append("&levelType=" + webOrderBean.getLevelType());
 		sb.append("&cardData=" + webOrderBean.getCardData());*/
 		
-		appendLocalInfo(context, sb);
-		
 		appendMd5Str(webOrderBean, sb,urlMark);
 		
 		return sb.toString();
+	}
+
+	public static WebPayReqBean buildWebPayBean(Context context, String cpOrderId, String roleLevel, String extra, String url){
+		WebPayReqBean webPayReqBean = new WebPayReqBean(context);
+		webPayReqBean.setCompleteUrl(url);
+
+		if (SStringUtil.isEmpty(webPayReqBean.getSimOperator())) {
+			String simOperator = "";
+			if (ApkInfoUtil.isWifiAvailable(context)) {
+				simOperator = GooglePayContant.WIFI;
+			} else {
+				simOperator = ApkInfoUtil.getSimOperator(context);
+			}
+			webPayReqBean.setSimOperator(simOperator);
+		}
+
+		webPayReqBean.setUserId(StarPyUtil.getUid(context));
+		webPayReqBean.setCpOrderId(cpOrderId);
+		webPayReqBean.setRoleLevel(roleLevel);
+		webPayReqBean.setExtra(extra);
+
+		return webPayReqBean;
+
 	}
 
 	private static void appendMd5Str(WebPayReqBean webOrderBean, StringBuffer sb, int urlMark) {
@@ -173,21 +191,7 @@ public class PayUtil {
 		}
 	}
 
-	private static void appendLocalInfo(Context context, StringBuffer sb) {
-		String localMacAddress = (null == ApkInfoUtil.getMacAddress(context)?"": ApkInfoUtil.getMacAddress(context));
-		String localImeiAddress = (null == ApkInfoUtil.getImeiAddress(context)?"": ApkInfoUtil.getImeiAddress(context));
-		String localIpAddress = (null == ApkInfoUtil.getLocalIpAddress(context)?"": ApkInfoUtil.getLocalIpAddress(context));
-		String localAndroidId = (null == ApkInfoUtil.getAndroidId(context)?"": ApkInfoUtil.getAndroidId(context));
-		
-		sb.append("&mac=").append(localMacAddress).
-		append("&imei=").append(localImeiAddress).
-		append("&ip=").append(localIpAddress).
-		append("&androidid=").append(localAndroidId).
-		append("&packageName=").append(context.getPackageName()).
-		append("&versionCode=").append(EfunPayHelper.getVersionCode(context)).
-		append("&versionName=").append(EfunPayHelper.getVersionName(context));
-	}
-	
+
 	/**
 	* <p>Title: checkWebOrderBean</p>
 	* <p>Description: </p>
@@ -203,23 +207,16 @@ public class PayUtil {
 			webOrderBean.setGameCode(gameCode);
 		}
 
-		if (SStringUtil.isEmpty(webOrderBean.getLanguage())) {
-			webOrderBean.setLanguage(SConfig.getGameLanguage(context));
+		if (SStringUtil.isEmpty(webOrderBean.getGameLanguage())) {
+			webOrderBean.setGameLanguage(SConfig.getGameLanguage(context));
 		}
 
-		if (SStringUtil.isEmpty(webOrderBean.getTime())) {
-			webOrderBean.setTime(System.currentTimeMillis() + "");;
-		}
 		if (SStringUtil.isEmpty(webOrderBean.getSimOperator())) {
 			String simOperator = "";
 			if (ApkInfoUtil.isWifiAvailable(context)) {
 				simOperator = GooglePayContant.WIFI;
 			} else {
-				TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-				simOperator = telephonyManager.getSimOperator();
-				if (SStringUtil.isEmpty(simOperator)) {
-					simOperator = "";
-				}
+				simOperator = ApkInfoUtil.getSimOperator(context);
 			}
 			webOrderBean.setSimOperator(simOperator);
 		}

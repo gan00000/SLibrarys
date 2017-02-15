@@ -35,10 +35,10 @@ public class SBaseWebView extends WebView {
     }
 
 
-    public void setEfunWebChromeClient(BaseWebChromeClient efunWebChromeClient)
+    public void setBaseWebChromeClient(BaseWebChromeClient baseWebChromeClient)
     {
-        this.setWebChromeClient(efunWebChromeClient);
-        this.efunWebChromeClient = efunWebChromeClient;
+        this.setWebChromeClient(baseWebChromeClient);
+        this.efunWebChromeClient = baseWebChromeClient;
     }
 
     @SuppressLint("SetJavaScriptEnabled")

@@ -36,7 +36,6 @@
                           android:layout_height="match_parent"
                           android:id="@+id/py_terms_text_id"
                           android:textColor="@android:color/black"
-                          android:text="@string/py_account_register_terms_text"
                 />
 
             </ScrollView>

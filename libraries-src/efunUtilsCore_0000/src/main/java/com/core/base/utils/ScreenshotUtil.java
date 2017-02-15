@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.core.base.callback.SavePhotoCallback;
-import com.starpy.base.utils.SLogUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -105,8 +104,6 @@ public class ScreenshotUtil {
 		String mImageFileName = dateSeconds + ".png"; //以保存时间命名
 		String mImageFilePath = dirName + File.separator + mImageFileName; //注意这里的mImageFilePath是： 目录名称+文件名
 
-		SLogUtil.logD("mImageFilePath:" + mImageFilePath);
-
 		Long start = System.currentTimeMillis();
 		try {
 			File file = new File(mImageFilePath);
@@ -131,6 +128,5 @@ public class ScreenshotUtil {
 			savePhotoCallback.onSaveSuccess(mImageFilePath);
 		}
 		Long end = System.currentTimeMillis();
-		SLogUtil.logD("end-start:" + (end-start));
 	}
 }

@@ -2,7 +2,7 @@ package com.starpy.sdk.entrance.entity;
 
 import java.io.Serializable;
 
-import com.starpy.model.login.constant.SLoginType;
+import com.starpy.data.login.constant.SLoginType;
 
 public class EfunUser implements Serializable {
 

@@ -63,33 +63,7 @@ public class EfunPayHelper {
 		Log.d("efun", "pay version " + BasePayActivity.GOOGLE_PAY_VERSION);
 		Log.d("efun", "changeLog: " + BasePayActivity.GOOGLE_PAY_VERSION_CHAGE_LOG);
 	}
-	
-	/**
-	* <p>Title: getVersionCode</p>
-	* <p>Description: 获取游戏版本号</p>
-	* @param context
-	* @return
-	*/
-	public static String getVersionCode(Context context){
-		try {
-			PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-			String version = String.valueOf(info.versionCode);
-			return version;
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-	
-	public static String getVersionName(Context context){
-		try {
-			PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-			return info.versionName;
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
+
 	
 	public static void saveCurrentOrderId(Context ctx,String orderId){
 		SPUtil.saveSimpleInfo(ctx, GooglePayContant.EFUNFILENAME, GooglePayContant.EFUN_CURRENT_ORDER_ID_KEY, orderId);
@@ -99,14 +73,4 @@ public class EfunPayHelper {
 		return SPUtil.getSimpleString(ctx, GooglePayContant.EFUNFILENAME, GooglePayContant.EFUN_CURRENT_ORDER_ID_KEY);
 	}
 	
-	/**
-	 * <p>Description: 获取登录的sign</p>
-	 * @param context
-	 * @return
-	 * @date 2016年2月24日
-	 */
-	public static String getLoginSign(Context context){
-//		SPUtil.saveSimpleInfo(context, SPUtil.STAR_PY_SP_FILE, "EFUN_LOGIN_SIGN");
-		return SPUtil.getSimpleString(context, StarPyUtil.STAR_PY_SP_FILE, "EFUN_LOGIN_SIGN");
-	}
 }

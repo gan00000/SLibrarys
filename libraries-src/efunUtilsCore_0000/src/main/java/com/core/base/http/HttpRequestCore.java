@@ -1,5 +1,12 @@
 package com.core.base.http;
 
+import android.text.TextUtils;
+import android.util.Log;
+
+import com.core.base.utils.FileUtil;
+import com.core.base.utils.PL;
+import com.core.base.utils.SStringUtil;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,14 +18,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
-
-import com.core.base.utils.FileUtil;
-import com.core.base.utils.PL;
-import com.starpy.base.utils.SLogUtil;
-import com.core.base.utils.SStringUtil;
-
-import android.text.TextUtils;
-import android.util.Log;
 
 public class HttpRequestCore{
 	
@@ -289,9 +288,9 @@ public class HttpRequestCore{
 		FileOutputStream fileOutputStream = null;
 		InputStream is = null;
 		try {
-			SLogUtil.logD("start down load...");
+			PL.i("start down load...");
 			checkHttpsUrl(downLoadFileUrl);
-			SLogUtil.logD("http request:" + downLoadFileUrl);
+			PL.i("http request:" + downLoadFileUrl);
 			URL url = new URL(downLoadFileUrl);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setConnectTimeout(5 * 1000);

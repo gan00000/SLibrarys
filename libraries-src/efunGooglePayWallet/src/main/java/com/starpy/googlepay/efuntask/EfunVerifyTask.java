@@ -1,24 +1,23 @@
 package com.starpy.googlepay.efuntask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.core.base.utils.EfunJSONUtil;
-import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
-import com.starpy.googlepay.bean.EfunQueryInventoryState;
 import com.starpy.googlepay.bean.EfunWalletBean;
+import com.starpy.googlepay.bean.QueryInventoryState;
 import com.starpy.googlepay.constants.GooglePayContant;
 import com.starpy.util.IabHelper;
 import com.starpy.util.IabHelper.OnIabPurchaseFinishedListener;
 import com.starpy.util.IabResult;
 import com.starpy.util.Purchase;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
 * <p>Title: EfunVerifyTask</p>
@@ -63,7 +62,7 @@ public class EfunVerifyTask {
 						try {
 							final JSONObject json = new JSONObject(result);
 //							if (false) {
-							if (EfunJSONUtil.efunVerificationRequest(json)) {
+							/*if (JsonUtil.efunVerificationRequest(json)) {
 								
 								serverBackProcess(payActivity, mPurchaseListener, purchase, sku, json);
 								
@@ -79,7 +78,7 @@ public class EfunVerifyTask {
 										if (mPurchaseListener != null) mPurchaseListener.onIabPurchaseFinished(iabResult, purchase);
 									}
 								});
-							}
+							}*/
 						} catch (JSONException e) {
 							SLogUtil.logW( "EfunVerifyUtil json异常");
 							e.printStackTrace();
@@ -115,24 +114,19 @@ public class EfunVerifyTask {
 //			SLogUtil.logI( "result返回：" + result);
 			try {
 				JSONObject json = new JSONObject(result);
-				if (EfunJSONUtil.efunVerificationRequest(json)) {
-					checkAndClearData(payActivity, json);
-					if (!json.isNull("result") && json.optString("result", "").equals("0000")) {
-						if ("true".equals(json.optString("isSign"))) {//判断订单是否验证成功
-							SLogUtil.logI( "验证订单是否真实>>>>>成功");
-							SLogUtil.logI( "此订单已经成功，并且发放砖石，began to consume");
+				checkAndClearData(payActivity, json);
+				if (!json.isNull("result") && json.optString("result", "").equals("0000")) {
+					if ("true".equals(json.optString("isSign"))) {//判断订单是否验证成功
+						SLogUtil.logI( "验证订单是否真实>>>>>成功");
+						SLogUtil.logI( "此订单已经成功，并且发放砖石，began to consume");
 						//	return true;
-						}
-					} else {
-						SLogUtil.logI( "发送钻石失败.");
-						payActivity.getQueryInventoryState().setQueryFailState(EfunQueryInventoryState.SEND_STONE_FAIL);
-						//return false;
 					}
-					
 				} else {
-					SLogUtil.logI( "server connect timeout...");
-					payActivity.getQueryInventoryState().setQueryFailState(EfunQueryInventoryState.SERVER_TIME_OUT);
+					SLogUtil.logI( "发送钻石失败.");
+					payActivity.getQueryInventoryState().setQueryFailState(QueryInventoryState.SEND_STONE_FAIL);
+					//return false;
 				}
+
 			} catch (JSONException e) {
 				SLogUtil.logW( "query jsonexception...");
 				e.printStackTrace();
@@ -224,7 +218,6 @@ public class EfunVerifyTask {
 	* <p>Description: </p>
 	* @param payActivity
 	* @param mPurchaseListener
-	* @param walletBean
 	* @param purchase
 	* @param sku
 	* @param json

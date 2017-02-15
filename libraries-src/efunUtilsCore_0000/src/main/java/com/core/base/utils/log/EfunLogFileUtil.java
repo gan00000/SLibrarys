@@ -6,13 +6,13 @@ import android.text.TextUtils;
 
 import com.core.base.beans.EfunLogEntity;
 import com.core.base.http.HttpRequest;
-import com.core.base.utils.FileUtil;
 import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.SLogUtil;
-import com.core.base.utils.ResUtil;
-import com.core.base.utils.StorageUtil;
-import com.core.base.utils.SStringUtil;
+import com.core.base.utils.FileUtil;
+import com.core.base.utils.PL;
 import com.core.base.utils.PermissionUtil;
+import com.core.base.utils.ResUtil;
+import com.core.base.utils.SStringUtil;
+import com.core.base.utils.StorageUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -136,14 +136,14 @@ public class EfunLogFileUtil {
         @Override
         public void run() {
             if(mContext.get() == null){
-                SLogUtil.logD(TAG, "上传失败，上下文已经被销毁！！");
+                PL.d(TAG, "上传失败，上下文已经被销毁！！");
                 return;
             }
-            SLogUtil.logD(TAG, "开始上传文件");
+            PL.i(TAG, "开始上传文件");
             String preferredUploadUrl = ResUtil.findStringByName(mContext.get(), KEY_LOG_UPLOAD_PREFERRED_URL);
             String spareUploadUrl = ResUtil.findStringByName(mContext.get(), KEY_LOG_UPLOAD_SPARE_URL);
             if(SStringUtil.isEmpty(preferredUploadUrl) && SStringUtil.isEmpty(preferredUploadUrl)){
-                SLogUtil.logD(TAG, "上传失败，没有找到上传地址，销毁日志文件！！");
+                PL.d(TAG, "上传失败，没有找到上传地址，销毁日志文件！！");
                 mLogFile.delete();
                 return;
             }
@@ -155,17 +155,17 @@ public class EfunLogFileUtil {
                     int responseCode = jsonObject.getInt("code");
                     String responseMsg = jsonObject.getString("message");
                     if(responseCode == 1000){
-                        SLogUtil.logD(TAG, "上传日志成功！！！");
+                        PL.d(TAG, "上传日志成功！！！");
                         mLogFile.delete();
                     } else {
-                        SLogUtil.logE("上传日志失败！！" + (responseMsg == null ? "" : responseMsg));
+                        PL.i("上传日志失败！！" + (responseMsg == null ? "" : responseMsg));
                     }
                 }catch (JSONException ex){
                     ex.printStackTrace();
-                    SLogUtil.logE("上传日志失败！！json解析失败。。。");
+                    PL.i("上传日志失败！！json解析失败。。。");
                 }
             } else {
-                SLogUtil.logE("上传日志失败！！服务端请求失败。。。");
+                PL.i("上传日志失败！！服务端请求失败。。。");
             }
             mIsUploadingLogFile = false;
             mInstance = null;
@@ -180,14 +180,14 @@ public class EfunLogFileUtil {
         String doRequest(String preferredUrl, String sparedUrl) {
             String response = "";
             if(SStringUtil.isNotEmpty(preferredUrl)) {
-                SLogUtil.logD("upload log preferredUrl:" + preferredUrl);
+                PL.d("upload log preferredUrl:" + preferredUrl);
                 response = HttpRequest.uploadFile(null, mLogFile, FILE_NAME_UPLOAD_LOG, preferredUrl);
-                SLogUtil.logD("upload log preferredUrl response: " + (response == null ? "null" : response));
+                PL.d("upload log preferredUrl response: " + (response == null ? "null" : response));
             }
             if(SStringUtil.isEmpty(response) && SStringUtil.isNotEmpty(sparedUrl)) {
-                SLogUtil.logD("upload log spareUrl Url: " + sparedUrl);
+                PL.d("upload log spareUrl Url: " + sparedUrl);
                 response = HttpRequest.uploadFile(null, mLogFile, FILE_NAME_UPLOAD_LOG, sparedUrl);
-                SLogUtil.logD("upload log spareUrl response: " + (response == null ? "null" : response));
+                PL.d("upload log spareUrl response: " + (response == null ? "null" : response));
             }
             return response;
         }

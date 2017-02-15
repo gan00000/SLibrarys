@@ -14,18 +14,17 @@ public class HttpRequest {
 	public HttpRequest() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	public static String get(String urlStr,Map<String, String> dataMap) {
+		HttpRequestCore requestCore = new HttpRequestCore();
+		return requestCore.excuteGetRequest(urlStr,dataMap).getResult();
+	}
 
 	public static String get(String urlStr) {
 		return getReuqest(urlStr).getResult();
 	}
 	
 
-	public static HttpResponse getReuqest(String urlStr) {
-		HttpRequestCore requestCore = new HttpRequestCore();
-		return requestCore.excuteGetRequest(urlStr);
-	}
-	
 	public static HttpResponse getReuqestIn2Url(String preUrl,String sprUrl) {
 		HttpResponse s = getReuqest(preUrl);
 		if (s != null && TextUtils.isEmpty(s.getResult())) {
@@ -33,7 +32,11 @@ public class HttpRequest {
 		}
 		return s;
 	}
-	
+
+	public static HttpResponse getReuqest(String urlStr) {
+		HttpRequestCore requestCore = new HttpRequestCore();
+		return requestCore.excuteGetRequest(urlStr);
+	}
 	
 	/**
 	 * <p>Description: 发送post请求</p>

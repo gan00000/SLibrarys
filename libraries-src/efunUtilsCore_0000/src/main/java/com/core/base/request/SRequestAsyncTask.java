@@ -1,5 +1,11 @@
 package com.core.base.request;
 
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.core.base.utils.PL;
+import com.core.base.utils.ThreadUtil;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,12 +16,6 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.starpy.base.utils.SLogUtil;
-import com.core.base.utils.ThreadUtil;
-
-import android.os.AsyncTask;
-import android.util.Log;
 
 /**
 * <p>Title: SRequestAsyncTask</p>
@@ -77,11 +77,11 @@ public abstract class SRequestAsyncTask extends AsyncTask<String, Integer, Strin
 				return this;
 			}
 		} catch (InvocationTargetException e) {
-			SLogUtil.logW("e:" + e.getMessage());
+			PL.i("e:" + e.getMessage());
 			//e.printStackTrace();
 			// fall-through
 		} catch (IllegalAccessException e) {
-			SLogUtil.logW("e:" + e.getMessage());
+			PL.i("e:" + e.getMessage());
 			//e.printStackTrace();
 			// fall-through
 		}

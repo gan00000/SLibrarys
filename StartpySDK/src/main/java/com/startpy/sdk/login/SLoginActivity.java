@@ -9,7 +9,7 @@ import com.core.base.utils.PL;
 import com.core.base.utils.SignatureUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.SConfig;
-import com.starpy.model.login.bean.SLoginResponse;
+import com.starpy.data.login.response.SLoginResponse;
 import com.startpy.sdk.R;
 import com.startpy.sdk.login.fragment.AccountLoginMainFragment;
 import com.startpy.sdk.login.fragment.BaseFragment;

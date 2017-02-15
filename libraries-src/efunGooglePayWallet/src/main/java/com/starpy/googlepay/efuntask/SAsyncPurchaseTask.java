@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.core.base.request.SRequestAsyncTask;
-import com.core.base.utils.EfunJSONUtil;
 import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.GooglePayReqBean;
@@ -72,7 +71,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		try {
 			if (!TextUtils.isEmpty(mResult)) {
 				final JSONObject json = new JSONObject(mResult);
-				/*if (EfunJSONUtil.efunVerificationRequest(json)) {
+				/*if (JsonUtil.efunVerificationRequest(json)) {
 					if ("0000".equals(json.optString("result", ""))) {
 						launchPurchase(orderBean, json);
 					} else {
@@ -94,7 +93,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 					act.getWalletBean().setErrorDesc(json.optString("ErrorDesc", ""));
 					act.getWalletBean().setSkuId(orderBean.getSku());
 				}
-				if (EfunJSONUtil.efunVerificationRequest(json) && "0000".equals(json.optString("result", ""))) {
+				if ("0000".equals(json.optString("result", ""))) {
 					launchPurchase(orderBean, json);
 					return;
 				}

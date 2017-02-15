@@ -1,7 +1,5 @@
 package com.core.base.http;
 
-import com.starpy.base.utils.SLogUtil;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -64,7 +62,6 @@ public class HttpFileUploadRequest {
         try {
             byte[] headerInfo = sb.toString().getBytes("UTF-8");
             byte[] endInfo = ("\r\n--" + BOUNDARY + "--\r\n").getBytes("UTF-8");
-            SLogUtil.logD("HttpFileUploadRequest", sb.toString());
             URL url = new URL(urlStr);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -87,7 +84,6 @@ public class HttpFileUploadRequest {
             out.write(endInfo);
 
             if (conn.getResponseCode() == 200) {
-                SLogUtil.logD("上传成功");
                 /* 取得Response内容 */
                 is = conn.getInputStream();
                 int ch;
@@ -112,7 +108,6 @@ public class HttpFileUploadRequest {
                 }
                 if(conn != null) {
                     conn.disconnect();
-                    SLogUtil.logD("HttpFileUploadRequest", "urlConnection.disconnect()");
                 }
             }catch (IOException ex){
                 ex.printStackTrace();

@@ -17,7 +17,7 @@ import com.core.base.utils.SPUtil;
 import com.core.base.http.HttpRequest;
 import com.core.base.request.command.abstracts.EfunCommonCmd;
 import com.core.base.utils.FileUtil;
-import com.starpy.base.utils.SLogUtil;
+import com.staraa.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 
 public class EfunDynamicUrlCmd extends EfunCommonCmd<UrlBean> {

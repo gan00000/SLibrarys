@@ -10,6 +10,7 @@ import com.core.base.http.HttpRequest;
 import com.core.base.http.HttpResponse;
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.request.bean.BaseResponseModel;
+import com.core.base.utils.JsonUtil;
 import com.core.base.utils.SStringUtil;
 
 import java.net.HttpURLConnection;
@@ -57,7 +58,7 @@ public abstract class AbsHttpRequest implements ISRqeust {
                 String rawResponse = doRequest(baseReqeustBean);
 
                 //解析json数据
-                if (!TextUtils.isEmpty(rawResponse) && classOfT != null) {
+                if (!TextUtils.isEmpty(rawResponse) && classOfT != null && JsonUtil.isJson(rawResponse)) {
                     Gson gson = new Gson();
                     responseModule = gson.fromJson(rawResponse, classOfT);
                     if (responseModule != null && (responseModule instanceof BaseResponseModel)) {
@@ -100,7 +101,7 @@ public abstract class AbsHttpRequest implements ISRqeust {
     public String doRequest(BaseReqeustBean baseReqeustBean) {
         if (SStringUtil.isNotEmpty(baseReqeustBean.getCompleteUrl())) {
             HttpRequest httpRequest = new HttpRequest();
-            coreHttpResponse = httpRequest.postReuqest(baseReqeustBean.getCompleteUrl(), baseReqeustBean.buildPostMapInField());
+            coreHttpResponse = httpRequest.postReuqest(baseReqeustBean.getCompleteUrl(), baseReqeustBean.fieldValueToMap());
             return coreHttpResponse.getResult();
         }
         return "";
