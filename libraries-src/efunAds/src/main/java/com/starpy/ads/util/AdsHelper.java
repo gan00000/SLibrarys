@@ -2,7 +2,7 @@ package com.starpy.ads.util;
 
 import java.util.Locale;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.ads.bean.AdsHttpParams;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
@@ -38,14 +38,14 @@ public class AdsHelper {
 			e.printStackTrace();
 		}
 		if (SStringUtil.isEmpty(adsHttpParams.getGameCode())) {
-			String gameCode = SConfig.getGameCode(context);
+			String gameCode = ResConfig.getGameCode(context);
 			if (SStringUtil.isEmpty(gameCode )) {
 				throw new NullPointerException("please configure the gameCode in xml file,must not be null or “”");
 			}
 			adsHttpParams.setGameCode(gameCode);
 		}
 		if (SStringUtil.isEmpty(adsHttpParams.getAppKey())) {
-			String appKey = SConfig.getAppKey(context);
+			String appKey = ResConfig.getAppKey(context);
 			if (SStringUtil.isEmpty(appKey)) {
 				throw new NullPointerException("please configure the appKey in xml file,must not be null or “”");
 			}

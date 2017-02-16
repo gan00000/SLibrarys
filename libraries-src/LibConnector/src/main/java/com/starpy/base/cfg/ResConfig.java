@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.core.base.utils.ResUtil;
 
-public class SConfig {
+public class ResConfig {
 
 	//===========================================参数配置start===============================================
 	//===========================================每個遊戲每個渠道都可能不一樣=======================================
@@ -23,9 +23,6 @@ public class SConfig {
 		return efunGetString(context, "star_game_code");
 	}
 	
-	public static String getAppPlatform(Context context) {
-		return efunGetString(context, "efunAppPlatform");
-	}
 
 	/**
 	 * 获取秘钥
@@ -55,10 +52,6 @@ public class SConfig {
 		return getGameLanguage(context).toLowerCase();
 	}
 
-	public static String getEfunAppPlatform(Context context) {
-		return efunGetString(context, "efunAppPlatform");
-	}
-	
 	//===========================================参数配置end===============================================	
 	//===========================================参数配置end===============================================	
 	//===========================================参数配置end===============================================	
@@ -106,11 +99,11 @@ public class SConfig {
 	 * @return
 	 * @date 2015年2月5日
 	 */
-	public static String getEfunPayPreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "efunPayPreferredUrl");
+	public static String getPayPreferredUrl(Context context) {
+		return efunGetConfigUrl(context, "star_py_pay_pre_url");
 	}
-	public static String getEfunPaySpareUrl(Context context) {
-		return efunGetConfigUrl(context, "efunPaySpareUrl");
+	public static String getPaySpareUrl(Context context) {
+		return efunGetConfigUrl(context, "star_py_pay_spa_url");
 	}
 
 	/**

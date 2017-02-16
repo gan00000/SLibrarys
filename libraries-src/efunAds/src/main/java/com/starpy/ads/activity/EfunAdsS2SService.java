@@ -5,7 +5,7 @@ import com.starpy.ads.callback.S2SListener;
 import com.starpy.ads.server.AdsRequest;
 import com.starpy.ads.util.AdsHelper;
 import com.starpy.ads.util.SPUtil;
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 
@@ -56,7 +56,7 @@ public class EfunAdsS2SService extends Service {
 		 if (s2sListener == null) {
 			//获取在应用<meta-data>元素。
 			try {
-				String s2slistener = SConfig.getS2SListenerName(this);
+				String s2slistener = ResConfig.getS2SListenerName(this);
 	
 				SLogUtil.logI("s2slistener: " + s2slistener);
 				if (SStringUtil.isNotEmpty(s2slistener) && s2slistener.startsWith("com.")) {

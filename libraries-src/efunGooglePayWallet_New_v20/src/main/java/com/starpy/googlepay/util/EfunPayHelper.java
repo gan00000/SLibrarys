@@ -12,7 +12,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
@@ -27,7 +27,7 @@ public class EfunPayHelper {
 			preferredUrl = EfunGooglePayService.getPayActivity().getPayPreferredUrl();
 		}
 		if (SStringUtil.isEmpty(preferredUrl)) {
-			preferredUrl = SConfig.getEfunPayPreferredUrl(context);
+			preferredUrl = ResConfig.getPayPreferredUrl(context);
 		}
 		return checkUrl(preferredUrl);
 	}
@@ -38,7 +38,7 @@ public class EfunPayHelper {
 			spareUrl = EfunGooglePayService.getPayActivity().getPaySpareUrl();
 		}
 		if (SStringUtil.isEmpty(spareUrl)) {
-			spareUrl = SConfig.getEfunPaySpareUrl(context);
+			spareUrl = ResConfig.getPaySpareUrl(context);
 		}
 		return checkUrl(spareUrl);
 	}

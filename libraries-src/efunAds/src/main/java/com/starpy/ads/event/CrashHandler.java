@@ -8,7 +8,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.core.base.request.SRequestAsyncTask;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.http.HttpRequest;
@@ -70,7 +70,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 				crashObj.put("gameVersion", ApkInfoUtil.getVersionName(context));
 				
 				if(TextUtils.isEmpty(gameCode)) {
-					crashObj.put("gameCode", SConfig.getGameCode(context));
+					crashObj.put("gameCode", ResConfig.getGameCode(context));
 				}else{
 					crashObj.put("gameCode", gameCode);
 				}

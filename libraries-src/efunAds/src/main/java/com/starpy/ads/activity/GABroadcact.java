@@ -4,7 +4,7 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.ads.analytics.GoogleAnalytics;
 import com.starpy.ads.callback.GAListener;
 import com.starpy.ads.server.AdsRequest;
@@ -42,7 +42,7 @@ public class GABroadcact extends BroadcastReceiver {
 		
 		try {
 			
-			String galistener = SConfig.getGAListenerName(ctx);
+			String galistener = ResConfig.getGAListenerName(ctx);
 			
 			if (SStringUtil.isNotEmpty(galistener) && galistener.startsWith("com.")) {
 				
@@ -66,7 +66,7 @@ public class GABroadcact extends BroadcastReceiver {
 		
 		SLogUtil.logI( "GABroadcact BroadcastReceiver");
 
-		if (!TextUtils.isEmpty(referrer) && !TextUtils.isEmpty(SConfig.getGoogleAnalyticsTrackingId(ctx))) {
+		if (!TextUtils.isEmpty(referrer) && !TextUtils.isEmpty(ResConfig.getGoogleAnalyticsTrackingId(ctx))) {
 			try {
 				GoogleAnalytics.tarckerEvent(ctx, referrer);
 			} catch (Exception e) {

@@ -5,7 +5,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.core.base.http.HttpRequest;
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.core.base.request.SCommandAsyncTask;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SStringUtil;
@@ -50,7 +50,7 @@ public class EfunSdkEventsLogger {
 		m.put("parentEvent", sdkEvent.getParentEvent());
 		m.put("childEvent", sdkEvent.getChildEvent());
 		if (TextUtils.isEmpty(sdkEvent.getGameCode())) {
-			m.put("gameCode", SConfig.getGameCode(context));
+			m.put("gameCode", ResConfig.getGameCode(context));
 		}else{
 			m.put("gameCode", sdkEvent.getGameCode());
 		}
@@ -62,7 +62,7 @@ public class EfunSdkEventsLogger {
 		m.put("wifi", ApkInfoUtil.isWifiAvailable(context) ? "yes" : "no");
 		m.put("language", Locale.getDefault().getLanguage());
 		//m.put("userAgent", new WebView(context).getSettings().getUserAgentString());
-		m.put("sign", SConfig.getGameLanguage(context));
+		m.put("sign", ResConfig.getGameLanguage(context));
 		m.put("loginTimestamp", StarPyUtil.getSdkLoginTerms(context));
 		
 		
@@ -75,9 +75,9 @@ public class EfunSdkEventsLogger {
 		}
 		
 		if (TextUtils.isEmpty(postUrl)) {
-			String adsUrl = SConfig.getAdsPreferredUrl(context);
+			String adsUrl = ResConfig.getAdsPreferredUrl(context);
 			if (TextUtils.isEmpty(adsUrl)) {
-				adsUrl = SConfig.getAdsSpareUrl(context);
+				adsUrl = ResConfig.getAdsSpareUrl(context);
 			}
 			if (TextUtils.isEmpty(adsUrl)) {
 				return;

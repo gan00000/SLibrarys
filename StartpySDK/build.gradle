@@ -5,7 +5,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 9
         targetSdkVersion 22
     }
    buildTypes {
@@ -19,5 +19,5 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':facebook:FacebookSDK-4.5.1-Src')
-    compile project(':libraries-src:efunUtilsCore_0000')
+    compile project(':libraries-src:LibConnector')
 }

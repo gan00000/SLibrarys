@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import android.content.Context;
 
-import com.starpy.base.cfg.SConfig;
-
 public class EfunPayError implements Serializable{
 
 	/**
@@ -15,42 +13,45 @@ public class EfunPayError implements Serializable{
 	
 //	private Context context;
 	
-	private String efunGoogleServerError = "";
-	private String efunGoogleBuyFailError = "";
-	private String efunGoogleStoreError = "";
+	private String googleServerError = "";
+	private String googleBuyFailError = "";
+	private String googleStoreError = "";
 	
 	public EfunPayError(Context context) {
 //		this.context = context;
-		efunGoogleServerError = SConfig.getGoogleServiceError(context);
-		efunGoogleBuyFailError = SConfig.getGoogleBuyFailError(context);
-		efunGoogleStoreError = SConfig.getGoogleStoreError(context);
+//		googleServerError = ResConfig.getGoogleServiceError(context);
+//		googleBuyFailError = ResConfig.getGoogleBuyFailError(context);
+//		googleStoreError = ResConfig.getGoogleStoreError(context);
+		googleServerError = "server error,please try again";
+		googleBuyFailError = "An error occurred,please try again";
+		googleStoreError = googleBuyFailError;
 	}
 	
 	
-	public String getEfunGoogleServerError() {
-		return efunGoogleServerError;
+	public String getGoogleServerError() {
+		return googleServerError;
 	}
-	public void setEfunGoogleServerError(String efunGoogleServerError) {
-		this.efunGoogleServerError = efunGoogleServerError;
+	public void setGoogleServerError(String googleServerError) {
+		this.googleServerError = googleServerError;
 	}
-	public String getEfunGoogleBuyFailError() {
-		return efunGoogleBuyFailError;
+	public String getGoogleBuyFailError() {
+		return googleBuyFailError;
 	}
-	public void setEfunGoogleBuyFailError(String efunGoogleBuyFailError) {
-		this.efunGoogleBuyFailError = efunGoogleBuyFailError;
+	public void setGoogleBuyFailError(String googleBuyFailError) {
+		this.googleBuyFailError = googleBuyFailError;
 	}
-	public String getEfunGoogleStoreError() {
-		return efunGoogleStoreError;
+	public String getGoogleStoreError() {
+		return googleStoreError;
 	}
-	public void setEfunGoogleStoreError(String efunGoogleStoreError) {
-		this.efunGoogleStoreError = efunGoogleStoreError;
+	public void setGoogleStoreError(String googleStoreError) {
+		this.googleStoreError = googleStoreError;
 	}
 
 
 	@Override
 	public String toString() {
-		return "EfunPayError [efunGoogleServerError=" + efunGoogleServerError + ", efunGoogleBuyFailError=" + efunGoogleBuyFailError
-				+ ", efunGoogleStoreError=" + efunGoogleStoreError + "]";
+		return "EfunPayError [googleServerError=" + googleServerError + ", googleBuyFailError=" + googleBuyFailError
+				+ ", googleStoreError=" + googleStoreError + "]";
 	}
 
 	

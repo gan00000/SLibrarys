@@ -1,6 +1,6 @@
 package com.starpy.ads.event;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 
 import android.content.Context;
 
@@ -9,7 +9,7 @@ public class AppCrash {
 	public static void init(Context context,String gameCode){
 
 		CrashHandler.getInstance().register(context,gameCode);
-		setReportCrashUrl(SConfig.getAdsPreferredUrl(context));
+		setReportCrashUrl(ResConfig.getAdsPreferredUrl(context));
 	}
 	
 	public static void setReportCrashUrl(String reportCrashUrl){

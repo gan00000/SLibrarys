@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import com.core.base.utils.PL;
 import com.core.base.utils.SignatureUtil;
 import com.facebook.sfb.SFacebookProxy;
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.data.login.response.SLoginResponse;
 import com.startpy.sdk.R;
 import com.starpy.sdk.login.fragment.AccountLoginMainFragment;
@@ -67,7 +67,7 @@ public class SLoginActivity extends BaseLoginActivity {
 
     public void setResult(SLoginResponse loginResponse) {
         if (loginResponse != null){
-            loginResponse.setGameCode(SConfig.getGameCode(this));
+            loginResponse.setGameCode(ResConfig.getGameCode(this));
             Intent data = new Intent();
 
             data.putExtra(S_LOGIN_RESPONSE_OBJ, loginResponse);

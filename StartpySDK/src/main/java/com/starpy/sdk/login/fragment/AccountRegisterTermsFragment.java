@@ -26,6 +26,8 @@ public class AccountRegisterTermsFragment extends BaseFragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         contentView = inflater.inflate(R.layout.py_account_register_terms, container, false);
         backView = contentView.findViewById(R.id.py_back_button);
+        titleTextView = (TextView) contentView.findViewById(R.id.py_title_id);
+        titleTextView.setText(getText(R.string.py_login_terms));
 
         termsTextView = (TextView) contentView.findViewById(R.id.py_terms_text_id);
 

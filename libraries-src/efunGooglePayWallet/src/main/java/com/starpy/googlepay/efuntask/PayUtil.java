@@ -7,7 +7,7 @@ import android.util.Log;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.SStringUtil;
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.SLogUtil;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.googlepay.bean.WebPayReqBean;
@@ -200,7 +200,7 @@ public class PayUtil {
 	*/
 	private static void checkWebOrderBean(Context context, WebPayReqBean webOrderBean, int pageMark){
 		if (SStringUtil.isEmpty(webOrderBean.getGameCode())) {
-			String gameCode = SConfig.getGameCode(context);
+			String gameCode = ResConfig.getGameCode(context);
 			if (SStringUtil.isEmpty(gameCode)) {
 				throw new RuntimeException("请先配置好gamecode");
 			}
@@ -208,7 +208,7 @@ public class PayUtil {
 		}
 
 		if (SStringUtil.isEmpty(webOrderBean.getGameLanguage())) {
-			webOrderBean.setGameLanguage(SConfig.getGameLanguage(context));
+			webOrderBean.setGameLanguage(ResConfig.getGameLanguage(context));
 		}
 
 		if (SStringUtil.isEmpty(webOrderBean.getSimOperator())) {

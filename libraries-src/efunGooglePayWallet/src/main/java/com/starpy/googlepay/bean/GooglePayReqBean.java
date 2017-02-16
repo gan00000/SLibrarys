@@ -6,8 +6,7 @@ import com.starpy.googlepay.constants.GooglePayContant;
 
 public class GooglePayReqBean extends BasePayReqBean {
 
-	private String ggmid;
-	private String sku;
+	private String productId;
 	private String orderId;
 	private String payType = GooglePayContant.GOOGLEPAYTYPE;
 
@@ -15,31 +14,19 @@ public class GooglePayReqBean extends BasePayReqBean {
 		super(context);
 	}
 
-	/**
-	 * @return the ggmid
-	 */
-	public String getGgmid() {
-		return ggmid;
-	}
-	/**
-	 * @param ggmid the ggmid to set
-	 */
-	public void setGgmid(String ggmid) {
-		this.ggmid = ggmid;
-	}
 
 	/**
-	 * @return the sku
+	 * @return the productId
 	 */
 
-	public String getSku() {
-		return sku;
+	public String getProductId() {
+		return productId;
 	}
 	/**
-	 * @param sku the sku to set
+	 * @param productId the productId to set
 	 */
-	public void setSku(String sku) {
-		this.sku = sku;
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
 	public String getOrderId() {
@@ -65,7 +52,7 @@ public class GooglePayReqBean extends BasePayReqBean {
 	 */
 
 	public void clear(){
-		setSku("");
+		setProductId("");
 		setExtra("");
 		setGameCode("");
 		setOrderId("");

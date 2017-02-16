@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import android.content.Context;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 
 public class EfunPayError implements Serializable{
 
@@ -21,9 +21,9 @@ public class EfunPayError implements Serializable{
 	
 	public EfunPayError(Context context) {
 //		this.context = context;
-		efunGoogleServerError = SConfig.getGoogleServiceError(context);
-		efunGoogleBuyFailError = SConfig.getGoogleBuyFailError(context);
-		efunGoogleStoreError = SConfig.getGoogleStoreError(context);
+		efunGoogleServerError = ResConfig.getGoogleServiceError(context);
+		efunGoogleBuyFailError = ResConfig.getGoogleBuyFailError(context);
+		efunGoogleStoreError = ResConfig.getGoogleStoreError(context);
 	}
 	
 	

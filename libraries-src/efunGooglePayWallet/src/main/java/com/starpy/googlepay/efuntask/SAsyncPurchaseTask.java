@@ -43,7 +43,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		String respone = EfunWalletApi.pay(act);
 		SLogUtil.logI("click stored value result with " + respone);
 		try {
-			final String sku = orderBean.getSku();
+			final String sku = orderBean.getProductId();
 			mHelper.efunQuerySkuDetails(sku, new QueryInventoryFinishedListener() {
 
 				@Override
@@ -71,27 +71,11 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		try {
 			if (!TextUtils.isEmpty(mResult)) {
 				final JSONObject json = new JSONObject(mResult);
-				/*if (JsonUtil.efunVerificationRequest(json)) {
-					if ("0000".equals(json.optString("result", ""))) {
-						launchPurchase(orderBean, json);
-					} else {
-						EndFlag.setEndFlag(true);
-						prompt.dismissProgressDialog();
-						String msg = json.optString("msg", "");
-						if (!TextUtils.isEmpty(msg)) {
-							prompt.complainCloseAct(msg);
-						}
-					}
-				} else {
-					EndFlag.setEndFlag(true);
-					prompt.dismissProgressDialog();
-					act.showGoogleServiceErrorMessage();
-				}*/
-				
+
 				if (act != null) {
 					act.getWalletBean().setEfunOrderId(json.optString("orderId", ""));
 					act.getWalletBean().setErrorDesc(json.optString("ErrorDesc", ""));
-					act.getWalletBean().setSkuId(orderBean.getSku());
+					act.getWalletBean().setSkuId(orderBean.getProductId());
 				}
 				if ("0000".equals(json.optString("result", ""))) {
 					launchPurchase(orderBean, json);
@@ -109,29 +93,18 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 	}
 
 	private void launchPurchase(GooglePayReqBean extraOrderBean, JSONObject resultJson) {
-		extraOrderBean.setGgmid(resultJson.optString("ggmid", ""));//数据库记录
 		extraOrderBean.setOrderId(resultJson.optString("orderId", ""));//efun订单号
 
 		JSONObject mjson = new JSONObject();
 		try {
 			mjson.put("orderId", extraOrderBean.getOrderId());
-			mjson.put("ggmid", extraOrderBean.getGgmid());
+			mjson.put("cpOrderId", extraOrderBean.getCpOrderId());
 			mjson.put("userId", extraOrderBean.getUserId());
-			mjson.put("payFrom", extraOrderBean.getPayFrom());
-			mjson.put("payType", extraOrderBean.getPayType());
-//			mjson.put("creditId", extraOrderBean.getCreditId());
-//			mjson.put("moneyType", extraOrderBean.getMoneyType());
-//			mjson.put("serverCode", extraOrderBean.getServerCode());
-//			mjson.put("gameCode", extraOrderBean.getGameCode());
-//			mjson.put("remark", extraOrderBean.getRemark());
+			mjson.put("gameCode", extraOrderBean.getGameCode());
+			mjson.put("sku", extraOrderBean.getProductId());
+			mjson.put("serverCode", extraOrderBean.getServerCode());
+			mjson.put("roleId", extraOrderBean.getRoleId());
 
-//			if (skuDetails != null) {
-//				mjson.put("priceCurrencyCode", skuDetails.getPrice_currency_code());
-//				mjson.put("priceAmountMicros", skuDetails.getPrice_amount_micros());
-//				mjson.put("price", skuDetails.getPrice());
-//				mjson.put("productId", skuDetails.getSku());
-//			}
-			
 		} catch (JSONException e) {
 			SLogUtil.logI("JSONException异常");
 			e.printStackTrace();
@@ -144,7 +117,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		SLogUtil.logI("developerPayload: " + developerPayload + " developerPayload length:" + developerPayload.length());
 		SLogUtil.logI("开始google购买流程launchPurchaseFlow");
 		//developerPayload: optional argument to be sent back with the purchase information,最大256 characters.否则报错code:"IAB-DPTL" 
-		mHelper.launchPurchaseFlow(act, extraOrderBean.getSku(),GooglePayContant.RC_REQUEST,
+		mHelper.launchPurchaseFlow(act, extraOrderBean.getProductId(),GooglePayContant.RC_REQUEST,
 				new IabHelper.OnIabPurchaseFinishedListener() {
 					public void onIabPurchaseFinished(final IabResult result, final Purchase purchase) {
 
@@ -182,7 +155,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 							SLogUtil.logI("本次购买失败: " + result.getMessage());
 							prompt.dismissProgressDialog();
 							EndFlag.setEndFlag(true);
-							prompt.complainCloseAct(act.getEfunPayError().getEfunGoogleBuyFailError());
+							prompt.complainCloseAct(act.getEfunPayError().getGoogleBuyFailError());
 							return;
 						}
 						//请求验证订单的时候服务器超时或者返回结果失败

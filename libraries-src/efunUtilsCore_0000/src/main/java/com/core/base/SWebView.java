@@ -20,6 +20,7 @@ public class SWebView extends SBaseWebView {
 	 */
 	public void setJsObject(Native2JS jsObject) {
 		this.native2js = jsObject;
+		this.addJavascriptInterface(native2js, AndroidNativeJs);
 	}
 
 	public SWebView(Context context) {
@@ -62,19 +63,19 @@ public class SWebView extends SBaseWebView {
 
 	@Override
 	public void loadUrl(String url) {
-		this.addJavascriptInterface(native2js, AndroidNativeJs);
+//		this.addJavascriptInterface(native2js, AndroidNativeJs);
 		super.loadUrl(url);
 	}
 	
 	@Override
 	public void loadUrl(String url, Map<String, String> additionalHttpHeaders) {
-		this.addJavascriptInterface(native2js, AndroidNativeJs);
+//		this.addJavascriptInterface(native2js, AndroidNativeJs);
 		super.loadUrl(url, additionalHttpHeaders);
 	}
 	
 	@Override
 	public void loadData(String data, String mimeType, String encoding) {
-		this.addJavascriptInterface(native2js, AndroidNativeJs);
+//		this.addJavascriptInterface(native2js, AndroidNativeJs);
 		super.loadData(data, mimeType, encoding);
 	}
 }

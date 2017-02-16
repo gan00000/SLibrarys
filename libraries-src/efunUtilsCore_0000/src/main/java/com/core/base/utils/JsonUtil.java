@@ -36,6 +36,8 @@ public class JsonUtil {
 
     public static boolean isJson(String str) {
         try {
+            if (TextUtils.isEmpty(str))
+                return false;
             JSONObject j = new JSONObject(str);
             return true;
         } catch (JSONException e) {

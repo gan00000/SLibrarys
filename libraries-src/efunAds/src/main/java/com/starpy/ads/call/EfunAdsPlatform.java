@@ -1,10 +1,7 @@
 package com.starpy.ads.call;
 
-import com.starpy.base.cfg.SConfig;
 import com.starpy.ads.activity.EfunAdsS2SService;
 import com.starpy.ads.bean.AdsHttpParams;
-import com.core.base.utils.SPUtil;
-import com.starpy.base.utils.StarPyUtil;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -53,7 +50,6 @@ public class EfunAdsPlatform {
 	* @param partner 合作商
 	*/
 	public static void initEfunAdsWithPartner(Activity currentActivity, String advertisersName, String partner){
-		SPUtil.saveSimpleInfo(currentActivity, StarPyUtil.STAR_PY_SP_FILE, StarPyUtil.EFUN_LOGIN_SIGN, "");//广告启动（每次启动游戏）清除掉sign
 		EfunAdsManager.setAdvertisersName(currentActivity, advertisersName);
 		EfunAdsManager.setPartnerName(currentActivity, partner);
 		initEfunAdsS2S(currentActivity);
@@ -94,8 +90,8 @@ public class EfunAdsPlatform {
 	*/
 /*	private static void initEfunAdsOnlyS2S(Activity currentActivity) {
 		Map<String, String> params = AdvertService.getInstance().initAdsPostParams(currentActivity);
-		String adsPreferredUrl = SConfig.getAdsPreferredUrl(currentActivity);
-		String adsSpareUrl = SConfig.getAdsSpareUrl(currentActivity);
+		String adsPreferredUrl = ResConfig.getAdsPreferredUrl(currentActivity);
+		String adsSpareUrl = ResConfig.getAdsSpareUrl(currentActivity);
 		if (SStringUtil.isNotEmpty(adsPreferredUrl)) {
 			adsPreferredUrl = adsPreferredUrl + EfunDomainSite.EFUN_ADS;
 		}
@@ -107,8 +103,8 @@ public class EfunAdsPlatform {
 				adsPreferredUrl,
 				adsSpareUrl,
 				params,
-				new Object[] { SConfig.getGameCode(currentActivity),
-					SConfig.getAppKey(currentActivity)});
+				new Object[] { ResConfig.getGameCode(currentActivity),
+					ResConfig.getAppKey(currentActivity)});
 	}*/
 	
 

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.starpy.sdk.login.SLoginActivity;
 import com.starpy.sdk.utils.DialogUtil;
@@ -19,6 +20,7 @@ public class BaseFragment extends Fragment {
 
     protected Dialog loadingDialog;
     protected View backView;
+    protected TextView titleTextView;
     SLoginActivity sLoginActivity;
 
     @Override

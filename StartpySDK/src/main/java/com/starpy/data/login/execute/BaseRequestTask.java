@@ -7,7 +7,7 @@ import android.content.Context;
 
 import com.core.base.request.AbsHttpRequest;
 import com.core.base.request.bean.BaseReqeustBean;
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.core.base.utils.GoogleUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
@@ -39,21 +39,21 @@ public abstract class BaseRequestTask extends AbsHttpRequest {
 		}
 
 		if (SStringUtil.isEmpty(baseRequest.getRequestUrl())) {
-			baseRequest.setRequestUrl(SConfig.getLoginPreferredUrl(context));
+			baseRequest.setRequestUrl(ResConfig.getLoginPreferredUrl(context));
 		}
 		/*if (SStringUtil.isEmpty(sparedUrl)) {
-			sparedUrl = SConfig.getLoginSpareUrl(context);
+			sparedUrl = ResConfig.getLoginSpareUrl(context);
 		}*/
 		if (SStringUtil.isEmpty(baseRequest.getGameCode())) {
-			baseRequest.setGameCode(SConfig.getGameCode(context));
+			baseRequest.setGameCode(ResConfig.getGameCode(context));
 		}
 		if (SStringUtil.isEmpty(baseRequest.getAppKey())) {
-			baseRequest.setAppKey(SConfig.getAppKey(context));
+			baseRequest.setAppKey(ResConfig.getAppKey(context));
 		}
 
 
 		if(SStringUtil.isEmpty(baseRequest.getGameLanguage())){
-			baseRequest.setGameLanguage(SConfig.getGameLanguage(context));
+			baseRequest.setGameLanguage(ResConfig.getGameLanguage(context));
 		}
 
 //		baseRequest.setReferrer(PyLoginHelper.takeReferrer(context, ""));
