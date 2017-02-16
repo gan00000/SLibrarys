@@ -92,14 +92,6 @@ public class EfunWalletApi {
 //		verifyParams.put("googlepayversion", BasePayActivity.GOOGLE_PAY_VERSION);
 		if (null != googleOrderBean) {
 			verifyParams.put("language", googleOrderBean.getGameLanguage());
-//			verifyParams.put("version", googleOrderBean.getVersion());
-			
-//			verifyParams.put("creditId", googleOrderBean.getCreditId());
-//			verifyParams.put("moneyType", googleOrderBean.getMoneyType());
-//			verifyParams.put("serverCode", googleOrderBean.getServerCode());
-//			verifyParams.put("gameCode", googleOrderBean.getGameCode());
-			//verifyParams.put("payFrom", googleOrderBean.getPayFrom());
-//			verifyParams.put("remark", googleOrderBean.getRemark());
 
 		}
 		
