@@ -29,7 +29,7 @@ public class EfunWalletApi {
 
 		Map<String, String> params = new HashMap<String, String>();
 		String userId = orderBean.getUserId();
-		String goodsId = orderBean.getSku();
+		String goodsId = orderBean.getProductId();
 		String serverCode = orderBean.getServerCode();
 		String gameCode = orderBean.getGameCode();
 		String payFrom = orderBean.getPayFrom();
@@ -40,7 +40,7 @@ public class EfunWalletApi {
 				&& SStringUtil.isNotEmpty(payFrom)&& SStringUtil.isNotEmpty(payType)) {
 
 			params.put("userId", orderBean.getUserId());
-			params.put("sku", orderBean.getSku());//google商品id
+			params.put("sku", orderBean.getProductId());//google商品id
 			params.put("serverCode", orderBean.getServerCode());
 			params.put("gameCode", orderBean.getGameCode());
 			params.put("payFrom", orderBean.getPayFrom());//web android
@@ -108,7 +108,7 @@ public class EfunWalletApi {
 			verifyParams.put("priceCurrencyCode", skuDetails.getPrice_currency_code());
 			verifyParams.put("priceAmountMicros", skuDetails.getPrice_amount_micros());
 			verifyParams.put("price", skuDetails.getPrice());
-			//verifyParams.put("productId", skuDetails.getSku()));
+			//verifyParams.put("productId", skuDetails.getProductId()));
 		}
 		
 		SLogUtil.logI("purchaseData: " + purchaseData);

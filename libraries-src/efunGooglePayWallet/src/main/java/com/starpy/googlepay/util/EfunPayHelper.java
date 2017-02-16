@@ -4,15 +4,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
-import com.starpy.base.utils.StarPyUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.constants.GooglePayContant;
 
@@ -21,7 +18,7 @@ public class EfunPayHelper {
 	public static String getPreferredUrl(BasePayActivity payActivity){
 		String preferredUrl = payActivity.getPayPreferredUrl();
 		if (SStringUtil.isEmpty(preferredUrl)) {
-			preferredUrl = SConfig.getEfunPayPreferredUrl(payActivity);
+			preferredUrl = ResConfig.getPayPreferredUrl(payActivity);
 		}
 		return checkUrl(preferredUrl);
 	}
@@ -29,7 +26,7 @@ public class EfunPayHelper {
 	public static String getSpareUrl(BasePayActivity payActivity){
 		String spareUrl = payActivity.getPaySpareUrl();
 		if (SStringUtil.isEmpty(spareUrl)) {
-			spareUrl = SConfig.getEfunPaySpareUrl(payActivity);
+			spareUrl = ResConfig.getPaySpareUrl(payActivity);
 		}
 		return checkUrl(spareUrl);
 	}

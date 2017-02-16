@@ -5,7 +5,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.ApkInfoUtil;
 import com.starpy.base.utils.SLogUtil;
@@ -61,7 +61,7 @@ public class PushHelper {
 		//Log.d(TAG, "server name:" + EfunPushService.class.getCanonicalName());
 
 		String serverName = EfunPushService.class.getCanonicalName();
-		/*if (SConfig.getGameLanguage(context).equals("zh_HK")) {//港台
+		/*if (ResConfig.getGameLanguage(context).equals("zh_HK")) {//港台
 			serverName = EfunPushServiceTW.class.getCanonicalName();
 		}*/
 		for (RunningServiceInfo rsi : runningServiceInfos) {
@@ -374,16 +374,13 @@ public class PushHelper {
 	public static String getGameCode(Context context) {
 		String gameCode = PushSPUtil.takeGameCode(context, "");
 		if (TextUtils.isEmpty(gameCode)) {
-			gameCode = SConfig.getGameCode(context);
+			gameCode = ResConfig.getGameCode(context);
 		}
 		return gameCode;
 	}
 
 	public static String getAppPlatform(Context context) {
 		String appPlatform = PushSPUtil.takeAppPlatform(context);
-		if (TextUtils.isEmpty(appPlatform)) {
-			appPlatform = SConfig.getAppPlatform(context);
-		}
 		return appPlatform;
 	}
 

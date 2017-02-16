@@ -19,5 +19,5 @@ android {
 
 dependencies {
     compile files('libs/libGoogleAnalytics.jar')
-    compile project(':libraries-src:efunUtilsCore_0000')
+    compile project(':libraries-src:LibConnector')
 }

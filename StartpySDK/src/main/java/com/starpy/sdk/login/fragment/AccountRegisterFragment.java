@@ -44,6 +44,8 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
         contentView = inflater.inflate(R.layout.py_account_register, container, false);
 
         backView = contentView.findViewById(R.id.py_back_button);
+        titleTextView = (TextView) contentView.findViewById(R.id.py_title_id);
+        titleTextView.setText(getText(R.string.py_register_account));
 
         termsSelectImageView = (ImageView) contentView.findViewById(R.id.py_register_account_terms_check);
         termsTextView = (TextView) contentView.findViewById(R.id.py_register_terms_text_id);

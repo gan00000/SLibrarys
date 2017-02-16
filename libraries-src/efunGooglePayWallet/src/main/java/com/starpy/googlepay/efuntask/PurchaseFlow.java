@@ -11,7 +11,7 @@ public class PurchaseFlow{
 					payActivity.showGoogleStoreErrorMessage();
 					return;
 				}
-				payActivity.get_orderBean().setSku(sku);
+				payActivity.get_orderBean().setProductId(sku);
 				new SAsyncPurchaseTask(payActivity).asyncExcute();
 			}       
     }  

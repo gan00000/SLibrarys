@@ -191,7 +191,7 @@ public abstract class BaseGoogleWebActivity extends BasePayActivity {
 		} else {
 			SLogUtil.logI("onActivityResult handled by IABUtil.the result was not related to a purchase");
 			EndFlag.setEndFlag(true);
-			prompt.complainCloseAct(efunPayError.getEfunGoogleBuyFailError());
+			prompt.complainCloseAct(efunPayError.getGoogleBuyFailError());
 		}
 	}
 	

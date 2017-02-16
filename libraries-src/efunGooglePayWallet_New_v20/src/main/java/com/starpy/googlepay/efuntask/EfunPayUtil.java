@@ -10,7 +10,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.SPUtil;
@@ -204,7 +204,7 @@ public class EfunPayUtil {
 	*/
 	private static void checkWebOrderBean(Context context,WebOrderBean webOrderBean,int pageMark){
 		if (SStringUtil.isEmpty(webOrderBean.getGameCode())) {
-			String gameCode = SConfig.getGameCode(context);
+			String gameCode = ResConfig.getGameCode(context);
 			if (SStringUtil.isEmpty(gameCode)) {
 				throw new RuntimeException("请先配置好gamecode");
 			}
@@ -212,7 +212,7 @@ public class EfunPayUtil {
 		}
 
 		if (SStringUtil.isEmpty(webOrderBean.getLanguage())) {
-			webOrderBean.setLanguage(SConfig.getGameLanguage(context));
+			webOrderBean.setLanguage(ResConfig.getGameLanguage(context));
 		}
 		if (SStringUtil.isEmpty(webOrderBean.getVh())) {
 			webOrderBean.setVh("");

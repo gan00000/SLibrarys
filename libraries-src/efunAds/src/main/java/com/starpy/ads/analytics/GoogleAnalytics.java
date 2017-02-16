@@ -1,6 +1,6 @@
 package com.starpy.ads.analytics;
 
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.efun.google.EfunGoogleProxy;
 
 import android.content.Context;
@@ -12,8 +12,8 @@ public class GoogleAnalytics {
 			Class p = Class.forName("com.efun.google.EfunGoogleProxy");
 			if (p != null) {
 				//google分析事件追踪
-				EfunGoogleProxy.EfunGoogleAnalytics.initDefaultTracker(ctx, SConfig.getGoogleAnalyticsTrackingId(ctx)).setReferrer(referrer);
-				EfunGoogleProxy.EfunGoogleAnalytics.trackEvent("app_install", "app_install", SConfig.getGameCode(ctx) + "_install");
+				EfunGoogleProxy.EfunGoogleAnalytics.initDefaultTracker(ctx, ResConfig.getGoogleAnalyticsTrackingId(ctx)).setReferrer(referrer);
+				EfunGoogleProxy.EfunGoogleAnalytics.trackEvent("app_install", "app_install", ResConfig.getGameCode(ctx) + "_install");
 				return;
 			}
 		} catch (ClassNotFoundException e) {

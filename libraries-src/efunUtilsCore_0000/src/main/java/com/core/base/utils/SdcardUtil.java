@@ -7,16 +7,14 @@ import android.os.Environment;
 import android.os.StatFs;
 
 /**
-* <p>Title: StorageUtil</p>
+* <p>Title: SdcardUtil</p>
 * <p>Description: 存储空间工具类</p>
 * <p>Company: EFun</p> 
 * @author GanYuanrong
 * @date 2015年1月14日
 */
-public class StorageUtil {
+public class SdcardUtil {
 
-
-	
 	/**
 	 * SD card 是否存在
 	 * @return true存在
@@ -24,7 +22,15 @@ public class StorageUtil {
 	public static boolean isExternalStorageExist(){
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
-	
+
+	public static String getPath(){
+		if (isExternalStorageExist()){
+			return Environment.getExternalStorageDirectory().getAbsolutePath();
+		}
+		return "";
+	}
+
+
 	/**
 	 * 获取文件系统（内置，外置）可用存储大小，
 	 */

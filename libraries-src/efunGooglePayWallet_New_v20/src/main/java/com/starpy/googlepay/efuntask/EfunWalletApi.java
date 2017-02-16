@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.core.base.http.HttpRequest;
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.core.base.utils.ApkInfoUtil;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
@@ -133,7 +133,7 @@ public class EfunWalletApi {
 		}
 		
 		if (TextUtils.isEmpty(gameCode)) {
-			gameCode = SConfig.getGameCode(context);
+			gameCode = ResConfig.getGameCode(context);
 		}
 		
 		if (TextUtils.isEmpty(userId) || TextUtils.isEmpty(serverCode) || TextUtils.isEmpty(creditId) || TextUtils.isEmpty(gameCode)) {

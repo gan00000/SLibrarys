@@ -2,17 +2,12 @@ package com.core.base.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
 import java.util.Locale;
 import java.util.UUID;
 
-import com.core.base.cipher.DESCipher;
-
 import android.Manifest;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -21,7 +16,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
@@ -35,21 +29,27 @@ public class ApkInfoUtil {
 	
 	private static String customizedUniqueId = "";
 
+	public static String getApplicationName(Context context) {
+		PackageManager packageManager = context.getPackageManager();
+		ApplicationInfo applicationInfo = getApplicationInfo(context);
+		String applicationName = (String) packageManager.getApplicationLabel(applicationInfo);
+		return applicationName;
+	}
+
 	/**
 	 * 获取当前的包信息
 	 *
 	 * @param context 上下文
 	 * @return packageInfo
 	 */
-	public static PackageInfo getPackageInfo(@NonNull Context context) {
-		PackageInfo pi = null;
+	public static ApplicationInfo getApplicationInfo(@NonNull Context context) {
+
 		try {
-			PackageManager pm = context.getPackageManager();
-			pi = pm.getPackageInfo(context.getPackageName(), 0);
+			return context.getApplicationInfo();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return pi;
+		return null;
 	}
 	
 	public static int getNavigationBarHeight(Context context) {
@@ -84,7 +84,7 @@ public class ApkInfoUtil {
 	}
 
 	public static  String getCustomizedUniqueIdOrAndroidId(Context ctx){
-		String s = getCustomizedUniqueIdOrAndroidId(ctx);
+		String s = getCustomizedUniqueId(ctx);
 		if (TextUtils.isEmpty(s)){
 			s = getAndroidId(ctx);
 		}
@@ -102,7 +102,7 @@ public class ApkInfoUtil {
 		if (!TextUtils.isEmpty(customizedUniqueId) && customizedUniqueId.length() > 30) {
 			return customizedUniqueId;
 		}
-		if (StorageUtil.isExternalStorageExist()) {
+		if (SdcardUtil.isExternalStorageExist()) {
 			String sdcardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 			String dataPath = sdcardPath + File.separator + "Android" + File.separator + "data" + File.separator;
 			

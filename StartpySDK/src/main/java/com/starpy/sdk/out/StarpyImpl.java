@@ -42,7 +42,7 @@ public class StarpyImpl implements IStarpy {
 
         Intent intent = new Intent(activity, SLoginActivity.class);
 
-        activity.startActivityForResult(intent, SLoginActivity.S_LOGIN_REQUEST);
+        activity.startActivityForResult(intent, SLoginActivity.S_LOGIN_REQUEST);//開啟登入
 
     }
 

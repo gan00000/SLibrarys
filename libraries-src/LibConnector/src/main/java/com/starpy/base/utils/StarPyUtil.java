@@ -1,12 +1,15 @@
 package com.starpy.base.utils;
 
-import android.app.Activity;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.JsonUtil;
 import com.core.base.utils.SPUtil;
+import com.starpy.base.cfg.ConfigBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +40,18 @@ public class StarPyUtil {
         SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE,STARPY_SDK_CFG,cfg);
     }
 
-    public static String getSdkCfg(Context context){
-        return SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_SDK_CFG);
+    public static ConfigBean getSdkCfg(Context context){
+        String cfg = SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_SDK_CFG);
+        if (JsonUtil.isJson(cfg)){
+            try {
+                Gson gson = new Gson();
+                ConfigBean configBean = gson.fromJson(cfg, ConfigBean.class);
+                return configBean;
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     public static void saveAccount(Context context,String account){
@@ -141,8 +154,9 @@ public class StarPyUtil {
 
     public static String getCfgValueByKey(Context context, String key, String defaultValue) {
 
-        String sdkCfg = StarPyUtil.getSdkCfg(context);
-        return JsonUtil.getValueByKey(context,sdkCfg, key, defaultValue);
+        //String sdkCfg = StarPyUtil.getSdkCfg(context);
+        String cfg = SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_SDK_CFG);
+        return JsonUtil.getValueByKey(context,cfg, key, defaultValue);
     }
 
     public static boolean checkAccount(String account){

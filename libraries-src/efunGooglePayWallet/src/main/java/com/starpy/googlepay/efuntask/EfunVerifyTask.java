@@ -74,7 +74,7 @@ public class EfunVerifyTask {
 									public void run() {
 										SLogUtil.logW("server internet is not connect.");
 										//网络连接超时的回调
-										IabResult iabResult = new IabResult(GooglePayContant.IAB_STATE, payActivity.getEfunPayError().getEfunGoogleServerError());
+										IabResult iabResult = new IabResult(GooglePayContant.IAB_STATE, payActivity.getEfunPayError().getGoogleServerError());
 										if (mPurchaseListener != null) mPurchaseListener.onIabPurchaseFinished(iabResult, purchase);
 									}
 								});

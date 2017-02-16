@@ -20,4 +20,10 @@
             android:text="储值"
     />
 
+
+    <ImageView android:layout_width="@dimen/px_600"
+               android:layout_height="@dimen/px_400"
+               android:id="@+id/imageview"
+    />
+
 </LinearLayout>

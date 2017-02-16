@@ -1,5 +1,8 @@
 package com.starpy.sdk.login.fragment;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -7,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.core.base.callback.ISReqCallBack;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.BitmapUtil;
 import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.FbSp;
 import com.facebook.sfb.SFacebookProxy;
@@ -78,8 +83,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
     public void onClick(View v) {
 
         if (v == fbLoginView){
-//            sFbLogin();
-            fbThirdLogin(FbSp.getFbId(getActivity()),FbSp.getAppsBusinessId(getActivity()),"");
+            sFbLogin();
         }else if (v == starLoginView){
 
             sLoginActivity.replaceFragment(new AccountLoginMainFragment());
@@ -101,6 +105,11 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                     StarPyUtil.saveSdkLoginData(getContext(),rawResult);
 
                     sLoginActivity.setResult(sLoginResponse);
+
+                    if (SStringUtil.isEqual("1000", sLoginResponse.getCode())) {
+                        cteateUserImage(getActivity(),sLoginResponse.getFreeRegisterName(),sLoginResponse.getFreeRegisterPwd());
+                    }
+
                     getActivity().finish();
                 } else {
                     ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
@@ -110,6 +119,15 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
         macLoginRegCmd.excute(SLoginResponse.class);
 
     }
+
+    private void cteateUserImage(Context context,String freeRegisterName, String freeRegisterPwd) {
+        String appName = ApkInfoUtil.getApplicationName(context);
+        String text = "你登入" + appName + "的賬號和密碼如下:\n賬號:" + freeRegisterName + "\n" + "密碼:" + freeRegisterPwd;
+        Bitmap bitmap = BitmapUtil.bitmapAddText(BitmapFactory.decodeResource(getResources(),R.drawable.image_bg),text);
+        BitmapUtil.saveImageToGallery(getContext(),bitmap);
+        ToastUtils.toast(context,"你的賬號密碼已經保存到相冊中");
+    }
+
 
     private void sFbLogin() {
         if (sLoginActivity.getsFacebookProxy() == null) {

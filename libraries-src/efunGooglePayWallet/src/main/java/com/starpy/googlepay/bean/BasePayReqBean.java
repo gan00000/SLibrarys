@@ -3,7 +3,7 @@ package com.starpy.googlepay.bean;
 import android.content.Context;
 
 import com.core.base.request.bean.BaseReqeustBean;
-import com.starpy.base.cfg.SConfig;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.googlepay.constants.GooglePayContant;
 
@@ -45,8 +45,8 @@ public class BasePayReqBean extends BaseReqeustBean {
 	private void init(Context context) {
 		userId = StarPyUtil.getUid(context);
 		accessToken = StarPyUtil.getSdkAccessToken(context);
-		gameCode = SConfig.getGameCode(context);
-		gameLanguage = SConfig.getGameLanguage(context);
+		gameCode = ResConfig.getGameCode(context);
+		gameLanguage = ResConfig.getGameLanguage(context);
 
 		serverCode = StarPyUtil.getServerCode(context);
 		serverName = StarPyUtil.getServerName(context);
