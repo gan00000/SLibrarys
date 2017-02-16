@@ -20,4 +20,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':facebook:FacebookSDK-4.5.1-Src')
     compile project(':libraries-src:LibConnector')
+    compile project(':libraries-src:efunGooglePayWallet')
 }

@@ -8,6 +8,8 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.pay.PayType;
+import com.starpy.googlepay.GooglePayActivity;
+import com.starpy.googlepay.bean.GooglePayReqBean;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.login.SLoginActivity;
 
@@ -47,7 +49,7 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void pay(Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String customize) {
+    public void pay(Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
 
         if (payType == PayType.OTHERS){//第三方储值
 
@@ -56,6 +58,16 @@ public class StarpyImpl implements IStarpy {
             activity.startActivity(i);
 
         }else{//默认Google储值
+
+            GooglePayReqBean googlePayReqBean = new GooglePayReqBean(activity);
+            googlePayReqBean.setCpOrderId(cpOrderId);
+            googlePayReqBean.setProductId(productId);
+            googlePayReqBean.setRoleLevel(roleLevel);
+            googlePayReqBean.setExtra(extra);
+
+            Intent i = new Intent(activity, GooglePayActivity.class);
+            i.putExtra(GooglePayActivity.GooglePayReqBean_Extra_Key,googlePayReqBean);
+            activity.startActivity(i);
 
         }
     }

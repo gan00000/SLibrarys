@@ -24,42 +24,11 @@ public class EfunWalletApi {
 	public static String pay(final BasePayActivity payActivity) {
 		GooglePayReqBean orderBean = payActivity.get_orderBean();
 		if (orderBean  == null) {
-			throw new RuntimeException("请先初始化OrderBean");
+			SLogUtil.logE("请先初始化OrderBean");
 		}
 
-		Map<String, String> params = new HashMap<String, String>();
-		String userId = orderBean.getUserId();
-		String goodsId = orderBean.getProductId();
-		String serverCode = orderBean.getServerCode();
-		String gameCode = orderBean.getGameCode();
-		String payFrom = orderBean.getPayFrom();
-		String payType = orderBean.getPayType();
+		return doRequest(payActivity, EfunDomainSite.google_order_create, orderBean.fieldValueToMap());
 
-		if (SStringUtil.isNotEmpty(userId) && SStringUtil.isNotEmpty(goodsId)
-				&& SStringUtil.isNotEmpty(serverCode) && SStringUtil.isNotEmpty(gameCode)
-				&& SStringUtil.isNotEmpty(payFrom)&& SStringUtil.isNotEmpty(payType)) {
-
-			params.put("userId", orderBean.getUserId());
-			params.put("sku", orderBean.getProductId());//google商品id
-			params.put("serverCode", orderBean.getServerCode());
-			params.put("gameCode", orderBean.getGameCode());
-			params.put("payFrom", orderBean.getPayFrom());//web android
-			params.put("payType", orderBean.getPayType());//支付类型
-
-			params.put("language", orderBean.getGameLanguage());
-			params.put("extra", orderBean.getExtra());
-			params.put("roleName", orderBean.getRoleName());
-			params.put("roleLevel", orderBean.getRoleLevel());
-			params.put("roleId", orderBean.getRoleId());
-			params.put("cpOrderId", orderBean.getCpOrderId());//cp 订单号
-
-
-			SLogUtil.logI("玩家点击储值. params: " + params.toString());
-			
-			return doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_CREATE_ORDER, params);
-		} else {
-			throw new RuntimeException("获取订单时设置的参数异常，请先设置好OrderBean参数");
-		}
 		
 	}
 

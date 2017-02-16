@@ -3,22 +3,22 @@
  */
 package com.starpy.googlepay;
 
-import java.util.List;
-import java.util.Vector;
+import android.app.Activity;
+import android.os.Bundle;
+import android.text.TextUtils;
 
+import com.core.base.utils.SStringUtil;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.SLogUtil;
-import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.EfunPayError;
-import com.starpy.googlepay.bean.QueryInventoryState;
 import com.starpy.googlepay.bean.EfunWalletBean;
 import com.starpy.googlepay.bean.GooglePayReqBean;
+import com.starpy.googlepay.bean.QueryInventoryState;
 import com.starpy.googlepay.bean.WebPayReqBean;
-import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.callback.EfunWalletService;
+import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.callback.QueryItemListener;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.efuntask.PayUtil;
 import com.starpy.googlepay.efuntask.EndFlag;
 import com.starpy.googlepay.efuntask.Prompt;
 import com.starpy.googlepay.efuntask.PurchaseFlow;
@@ -28,10 +28,7 @@ import com.starpy.util.IabHelper;
 import com.starpy.util.IabResult;
 import com.starpy.util.SkuDetails;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
+import java.util.Vector;
 
 /**
  * <p>Title: BasePayActivity</p>
@@ -40,7 +37,7 @@ import android.text.TextUtils;
  * @author GanYuanrong
  * @date 2014年2月24日
  */
-public abstract class BasePayActivity extends Activity /*implements ActivityCompat.OnRequestPermissionsResultCallback*/{
+public abstract class BasePayActivity extends Activity {
 	
 	public static final String GOOGLE_PAY_VERSION = "3.9.2";
 
@@ -76,23 +73,9 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	protected String _gameCode;
 	protected String _language;
 	
-	/**
-	 * _skus 商品id
-	 */
-	protected List<String> _skus;
-	
 	protected String _currentPurchaseSku;
 	
 	private SkuDetails skuDetails;
-	
-	/**
-	 * openGW 判断本次是否打开了更多储值，或者官网
-	 */
-	protected boolean openGW = false;
-	/**
-	 * googlePay 用于网页版Google储值，判断是否进入当前的页面是否属于Google储值商品界面，主要用于是否需要把进度条关掉
-	 */
-	//protected boolean googlePay =  false;
 	
 	/**
 	 * payPreferredUrl 储值首选域名
@@ -131,8 +114,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		initEfunPayErrorMessage(efunPayError);
 		
 		prompt = new Prompt(this);
-		prompt.showProgressDialog();
-		
+
 		if (_GoogleOrderBean!=null) {
 			_GoogleOrderBean.clear();
 			_GoogleOrderBean = null;
@@ -140,8 +122,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		_GoogleOrderBean = initGoogleOrderBean();
 		
 		initializeGoogleBean();
-		initPay();
-		
+
 		walletListeners = EfunWalletService.getInstance().getWalletListeners();
 		walletBean = new EfunWalletBean();
 		
@@ -149,17 +130,16 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		queryInventoryState = new QueryInventoryState();
 		EndFlag.setCanPurchase(true);
 		EndFlag.setEndFlag(true);
-		mHelper.enableDebugLogging(false);
+		mHelper.enableDebugLogging(true);
 		
-		_skus = initSku();
-		
+
 		prompt.setCloseActivity(isCloseActivityUserCancel);//设置弹框关闭activity
 	}
 
 	private void initializeGoogleBean() {
 		
 		if (_GoogleOrderBean == null) {
-			throw new RuntimeException("请先初始化OrderBean");
+			SLogUtil.logE("_GoogleOrderBean is null");
 		}
 		
 		if (SStringUtil.isEmpty(_GoogleOrderBean.getGameCode())) {
@@ -264,17 +244,10 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 
 	}
 	
-	protected abstract List<String> initSku();
 	protected abstract GooglePayReqBean initGoogleOrderBean();
-	protected abstract WebPayReqBean initWebOrderBean();
 	protected void initEfunPayErrorMessage(EfunPayError efunPayError){}
-	protected void initPay(){}
-	
-	protected String cardData(){
-		return "";
-	}
-	
-	
+
+
 	public IabHelper getHelper() {
 		return mHelper;
 	}
@@ -324,34 +297,12 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		this.supportGooglePlay = supportGooglePlay;
 	}
 
-	public List<String> get_skus() {
-		return _skus;
-	}
-
-	public void set_skus(List<String> _skus) {
-		this._skus = _skus;
-	}
 
 	public void showGoogleStoreErrorMessage() {
 		if (isCloseActivityUserCancel) {
 			prompt.complainCloseAct(efunPayError.getGoogleStoreError());
 		}else{
 			prompt.complain(efunPayError.getGoogleStoreError());
-		}
-	}
-	
-	public void showGoogleServiceErrorMessage() {
-		if (isCloseActivityUserCancel) {
-			prompt.complainCloseAct(efunPayError.getGoogleServerError());
-		}else{
-			prompt.complain(efunPayError.getGoogleServerError());
-		}
-	}
-	public void showGoogleBuyFailErrorMessage() {
-		if (isCloseActivityUserCancel) {
-			prompt.complainCloseAct(efunPayError.getGoogleBuyFailError());
-		}else{
-			prompt.complain(efunPayError.getGoogleBuyFailError());
 		}
 	}
 
@@ -370,58 +321,7 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 	public void setQueryInventoryState(QueryInventoryState queryInventoryState) {
 		this.queryInventoryState = queryInventoryState;
 	}
-	
-	protected void startWebClient(String intentAction){
-		WebPayReqBean webOrderBean = this.initWebOrderBean();
-		if (null == webOrderBean) {
-			throw new RuntimeException("webOrderBean is null");
-		}
-		PayUtil.startOtherWallet(this, webOrderBean, intentAction);
-		openGW = true;
-		this.finish();
-	}
-	
-	protected void startWebClient(Intent intent){
-		WebPayReqBean webOrderBean = this.initWebOrderBean();
-		if (null == webOrderBean) {
-			throw new RuntimeException("webOrderBean is null");
-		}
-		PayUtil.startOtherWallet(this, webOrderBean, intent);
-		openGW = true;
-		this.finish();
-	}
-	
-	protected void startWebGW(String intentAction){
-		/*Intent GWPayIntent = new Intent(action);
-		startGW(GWPayIntent);*/
-		WebPayReqBean webOrderBean = this.initWebOrderBean();
-		if (null == webOrderBean) {
-			throw new RuntimeException("webOrderBean is null");
-		}
-		PayUtil.startGWWallet(this, webOrderBean, intentAction);
-		openGW = true;
-		this.finish();
-	}
-	
-	protected void startWebGW(Intent intent){
-		/*Intent GWPayIntent = new Intent(action);
-		startGW(GWPayIntent);*/
-		WebPayReqBean webOrderBean = this.initWebOrderBean();
-		if (null == webOrderBean) {
-			throw new RuntimeException("webOrderBean is null");
-		}
-		PayUtil.startGWWallet(this, webOrderBean, intent);
-		openGW = true;
-		this.finish();
-	}
 
-	public boolean isOpenGW() {
-		return openGW;
-	}
-
-	public void setOpenGW(boolean openGW) {
-		this.openGW = openGW;
-	}
 
 	public String getPayPreferredUrl() {
 		return payPreferredUrl;
@@ -447,16 +347,6 @@ public abstract class BasePayActivity extends Activity /*implements ActivityComp
 		this.skuDetails = skuDetails;
 	}
 	
-/*	@SuppressLint("NewApi")
-	@Override
-	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-		// TODO Auto-generated method stub
-		if (requestCode == 11) {
-			PurchaseFlow.startPurchase(this,_currentPurchaseSku);
-		}else{
-			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		}
-	}*/
 
 	public boolean isCloseActivityUserCancel() {
 		return isCloseActivityUserCancel;

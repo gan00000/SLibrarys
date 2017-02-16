@@ -34,6 +34,8 @@ public class StarPyUtil {
 
     public static final String STARPY_SDK_CFG = "STARPY_SDK_CFG";//保存sdk配置
     public static final String STARPY_SDK_LOGIN_TERMS = "STARPY_SDK_LOGIN_TERMS";
+    public static final String STARPY_MAC_LOGIN_USERNAME = "STARPY_MAC_LOGIN_USERNAME";
+    public static final String STARPY_MAC_LOGIN_PASSWORD = "STARPY_MAC_LOGIN_PASSWORD";
 
 
     public static void saveSdkCfg(Context context,String cfg){
@@ -61,6 +63,13 @@ public class StarPyUtil {
     public static String getAccount(Context context){
         return SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_LOGIN_USERNAME);
     }
+    public static void saveMacAccount(Context context,String account){
+        SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_USERNAME, account);
+    }
+
+    public static String getMacAccount(Context context){
+        return SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_USERNAME);
+    }
 
     public static void savePassword(Context context,String password){
         SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE, STARPY_LOGIN_PASSWORD, password);
@@ -68,6 +77,13 @@ public class StarPyUtil {
 
     public static String getPassword(Context context){
         return SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_LOGIN_PASSWORD);
+    }
+    public static void saveMacPassword(Context context,String password){
+        SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_PASSWORD, password);
+    }
+
+    public static String getMacPassword(Context context){
+        return SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_PASSWORD);
     }
 
   /*  public static void saveUid(Context context,String uid){

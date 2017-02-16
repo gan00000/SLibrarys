@@ -19,6 +19,6 @@ public interface IStarpy extends IGameLifeCycle{
 
     public void login(Activity activity,ILoginCallBack iLoginCallBack);
 
-    public void pay(Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String customize);
+    public void pay(Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String extra);
 
 }

@@ -95,8 +95,14 @@ public class AccountLoginMainFragment extends BaseFragment {
 
         account = StarPyUtil.getAccount(getContext());
         password = StarPyUtil.getPassword(getContext());
-        loginAccountEditText.setText(account);
-        loginPasswordEditText.setText(password);
+        if (TextUtils.isEmpty(account)){
+            account = StarPyUtil.getMacAccount(getContext());
+            password = StarPyUtil.getMacPassword(getContext());
+        }
+        if (!TextUtils.isEmpty(account)){
+            loginAccountEditText.setText(account);
+            loginPasswordEditText.setText(password);
+        }
 
         return contentView;
     }

@@ -4,32 +4,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.List;
-
+import com.core.base.utils.ApkInfoUtil;
 import com.starpy.base.utils.SLogUtil;
-import com.starpy.googlepay.bean.WebPayReqBean;
 import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.efuntask.PayUtil;
 import com.starpy.googlepay.efuntask.EndFlag;
 
-public abstract class BaseBillActivity extends BasePayActivity {
-
+public abstract class BaseGooglePayActivity extends BasePayActivity {
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		/*if (_skus == null || _skus.isEmpty() || _skus.size() == 0) {
-			throw new RuntimeException("请先初始化sku集合");
-		}
-		if (_skus.contains(null) || _skus.contains("")) {
-			throw new RuntimeException("sku不能包含null或者\"\"");
-		}*/
-		this.efunHelperSetUp();
-	}
 	
+		if (!ApkInfoUtil.isNetworkAvaiable(BaseGooglePayActivity.this)) {
+			prompt.complainCloseAct("Network is not avaiable");
+			return;
+		}
+		
+		prompt.dismissProgressDialog();
+		prompt.showProgressDialog("Loading");
 
+	}
+
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		SLogUtil.logI("onActivityResult(" + requestCode + "," + resultCode + "," + data);
@@ -37,32 +35,30 @@ public abstract class BaseBillActivity extends BasePayActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-
+	
 	// We're being destroyed. It's important to dispose of the helper here!
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
 		// very important:
 		if (mHelper != null){
 			SLogUtil.logI("mHelper.dispose");
 			mHelper.dispose();
 		}
-		if (null != this.prompt) {
-			prompt.dismissProgressDialog();
-		}
 		mHelper = null;
 		EndFlag.setCanPurchase(true);
 		EndFlag.setEndFlag(true);
-		try{
-			if (!openGW && null != walletListeners && !walletListeners.isEmpty() && null != walletBean) {
+
+		if (null != this.prompt) {
+			prompt.dismissProgressDialog();
+			//prompt = null;
+		}
+
+		try {
+			if (null != walletListeners && !walletListeners.isEmpty()) {
 				SLogUtil.logI("walletListeners size:" + walletListeners.size());
-				if(walletBean.getPurchaseState() != GooglePayContant.PURCHASESUCCESS){
+				if (walletBean != null && walletBean.getPurchaseState() != GooglePayContant.PURCHASESUCCESS) {
 					walletBean.setPurchaseState(GooglePayContant.PURCHASEFAILURE);
-					if (walletBean.getErrorType() != 1) {
-						walletBean.setErrorType(2);
-						walletBean.setErrorDesc("取消支付");
-					}
 				}
 				for (ISWalletListener walletListener : walletListeners) {
 					if (walletListener != null) {
@@ -72,23 +68,19 @@ public abstract class BaseBillActivity extends BasePayActivity {
 			} else {
 				SLogUtil.logI("不回调");
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			Log.i("efun", e.getMessage() + "");
 			e.printStackTrace();
-		}finally{
+		} finally {
 			if (null != walletListeners) {
 				walletListeners.clear();
 			}
 		}
 	}
 	
-	@Override
-	protected List<String> initSku() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+
 	private void handlerActivityResult(int requestCode, int resultCode,Intent data) {
+		prompt.dismissProgressDialog();
 		if (mHelper.handleActivityResult(requestCode, resultCode, data)) {
 			// not handled, so handle it ourselves (here's where you'd
 			// perform any handling of activity results not related to in-app
@@ -97,38 +89,10 @@ public abstract class BaseBillActivity extends BasePayActivity {
 		} else {
 			SLogUtil.logI("onActivityResult handled by IABUtil.the result was not related to a purchase");
 			EndFlag.setEndFlag(true);
-			prompt.dismissProgressDialog();
 			prompt.complainCloseAct(efunPayError.getGoogleBuyFailError());
 		}
 	}
 	
 	
-	/**
-	* <p>Title: startWebClient</p>
-	* <p>Description: 启动更多储值支付页面</p>
-	*/
-	protected void startWebClient() {
-		WebPayReqBean webOrderBean = this.initWebOrderBean();
-		if (null == webOrderBean) {
-			throw new RuntimeException("webOrderBean is null");
-		}
-		PayUtil.startOtherWallet(this, webOrderBean, "");
-		openGW = true;
-		this.finish();
-	}
-	
-	
-	
-	protected void startWebGW(){
-		/*Intent GWPayIntent = new Intent(GooglePayContant.BillAction.EFUN_PAY_ACTIVITY_GW + _gameCode);
-		startGW(GWPayIntent);*/
-		WebPayReqBean webOrderBean = this.initWebOrderBean();
-		if (null == webOrderBean) {
-			throw new RuntimeException("webOrderBean is null");
-		}
-		PayUtil.startGWWallet(this, webOrderBean, "");
-		openGW = true;
-		this.finish();
-	}
 
 }

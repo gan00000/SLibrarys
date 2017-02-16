@@ -66,10 +66,10 @@ public class BitmapUtil {
         textPaint.setTypeface(Typeface.DEFAULT_BOLD); // 采用默认的宽度
         textPaint.setColor(Color.WHITE);
 
-        StaticLayout staticLayout = new StaticLayout(text, 0, text.length(), textPaint, width/3,
+        StaticLayout staticLayout = new StaticLayout(text, 0, text.length(), textPaint, width * 3 / 5,
                 Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.5F, true);
 
-        canvas.translate(width / 3, height / 3);
+        canvas.translate(width / 5, height / 4);
         staticLayout.draw(canvas);
 
         canvas.save(Canvas.ALL_SAVE_FLAG);

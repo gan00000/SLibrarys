@@ -3,13 +3,18 @@ package com.starpy.sdk.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.widget.RelativeLayout;
 
 import com.core.base.utils.PL;
+import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.ResConfig;
+import com.starpy.base.utils.StarPyUtil;
+import com.starpy.data.login.request.AccountLoginRequest;
 import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.sdk.login.fragment.AccountLoginFragment;
 import com.startpy.sdk.R;
 import com.starpy.sdk.login.fragment.AccountLoginMainFragment;
 import com.starpy.sdk.login.fragment.BaseFragment;
@@ -43,7 +48,19 @@ public class SLoginActivity extends BaseLoginActivity {
         // 2.初始化fb sdk
         sFacebookProxy.initFbSdk(this);
 
-        fragmentManager.beginTransaction().replace(relativeLayout.getId(),new AccountLoginMainFragment()).commit();
+        String account = StarPyUtil.getAccount(this);
+        String password = StarPyUtil.getPassword(this);
+        if (TextUtils.isEmpty(account)){
+            account = StarPyUtil.getMacAccount(this);
+            password = StarPyUtil.getMacPassword(this);
+        }
+        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(password)){
+            fragmentManager.beginTransaction().replace(relativeLayout.getId(),new AccountLoginMainFragment()).commit();
+        }else{
+
+            fragmentManager.beginTransaction().replace(relativeLayout.getId(),new AccountLoginFragment()).commit();
+        }
+
 
         PL.i(SignatureUtil.getHashKey(this,getPackageName()));
 

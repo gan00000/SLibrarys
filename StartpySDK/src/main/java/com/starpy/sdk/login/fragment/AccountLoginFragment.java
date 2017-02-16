@@ -100,15 +100,19 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
         macLoginRegCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
             public void callBack(SLoginResponse sLoginResponse,String rawResult) {
-                if (sLoginResponse != null && (sLoginResponse.isRequestSuccess() || SStringUtil.isEqual("1001", sLoginResponse.getCode()))) {
+                if (sLoginResponse != null && sLoginResponse.isRequestSuccess()) {
                     ToastUtils.toast(getActivity(), R.string.py_login_success);
                     StarPyUtil.saveSdkLoginData(getContext(),rawResult);
 
                     sLoginActivity.setResult(sLoginResponse);
 
-                    if (SStringUtil.isEqual("1000", sLoginResponse.getCode())) {
+                    //1001 注册成功    1000登入成功
+                    if (SStringUtil.isEqual("1001", sLoginResponse.getCode())) {
                         cteateUserImage(getActivity(),sLoginResponse.getFreeRegisterName(),sLoginResponse.getFreeRegisterPwd());
                     }
+
+                    StarPyUtil.saveMacAccount(getContext(),sLoginResponse.getFreeRegisterName());
+                    StarPyUtil.saveMacPassword(getContext(),sLoginResponse.getFreeRegisterPwd());
 
                     getActivity().finish();
                 } else {
@@ -122,10 +126,10 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
     private void cteateUserImage(Context context,String freeRegisterName, String freeRegisterPwd) {
         String appName = ApkInfoUtil.getApplicationName(context);
-        String text = "你登入" + appName + "的賬號和密碼如下:\n賬號:" + freeRegisterName + "\n" + "密碼:" + freeRegisterPwd;
+        String text = "你登入" + appName + "的帳號和密碼如下:\n帳號:" + freeRegisterName + "\n" + "密碼:" + freeRegisterPwd;
         Bitmap bitmap = BitmapUtil.bitmapAddText(BitmapFactory.decodeResource(getResources(),R.drawable.image_bg),text);
         BitmapUtil.saveImageToGallery(getContext(),bitmap);
-        ToastUtils.toast(context,"你的賬號密碼已經保存到相冊中");
+        ToastUtils.toast(context,"你的帳號密碼已經保存到相冊中");
     }
 
 
@@ -176,7 +180,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
             public void callBack(SLoginResponse sLoginResponse,String rawResult) {
-                if (sLoginResponse != null && (sLoginResponse.isRequestSuccess() || SStringUtil.isEqual("1001", sLoginResponse.getCode()))) {
+                if (sLoginResponse != null && sLoginResponse.isRequestSuccess()) {
                     ToastUtils.toast(getActivity(), R.string.py_login_success);
                     sLoginActivity.setResult(sLoginResponse);
                     StarPyUtil.saveSdkLoginData(getContext(),rawResult);
