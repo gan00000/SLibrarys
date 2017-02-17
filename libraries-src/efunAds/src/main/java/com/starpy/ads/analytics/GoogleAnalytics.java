@@ -1,7 +1,7 @@
 package com.starpy.ads.analytics;
 
 import com.starpy.base.cfg.ResConfig;
-import com.efun.google.EfunGoogleProxy;
+import com.starpy.google.EfunGoogleProxy;
 
 import android.content.Context;
 

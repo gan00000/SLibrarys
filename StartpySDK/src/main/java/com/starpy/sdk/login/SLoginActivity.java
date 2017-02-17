@@ -41,12 +41,9 @@ public class SLoginActivity extends BaseLoginActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        //广告
-        SFacebookProxy.activateApp(this);
-        // 1.实例EfunFacebookProxy
+        // 2.实例EfunFacebookProxy
         sFacebookProxy = new SFacebookProxy(this.getApplicationContext());
-        // 2.初始化fb sdk
-        sFacebookProxy.initFbSdk(this);
+
 
         String account = StarPyUtil.getAccount(this);
         String password = StarPyUtil.getPassword(this);

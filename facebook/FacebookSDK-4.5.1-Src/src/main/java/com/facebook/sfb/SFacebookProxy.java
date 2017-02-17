@@ -74,7 +74,7 @@ public class SFacebookProxy {
         Log.d(TAG, "canPresentShareDialogWithPhotos:" + canPresentShareDialogWithPhotos);
 	}
 	
-	public void initFbSdk(Context context){
+	public static void initFbSdk(Context context){
 		FacebookSdk.sdkInitialize(context.getApplicationContext());
 	}
 	

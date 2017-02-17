@@ -8,7 +8,7 @@ import com.core.base.utils.ApkInfoUtil;
 import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.efuntask.EndFlag;
+import com.starpy.googlepay.task.EndFlag;
 
 public abstract class BaseGooglePayActivity extends BasePayActivity {
 	
@@ -16,16 +16,8 @@ public abstract class BaseGooglePayActivity extends BasePayActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	
-		if (!ApkInfoUtil.isNetworkAvaiable(BaseGooglePayActivity.this)) {
-			prompt.complainCloseAct("Network is not avaiable");
-			return;
-		}
-		
-		prompt.dismissProgressDialog();
-		prompt.showProgressDialog("Loading");
-
 	}
+	
 
 	
 	@Override

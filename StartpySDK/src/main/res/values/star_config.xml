@@ -8,6 +8,8 @@
     <!-- fb配置end -->
     <string name="star_py_login_pre_url">http://10.10.10.107:8080/</string>
     <string name="star_py_login_spa_url"></string>
+    <string name="star_py_pay_pre_url">http://10.10.10.107:8080/</string>
+    <string name="star_py_pay_spa_url"></string>
     <string name="star_game_code">brmmd</string>
     <string name="star_app_key">97d9636e3aa6e8a6a4dd85cb5fd8db9e</string>
     <string name="star_game_language">zh-TW</string>

@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
-import com.efun.core.tools.EfunLogUtil;
+import com.core.base.utils.PL;
 import com.starpy.google.EfunFirebaseMessagingService;
 import com.starpy.google.EfunPushReceiver;
 import com.starpy.google.bean.NotificationMessage;
@@ -46,7 +46,7 @@ public class MessageUtil {
         if (mIcon != -1 && mIcon != 0) {
             mBuilder.setSmallIcon(mIcon);
         } else {
-            EfunLogUtil.logD("没有设置推送图标，使用app icon图标");
+            PL.d("没有设置推送图标，使用app icon图标");
             mBuilder.setSmallIcon(context.getApplicationInfo().icon);
         }
 

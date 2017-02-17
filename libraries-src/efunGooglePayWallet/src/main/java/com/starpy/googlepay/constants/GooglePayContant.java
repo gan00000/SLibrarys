@@ -77,22 +77,5 @@ public class GooglePayContant {
 	public static final String ExtraOtherWebOrderBean = "ExtraOtherWebOrderBean";
 	public static final String ExtraOtherKey = "otherPayURL";
 	
-	
-	public static class BillAction{
-		/**
-		 * GOOGLE_WALLET_ACTIVITY google储值启动的action （GOOGLE_WALLET_ACTIVITY + gameCode）
-		 */
-		public final static String GOOGLE_WALLET_ACTIVITY = "com.efun.googlepay.";
-		
-		/**
-		 * EFUN_PAY_ACTIVITY 更多储值启动的action （EFUN_PAY_ACTIVITY + gameCode）
-		 */
-		public final static String EFUN_PAY_ACTIVITY = "com.efun.other.";
-		
-		/**
-		 * EFUN_PAY_ACTIVITY_GW  官网储值启动的action （EFUN_PAY_ACTIVITY_GW + gameCode）
-		 */
-		public final static String EFUN_PAY_ACTIVITY_GW = "com.efun.other.gw.";
-	}
-	
+
 }

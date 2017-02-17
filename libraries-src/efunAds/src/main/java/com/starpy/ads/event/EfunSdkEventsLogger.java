@@ -9,8 +9,8 @@ import com.starpy.base.cfg.ResConfig;
 import com.core.base.request.SCommandAsyncTask;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SStringUtil;
-import com.core.base.utils.GoogleUtil;
 import com.starpy.base.utils.StarPyUtil;
+import com.starpy.google.utils.GoogleUtil;
 
 import android.content.Context;
 import android.text.TextUtils;

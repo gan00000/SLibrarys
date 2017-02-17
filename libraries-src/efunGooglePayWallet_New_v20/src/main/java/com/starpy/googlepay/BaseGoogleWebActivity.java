@@ -8,8 +8,8 @@ import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.bean.WebOrderBean;
 import com.starpy.googlepay.constants.EfunDomainSite;
-import com.starpy.googlepay.efuntask.EfunPayUtil;
-import com.starpy.googlepay.efuntask.PayPrompt;
+import com.starpy.googlepay.task.EfunPayUtil;
+import com.starpy.googlepay.task.PayPrompt;
 import com.starpy.googlepay.util.EfunPayHelper;
 
 import android.content.Intent;

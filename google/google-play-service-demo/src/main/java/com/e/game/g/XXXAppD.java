@@ -1,3 +1,4 @@
+/*
 package com.e.game.g;
 
 import android.content.Context;
@@ -77,3 +78,4 @@ public class XXXAppD {
 	}
 	
 }
+*/

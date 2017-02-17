@@ -14,19 +14,18 @@ import com.starpy.googlepay.bean.EfunPayError;
 import com.starpy.googlepay.bean.EfunWalletBean;
 import com.starpy.googlepay.bean.GooglePayReqBean;
 import com.starpy.googlepay.bean.QueryInventoryState;
-import com.starpy.googlepay.bean.WebPayReqBean;
 import com.starpy.googlepay.callback.EfunWalletService;
 import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.callback.QueryItemListener;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.efuntask.EndFlag;
-import com.starpy.googlepay.efuntask.Prompt;
-import com.starpy.googlepay.efuntask.PurchaseFlow;
-import com.starpy.googlepay.efuntask.QueryInventoryFinished;
-import com.starpy.googlepay.util.EfunPayHelper;
-import com.starpy.util.IabHelper;
-import com.starpy.util.IabResult;
-import com.starpy.util.SkuDetails;
+import com.starpy.googlepay.task.EndFlag;
+import com.starpy.googlepay.task.Prompt;
+import com.starpy.googlepay.task.PurchaseFlow;
+import com.starpy.googlepay.task.QueryInventoryFinished;
+import com.starpy.googlepay.util.PayHelper;
+import com.starpy.googlepay.util.IabHelper;
+import com.starpy.googlepay.util.IabResult;
+import com.starpy.googlepay.util.SkuDetails;
 
 import java.util.Vector;
 
@@ -42,15 +41,15 @@ public abstract class BasePayActivity extends Activity {
 	public static final String GOOGLE_PAY_VERSION = "3.9.2";
 
 	public static final String GOOGLE_PAY_VERSION_CHAGE_LOG = GOOGLE_PAY_VERSION + ":修复log日志打印msg为null的时候崩溃";
-	
+
 	// The helper object
 	protected IabHelper mHelper;
 	protected Prompt prompt;
 	/**
-	 * _GoogleOrderBean Google储值购买订单参数封装
+	 * googleOrderBean Google储值购买订单参数封装
 	 */
-	protected volatile GooglePayReqBean _GoogleOrderBean = null;
-	
+	protected volatile GooglePayReqBean googleOrderBean = null;
+
 	/**
 	 * walletBean 储值页面关闭回调结果封装
 	 */
@@ -67,30 +66,30 @@ public abstract class BasePayActivity extends Activity {
 	 * queryInventoryState 查询状态封装
 	 */
 	private QueryInventoryState queryInventoryState;
-	
-	
+
+
 	protected boolean supportGooglePlay = true;
 	protected String _gameCode;
 	protected String _language;
-	
+
 	protected String _currentPurchaseSku;
-	
+
 	private SkuDetails skuDetails;
-	
+
 	/**
 	 * payPreferredUrl 储值首选域名
 	 */
-	protected String payPreferredUrl; 
+	protected String payPreferredUrl;
 	/**
 	 * paySpareUrl 储值备用域名
 	 */
-	protected String paySpareUrl; 
-	
+	protected String paySpareUrl;
+
 	private boolean isCloseActivityUserCancel = false;
-	
+
 	protected QueryItemListener queryItemListener;
-	
-	
+
+
 	/**
 	 * @return the queryItemListener
 	 */
@@ -109,17 +108,17 @@ public abstract class BasePayActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		EfunPayHelper.logCurrentVersion();
+		PayHelper.logCurrentVersion();
 		efunPayError = new EfunPayError(this);
 		initEfunPayErrorMessage(efunPayError);
 		
 		prompt = new Prompt(this);
 
-		if (_GoogleOrderBean!=null) {
-			_GoogleOrderBean.clear();
-			_GoogleOrderBean = null;
+		if (googleOrderBean !=null) {
+			googleOrderBean.clear();
+			googleOrderBean = null;
 		}
-		_GoogleOrderBean = initGoogleOrderBean();
+		googleOrderBean = initGoogleOrderBean();
 		
 		initializeGoogleBean();
 
@@ -138,29 +137,29 @@ public abstract class BasePayActivity extends Activity {
 
 	private void initializeGoogleBean() {
 		
-		if (_GoogleOrderBean == null) {
-			SLogUtil.logE("_GoogleOrderBean is null");
+		if (googleOrderBean == null) {
+			SLogUtil.logE("googleOrderBean is null");
 		}
 		
-		if (SStringUtil.isEmpty(_GoogleOrderBean.getGameCode())) {
+		if (SStringUtil.isEmpty(googleOrderBean.getGameCode())) {
 			_gameCode = ResConfig.getGameCode(this);
 			if (SStringUtil.isEmpty(_gameCode)) {
 				throw new RuntimeException("请先配置好gamecode");
 			}
-			_GoogleOrderBean.setGameCode(_gameCode);
+			googleOrderBean.setGameCode(_gameCode);
 		}else{
-			_gameCode = _GoogleOrderBean.getGameCode();
+			_gameCode = googleOrderBean.getGameCode();
 		}
 		
-		if (SStringUtil.isEmpty(_GoogleOrderBean.getGameLanguage())) {
+		if (SStringUtil.isEmpty(googleOrderBean.getGameLanguage())) {
 			_language = ResConfig.getGameLanguage(this);
-			_GoogleOrderBean.setGameLanguage(_language);
+			googleOrderBean.setGameLanguage(_language);
 		}else{
-			_language = _GoogleOrderBean.getGameLanguage();
+			_language = googleOrderBean.getGameLanguage();
 		}
 		
-		if (SStringUtil.isEmpty(_GoogleOrderBean.getPayFrom())) {
-			_GoogleOrderBean.setPayFrom(GooglePayContant.PAY_FROM);
+		if (SStringUtil.isEmpty(googleOrderBean.getPayFrom())) {
+			googleOrderBean.setPayFrom(GooglePayContant.PAY_FROM);
 		}
 	}
 	
@@ -208,10 +207,11 @@ public abstract class BasePayActivity extends Activity {
 	}
 	
 	/**
-	* <p>Title: efunHelperSetUp</p>
+	* <p>Title: googlePaySetUp</p>
 	* <p>Description: 启动远程服务</p>
 	*/
-	protected void efunHelperSetUp(){
+	protected void googlePaySetUp(){
+		prompt.showProgressDialog();
 		if (null != mHelper && !mHelper.ismSetupDone()) {
 			mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
 				public void onIabSetupFinished(IabResult result) {
@@ -265,13 +265,10 @@ public abstract class BasePayActivity extends Activity {
 	}
 
 
-	public GooglePayReqBean get_orderBean() {
-		return _GoogleOrderBean;
+	public GooglePayReqBean getGoogleOrderBean() {
+		return googleOrderBean;
 	}
 
-	public void set_orderBean(GooglePayReqBean _orderBean) {
-		this._GoogleOrderBean = _orderBean;
-	}
 
 	public EfunWalletBean getWalletBean() {
 		return walletBean;
@@ -362,9 +359,9 @@ public abstract class BasePayActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		
-		if (_GoogleOrderBean != null) {
-			_GoogleOrderBean.clear();
-			_GoogleOrderBean = null;
+		if (googleOrderBean != null) {
+			googleOrderBean.clear();
+			googleOrderBean = null;
 		}
 		
 		this._currentPurchaseSku = "";

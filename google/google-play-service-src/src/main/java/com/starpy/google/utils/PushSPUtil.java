@@ -3,7 +3,7 @@ package com.starpy.google.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.efun.core.db.EfunDatabase;
+import com.core.base.utils.SPUtil;
 
 /**
 * <p>Title: SPUtil</p>
@@ -42,10 +42,10 @@ public class PushSPUtil {
 	
 	
 	public static void saveDispatherClassName(Context context, String name){
-		EfunDatabase.saveSimpleInfo(context, efun_pull_notification, PUSH_DISPATHER_GOOGLE_FIREBASE_CLASS_KEY, name);
+		SPUtil.saveSimpleInfo(context, efun_pull_notification, PUSH_DISPATHER_GOOGLE_FIREBASE_CLASS_KEY, name);
 	}
 	
 	public static String getDispatherClassName(Context context){
-		return EfunDatabase.getSimpleString(context, efun_pull_notification, PUSH_DISPATHER_GOOGLE_FIREBASE_CLASS_KEY);
+		return SPUtil.getSimpleString(context, efun_pull_notification, PUSH_DISPATHER_GOOGLE_FIREBASE_CLASS_KEY);
 	}
 }

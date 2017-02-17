@@ -81,7 +81,7 @@ public class FbResUtil {
 	public static String findStringByName(Context context, String resourcesName) {
 		String res = "";
 		try {
-			res = context.getResources().getString(getResourcesIdByName(context, "string", resourcesName));
+			res = context.getResources().getString(findStringIdByName(context, resourcesName));
 		} catch (Exception e) {
 			Log.e("efun", "resourcesName:" + resourcesName);
 		}
@@ -197,7 +197,6 @@ public class FbResUtil {
 	/**
 	 * 获取Activity中的数据
 	 * 
-	 * @param context
 	 * @param metadata
 	 * @return
 	 */
@@ -239,7 +238,6 @@ public class FbResUtil {
 	/**
 	 * 获取Activity中的数据
 	 * 
-	 * @param context
 	 * @param metadata
 	 * @return
 	 */

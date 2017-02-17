@@ -1,5 +1,14 @@
 package com.starpy.google;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.plus.PlusShare;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -9,23 +18,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.e.g.Bdown;
-import com.efun.core.tools.EfunLocalUtil;
-import com.efun.core.tools.EfunResourceUtil;
+import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.ResUtil;
 import com.starpy.google.bean.EfunFirebaseKey;
 import com.starpy.google.bean.NotificationMessage;
-import com.starpy.google.utils.GoogleAdUtil;
+import com.starpy.google.utils.GoogleUtil;
 import com.starpy.google.utils.MessageUtil;
 import com.starpy.google.utils.PushSPUtil;
-
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.plus.PlusShare;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +40,7 @@ public class EfunGoogleProxy {
 	private static final String TAG = "EfunGoogleProxy";
 
 	public static void setMessageIcon(Context context,String name){
-        setMessageIcon(context, EfunResourceUtil.findDrawableIdByName(context,name));
+        setMessageIcon(context, ResUtil.findDrawableIdByName(context,name));
     }
 
     public static void setMessageIcon(Context context,int resId){
@@ -49,7 +48,7 @@ public class EfunGoogleProxy {
     }
 
 	public static void initPush(Context context){
-		FirebaseMessaging.getInstance().subscribeToTopic(EfunLocalUtil.getVersionName(context));
+		FirebaseMessaging.getInstance().subscribeToTopic(ApkInfoUtil.getVersionName(context));
 	}
 
     //===========================================================================================
@@ -88,7 +87,7 @@ public class EfunGoogleProxy {
 	//=====================================Google getAdvertisingId ============================================
 
 	public static String getAdvertisingId(Context mContext){
-		return GoogleAdUtil.getAdvertisingId(mContext);
+		return GoogleUtil.getAdvertisingId(mContext);
 	}
 	//=====================================Google getAdvertisingId end============================================
 
@@ -139,7 +138,7 @@ public class EfunGoogleProxy {
 					Log.d(TAG,"fire message on main activity sendBroadcast");
 					activity.sendBroadcast(intent);
 				}
-				Bdown.excuteSpecialThing(activity, data);
+//				Bdown.excuteSpecialThing(activity, data);
 				return data;
 			}
 		}

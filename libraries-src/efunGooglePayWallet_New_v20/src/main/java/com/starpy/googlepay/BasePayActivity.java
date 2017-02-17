@@ -18,9 +18,9 @@ import com.starpy.googlepay.callback.ISWalletListener;
 import com.starpy.googlepay.callback.EfunWalletService;
 import com.starpy.googlepay.callback.QueryItemListener;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.efuntask.EfunPayUtil;
-import com.starpy.googlepay.efuntask.PayLaunchPurchaseDialog;
-import com.starpy.googlepay.efuntask.PayPrompt;
+import com.starpy.googlepay.task.EfunPayUtil;
+import com.starpy.googlepay.task.PayLaunchPurchaseDialog;
+import com.starpy.googlepay.task.PayPrompt;
 import com.starpy.googlepay.util.EfunPayHelper;
 import com.starpy.util.SkuDetails;
 

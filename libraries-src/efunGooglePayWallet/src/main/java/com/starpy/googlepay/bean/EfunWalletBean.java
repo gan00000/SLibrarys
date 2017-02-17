@@ -28,7 +28,7 @@ public class EfunWalletBean extends EfunBaseWalletBean{
 	/**
 	 * sku 商品id
 	 */
-	private String skuId;
+	private String productId;
 	
 	/**
 	 * googleOrderId google订单号
@@ -82,11 +82,11 @@ public class EfunWalletBean extends EfunBaseWalletBean{
 		this.googleOrderId = googleOrderId;
 	}
 	
-	public String getSkuId() {
-		return skuId;
+	public String getProductId() {
+		return productId;
 	}
-	public void setSkuId(String skuId) {
-		this.skuId = skuId;
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 	public String getSkuPrice() {
 		return skuPrice;

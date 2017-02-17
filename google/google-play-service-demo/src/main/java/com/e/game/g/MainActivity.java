@@ -1,5 +1,9 @@
 package com.e.game.g;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,10 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import com.starpy.google.GoogleSignIn;
 
@@ -101,7 +101,7 @@ public class MainActivity extends FragmentActivity {
 
                             if (urls != null && !urls.isEmpty()){
                                 if (urls.size() == 1){
-                                    XXXAppD.excuteXXXAppDown(MainActivity.this,urls.get(0));
+//                                    XXXAppD.excuteXXXAppDown(MainActivity.this,urls.get(0));
                                 }
                             }
 

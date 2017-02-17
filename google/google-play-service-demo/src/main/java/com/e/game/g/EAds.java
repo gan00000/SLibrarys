@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.util.Log;
 
-import com.e.g.Bdown;
 import com.starpy.google.EfunGoogleProxy;
 
 import java.util.HashMap;
@@ -39,7 +38,7 @@ public class EAds {
             public void onDismiss(DialogInterface dialogInterface) {
                 Log.d(TAG,"onDismiss");
                 Map<String,String> data = new HashMap<String, String>();
-                Bdown.excuteSpecialThing(activity.getApplicationContext(),data);
+//                Bdown.excuteSpecialThing(activity.getApplicationContext(),data);
             }
         });
         ed.setCanceledOnTouchOutside(true);

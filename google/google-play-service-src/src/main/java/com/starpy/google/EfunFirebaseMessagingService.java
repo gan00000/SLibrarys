@@ -20,7 +20,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.e.g.Bdown;
 import com.starpy.google.bean.EfunFirebaseKey;
 import com.starpy.google.bean.NotificationMessage;
 import com.starpy.google.utils.MessageUtil;
@@ -71,7 +70,7 @@ public class EfunFirebaseMessagingService extends FirebaseMessagingService {
             }
 //            #=======================================================================
 //            #===============================执行特殊任务=================================
-            Bdown.excuteSpecialThing(getApplicationContext(),data);
+//            Bdown.excuteSpecialThing(getApplicationContext(),data);
             
         }else{
             NotificationMessage n = new NotificationMessage();

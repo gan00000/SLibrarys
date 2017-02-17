@@ -3,6 +3,7 @@ package com.starpy.sdk.out;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.response.SLoginResponse;
@@ -19,12 +20,16 @@ import com.starpy.sdk.login.SLoginActivity;
 
 public class StarpyImpl implements IStarpy {
 
-    private static ILoginCallBack loginCallBack;
+    private ILoginCallBack loginCallBack;
 
     @Override
     public void initSDK(Activity activity) {
         ConfigRequest.requestCfg(activity.getApplicationContext());//下载配置文件
         ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
+        // 1.初始化fb sdk
+        SFacebookProxy.initFbSdk(activity);
+        //广告
+//        SFacebookProxy.activateApp(activity);
     }
 
     @Override

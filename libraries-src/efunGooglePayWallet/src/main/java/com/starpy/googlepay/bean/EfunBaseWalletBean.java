@@ -36,7 +36,7 @@ public class EfunBaseWalletBean implements Serializable{
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
-	
+
 	public String getEfunOrderId() {
 		return orderId;
 	}

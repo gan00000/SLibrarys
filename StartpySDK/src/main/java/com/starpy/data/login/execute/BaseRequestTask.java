@@ -7,10 +7,9 @@ import android.content.Context;
 
 import com.core.base.request.AbsHttpRequest;
 import com.core.base.request.bean.BaseReqeustBean;
-import com.starpy.base.cfg.ResConfig;
-import com.core.base.utils.GoogleUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.data.login.request.LoginBaseRequest;
 
 /**
@@ -59,7 +58,7 @@ public abstract class BaseRequestTask extends AbsHttpRequest {
 //		baseRequest.setReferrer(PyLoginHelper.takeReferrer(context, ""));
 
 
-		baseRequest.setAdvertisingId(GoogleUtil.getAdvertisingId(this.context));
+//		baseRequest.setAdvertisingId(GoogleUtil.getAdvertisingId(this.context));
 
 		return baseRequest;
 	}

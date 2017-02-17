@@ -1,4 +1,4 @@
-include ':google:google-play-services_lib_9256000', ':StartpySDK', ':Starpysdkdemo'
+include ':google:google-play-services_lib_9256000', ':StartpySDK', ':Starpysdkdemo', ':app'
 include ':google:google-play-service-src'
 include ':google:google-play-service-demo'
 
@@ -8,7 +8,6 @@ include ':facebook:HelloFacebookSampleActivity'
 
 
 include ':libraries-src:efunUtilsCore_0000'
-include ':libraries-src:efunGooglePayWallet_New_v20'
 include ':libraries-src:efunGooglePayWallet'
 include ':libraries-src:efunAds'
 include ':libraries-src:EfunLoginCommon'

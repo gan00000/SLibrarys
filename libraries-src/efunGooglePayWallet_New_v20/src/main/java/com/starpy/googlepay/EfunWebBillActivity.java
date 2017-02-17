@@ -22,7 +22,7 @@ import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.constants.EfunDomainSite;
 import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.efuntask.Prompt;
+import com.starpy.googlepay.task.Prompt;
 
 public abstract class EfunWebBillActivity extends Activity {
 
