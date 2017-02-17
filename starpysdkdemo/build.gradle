@@ -16,8 +16,8 @@ android {
 
 
     defaultConfig {
-        applicationId "com.starpy.sdk.demo"
-        minSdkVersion 11
+        applicationId "com.star.mrmmd.tw"
+        minSdkVersion 9
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
