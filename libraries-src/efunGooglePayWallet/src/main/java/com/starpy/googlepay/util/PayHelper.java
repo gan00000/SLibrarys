@@ -34,9 +34,8 @@ public class PayHelper {
 		return checkUrl(spareUrl);
 	}
 
-	public static WebPayReqBean buildWebPayBean(Context context, String cpOrderId, String roleLevel, String extra, String url){
+	public static WebPayReqBean buildWebPayBean(Context context, String cpOrderId, String roleLevel, String extra){
 		WebPayReqBean webPayReqBean = new WebPayReqBean(context);
-		webPayReqBean.setCompleteUrl(url);
 
 		if (SStringUtil.isEmpty(webPayReqBean.getSimOperator())) {
 			String simOperator = "";

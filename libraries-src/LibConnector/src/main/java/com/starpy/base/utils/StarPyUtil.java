@@ -25,11 +25,9 @@ public class StarPyUtil {
 
     public static final String ADS_ADVERTISERS_NAME = "ADS_ADVERTISERS_NAME";
 
-    public static final String EFUN_SDK_LANGUAGE = "EFUN_SDK_LANGUAGE";//SDK设置的语言
-
     public static final String STARPY_LOGIN_USERNAME = "STARPY_LOGIN_USERNAME";//保存用户的账号
     public static final String STARPY_LOGIN_PASSWORD = "STARPY_LOGIN_PASSWORD";//保存用户的密码
-//    public static final String STARPY_LOGIN_USER_ID = "STARPY_LOGIN_USER_ID";//保存用户的用戶id
+
     public static final String STARPY_LOGIN_SERVER_RETURN_DATA = "STARPY_LOGIN_SERVER_RETURN_DATA";//保存服务端返回的数据
 
     public static final String STARPY_SDK_CFG = "STARPY_SDK_CFG";//保存sdk配置
@@ -42,12 +40,17 @@ public class StarPyUtil {
         SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE,STARPY_SDK_CFG,cfg);
     }
 
+    private static ConfigBean configBean;
+
     public static ConfigBean getSdkCfg(Context context){
+        if (configBean != null){//缓存
+            return configBean;
+        }
         String cfg = SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_SDK_CFG);
         if (JsonUtil.isJson(cfg)){
             try {
                 Gson gson = new Gson();
-                ConfigBean configBean = gson.fromJson(cfg, ConfigBean.class);
+                configBean = gson.fromJson(cfg, ConfigBean.class);
                 return configBean;
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();

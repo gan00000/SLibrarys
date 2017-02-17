@@ -3,10 +3,8 @@ package com.starpy.googlepay.constants;
 public class EfunDomainSite {
 
 	public final static String google_order_create = "google_create";
-	/**
-	 *  旧接口使用该接口名称请求发放钻石
-	 */
-	public final static String EFUN_GOOGLE_PAY_SEND_STONE = "googlePlay_sendStone.shtml";
+	public final static String google_send = "google_send";
+
 	/**
 	 *  新接口使用该接口名称请求发放钻石 （DeveloperPayload不在传递太多字段数据）
 	 */

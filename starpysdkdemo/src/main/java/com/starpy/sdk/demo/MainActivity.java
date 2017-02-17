@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, PayType.GOOGLE, "cpOrderId", "productId", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, PayType.OTHERS, "cpOrderId", "productId", "roleLevel", "customize");
             }
         });
     }

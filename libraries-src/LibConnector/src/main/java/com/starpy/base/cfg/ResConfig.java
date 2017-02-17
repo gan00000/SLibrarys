@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.core.base.utils.ResUtil;
+import com.starpy.base.utils.StarPyUtil;
 
 public class ResConfig {
 
@@ -20,6 +21,9 @@ public class ResConfig {
 	 * @return
 	 */
 	public static String getGameCode(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_GameCode())){
+			return StarPyUtil.getSdkCfg(context).getS_GameCode();
+		}
 		return efunGetString(context, "star_game_code");
 	}
 	
@@ -31,6 +35,9 @@ public class ResConfig {
 	 * @return
 	 */
 	public static String getAppKey(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_AppKey())){
+			return StarPyUtil.getSdkCfg(context).getS_AppKey();
+		}
 		return efunGetString(context, "star_app_key");
 	}
 
@@ -56,11 +63,7 @@ public class ResConfig {
 	//===========================================参数配置end===============================================	
 	//===========================================参数配置end===============================================	
 	
-	
-	
-	
-	
-	
+
 	
 	//===========================================域名获取start===============================================	
 	//=========================================== 根据地区改变，同一地区的游戏不变===================================
@@ -73,26 +76,19 @@ public class ResConfig {
 	 * @return
 	 */
 	public static String getLoginPreferredUrl(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Login_Pre_Url())){
+			return StarPyUtil.getSdkCfg(context).getS_Login_Pre_Url();
+		}
 		return efunGetConfigUrl(context, "star_py_login_pre_url");
 	}
 
 	public static String getLoginSpareUrl(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Login_Spa_Url())){
+			return StarPyUtil.getSdkCfg(context).getS_Login_Spa_Url();
+		}
 		return efunGetConfigUrl(context, "star_py_login_spa_url");
 	}
 
-	/**
-	 * 获取三方登录域名地址
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static String getPlatformLoginPreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "efunPlatformLoginPreferredUrl");
-	}
-
-	public static String getPlatformLoginSpareUrl(Context context) {
-		return efunGetConfigUrl(context, "efunPlatformLoginSpareUrl");
-	}
 	/**
 	 * <p>Description: 获取储值域名</p>
 	 * @param context
@@ -100,10 +96,19 @@ public class ResConfig {
 	 * @date 2015年2月5日
 	 */
 	public static String getPayPreferredUrl(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Pay_Pre_Url())){
+			return StarPyUtil.getSdkCfg(context).getS_Pay_Pre_Url();
+		}
 		return efunGetConfigUrl(context, "star_py_pay_pre_url");
 	}
 	public static String getPaySpareUrl(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Pay_Spa_Url())){
+			return StarPyUtil.getSdkCfg(context).getS_Pay_Spa_Url();
+		}
 		return efunGetConfigUrl(context, "star_py_pay_spa_url");
+	}
+	public static String getPayThirdMethod(Context context) {
+		return efunGetConfigUrl(context, "star_pay_third_method");
 	}
 
 	/**
@@ -132,20 +137,6 @@ public class ResConfig {
 	
 	public static String getGameSpareUrl(Context context) {
 		return efunGetConfigUrl(context, "efunGameSpareDomainUrl");
-	}
-	
-	/**
-	 * <p>Description: 获取动态域名工程域名</p>
-	 * @param context
-	 * @return
-	 * @date 2015年2月5日
-	 */
-	public static String getDynamicPreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "efunDynamicPreUrl");
-	}
-	
-	public static String getDynamicSpareUrl(Context context) {
-		return efunGetConfigUrl(context, "efunDynamicSpaUrl");
 	}
 	
 	/**
@@ -188,36 +179,6 @@ public class ResConfig {
 //===========================================域名获取end===============================================	
 //===========================================域名获取end===============================================	
 	
-	/**
-	 * 获取google play 服务错误提示
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static String getGoogleServiceError(Context context) {
-		return efunGetString(context, "efunGoogleServerError");
-	}
-
-	/**
-	 * 获取google play 购买错误提示
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static String getGoogleBuyFailError(Context context) {
-		return efunGetString(context, "efunGoogleBuyFailError");
-	}
-
-	/**
-	 * 获取google play 地区错误提示
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static String getGoogleStoreError(Context context) {
-		return efunGetString(context, "efunGoogleStoreError");
-	}
-
 	public static String getGoogleAnalyticsTrackingId(Context context) {
 		return efunGetString(context, "efunGoogleAnalyticsTrackingId");
 	}

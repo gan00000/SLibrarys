@@ -2,15 +2,20 @@ package com.starpy.sdk.out;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 
+import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.ConfigRequest;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.pay.PayType;
 import com.starpy.googlepay.GooglePayActivity;
 import com.starpy.googlepay.bean.GooglePayReqBean;
+import com.starpy.googlepay.bean.WebPayReqBean;
+import com.starpy.googlepay.util.PayHelper;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.login.SLoginActivity;
 
@@ -58,8 +63,18 @@ public class StarpyImpl implements IStarpy {
 
         if (payType == PayType.OTHERS){//第三方储值
 
+            WebPayReqBean webPayReqBean = PayHelper.buildWebPayBean(activity,cpOrderId,roleLevel,extra);
+
             Intent i = new Intent(activity, SWebViewActivity.class);
-            i.putExtra(SWebViewActivity.PLAT_WEBVIEW_URL,"https://www.baidu.com/");
+            String payThirdUrl = null;
+            if (StarPyUtil.getSdkCfg(activity) != null) {
+
+                payThirdUrl = StarPyUtil.getSdkCfg(activity).getS_Third_PayUrl();
+            }
+            if (TextUtils.isEmpty(payThirdUrl)){
+                payThirdUrl = ResConfig.getPayPreferredUrl(activity) + ResConfig.getPayThirdMethod(activity);
+            }
+            i.putExtra(SWebViewActivity.PLAT_WEBVIEW_URL,payThirdUrl + "?" + SStringUtil.map2strData(webPayReqBean.fieldValueToMap()));
             activity.startActivity(i);
 
         }else{//默认Google储值
