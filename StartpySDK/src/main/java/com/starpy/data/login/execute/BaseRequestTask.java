@@ -8,7 +8,9 @@ import android.content.Context;
 import com.core.base.request.AbsHttpRequest;
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
+import com.core.base.utils.ResUtil;
 import com.core.base.utils.SStringUtil;
+import com.core.base.utils.ToastUtils;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.data.login.request.LoginBaseRequest;
 
@@ -71,6 +73,7 @@ public abstract class BaseRequestTask extends AbsHttpRequest {
 	@Override
 	public void onTimeout(String result) {
 		PL.i("onTimeout");
+		ToastUtils.toast(context, "connect timeout, please try again");
 	}
 
 	@Override

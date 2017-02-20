@@ -142,16 +142,21 @@ public class AccountLoginMainFragment extends BaseFragment {
         accountLoginCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
             public void callBack(SLoginResponse sLoginResponse, String rawResult) {
-                if (sLoginResponse != null && sLoginResponse.isRequestSuccess()){
-                    ToastUtils.toast(getActivity(),R.string.py_login_success);
-                    sLoginActivity.setResult(sLoginResponse);
-                    StarPyUtil.saveAccount(getContext(),account);
-                    StarPyUtil.savePassword(getContext(),password);
-                    StarPyUtil.saveSdkLoginData(getActivity(),sLoginResponse.getRawResponse());
+                if (sLoginResponse != null){
+                    if (sLoginResponse.isRequestSuccess()) {
+                        ToastUtils.toast(getActivity(),R.string.py_login_success);
+                        sLoginActivity.setResult(sLoginResponse);
+                        StarPyUtil.saveAccount(getContext(),account);
+                        StarPyUtil.savePassword(getContext(),password);
+                        StarPyUtil.saveSdkLoginData(getActivity(),sLoginResponse.getRawResponse());
 
-                    getActivity().finish();
+                        getActivity().finish();
+                    }else{
+
+                        ToastUtils.toast(getActivity(),sLoginResponse.getMessage());
+                    }
                 }else{
-                    ToastUtils.toast(getActivity(),sLoginResponse.getMessage());
+                    ToastUtils.toast(getActivity(),R.string.py_error_occur);
                 }
             }
         });

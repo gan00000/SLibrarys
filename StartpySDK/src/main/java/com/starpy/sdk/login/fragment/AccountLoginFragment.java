@@ -100,23 +100,29 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
         macLoginRegCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
             public void callBack(SLoginResponse sLoginResponse,String rawResult) {
-                if (sLoginResponse != null && sLoginResponse.isRequestSuccess()) {
-                    ToastUtils.toast(getActivity(), R.string.py_login_success);
-                    StarPyUtil.saveSdkLoginData(getContext(),rawResult);
+                if (sLoginResponse != null) {
+                    if (sLoginResponse.isRequestSuccess()) {
+                        ToastUtils.toast(getActivity(), R.string.py_login_success);
+                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
 
-                    sLoginActivity.setResult(sLoginResponse);
+                        sLoginActivity.setResult(sLoginResponse);
 
-                    //1001 注册成功    1000登入成功
-                    if (SStringUtil.isEqual("1001", sLoginResponse.getCode())) {
-                        cteateUserImage(getActivity(),sLoginResponse.getFreeRegisterName(),sLoginResponse.getFreeRegisterPwd());
+                        //1001 注册成功    1000登入成功
+                        if (SStringUtil.isEqual("1001", sLoginResponse.getCode())) {
+                            cteateUserImage(getActivity(),sLoginResponse.getFreeRegisterName(),sLoginResponse.getFreeRegisterPwd());
+                        }
+
+                        StarPyUtil.saveMacAccount(getContext(),sLoginResponse.getFreeRegisterName());
+                        StarPyUtil.saveMacPassword(getContext(),sLoginResponse.getFreeRegisterPwd());
+
+                        getActivity().finish();
+                    }else {
+
+                        ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
                     }
 
-                    StarPyUtil.saveMacAccount(getContext(),sLoginResponse.getFreeRegisterName());
-                    StarPyUtil.saveMacPassword(getContext(),sLoginResponse.getFreeRegisterPwd());
-
-                    getActivity().finish();
                 } else {
-                    ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                    ToastUtils.toast(getActivity(), R.string.py_error_occur);
                 }
             }
         });
@@ -180,13 +186,20 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
             public void callBack(SLoginResponse sLoginResponse,String rawResult) {
-                if (sLoginResponse != null && sLoginResponse.isRequestSuccess()) {
-                    ToastUtils.toast(getActivity(), R.string.py_login_success);
-                    sLoginActivity.setResult(sLoginResponse);
-                    StarPyUtil.saveSdkLoginData(getContext(),rawResult);
-                    getActivity().finish();
+                if (sLoginResponse != null) {
+
+                    if (sLoginResponse.isRequestSuccess()){
+
+                        ToastUtils.toast(getActivity(), R.string.py_login_success);
+                        sLoginActivity.setResult(sLoginResponse);
+                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
+                        getActivity().finish();
+                    }else{
+
+                        ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                    }
                 } else {
-                    ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                    ToastUtils.toast(getActivity(), R.string.py_error_occur);
                 }
             }
         });

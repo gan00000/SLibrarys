@@ -21,7 +21,7 @@ public class ResConfig {
 	 * @return
 	 */
 	public static String getGameCode(Context context) {
-		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_GameCode())){
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_GameCode())){
 			return StarPyUtil.getSdkCfg(context).getS_GameCode();
 		}
 		return efunGetString(context, "star_game_code");
@@ -35,7 +35,7 @@ public class ResConfig {
 	 * @return
 	 */
 	public static String getAppKey(Context context) {
-		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_AppKey())){
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_AppKey())){
 			return StarPyUtil.getSdkCfg(context).getS_AppKey();
 		}
 		return efunGetString(context, "star_app_key");
@@ -76,14 +76,14 @@ public class ResConfig {
 	 * @return
 	 */
 	public static String getLoginPreferredUrl(Context context) {
-		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Login_Pre_Url())){
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Login_Pre_Url())){
 			return StarPyUtil.getSdkCfg(context).getS_Login_Pre_Url();
 		}
 		return efunGetConfigUrl(context, "star_py_login_pre_url");
 	}
 
 	public static String getLoginSpareUrl(Context context) {
-		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Login_Spa_Url())){
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Login_Spa_Url())){
 			return StarPyUtil.getSdkCfg(context).getS_Login_Spa_Url();
 		}
 		return efunGetConfigUrl(context, "star_py_login_spa_url");
@@ -96,13 +96,13 @@ public class ResConfig {
 	 * @date 2015年2月5日
 	 */
 	public static String getPayPreferredUrl(Context context) {
-		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Pay_Pre_Url())){
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Pay_Pre_Url())){
 			return StarPyUtil.getSdkCfg(context).getS_Pay_Pre_Url();
 		}
 		return efunGetConfigUrl(context, "star_py_pay_pre_url");
 	}
 	public static String getPaySpareUrl(Context context) {
-		if (StarPyUtil.getSdkCfg(context) != null && TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Pay_Spa_Url())){
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Pay_Spa_Url())){
 			return StarPyUtil.getSdkCfg(context).getS_Pay_Spa_Url();
 		}
 		return efunGetConfigUrl(context, "star_py_pay_spa_url");

@@ -36,13 +36,13 @@ public class MainActivity extends Activity {
         iStarpy.onCreate(this);
 
         //在游戏获得角色信息的时候调用
-        iStarpy.registerRoleInfo(this, "roleid", "roleName", "role level", "serverCode", "serverName");
+        iStarpy.registerRoleInfo(this, "roleid_1", "roleName", "rolelevel", "s1001", "serverName");
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //登陆接口，登陆成功的回调在onActivityResult
+                //登陆接口 ILoginCallBack为登录成功后的回调
                 iStarpy.login(MainActivity.this, new ILoginCallBack() {
                     @Override
                     public void onLogin(SLoginResponse sLoginResponse) {
@@ -66,12 +66,13 @@ public class MainActivity extends Activity {
 
                /*
                 充值接口
-                cpOrderId cp订单号，请保持值唯一
+                PayType PayType.OTHERS为第三方储值，PayType.GOOGLE为Google储值
+                cpOrderId cp订单号，请保持每次的值都是不会重复的
                 productId 充值的商品id
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, PayType.OTHERS, "cpOrderId", "productId", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, PayType.OTHERS, "" + System.currentTimeMillis(), "payone", "roleLevel", "customize");
             }
         });
     }
