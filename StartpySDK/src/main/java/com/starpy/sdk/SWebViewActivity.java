@@ -50,7 +50,7 @@ public class SWebViewActivity extends SBaseActivity {
 
         sWebView.setBaseWebChromeClient(new BaseWebChromeClient(progressBar,this));
         sWebView.setWebViewClient(new BaseWebViewClient(this));
-
+        PL.i("SWebViewActivity url:" + webUrl);
         sWebView.loadUrl(webUrl);
 
     }
