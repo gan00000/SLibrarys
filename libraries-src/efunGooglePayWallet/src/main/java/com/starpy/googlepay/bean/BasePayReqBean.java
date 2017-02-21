@@ -30,15 +30,6 @@ public class BasePayReqBean extends BaseReqeustBean {
 	private String timestamp = System.currentTimeMillis() + "";
 	private String signature = "";
 
-/*	public BasePayReqBean(Context context, String extra, String roleLevel, String cpOrderId) {
-		super(context);
-		this.extra = extra;
-		this.roleLevel = roleLevel;
-		this.cpOrderId = cpOrderId;
-		init(context);
-
-	}*/
-
 	public BasePayReqBean(Context context) {
 		super(context);
 
