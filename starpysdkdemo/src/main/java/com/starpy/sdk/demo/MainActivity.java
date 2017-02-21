@@ -16,7 +16,7 @@ import com.starpy.sdk.out.StarpyFactory;
 
 public class MainActivity extends Activity {
 
-    private Button loginButton, payButton;
+    private Button loginButton, othersPayButton,googlePayBtn;
 
     private IStarpy iStarpy;
 
@@ -25,7 +25,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginButton = (Button) findViewById(R.id.demo_login);
-        payButton = (Button) findViewById(R.id.demo_pay);
+        othersPayButton = (Button) findViewById(R.id.demo_pay);
+        googlePayBtn = (Button) findViewById(R.id.demo_pay_google);
 
         iStarpy = StarpyFactory.create();
 
@@ -60,7 +61,7 @@ public class MainActivity extends Activity {
         });
 
 
-        payButton.setOnClickListener(new View.OnClickListener() {
+        othersPayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -73,6 +74,24 @@ public class MainActivity extends Activity {
                 customize 自定义透传字段（从服务端回调到cp）
                 */
                 iStarpy.pay(MainActivity.this, PayType.OTHERS, "" + System.currentTimeMillis(), "payone", "roleLevel", "customize");
+
+            }
+        });
+
+        googlePayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                     /*
+                充值接口
+                PayType PayType.OTHERS为第三方储值，PayType.GOOGLE为Google储值
+                cpOrderId cp订单号，请保持每次的值都是不会重复的
+                productId 充值的商品id
+                roleLevel 觉得等级
+                customize 自定义透传字段（从服务端回调到cp）
+                */
+                iStarpy.pay(MainActivity.this, PayType.GOOGLE, "" + System.currentTimeMillis(), "com.xx.ee1", "roleLevel", "customize");
+
             }
         });
     }
