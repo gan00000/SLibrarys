@@ -573,30 +573,41 @@ public class IabHelper {
 					mPurchaseListener.onIabPurchaseFinished(result, null);
 				return true;
 			}
-			// mVerifyTask = new EfunVerifyTask();
 			SharedPreferences preferences = basePayActivity.getSharedPreferences(GooglePayContant.EFUNFILENAME, Context.MODE_PRIVATE);
 			Editor editor = preferences.edit();
 			editor.putString(GooglePayContant.PURCHASE_DATA_ONE, purchaseData);
 			editor.putString(GooglePayContant.PURCHASE_SIGN_ONE, dataSignature);
 			editor.commit();
-			verifyTask.verifyOrder(basePayActivity, mPurchaseListener, purchaseData, dataSignature, mPurchasingItemType);
-			// Verify signature
-			// if (!Security.verifyPurchase(mSignatureBase64, purchaseData,
-			// dataSignature)) {
-			// logError("Purchase signature verification FAILED for sku " +
-			// sku);
-			// result = new IabResult(IABHELPER_VERIFICATION_FAILED, "Signature
-			// verification failed for sku " + sku);
-			// if (mPurchaseListener != null)
-			// mPurchaseListener.onIabPurchaseFinished(result, purchase);
-			// return true;
-			// }
-			// logDebug("Purchase signature successfully verified.");
 
-			// if (mPurchaseListener != null) {
-			// mPurchaseListener.onIabPurchaseFinished(new
-			// IabResult(BILLING_RESPONSE_RESULT_OK, "Success"), purchase);
-			// }
+//			verifyTask.verifyOrder(basePayActivity, mPurchaseListener, purchaseData, dataSignature, mPurchasingItemType);
+
+			Purchase purchase = null;
+			try {
+				purchase = new Purchase(mPurchasingItemType, purchaseData, dataSignature);
+			/*	String sku = purchase.getSku();
+
+				// Verify signature
+				if (!Security.verifyPurchase(mSignatureBase64, purchaseData, dataSignature)) {
+					logError("Purchase signature verification FAILED for sku " + sku);
+					result = new IabResult(IABHELPER_VERIFICATION_FAILED, "Signature verification failed for sku " + sku);
+					if (mPurchaseListener != null) mPurchaseListener.onIabPurchaseFinished(result, purchase);
+					return true;
+				}
+				logDebug("Purchase signature successfully verified.");*/
+			}
+			catch (JSONException e) {
+				logError("Failed to parse purchase data.");
+				e.printStackTrace();
+				result = new IabResult(IABHELPER_BAD_RESPONSE, "Failed to parse purchase data.");
+				if (mPurchaseListener != null) mPurchaseListener.onIabPurchaseFinished(result, null);
+				return true;
+			}
+
+			if (mPurchaseListener != null) {
+				mPurchaseListener.onIabPurchaseFinished(new IabResult(BILLING_RESPONSE_RESULT_OK, "Success"), purchase);
+			}
+
+
 		} else if (resultCode == Activity.RESULT_OK) {
 			// result code was OK, but in-app billing response was not OK.
 			logDebug("Result code was OK but in-app billing response was not OK: " + getResponseDesc(responseCode));

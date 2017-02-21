@@ -3,15 +3,19 @@ package com.starpy.googlepay.task;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.SRequestAsyncTask;
 import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
-import com.starpy.googlepay.bean.GooglePayReqBean;
+import com.starpy.googlepay.bean.GoogleExchangeReqBean;
+import com.starpy.googlepay.bean.GooglePayCreateOrderIdReqBean;
+import com.starpy.googlepay.constants.GooglePayDomainSite;
 import com.starpy.googlepay.constants.GooglePayContant;
 import com.starpy.googlepay.util.IabHelper;
 import com.starpy.googlepay.util.IabHelper.QueryInventoryFinishedListener;
 import com.starpy.googlepay.util.IabResult;
 import com.starpy.googlepay.util.Inventory;
+import com.starpy.googlepay.util.PayHelper;
 import com.starpy.googlepay.util.Purchase;
 import com.starpy.googlepay.util.SkuDetails;
 
@@ -21,7 +25,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 
 	private IabHelper mHelper;
 	private BasePayActivity act;
-	private GooglePayReqBean orderBean;
+	private GooglePayCreateOrderIdReqBean orderBean;
 	private Prompt prompt;
 //	private SkuDetails skuDetails;
 
@@ -89,10 +93,10 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		act.getWalletBean().setErrorType(1);
 		EndFlag.setEndFlag(true);
         prompt.dismissProgressDialog();
-        prompt.complain("create orderId error");
+        prompt.complainCloseAct("create orderId error");
 	}
 
-	private void launchPurchase(GooglePayReqBean extraOrderBean, JSONObject resultJson) {
+	private void launchPurchase(GooglePayCreateOrderIdReqBean extraOrderBean, JSONObject resultJson) {
 		extraOrderBean.setOrderId(resultJson.optString("orderId", ""));//efun订单号
 
 		JSONObject mjson = new JSONObject();
@@ -122,34 +126,57 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 					public void onIabPurchaseFinished(final IabResult result, final Purchase purchase) {
 
 						SLogUtil.logI("购买流程完毕并且回调onIabPurchaseFinished");
-						if (purchase == null) {
+						if (prompt != null) {
+							prompt.dismissProgressDialog();
+						}
+
+						if (purchase == null || result.isFailure()) {
 							SLogUtil.logI("purchase is null.");
 							EndFlag.setEndFlag(true);
-							prompt.dismissProgressDialog();
+
 							if (result.getResponse() == IabHelper.IABHELPER_USER_CANCELLED) {
 								SLogUtil.logI("info: " + result.getMessage());
 								if (act.isCloseActivityUserCancel()) {
 									act.finish();
 								}
 								return;
-							}
-							/*if (result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED && 
-									result.getMessage().contains("Unable to buy item")) {
-								Log.i("efunLog",result.getMessage() + "");
-								mHelper.flagEndAsync();
-								EndFlag.setEndFlag(true);
-								prompt.complain("This item is temporarily unavailable,please choose other items "
-										+ "or try to clear GooglePay application cache data before you buy this item");
-								return;
-							}*/
-							//prompt.complainCloseAct(result.getMessage());
-							if (act.isCloseActivityUserCancel()) {
+							}else if (act.isCloseActivityUserCancel()) {
 								prompt.complainCloseAct(result.getMessage());
 							}else{
 								prompt.complain(result.getMessage());
 							}
 							return;
+
+						}else {
+							GoogleExchangeReqBean exchangeReqBean = new GoogleExchangeReqBean(act);
+							exchangeReqBean.setDataSignature(purchase.getSignature());
+							exchangeReqBean.setPurchaseData(purchase.getOriginalJson());
+
+							exchangeReqBean.setRequestUrl(PayHelper.getPreferredUrl(act));
+							exchangeReqBean.setRequestMethod(GooglePayDomainSite.google_send);
+
+							SkuDetails skuDetails = act.getSkuDetails();
+							if (skuDetails != null) {
+								exchangeReqBean.setPriceCurrencyCode(skuDetails.getPrice_currency_code());
+								exchangeReqBean.setPriceAmountMicros(skuDetails.getPrice_amount_micros());
+								exchangeReqBean.setPrice(skuDetails.getPrice());
+							}
+
+							GoogleExchangeReqTask googleExchangeReqTask = new GoogleExchangeReqTask(act,exchangeReqBean);
+							googleExchangeReqTask.setReqCallBack(new ISReqCallBack() {
+								@Override
+								public void callBack(Object o, String rawResult) {
+									// 消费
+									if (mHelper != null) {
+										mHelper.consumeAsync(purchase, mConsumeFinishedListener);
+									}
+								}
+							});
+							googleExchangeReqTask.excute();
+
 						}
+
+					/*
 						//服务端订单验证失败（公密googleKey进行数据验证失败）
 						if (result != null && result.getResponse() == IabHelper.IABHELPER_VERIFICATION_FAILED && null == result.getmEfunState()) {
 							SLogUtil.logI("本次购买失败: " + result.getMessage());
@@ -178,6 +205,8 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 								act.finish();
 							}
 						}
+
+						*/
 					}
 				}, developerPayload);
 
@@ -191,7 +220,9 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 				SLogUtil.logI("消费失败");
 			}
 			EndFlag.setEndFlag(true);
-			prompt.dismissProgressDialog();
+			if (prompt != null) {
+				prompt.dismissProgressDialog();
+			}
 			if (act != null) {
 				act.finish();
 			}

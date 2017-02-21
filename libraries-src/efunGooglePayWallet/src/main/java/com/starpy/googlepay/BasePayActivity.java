@@ -12,7 +12,7 @@ import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.bean.EfunPayError;
 import com.starpy.googlepay.bean.EfunWalletBean;
-import com.starpy.googlepay.bean.GooglePayReqBean;
+import com.starpy.googlepay.bean.GooglePayCreateOrderIdReqBean;
 import com.starpy.googlepay.bean.QueryInventoryState;
 import com.starpy.googlepay.callback.EfunWalletService;
 import com.starpy.googlepay.callback.ISWalletListener;
@@ -48,7 +48,7 @@ public abstract class BasePayActivity extends Activity {
 	/**
 	 * googleOrderBean Google储值购买订单参数封装
 	 */
-	protected volatile GooglePayReqBean googleOrderBean = null;
+	protected volatile GooglePayCreateOrderIdReqBean googleOrderBean = null;
 
 	/**
 	 * walletBean 储值页面关闭回调结果封装
@@ -244,7 +244,7 @@ public abstract class BasePayActivity extends Activity {
 
 	}
 	
-	protected abstract GooglePayReqBean initGoogleOrderBean();
+	protected abstract GooglePayCreateOrderIdReqBean initGoogleOrderBean();
 	protected void initEfunPayErrorMessage(EfunPayError efunPayError){}
 
 
@@ -265,7 +265,7 @@ public abstract class BasePayActivity extends Activity {
 	}
 
 
-	public GooglePayReqBean getGoogleOrderBean() {
+	public GooglePayCreateOrderIdReqBean getGoogleOrderBean() {
 		return googleOrderBean;
 	}
 

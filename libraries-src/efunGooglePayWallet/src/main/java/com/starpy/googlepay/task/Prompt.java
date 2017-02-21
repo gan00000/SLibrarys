@@ -46,10 +46,6 @@ public class Prompt {
 		showProgressDialog("Loading...");
 	}
 	
-	public void showProgressDialog(boolean cancel,OnKeyListener onKeyListener) {
-		showProgressDialog("Loading...",cancel,onKeyListener);
-	}
-
 	/**
 	* <p>Title: showProgressDialog</p>
 	* <p>Description: 显示一个进度条</p>
@@ -59,7 +55,6 @@ public class Prompt {
 		dismissProgressDialog();
 		setCancel(false);
 		if (mActivity == null) {
-			Log.d("efun","prompt activity == null");
 			return;
 		}
 		if (progressDialog == null) {
@@ -67,9 +62,9 @@ public class Prompt {
 		}
 		
 		progressDialog.setMessage(message);
-		progressDialog.setTitle("Please wait...");
+		progressDialog.setTitle("Loading...");
 		progressDialog.setIndeterminate(true);
-		progressDialog.setCancelable(true);
+		progressDialog.setCancelable(false);
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 			
@@ -97,24 +92,6 @@ public class Prompt {
 		progressDialog.show();
 	}
 	
-	/**
-	 * <p>Title: showProgressDialog</p>
-	 * <p>Description: 显示一个进度条</p>
-	 * @param message
-	 * @param onKeyListener 
-	 */
-	public void showProgressDialog(String message, boolean cancle, OnKeyListener onKeyListener) {
-		dismissProgressDialog();
-		if (progressDialog == null) {
-			progressDialog = new ProgressDialog(mActivity);
-		}
-		progressDialog.setMessage(message);
-		progressDialog.setTitle("Please wait...");
-		progressDialog.setIndeterminate(true);
-		progressDialog.setCancelable(cancle);
-		progressDialog.setOnKeyListener(onKeyListener);
-		progressDialog.show();
-	}
 
 	/**
 	* <p>Title: dismissProgressDialog</p>
@@ -128,8 +105,6 @@ public class Prompt {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			progressDialog = null;
 		}
 	}
 

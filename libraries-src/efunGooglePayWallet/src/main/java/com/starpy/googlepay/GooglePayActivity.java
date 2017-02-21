@@ -4,8 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.core.base.utils.ApkInfoUtil;
-import com.starpy.googlepay.bean.GooglePayReqBean;
-import com.starpy.googlepay.callback.QueryItemListener;
+import com.starpy.googlepay.bean.GooglePayCreateOrderIdReqBean;
 
 public class GooglePayActivity extends BaseGooglePayActivity {
 
@@ -28,11 +27,11 @@ public class GooglePayActivity extends BaseGooglePayActivity {
 	}
 
 	@Override
-	protected GooglePayReqBean initGoogleOrderBean() {
+	protected GooglePayCreateOrderIdReqBean initGoogleOrderBean() {
 
 		Intent intent = getIntent();
 		if (intent != null){
-			return  (GooglePayReqBean) intent.getSerializableExtra(GooglePayReqBean_Extra_Key);
+			return  (GooglePayCreateOrderIdReqBean) intent.getSerializableExtra(GooglePayReqBean_Extra_Key);
 		}
 
 		return null;

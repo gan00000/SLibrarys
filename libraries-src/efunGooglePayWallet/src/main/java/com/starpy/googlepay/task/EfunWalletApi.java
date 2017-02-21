@@ -4,8 +4,8 @@ import com.core.base.http.HttpRequest;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
-import com.starpy.googlepay.bean.GooglePayReqBean;
-import com.starpy.googlepay.constants.EfunDomainSite;
+import com.starpy.googlepay.bean.GooglePayCreateOrderIdReqBean;
+import com.starpy.googlepay.constants.GooglePayDomainSite;
 import com.starpy.googlepay.util.PayHelper;
 import com.starpy.googlepay.util.Purchase;
 import com.starpy.googlepay.util.SkuDetails;
@@ -22,12 +22,12 @@ public class EfunWalletApi {
 	* @return 服务器返回的内容
 	*/
 	public static String pay(final BasePayActivity payActivity) {
-		GooglePayReqBean orderBean = payActivity.getGoogleOrderBean();
+		GooglePayCreateOrderIdReqBean orderBean = payActivity.getGoogleOrderBean();
 		if (orderBean  == null) {
 			SLogUtil.logE("请先初始化OrderBean");
 		}
 
-		return doRequest(payActivity, EfunDomainSite.google_order_create, orderBean.fieldValueToMap());
+		return doRequest(payActivity, GooglePayDomainSite.google_order_create, orderBean.fieldValueToMap());
 
 		
 	}
@@ -49,35 +49,32 @@ public class EfunWalletApi {
 	* @return 服务器返回的内容
 	*/
 	public static String exchage(final BasePayActivity payActivity,String purchaseData, String dataSignature, String isSharedPreferencesMark) {
-//		List<NameValuePair> verifyParams = new ArrayList<NameValuePair>();
+
 		Map<String, String> verifyParams = new HashMap<String, String>();
-		GooglePayReqBean googleOrderBean = payActivity.getGoogleOrderBean();
+		GooglePayCreateOrderIdReqBean googleOrderBean = payActivity.getGoogleOrderBean();
 		
 		//添加包名参数，以备日后使用
 		verifyParams.put("packageName", payActivity.getPackageName());
 
 		verifyParams.put("purchaseData", purchaseData);
 		verifyParams.put("dataSignature", dataSignature);
-//		verifyParams.put("googlepayversion", BasePayActivity.GOOGLE_PAY_VERSION);
 		if (null != googleOrderBean) {
 			verifyParams.put("language", googleOrderBean.getGameLanguage());
 
 		}
-		
 		SkuDetails skuDetails = payActivity.getSkuDetails();
 		if (skuDetails != null) {
 			verifyParams.put("priceCurrencyCode", skuDetails.getPrice_currency_code());
 			verifyParams.put("priceAmountMicros", skuDetails.getPrice_amount_micros());
 			verifyParams.put("price", skuDetails.getPrice());
-			//verifyParams.put("productId", skuDetails.getProductId()));
 		}
 		
 		SLogUtil.logI("purchaseData: " + purchaseData);
 		SLogUtil.logI("dataSignature: " + dataSignature);
 		SLogUtil.logI("exchage params: " + verifyParams.toString());
 		
-//		return JsonUtil.efunTransformToJSONStr(doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_SEND_STONE, verifyParams));
-		return doRequest(payActivity, EfunDomainSite.EFUN_GOOGLE_PAY_PAY_STONE, verifyParams);
+//		return JsonUtil.efunTransformToJSONStr(doRequest(payActivity, GooglePayDomainSite.EFUN_GOOGLE_PAY_SEND_STONE, verifyParams));
+		return doRequest(payActivity, GooglePayDomainSite.EFUN_GOOGLE_PAY_PAY_STONE, verifyParams);
 	}
 	
 	
@@ -99,7 +96,7 @@ public class EfunWalletApi {
 		postParams.put("packageName", payActivity.getPackageName());
 		// http://pay.efuntw.com/googlePlay_logPint.shtml
 		
-		String efunResponse = doRequest(payActivity, EfunDomainSite.EFUN_REPORT_REFUND, postParams);
+		String efunResponse = doRequest(payActivity, GooglePayDomainSite.EFUN_REPORT_REFUND, postParams);
 		SLogUtil.logD("efun", "efunResponse:" + efunResponse);
 		return efunResponse;
 

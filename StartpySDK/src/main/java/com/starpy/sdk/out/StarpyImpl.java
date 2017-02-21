@@ -13,7 +13,7 @@ import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.pay.PayType;
 import com.starpy.googlepay.GooglePayActivity;
-import com.starpy.googlepay.bean.GooglePayReqBean;
+import com.starpy.googlepay.bean.GooglePayCreateOrderIdReqBean;
 import com.starpy.googlepay.bean.WebPayReqBean;
 import com.starpy.googlepay.util.PayHelper;
 import com.starpy.sdk.SWebViewActivity;
@@ -79,14 +79,14 @@ public class StarpyImpl implements IStarpy {
 
         }else{//默认Google储值
 
-            GooglePayReqBean googlePayReqBean = new GooglePayReqBean(activity);
-            googlePayReqBean.setCpOrderId(cpOrderId);
-            googlePayReqBean.setProductId(productId);
-            googlePayReqBean.setRoleLevel(roleLevel);
-            googlePayReqBean.setExtra(extra);
+            GooglePayCreateOrderIdReqBean googlePayCreateOrderIdReqBean = new GooglePayCreateOrderIdReqBean(activity);
+            googlePayCreateOrderIdReqBean.setCpOrderId(cpOrderId);
+            googlePayCreateOrderIdReqBean.setProductId(productId);
+            googlePayCreateOrderIdReqBean.setRoleLevel(roleLevel);
+            googlePayCreateOrderIdReqBean.setExtra(extra);
 
             Intent i = new Intent(activity, GooglePayActivity.class);
-            i.putExtra(GooglePayActivity.GooglePayReqBean_Extra_Key,googlePayReqBean);
+            i.putExtra(GooglePayActivity.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
             activity.startActivity(i);
 
         }
