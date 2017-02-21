@@ -28,7 +28,7 @@ public class FBLoginRegRequestTask extends BaseRequestTask {
         macLoginRegRequest.setApps(fbApps);
         macLoginRegRequest.setTokenBusiness(fbTokenBusiness);
 
-        macLoginRegRequest.setRequestMethod("login/thirdPartyLogin");
+        macLoginRegRequest.setRequestMethod("thirdPartyLogin");
 
 
     }

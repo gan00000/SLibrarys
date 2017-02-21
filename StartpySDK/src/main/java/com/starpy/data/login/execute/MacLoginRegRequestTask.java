@@ -33,7 +33,7 @@ public class MacLoginRegRequestTask extends BaseRequestTask {
         }
         macLoginRegRequest.setUniqueId(uniqueId);
 
-        macLoginRegRequest.setRequestMethod("login/freeRegister");
+        macLoginRegRequest.setRequestMethod("freeRegister");
 
 
     }

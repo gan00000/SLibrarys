@@ -10,6 +10,10 @@ public class SLoginResponse extends BaseResponseModel {
 
     private String userId = "";
 
+    public boolean isRequestSuccess(){
+        return SUCCESS_CODE.equals(getCode()) || "1001".equals(getCode());
+    }
+
     public String getAccessToken() {
         return accessToken;
     }

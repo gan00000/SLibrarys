@@ -8,16 +8,15 @@
     <!-- fb配置end -->
 
 
-    <string name="star_py_login_pre_url">http://10.10.10.109:8081/</string>
+    <!--<string name="star_py_login_pre_url">http://10.10.10.109:8081/</string>-->
 
-    <string name="star_py_pay_pre_url">http://10.10.10.109:8082/</string>
-<!--
+    <!--<string name="star_py_pay_pre_url">http://10.10.10.109:8082/</string>-->
+
     <string name="star_py_login_pre_url">http://login.starb168.com/</string>
     <string name="star_py_login_spa_url">http://login.starb168.com/</string>
 
     <string name="star_py_pay_pre_url">http://pay.starb168.com/</string>
     <string name="star_py_pay_spa_url">http://pay.starb168.com/</string>
--->
 
 
     <string name="star_game_code">brmmd</string>

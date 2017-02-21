@@ -43,7 +43,7 @@ public class BaseResponseModel implements Serializable {
     }
 
     public boolean isRequestSuccess(){
-        return SUCCESS_CODE.equals(code) || "1001".equals(code);
+        return SUCCESS_CODE.equals(code);
     }
 
     public String getRawResponse() {

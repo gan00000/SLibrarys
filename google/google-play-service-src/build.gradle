@@ -28,7 +28,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:9.2.0'
     compile 'com.google.android.gms:play-services-analytics:9.2.0'
     compile 'com.google.firebase:firebase-config:9.2.0'
-    compile project(':libraries-src:efunUtilsCore_0000')
+   // compile project(':libraries-src:efunUtilsCore_0000')
 }
 // ADD THIS AT THE BOTTOM
 //apply plugin: 'com.google.gms.google-services'

@@ -22,7 +22,7 @@ public class AccountRegisterRequestTask extends BaseRequestTask {
         password = SStringUtil.toMd5(password);
         regRequest.setPwd(password);
 
-        regRequest.setRequestMethod("login/register");
+        regRequest.setRequestMethod("register");
 
 
     }

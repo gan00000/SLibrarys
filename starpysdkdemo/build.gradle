@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-
     signingConfigs {
         config {
             keyAlias 'brmmd'
@@ -9,12 +8,16 @@ android {
             storeFile file('../keystore/brmmd-keystore.jks')
             storePassword 'brmmd666888'
         }
-    }
 
+        config222 {
+            keyAlias 'star'
+            keyPassword '000000'
+            storeFile file('../keystore/pykeystore.jks')
+            storePassword '000000'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
-
-
     defaultConfig {
         applicationId "com.star.mrmmd.tw"
         minSdkVersion 9
@@ -22,19 +25,46 @@ android {
         versionCode 2
         versionName "2.0"
     }
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            //定义一个文件
+            def outputFile = output.outputFile
+            //定义存储apk的位置和文件名，这里文件名格式定义为 [applicationId_版本号_ReleaseTime_apk]
+            if (outputFile != null && outputFile.name.contains("release") && outputFile.name.endsWith('.apk')) {
 
+                def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
     buildTypes {
-          release {
-              minifyEnabled false
-              proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-          }
-          debug {
-              signingConfig signingConfigs.config
-          }
-      }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config222
+        }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+    productFlavors {
+        googleresdemo {
+            minSdkVersion 9
+            applicationId 'com.xx.eemo'
+            signingConfig signingConfigs.config222
+            targetSdkVersion 22
+            versionCode 1
+            versionName '1.0'
+        }
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':StartpySDK')
+}
+
+
+def getReleaseTime() {
+    return new Date().format("yyyy-MM-dd-HH-mm", TimeZone.getTimeZone("UTC"))
 }

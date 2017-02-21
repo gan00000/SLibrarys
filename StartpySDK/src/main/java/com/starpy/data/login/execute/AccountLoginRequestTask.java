@@ -18,7 +18,7 @@ public class AccountLoginRequestTask extends BaseRequestTask {
 		password = SStringUtil.toMd5(password);
 		accountLoginRequest.setPwd(password);
 
-		accountLoginRequest.setRequestMethod("login/login");
+		accountLoginRequest.setRequestMethod("login");
 
 
 	}
