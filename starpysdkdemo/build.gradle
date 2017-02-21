@@ -30,7 +30,7 @@ android {
             //定义一个文件
             def outputFile = output.outputFile
             //定义存储apk的位置和文件名，这里文件名格式定义为 [applicationId_版本号_ReleaseTime_apk]
-            if (outputFile != null && outputFile.name.contains("release") && outputFile.name.endsWith('.apk')) {
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
 
                 def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_.apk"
                 output.outputFile = new File(outputFile.parent, fileName)
@@ -44,7 +44,7 @@ android {
             signingConfig signingConfigs.config
         }
         debug {
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.config222
         }
     }
     productFlavors {

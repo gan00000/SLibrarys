@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.SRequestAsyncTask;
+import com.core.base.utils.PL;
 import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.bean.GoogleExchangeReqBean;
@@ -25,14 +26,14 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 
 	private IabHelper mHelper;
 	private BasePayActivity act;
-	private GooglePayCreateOrderIdReqBean orderBean;
+	private GooglePayCreateOrderIdReqBean createOrderIdReqBean;
 	private Prompt prompt;
 //	private SkuDetails skuDetails;
 
 	public SAsyncPurchaseTask(BasePayActivity basePayActivity) {
 		this.act = basePayActivity;
 		this.mHelper = basePayActivity.getHelper();
-		this.orderBean = basePayActivity.getGoogleOrderBean();
+		this.createOrderIdReqBean = basePayActivity.getGoogleOrderBean();
 		this.prompt = basePayActivity.getPrompt();
 	}
 
@@ -47,7 +48,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		String respone = EfunWalletApi.pay(act);
 		SLogUtil.logI("click stored value result with " + respone);
 		try {
-			final String sku = orderBean.getProductId();
+			final String sku = createOrderIdReqBean.getProductId();
 			mHelper.efunQuerySkuDetails(sku, new QueryInventoryFinishedListener() {
 
 				@Override
@@ -78,11 +79,11 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 
 				if (act != null) {
 					act.getWalletBean().setEfunOrderId(json.optString("orderId", ""));
-					act.getWalletBean().setProductId(orderBean.getProductId());
+					act.getWalletBean().setProductId(createOrderIdReqBean.getProductId());
 				}
 
-				if ("0000".equals(json.optString("result", ""))) {
-					launchPurchase(orderBean, json);
+				if ("1000".equals(json.optString("code", ""))) {
+					launchPurchase(json);
 					return;
 				}
 			}
@@ -96,18 +97,21 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
         prompt.complainCloseAct("create orderId error");
 	}
 
-	private void launchPurchase(GooglePayCreateOrderIdReqBean extraOrderBean, JSONObject resultJson) {
-		extraOrderBean.setOrderId(resultJson.optString("orderId", ""));//efun订单号
+	private void launchPurchase(JSONObject resultJson) {
+		createOrderIdReqBean.setOrderId(resultJson.optString("orderId", ""));//efun订单号
+		String paygpid = resultJson.optString("paygpid", "");
 
 		JSONObject mjson = new JSONObject();
 		try {
-			mjson.put("orderId", extraOrderBean.getOrderId());
-			mjson.put("cpOrderId", extraOrderBean.getCpOrderId());
-			mjson.put("userId", extraOrderBean.getUserId());
-			mjson.put("gameCode", extraOrderBean.getGameCode());
-			mjson.put("sku", extraOrderBean.getProductId());
-			mjson.put("serverCode", extraOrderBean.getServerCode());
-			mjson.put("roleId", extraOrderBean.getRoleId());
+			mjson.put("orderId", createOrderIdReqBean.getOrderId());
+			mjson.put("cpOrderId", createOrderIdReqBean.getCpOrderId());
+			mjson.put("userId", createOrderIdReqBean.getUserId());
+			mjson.put("gameCode", createOrderIdReqBean.getGameCode());
+			mjson.put("sku", createOrderIdReqBean.getProductId());
+			mjson.put("serverCode", createOrderIdReqBean.getServerCode());
+			mjson.put("roleId", createOrderIdReqBean.getRoleId());
+
+			mjson.put("paygpid", paygpid);
 
 		} catch (JSONException e) {
 			SLogUtil.logI("JSONException异常");
@@ -115,13 +119,12 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 		}
 		String developerPayload = mjson.toString();
 		if (developerPayload.length() > 256) {
-			SLogUtil.logW("developerPayload length > 256");
-			developerPayload = developerPayload.substring(0, 256);
+			PL.i("developerPayload.length() > 256");
 		}
 		SLogUtil.logI("developerPayload: " + developerPayload + " developerPayload length:" + developerPayload.length());
 		SLogUtil.logI("开始google购买流程launchPurchaseFlow");
 		//developerPayload: optional argument to be sent back with the purchase information,最大256 characters.否则报错code:"IAB-DPTL" 
-		mHelper.launchPurchaseFlow(act, extraOrderBean.getProductId(),GooglePayContant.RC_REQUEST,
+		mHelper.launchPurchaseFlow(act, createOrderIdReqBean.getProductId(),GooglePayContant.RC_REQUEST,
 				new IabHelper.OnIabPurchaseFinishedListener() {
 					public void onIabPurchaseFinished(final IabResult result, final Purchase purchase) {
 
