@@ -107,7 +107,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 			mjson.put("cpOrderId", createOrderIdReqBean.getCpOrderId());
 			mjson.put("userId", createOrderIdReqBean.getUserId());
 			mjson.put("gameCode", createOrderIdReqBean.getGameCode());
-			mjson.put("sku", createOrderIdReqBean.getProductId());
+			mjson.put("productId", createOrderIdReqBean.getProductId());
 			mjson.put("serverCode", createOrderIdReqBean.getServerCode());
 			mjson.put("roleId", createOrderIdReqBean.getRoleId());
 

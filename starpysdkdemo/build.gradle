@@ -30,9 +30,13 @@ android {
             //定义一个文件
             def outputFile = output.outputFile
             //定义存储apk的位置和文件名，这里文件名格式定义为 [applicationId_版本号_ReleaseTime_apk]
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+            if (outputFile != null && outputFile.name.contains("release") && outputFile.name.endsWith('.apk')) {
 
-                def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_.apk"
+                def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_release.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }else  if (outputFile != null && outputFile.name.contains("debug") && outputFile.name.endsWith('.apk')) {
+
+                def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_debug.apk"
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
@@ -51,6 +55,22 @@ android {
         googleresdemo {
             minSdkVersion 9
             applicationId 'com.xx.eemo'
+            signingConfig signingConfigs.config222
+            targetSdkVersion 22
+            versionCode 1
+            versionName '1.0'
+        }
+        fbtet2 {
+            minSdkVersion 9
+            applicationId 'com.xx.fbtt2'
+            signingConfig signingConfigs.config222
+            targetSdkVersion 22
+            versionCode 1
+            versionName '1.0'
+        }
+        fbtet3 {
+            minSdkVersion 9
+            applicationId 'com.xx.fbtt3'
             signingConfig signingConfigs.config222
             targetSdkVersion 22
             versionCode 1
@@ -75,5 +95,5 @@ dependencies {
 
 
 def getReleaseTime() {
-    return new Date().format("yyyy-MM-dd-HH-mm", TimeZone.getTimeZone("UTC"))
+    return new Date().format("yyyy-MM-dd-HH-mm", TimeZone.getDefault())
 }

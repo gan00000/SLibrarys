@@ -59,7 +59,7 @@ public class SLoginActivity extends BaseLoginActivity {
         }
 
 
-        PL.i(SignatureUtil.getHashKey(this,getPackageName()));
+        PL.i("fb keyhash:" + SignatureUtil.getHashKey(this,getPackageName()));
 
     }
 

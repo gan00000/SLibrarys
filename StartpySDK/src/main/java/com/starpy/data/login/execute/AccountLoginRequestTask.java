@@ -12,6 +12,9 @@ public class AccountLoginRequestTask extends BaseRequestTask {
 	public AccountLoginRequestTask(Context mContext, String userName, String password) {
 		super(mContext);
 
+		userName = userName.toLowerCase();
+		password = password.toLowerCase();
+
 		accountLoginRequest = new com.starpy.data.login.request.AccountLoginRequest(mContext);
 		baseRequest = accountLoginRequest;
 		accountLoginRequest.setName(userName);

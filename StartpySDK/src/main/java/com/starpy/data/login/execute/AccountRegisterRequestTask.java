@@ -14,6 +14,10 @@ public class AccountRegisterRequestTask extends BaseRequestTask {
 
     public AccountRegisterRequestTask(Context context, String userName, String password) {
         super(context);
+
+        userName = userName.toLowerCase();
+        password = password.toLowerCase();
+
         regRequest = new AccountRegRequest(context);
         baseRequest = regRequest;
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.core.base.utils.SStringUtil;
+import com.core.base.utils.ToastUtils;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.pay.PayType;
@@ -53,6 +54,8 @@ public class MainActivity extends Activity {
                             String timestamp = sLoginResponse.getTimestamp();
                             Log.i("IStarpy","uid:" + uid + "  accessToken:" + accessToken + "  yanz:" +  SStringUtil.toMd5("DF7D80A64433C90E263F146315E17A79" +
                                     uid + sLoginResponse.getGameCode() + timestamp));
+
+                            ToastUtils.toast(MainActivity.this,"uid:" + uid);
 
                         }
                     }
