@@ -6,7 +6,6 @@ import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.googlepay.constants.GooglePayContant;
 
 public class GoogleExchangeReqBean extends BaseReqeustBean {
 
@@ -16,7 +15,7 @@ public class GoogleExchangeReqBean extends BaseReqeustBean {
 
 	private String priceCurrencyCode;
 	private String priceAmountMicros;
-	private String price;
+	private String productPrice;
 
 	private String gameLanguage;
 	private String accessToken;
@@ -56,12 +55,12 @@ public class GoogleExchangeReqBean extends BaseReqeustBean {
 		this.priceAmountMicros = priceAmountMicros;
 	}
 
-	public String getPrice() {
-		return price;
+	public String getProductPrice() {
+		return productPrice;
 	}
 
-	public void setPrice(String price) {
-		this.price = price;
+	public void setProductPrice(String productPrice) {
+		this.productPrice = productPrice;
 	}
 
 

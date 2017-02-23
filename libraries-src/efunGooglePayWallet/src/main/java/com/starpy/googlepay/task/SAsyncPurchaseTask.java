@@ -107,7 +107,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 			mjson.put("cpOrderId", createOrderIdReqBean.getCpOrderId());
 			mjson.put("userId", createOrderIdReqBean.getUserId());
 			mjson.put("gameCode", createOrderIdReqBean.getGameCode());
-			mjson.put("productId", createOrderIdReqBean.getProductId());
+//			mjson.put("productId", createOrderIdReqBean.getProductId());
 			mjson.put("serverCode", createOrderIdReqBean.getServerCode());
 			mjson.put("roleId", createOrderIdReqBean.getRoleId());
 
@@ -162,15 +162,17 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 							if (skuDetails != null) {
 								exchangeReqBean.setPriceCurrencyCode(skuDetails.getPrice_currency_code());
 								exchangeReqBean.setPriceAmountMicros(skuDetails.getPrice_amount_micros());
-								exchangeReqBean.setPrice(skuDetails.getPrice());
+								exchangeReqBean.setProductPrice(skuDetails.getPrice());
 							}
 
 							GoogleExchangeReqTask googleExchangeReqTask = new GoogleExchangeReqTask(act,exchangeReqBean);
 							googleExchangeReqTask.setReqCallBack(new ISReqCallBack() {
 								@Override
 								public void callBack(Object o, String rawResult) {
+									PL.i("exchange callback");
 									// 消费
 									if (mHelper != null) {
+										PL.i("google pay consumeAsync");
 										mHelper.consumeAsync(purchase, mConsumeFinishedListener);
 									}
 								}

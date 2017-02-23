@@ -1032,7 +1032,9 @@ public class IabHelper {
 				String sku = ownedSkus.get(i);
 
 				SLogUtil.logI("验证查询未消费的订单，sku: " + sku);
-				if (verifyTask.verifyQueryInventory(basePayActivity, purchaseData, signature, null)) {
+				boolean s = true;
+//				if (verifyTask.verifyQueryInventory(basePayActivity, purchaseData, signature, null)) {
+				if (s) {
 					logDebug("Sku is owned: " + sku);
 					Purchase purchase = new Purchase(itemType, purchaseData, signature);
 

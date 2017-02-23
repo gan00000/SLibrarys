@@ -64,7 +64,7 @@ public class Prompt {
 		progressDialog.setMessage(message);
 		progressDialog.setTitle("Loading...");
 		progressDialog.setIndeterminate(true);
-		progressDialog.setCancelable(false);
+		progressDialog.setCancelable(true);
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 			

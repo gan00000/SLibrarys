@@ -360,7 +360,7 @@ public class HttpRequestCore{
 	 */
 	public static void checkHttpsUrl(String url) {
 		if (!TextUtils.isEmpty(url) && !url.startsWith("https")) {
-			Log.e(TAG, "sdk warming: " + url + " is not https url, please check that is it correct ??");
+			//Log.e(TAG, "sdk warming: " + url + " is not https url, please check that is it correct ??");
 		}
 	}
 }

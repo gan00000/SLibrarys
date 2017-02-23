@@ -11,6 +11,7 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.ResConfig;
+import com.starpy.base.utils.SLogUtil;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.request.AccountLoginRequest;
 import com.starpy.data.login.response.SLoginResponse;
@@ -58,7 +59,8 @@ public class SLoginActivity extends BaseLoginActivity {
             fragmentManager.beginTransaction().replace(relativeLayout.getId(),new AccountLoginFragment()).commit();
         }
 
-
+        SLogUtil.enableInfo(true);
+        SLogUtil.enableDebug(true);
         PL.i("fb keyhash:" + SignatureUtil.getHashKey(this,getPackageName()));
 
     }
