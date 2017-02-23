@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.core.base.utils.SPUtil;
-import com.starpy.base.utils.SLogUtil;
+import com.starpy.base.utils.SLog;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.push.client.bean.NotificationMessage;
 import com.starpy.push.client.receiver.EfunPushReceiver;
@@ -34,7 +34,7 @@ public class AlarmPushHelper {
 	public static void setAlarmPush(Context context, int minute, int interval) {
 		
 		if(interval <= 0 ) {
-			SLogUtil.logE("定时推送的时间间隔不能小于0----->interval:"+interval);
+			SLog.logE("定时推送的时间间隔不能小于0----->interval:"+interval);
 			throw new IllegalArgumentException("参数interval间隔不能小于0");
 		}
 		
@@ -58,9 +58,9 @@ public class AlarmPushHelper {
 		int cminute = mCalendar.get(Calendar.MINUTE);
 		int cs = mCalendar.get(Calendar.SECOND);
 		
-		SLogUtil.logI("efunAlarmPush", "cminute : " + cminute);
-		SLogUtil.logI("efunAlarmPush", "minute : " + minute);
-		SLogUtil.logI("efunAlarmPush", "secend : " + cs);
+		SLog.logI("efunAlarmPush", "cminute : " + cminute);
+		SLog.logI("efunAlarmPush", "minute : " + minute);
+		SLog.logI("efunAlarmPush", "secend : " + cs);
 		long ext = 0;
 		if(cminute >= minute) {  //当前分钟数超过推送分钟数，计算延迟下次发送的时间（毫秒）
 			ext = (60 - cminute + minute) * 1000 * 60;
@@ -73,7 +73,7 @@ public class AlarmPushHelper {
 				ext = ext - cs*1000;
 			}
 		}
-		SLogUtil.logI("efunAlarmPush", "ext : " + ext);
+		SLog.logI("efunAlarmPush", "ext : " + ext);
 		Intent intent = new Intent(context, EfunPushReceiver.class);
 		intent.setAction("com.efun.alarmpush");
 		PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -95,7 +95,7 @@ public class AlarmPushHelper {
 		noti.setContent(messageContent);
 		noti.setShowMessageContent(true);
 		
-		SLogUtil.logI("Push message : "+messageContent);
+		SLog.logI("Push message : "+messageContent);
 		PushHelper.notifyUserRange(context, noti);
 
 	}
@@ -113,7 +113,7 @@ public class AlarmPushHelper {
 	
 	public static void setAlarmPushContent(Context context,int[] weeks ,int hour ,int minute,String content){
 		if (weeks == null || weeks.length < 1) {
-			SLogUtil.logE("setAlarmPushContent, weeks is null" );
+			SLog.logE("setAlarmPushContent, weeks is null" );
 		}
 		for (int i = 0; i < weeks.length; i++) {
 			setAlarmPushContent(context, weeks[i], hour, minute, content);
@@ -130,36 +130,36 @@ public class AlarmPushHelper {
 	 */
 	public static void setAlarmPushContent(Context context,int week ,int hour ,int minute,String content) {
 		if (week < 1 || week > 7) {
-			SLogUtil.logE("setAlarmPushContent,time is illegal : week = " + week);
+			SLog.logE("setAlarmPushContent,time is illegal : week = " + week);
 			return;
 		}
 		if (hour < 0 || hour > 23) {
-			SLogUtil.logE("setAlarmPushContent,time is illegal : hour = " + hour);
+			SLog.logE("setAlarmPushContent,time is illegal : hour = " + hour);
 			return;
 		}
 		if (minute < 0 || minute > 59) {
-			SLogUtil.logE("setAlarmPushContent,time is illegal : minute = " + minute);
+			SLog.logE("setAlarmPushContent,time is illegal : minute = " + minute);
 			return;
 		}
 		if (TextUtils.isEmpty(content)) {
-			SLogUtil.logE("setAlarmPushContent:contentis null");
+			SLog.logE("setAlarmPushContent:contentis null");
 			return;
 		} 
 		String newContent = week + "#" + hour + "#" + minute + "#" + content;
 		
 		String existingContents = SPUtil.getSimpleString(context, StarPyUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY );
 		if (TextUtils.isEmpty(existingContents)) {
-			SLogUtil.logI("setAlarmPushContent:" + newContent);
+			SLog.logI("setAlarmPushContent:" + newContent);
 			SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY , newContent);
 		}else {
 			String[] alarmPushContent = getAlarmPushContent(context);
 			for (int i = 0; i < alarmPushContent.length; i++) {
 				if (newContent.equals(alarmPushContent[i])) {
-					SLogUtil.logI("setAlarmPushContent:content is existed");
+					SLog.logI("setAlarmPushContent:content is existed");
 					return;
 				}
 			}
-			SLogUtil.logI("setAlarmPushContent:" + newContent);
+			SLog.logI("setAlarmPushContent:" + newContent);
 			SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY ,existingContents +REGULAR + newContent);
 		}
 		
@@ -177,25 +177,25 @@ public class AlarmPushHelper {
 	public static void setAlarmPushContent(Context context,int year ,int month ,int day ,int hour ,int minute,String content){
 		//判断年月日的有效性
 		if (checkTimePast(context, year, month, day)) {
-			SLogUtil.logE("setAlarmPushContent,time is past : year " + year + " month " + month + " day " + day);
+			SLog.logE("setAlarmPushContent,time is past : year " + year + " month " + month + " day " + day);
 			return;
 		}
 		//判断时间的合法性
 		if (hour < 0 || hour > 23) {
-			SLogUtil.logE("setAlarmPushContent,time is illegal : hour = " + hour);
+			SLog.logE("setAlarmPushContent,time is illegal : hour = " + hour);
 			return;
 		}
 		if (minute < 0 || minute > 59) {
-			SLogUtil.logE("setAlarmPushContent,time is illegal : minute = " + minute);
+			SLog.logE("setAlarmPushContent,time is illegal : minute = " + minute);
 			return;
 		}
 		if (TextUtils.isEmpty(content)) {
-			SLogUtil.logE("setAlarmPushContent:contentis null");
+			SLog.logE("setAlarmPushContent:contentis null");
 			return;
 		} 
 		// 检查内容为空
 		if (TextUtils.isEmpty(content)) {
-			SLogUtil.logE("setAlarmPushContent:contentis null");
+			SLog.logE("setAlarmPushContent:contentis null");
 			return;
 		} 
 		
@@ -209,7 +209,7 @@ public class AlarmPushHelper {
 		//查重
 		for (int i = 0; i < ymdList.size();) {
 			if (newContent.equals(ymdList.get(i))) {
-				SLogUtil.logD(ymdList.get(i) + "is repetitive");
+				SLog.logD(ymdList.get(i) + "is repetitive");
 				ymdList.remove(i);
 			} else {
 				i++;
@@ -220,7 +220,7 @@ public class AlarmPushHelper {
 			String[] strings = ymdList.get(i).split("#");
 			if (checkTimePast(context, Integer.parseInt(strings[0]), Integer.parseInt(strings[1]),
 					Integer.parseInt(strings[2]))) {
-				SLogUtil.logD(ymdList.get(i) + "is past");
+				SLog.logD(ymdList.get(i) + "is past");
 				ymdList.remove(i);
 			} else {
 				i++;
@@ -240,7 +240,7 @@ public class AlarmPushHelper {
 			}
 		}
 		
-		SLogUtil.logI("setAlarmPushContent:" + contents);
+		SLog.logI("setAlarmPushContent:" + contents);
 		SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, EFUN_ALARMPUSH_CONTENT_ARRAY_YMD ,contents);
 				
 	}

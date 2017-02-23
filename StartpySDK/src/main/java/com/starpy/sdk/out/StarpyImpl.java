@@ -12,10 +12,12 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.pay.PayType;
-import com.starpy.googlepay.GooglePayActivity;
-import com.starpy.googlepay.bean.GooglePayCreateOrderIdReqBean;
-import com.starpy.googlepay.bean.WebPayReqBean;
-import com.starpy.googlepay.util.PayHelper;
+import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
+import com.starpy.pay.gp.bean.req.WebPayReqBean;
+import com.starpy.pay.gp.constants.GooglePayContant;
+import com.starpy.pay.gp.util.PayHelper;
+import com.starpy.pay.IPayFactory;
+import com.starpy.pay.IPay;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.login.SLoginActivity;
 
@@ -26,6 +28,8 @@ import com.starpy.sdk.login.SLoginActivity;
 public class StarpyImpl implements IStarpy {
 
     private ILoginCallBack loginCallBack;
+
+    private IPay iPay;
 
     @Override
     public void initSDK(Activity activity) {
@@ -85,9 +89,14 @@ public class StarpyImpl implements IStarpy {
             googlePayCreateOrderIdReqBean.setRoleLevel(roleLevel);
             googlePayCreateOrderIdReqBean.setExtra(extra);
 
-            Intent i = new Intent(activity, GooglePayActivity.class);
+            /*Intent i = new Intent(activity, GooglePayActivity.class);
             i.putExtra(GooglePayActivity.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
-            activity.startActivity(i);
+            activity.startActivity(i);*/
+
+            if (iPay == null){
+                iPay = IPayFactory.create(IPayFactory.PAY_GOOGLE);
+            }
+            iPay.startPay(activity,googlePayCreateOrderIdReqBean);
 
         }
     }
@@ -110,6 +119,10 @@ public class StarpyImpl implements IStarpy {
             if (this.loginCallBack != null) {
                 this.loginCallBack.onLogin(sLoginResponse);
             }
+        }else if (requestCode == GooglePayContant.RC_REQUEST){
+            if (iPay != null){
+                iPay .onActivityResult(activity, requestCode, resultCode, data);
+            }
         }
     }
 
@@ -121,10 +134,18 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onStop(Activity activity) {
 
+        if (iPay != null){
+            iPay .onStop(activity);
+        }
+
     }
 
     @Override
     public void onDestroy(Activity activity) {
+
+        if (iPay != null){
+            iPay .onDestroy(activity);
+        }
 
     }
 }

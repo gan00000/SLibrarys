@@ -9,7 +9,7 @@ import com.starpy.ads.analytics.GoogleAnalytics;
 import com.starpy.ads.callback.GAListener;
 import com.starpy.ads.server.AdsRequest;
 import com.starpy.ads.util.SPUtil;
-import com.starpy.base.utils.SLogUtil;
+import com.starpy.base.utils.SLog;
 import com.core.base.utils.SStringUtil;
 
 import android.content.BroadcastReceiver;
@@ -32,10 +32,10 @@ public class GABroadcact extends BroadcastReceiver {
 		String referrer = intent.getStringExtra("referrer");
 
 		if (!VENDING_INSTALL.equals(intent.getAction()) || referrer == null) {
-			SLogUtil.logI( "referrer is null");
+			SLog.logI( "referrer is null");
 			return;
 		} else {
-			SLogUtil.logI( "referrer = " + referrer);
+			SLog.logI( "referrer = " + referrer);
 		}
 		
 		notifyS2S(ctx,referrer);
@@ -48,23 +48,23 @@ public class GABroadcact extends BroadcastReceiver {
 				
 				Class<GAListener> clazz = (Class<GAListener>) Class.forName(galistener);
 				if (clazz != null) {
-					SLogUtil.logI( "执行google分析里面的广告");
+					SLog.logI( "执行google分析里面的广告");
 					clazz.newInstance().GAonReceive(ctx, intent);
 				}
 			}
 		} catch (ClassNotFoundException e) {
-			SLogUtil.logE("google分析GABroadcact，ClassNotFoundException异常");
+			SLog.logE("google分析GABroadcact，ClassNotFoundException异常");
 			e.printStackTrace();
 			
 		} catch (IllegalAccessException e) {
-			SLogUtil.logE("google分析GABroadcact，IllegalAccessException异常");
+			SLog.logE("google分析GABroadcact，IllegalAccessException异常");
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			SLogUtil.logE("google分析GABroadcact，InstantiationException异常");
+			SLog.logE("google分析GABroadcact，InstantiationException异常");
 			e.printStackTrace();
 		} 
 		
-		SLogUtil.logI( "GABroadcact BroadcastReceiver");
+		SLog.logI( "GABroadcact BroadcastReceiver");
 
 		if (!TextUtils.isEmpty(referrer) && !TextUtils.isEmpty(ResConfig.getGoogleAnalyticsTrackingId(ctx))) {
 			try {
@@ -85,7 +85,7 @@ public class GABroadcact extends BroadcastReceiver {
 				public void run() {
 					try{
 						Log.d("efun", "start to notify s2s thread,referrer:" + referrer);
-						SLogUtil.logI("EfunGAService start...");
+						SLog.logI("EfunGAService start...");
 						Map<String, String> map = new HashMap<String, String>();
 						String referrers[] = (URLDecoder.decode(referrer)).split("&");
 						for (String referrerValue : referrers) {

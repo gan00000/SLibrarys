@@ -1,6 +1,6 @@
-package com.starpy.googlepay.bean;
+package com.starpy.pay.gp.bean;
 
-import com.starpy.googlepay.constants.GooglePayContant;
+import com.starpy.pay.gp.constants.GooglePayContant;
 
 public class WebOrderBean extends EfunBaseOrderBean{
 

@@ -1,4 +1,4 @@
-package com.starpy.googlepay.task;
+package com.starpy.pay.gp.task;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.googlepay.BasePayActivity;
-import com.starpy.googlepay.bean.WebOrderBean;
-import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.util.EfunPayHelper;
+import com.starpy.pay.gp.bean.WebOrderBean;
+import com.starpy.pay.gp.constants.GooglePayContant;
+import com.starpy.pay.gp.util.EfunPayHelper;
 
 public class EfunPayUtil {
 

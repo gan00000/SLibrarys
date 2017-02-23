@@ -1,8 +1,8 @@
-package com.starpy.googlepay.bean;
+package com.starpy.pay.gp.bean;
 
 import java.io.Serializable;
 
-import com.starpy.googlepay.constants.GooglePayContant;
+import com.starpy.pay.gp.constants.GooglePayContant;
 
 public class EfunBaseOrderBean implements Serializable,Cloneable{
 

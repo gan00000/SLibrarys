@@ -22,9 +22,19 @@ public class ConfigRequest{
         cfgFileRequest.setBaseReqeustBean(baseReqeustBean);
         cfgFileRequest.setReqCallBack(new ISReqCallBack() {
             @Override
-            public void callBack(Object o,String rawResult) {
+            public void success(Object o, String rawResult) {
                 PL.d("sdk cfg:" + rawResult);
                 StarPyUtil.saveSdkCfg(context,rawResult);
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
             }
         });
         cfgFileRequest.excute();
@@ -43,9 +53,19 @@ public class ConfigRequest{
         cfgFileRequest.setBaseReqeustBean(baseReqeustBean);
         cfgFileRequest.setReqCallBack(new ISReqCallBack() {
             @Override
-            public void callBack(Object o,String rawResult) {
+            public void success(Object o, String rawResult) {
                 PL.d("sdk cfg:" + rawResult);
                 StarPyUtil.saveSdkLoginTerms(context,rawResult);
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
             }
         });
         cfgFileRequest.excute();

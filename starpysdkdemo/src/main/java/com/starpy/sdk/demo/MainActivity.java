@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
+import com.starpy.base.utils.SLog;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.pay.PayType;
@@ -28,6 +29,9 @@ public class MainActivity extends Activity {
         loginButton = (Button) findViewById(R.id.demo_login);
         othersPayButton = (Button) findViewById(R.id.demo_pay);
         googlePayBtn = (Button) findViewById(R.id.demo_pay_google);
+
+        SLog.enableInfo(true);
+        SLog.enableDebug(true);
 
         iStarpy = StarpyFactory.create();
 

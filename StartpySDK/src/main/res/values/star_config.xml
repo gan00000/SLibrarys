@@ -14,8 +14,8 @@
     <string name="facebook_app_id">1286278484776251</string>
     <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1286278484776251</string>
     <!-- fb配置end -->
-    <string name="star_game_code">brmmd</string>
-    <!--<string name="star_game_code">test</string>-->
+    <!--<string name="star_game_code">brmmd</string>-->
+    <string name="star_game_code">test</string>
     <!--<string name="star_game_code">test1</string>-->
 
     <string name="star_py_login_pre_url">http://login.starb168.com/</string>

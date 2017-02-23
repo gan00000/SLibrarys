@@ -166,7 +166,7 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
         accountRegisterCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         accountRegisterCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
-            public void callBack(SLoginResponse sLoginResponse,String rawResult) {
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null) {
                     if (sLoginResponse.isRequestSuccess()) {
                         ToastUtils.toast(getActivity(), R.string.py_register_success);
@@ -185,6 +185,16 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
                 } else {
                     ToastUtils.toast(getActivity(), R.string.py_error_occur);
                 }
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
             }
 
         });

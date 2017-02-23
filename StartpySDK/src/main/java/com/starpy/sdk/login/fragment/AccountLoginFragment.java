@@ -99,7 +99,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
         macLoginRegCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         macLoginRegCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
-            public void callBack(SLoginResponse sLoginResponse,String rawResult) {
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null) {
                     if (sLoginResponse.isRequestSuccess()) {
                         ToastUtils.toast(getActivity(), R.string.py_login_success);
@@ -124,6 +124,16 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                 } else {
                     ToastUtils.toast(getActivity(), R.string.py_error_occur);
                 }
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
             }
         });
         macLoginRegCmd.excute(SLoginResponse.class);
@@ -185,7 +195,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
-            public void callBack(SLoginResponse sLoginResponse,String rawResult) {
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null) {
 
                     if (sLoginResponse.isRequestSuccess()){
@@ -201,6 +211,16 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                 } else {
                     ToastUtils.toast(getActivity(), R.string.py_error_occur);
                 }
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
             }
         });
         cmd.excute(SLoginResponse.class);

@@ -2,9 +2,9 @@ package com.starpy.googlepay;
 
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
-import com.starpy.googlepay.bean.GoogleOrderBean;
-import com.starpy.googlepay.task.SAsyncPurchaseTask;
-import com.starpy.googlepay.task.QueryInventoryFinishedListenerImpl;
+import com.starpy.pay.gp.bean.GoogleOrderBean;
+import com.starpy.pay.gp.task.SAsyncPurchaseTask;
+import com.starpy.pay.gp.task.QueryInventoryFinishedListenerImpl;
 import com.starpy.util.IabHelper;
 import com.starpy.util.IabResult;
 

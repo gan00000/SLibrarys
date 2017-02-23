@@ -4,13 +4,23 @@ import com.core.base.request.bean.BaseResponseModel;
 
 /**
  * Created by Efun on 2017/2/11.
+ * "code":1000,"accessToken":"2eccffd3771eeec9303616386f6a2d27","message":"登入成功","userId":"41","timestamp":"1487844049868"}
  */
 
 public class SLoginResponse extends BaseResponseModel {
 
     private String userId = "";
+    private String accessToken = "";
+    /**
+     * 登陆成功时间戳
+     */
+    private String timestamp = "";
+    private String freeRegisterName = "";
+    private String freeRegisterPwd = "";
 
-    public boolean isRequestSuccess(){
+    private String gameCode = "";
+
+    public boolean isRequestSuccess(){//1001为注册成功
         return SUCCESS_CODE.equals(getCode()) || "1001".equals(getCode());
     }
 
@@ -22,15 +32,7 @@ public class SLoginResponse extends BaseResponseModel {
         this.accessToken = accessToken;
     }
 
-    private String accessToken = "";
-    /**
-     * 登陆成功时间戳
-     */
-    private String timestamp = "";
-    private String freeRegisterName = "";
-    private String freeRegisterPwd = "";
 
-    private String gameCode = "";
 
     public String getGameCode() {
         return gameCode;

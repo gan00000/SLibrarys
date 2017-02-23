@@ -22,7 +22,7 @@
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:screenOrientation="landscape">
         </activity>
-        <activity android:name="com.starpy.googlepay.GooglePayActivity"
+        <activity android:name="com.starpy.pay.gp.GooglePayActivity"
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:screenOrientation="landscape">
         </activity>

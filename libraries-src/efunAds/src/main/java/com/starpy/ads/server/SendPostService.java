@@ -24,7 +24,7 @@ import EfunStringUtil;
 public class SendPostService {
 
 	public static String startSendPost(Map<String, String> httpParms, String preferredUrl, String spareUrl) {
-		SLogUtil.logI("httpParms:" + httpParms.toString());
+		SLog.logI("httpParms:" + httpParms.toString());
 		List<NameValuePair> params = null;
 		String request = null;
 
@@ -36,12 +36,12 @@ public class SendPostService {
 			params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
 		}
 		if (SStringUtil.isNotEmpty(preferredUrl)) {
-			SLogUtil.logD("ads PreferredUrl:" + preferredUrl);
+			SLog.logD("ads PreferredUrl:" + preferredUrl);
 			request = EfunHttpUtil.efunExecutePostRequest(preferredUrl, params);
 			Log.i("efunLog", "ads PreferredUrl request:" + request);
 		}
 		if (SStringUtil.isEmpty(request) && SStringUtil.isNotEmpty(spareUrl)) {
-			SLogUtil.logD("ads SpareUrl:" + spareUrl);
+			SLog.logD("ads SpareUrl:" + spareUrl);
 			request = EfunHttpUtil.efunExecutePostRequest(spareUrl, params);
 			Log.i("efunLog", "ads SpareUrl request:" + request);
 		}

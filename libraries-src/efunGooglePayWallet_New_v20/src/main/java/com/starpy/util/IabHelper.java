@@ -24,9 +24,9 @@ import com.android.vending.billing.IInAppBillingService;
 import com.starpy.base.utils.SLogUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;
-import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.task.EfunPayRequest;
-import com.starpy.googlepay.util.EfunPayHelper;
+import com.starpy.pay.gp.constants.GooglePayContant;
+import com.starpy.pay.gp.task.EfunPayRequest;
+import com.starpy.pay.gp.util.EfunPayHelper;
 
 import android.app.Activity;
 import android.app.PendingIntent;

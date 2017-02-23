@@ -1,4 +1,4 @@
-package com.starpy.googlepay.callback;
+package com.starpy.pay.gp.callback;
 
 import java.util.Vector;
 

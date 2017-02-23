@@ -6,7 +6,7 @@ import com.starpy.ads.server.AdsRequest;
 import com.starpy.ads.util.AdsHelper;
 import com.starpy.ads.util.SPUtil;
 import com.starpy.base.cfg.ResConfig;
-import com.starpy.base.utils.SLogUtil;
+import com.starpy.base.utils.SLog;
 import com.core.base.utils.SStringUtil;
 
 import android.app.Service;
@@ -58,36 +58,36 @@ public class EfunAdsS2SService extends Service {
 			try {
 				String s2slistener = ResConfig.getS2SListenerName(this);
 	
-				SLogUtil.logI("s2slistener: " + s2slistener);
+				SLog.logI("s2slistener: " + s2slistener);
 				if (SStringUtil.isNotEmpty(s2slistener) && s2slistener.startsWith("com.")) {
 	
 					@SuppressWarnings("unchecked")
 					Class<S2SListener> clazz = (Class<S2SListener>) Class.forName(s2slistener);
 					if (clazz != null) {
-						SLogUtil.logI("实例化S2SListener的实现类...");
+						SLog.logI("实例化S2SListener的实现类...");
 						s2sListener = clazz.newInstance();
 					}
 				}
 	
 			} catch (ClassNotFoundException e) {
-				SLogUtil.logE("EfunAdsS2SService里面的ClassNotFoundException异常,全限定类名配置对了吗");
+				SLog.logE("EfunAdsS2SService里面的ClassNotFoundException异常,全限定类名配置对了吗");
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				SLogUtil.logE("EfunAdsS2SService里面的IllegalAccessException异常");
+				SLog.logE("EfunAdsS2SService里面的IllegalAccessException异常");
 				e.printStackTrace();
 			} catch (InstantiationException e) {
-				SLogUtil.logE("EfunAdsS2SService里面的InstantiationException异常");
+				SLog.logE("EfunAdsS2SService里面的InstantiationException异常");
 				e.printStackTrace();
 			}
 		}
 		 
 		if (s2sListener != null) {
-			SLogUtil.logI( "执行添加在EfunAdsS2SService里面的广告,每次");
+			SLog.logI( "执行添加在EfunAdsS2SService里面的广告,每次");
 			s2sListener.s2sRunEvery(this,intent, startId);
 		}
 		//检测是否有线程在等待GA广播
-		SLogUtil.logD("AdsRequest.threadWaitting is:" + threadWaitting);
-		SLogUtil.logD("runS2SFlag:" + runS2SFlag);
+		SLog.logD("AdsRequest.threadWaitting is:" + threadWaitting);
+		SLog.logD("runS2SFlag:" + runS2SFlag);
 	
 		if (s2sListener != null && runS2SFlag && !threadWaitting && !AdsHelper.existLocalResponeCode(this)) {
 			threadWaitting = true;
@@ -115,20 +115,20 @@ public class EfunAdsS2SService extends Service {
 		}
 		
 		if(id != -1 || intent == null){
-			SLogUtil.logI("EfunAdsS2SService is running（已经被启动过）...");
+			SLog.logI("EfunAdsS2SService is running（已经被启动过）...");
 			return Service.START_NOT_STICKY;
 		}
 		
 		id = startId;
 	    
 	    if(exitsLocalAdsCode()){
-			SLogUtil.logI("onlyOnceForADS already called");
+			SLog.logI("onlyOnceForADS already called");
 			return Service.START_NOT_STICKY;
 		} else {
-			SLogUtil.logI( "start Advertisers.");
+			SLog.logI( "start Advertisers.");
 			if (s2sListener != null) {
 				SPUtil.saveAdsOnlyFlag(this);
-				SLogUtil.logI( "执行添加在EfunAdsS2SService里面的广告,仅仅一次");
+				SLog.logI( "执行添加在EfunAdsS2SService里面的广告,仅仅一次");
 				s2sListener.onlyOnceForADS(EfunAdsS2SService.this, intent, startId);
 		   }
 		}
@@ -139,17 +139,17 @@ public class EfunAdsS2SService extends Service {
 		SharedPreferences ads_settings_old = this.getSharedPreferences(SPUtil.ads_efun, Context.MODE_PRIVATE);
 		String advertisersResult = ads_settings_old.getString(SPUtil.ADVERTISERS_S2S_KEY, null);
 		if (null != advertisersResult && (advertisersResult.equals(SPUtil.ADVERTISERS_S2S_RESULT))) {
-			SLogUtil.logD( "has old local data--ADVERTISERS_SUCCESS_200...Efun.ads");
+			SLog.logD( "has old local data--ADVERTISERS_SUCCESS_200...Efun.ads");
 			return true;
 		}
 		advertisersResult = this.getSharedPreferences(SPUtil.ads_efun_older, Context.MODE_PRIVATE).getString(SPUtil.ADVERTISERS_S2S_KEY, null);
 		if (null != advertisersResult && (advertisersResult.equals(SPUtil.ADVERTISERS_S2S_RESULT))) {
-			SLogUtil.logD( "has old local data--ADVERTISERS_SUCCESS_200...ads.efun");
+			SLog.logD( "has old local data--ADVERTISERS_SUCCESS_200...ads.efun");
 			return true;
 		}
 		String advertisersResult_new = SPUtil.takeAdsOnlyFlag(this, "");
 		if (SStringUtil.isNotEmpty(advertisersResult_new) && advertisersResult_new.equals(SPUtil.ADS_ONLYONCE_CODE)) {
-			SLogUtil.logD( "has new local data--ADS_ONLYONCE_CODE");
+			SLog.logD( "has new local data--ADS_ONLYONCE_CODE");
 			return true;
 		}
 		return false;
@@ -158,7 +158,7 @@ public class EfunAdsS2SService extends Service {
 	
 	@Override
 	public void onDestroy() {
-		SLogUtil.logI("service's onDestroy");
+		SLog.logI("service's onDestroy");
 		if (s2sListener != null) {
 			s2sListener.s2sonDestroy(this);
 		}
@@ -168,7 +168,7 @@ public class EfunAdsS2SService extends Service {
 	
 	@Override
 	public boolean stopService(Intent intent) {
-		SLogUtil.logI("service's stopService");
+		SLog.logI("service's stopService");
 		if (s2sListener != null) {
 			s2sListener.s2sonStopServic(this,intent);
 		}

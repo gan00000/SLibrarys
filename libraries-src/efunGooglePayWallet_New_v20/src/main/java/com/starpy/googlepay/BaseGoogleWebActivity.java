@@ -6,11 +6,11 @@ import java.util.List;
 import com.core.base.utils.ApkInfoUtil;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
-import com.starpy.googlepay.bean.WebOrderBean;
-import com.starpy.googlepay.constants.EfunDomainSite;
-import com.starpy.googlepay.task.EfunPayUtil;
-import com.starpy.googlepay.task.PayPrompt;
-import com.starpy.googlepay.util.EfunPayHelper;
+import com.starpy.pay.gp.bean.WebOrderBean;
+import com.starpy.pay.gp.constants.EfunDomainSite;
+import com.starpy.pay.gp.task.EfunPayUtil;
+import com.starpy.pay.gp.task.PayPrompt;
+import com.starpy.pay.gp.util.EfunPayHelper;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

@@ -2,6 +2,7 @@ package com.starpy.sdk.out;
 
 import android.app.Activity;
 
+import com.core.base.callback.IGameLifeCycle;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.pay.PayType;
 
@@ -9,7 +10,7 @@ import com.starpy.data.pay.PayType;
  * Created by Efun on 2017/2/13.
  */
 
-public interface IStarpy extends IGameLifeCycle{
+public interface IStarpy extends IGameLifeCycle {
 
     public void initSDK(Activity activity);
 

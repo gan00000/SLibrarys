@@ -1,7 +1,7 @@
-package com.starpy.googlepay.callback;
+package com.starpy.pay.gp.callback;
 
 import com.core.base.callback.ISCallBack;
-import com.starpy.googlepay.bean.EfunBaseWalletBean;
+import com.starpy.pay.gp.bean.EfunBaseWalletBean;
 
 /**
 * <p>Title: ISWalletListener</p>

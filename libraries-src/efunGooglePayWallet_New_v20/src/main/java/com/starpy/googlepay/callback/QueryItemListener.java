@@ -1,4 +1,4 @@
-package com.starpy.googlepay.callback;
+package com.starpy.pay.gp.callback;
 
 public interface QueryItemListener {
 	void onQueryFinish();

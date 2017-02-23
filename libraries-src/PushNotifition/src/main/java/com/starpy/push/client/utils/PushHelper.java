@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import com.starpy.base.cfg.ResConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.utils.SLogUtil;
+import com.starpy.base.utils.SLog;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.push.client.PushConstant;
@@ -256,14 +256,14 @@ public class PushHelper {
 		}
 			
 		it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-		// SLogUtil.logI("包名 ： " + pkName + "  className :" + className);
+		// SLog.logI("包名 ： " + pkName + "  className :" + className);
 
 		int mIcon = PushSPUtil.takePullIcon(context, -1);
-		SLogUtil.logI("mIcon id值为：" + mIcon);
+		SLog.logI("mIcon id值为：" + mIcon);
 		if (mIcon != -1 && mIcon != 0) {
 			notification.icon = mIcon;
 		} else {
-			SLogUtil.logW("PushManager没有设置notifitionIcon，采用默认ic_launcher图标");
+			SLog.logW("PushManager没有设置notifitionIcon，采用默认ic_launcher图标");
 			notification.icon = context.getApplicationInfo().icon;
 		}
 		notification.when = System.currentTimeMillis() + 100;
@@ -305,11 +305,11 @@ public class PushHelper {
 		
 		
 		int mIcon = PushSPUtil.takePullIcon(context, -1);
-		SLogUtil.logI("mIcon id值为：" + mIcon);
+		SLog.logI("mIcon id值为：" + mIcon);
 		if (mIcon != -1 && mIcon != 0) {
 			mBuilder.setSmallIcon(mIcon);
 		} else {
-			SLogUtil.logW("PushManager没有设置notifitionIcon，采用默认ic_launcher图标");
+			SLog.logW("PushManager没有设置notifitionIcon，采用默认ic_launcher图标");
 			mBuilder.setSmallIcon(context.getApplicationInfo().icon);
 		}
 		

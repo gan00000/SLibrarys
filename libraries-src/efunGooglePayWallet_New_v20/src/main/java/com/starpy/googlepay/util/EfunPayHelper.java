@@ -1,4 +1,4 @@
-package com.starpy.googlepay.util;
+package com.starpy.pay.gp.util;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +17,7 @@ import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;
-import com.starpy.googlepay.constants.GooglePayContant;
+import com.starpy.pay.gp.constants.GooglePayContant;
 
 public class EfunPayHelper {
 	

@@ -1,4 +1,4 @@
-package com.starpy.googlepay.task;
+package com.starpy.pay.gp.task;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

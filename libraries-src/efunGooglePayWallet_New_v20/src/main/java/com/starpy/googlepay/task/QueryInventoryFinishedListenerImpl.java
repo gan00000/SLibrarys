@@ -1,4 +1,4 @@
-package com.starpy.googlepay.task;
+package com.starpy.pay.gp.task;
 
 import java.util.List;
 

@@ -20,9 +20,9 @@ import android.webkit.WebViewClient;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
-import com.starpy.googlepay.constants.EfunDomainSite;
-import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.task.Prompt;
+import com.starpy.pay.gp.constants.EfunDomainSite;
+import com.starpy.pay.gp.constants.GooglePayContant;
+import com.starpy.pay.gp.task.Prompt;
 
 public abstract class EfunWebBillActivity extends Activity {
 

@@ -1,4 +1,4 @@
-package com.starpy.googlepay.constants;
+package com.starpy.pay.gp.constants;
 
 
 public class GooglePayContant {

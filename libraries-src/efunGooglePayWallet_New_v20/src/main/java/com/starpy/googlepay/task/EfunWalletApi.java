@@ -1,4 +1,4 @@
-package com.starpy.googlepay.task;
+package com.starpy.pay.gp.task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,9 +11,9 @@ import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.BasePayActivity;
 import com.starpy.googlepay.EfunGooglePayService;
-import com.starpy.googlepay.bean.GoogleOrderBean;
-import com.starpy.googlepay.constants.EfunDomainSite;
-import com.starpy.googlepay.util.EfunPayHelper;
+import com.starpy.pay.gp.bean.GoogleOrderBean;
+import com.starpy.pay.gp.constants.EfunDomainSite;
+import com.starpy.pay.gp.util.EfunPayHelper;
 import com.starpy.util.Purchase;
 
 import android.content.Context;

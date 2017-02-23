@@ -1,4 +1,4 @@
-package com.starpy.googlepay.task;
+package com.starpy.pay.gp.task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +10,10 @@ import com.core.base.request.SRequestAsyncTask;
 import com.starpy.base.utils.SLogUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.googlepay.EfunGooglePayService;
-import com.starpy.googlepay.bean.EfunQueryInventoryState;
-import com.starpy.googlepay.bean.EfunWalletBean;
-import com.starpy.googlepay.constants.GooglePayContant;
-import com.starpy.googlepay.util.EfunPayHelper;
+import com.starpy.pay.gp.bean.EfunQueryInventoryState;
+import com.starpy.pay.gp.bean.EfunWalletBean;
+import com.starpy.pay.gp.constants.GooglePayContant;
+import com.starpy.pay.gp.util.EfunPayHelper;
 import com.starpy.util.IabHelper;
 import com.starpy.util.IabResult;
 import com.starpy.util.Purchase;

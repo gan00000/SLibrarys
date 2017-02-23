@@ -1,4 +1,4 @@
-package com.starpy.googlepay.constants;
+package com.starpy.pay.gp.constants;
 
 public class EfunDomainSite {
 	public final static String EFUN_GOOGLE_PAY_CREATE_ORDER = "googlePlay_credit.shtml";

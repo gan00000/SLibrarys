@@ -1,4 +1,4 @@
-package com.starpy.googlepay.bean;
+package com.starpy.pay.gp.bean;
 
 
 public class EfunWalletBean extends EfunBaseWalletBean{

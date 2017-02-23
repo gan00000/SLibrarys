@@ -6,20 +6,17 @@ import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.widget.RelativeLayout;
 
+import com.core.base.utils.FragmentUtil;
 import com.core.base.utils.PL;
-import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.ResConfig;
-import com.starpy.base.utils.SLogUtil;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.data.login.request.AccountLoginRequest;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.login.fragment.AccountLoginFragment;
-import com.startpy.sdk.R;
 import com.starpy.sdk.login.fragment.AccountLoginMainFragment;
 import com.starpy.sdk.login.fragment.BaseFragment;
-import com.core.base.utils.FragmentUtil;
+import com.startpy.sdk.R;
 
 public class SLoginActivity extends BaseLoginActivity {
 
@@ -59,8 +56,6 @@ public class SLoginActivity extends BaseLoginActivity {
             fragmentManager.beginTransaction().replace(relativeLayout.getId(),new AccountLoginFragment()).commit();
         }
 
-        SLogUtil.enableInfo(true);
-        SLogUtil.enableDebug(true);
         PL.i("fb keyhash:" + SignatureUtil.getHashKey(this,getPackageName()));
 
     }

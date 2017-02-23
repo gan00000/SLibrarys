@@ -7,8 +7,8 @@ include ':facebook:FacebookSDK-4.5.1-Src'
 include ':facebook:HelloFacebookSampleActivity'
 
 
-include ':libraries-src:efunUtilsCore_0000'
-include ':libraries-src:efunGooglePayWallet'
+include ':libraries-src:star-core'
+include ':libraries-src:star-pay'
 include ':libraries-src:efunAds'
 include ':libraries-src:EfunLoginCommon'
 include ':libraries-src:PushNotifition'

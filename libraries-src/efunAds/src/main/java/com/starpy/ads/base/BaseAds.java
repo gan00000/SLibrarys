@@ -6,7 +6,7 @@ import java.util.Map;
 import com.starpy.ads.bean.AdsHttpParams;
 import com.starpy.ads.util.SPUtil;
 import com.core.base.http.HttpRequest;
-import com.starpy.base.utils.SLogUtil;
+import com.starpy.base.utils.SLog;
 import com.core.base.utils.SStringUtil;
 
 import android.content.Context;
@@ -48,13 +48,13 @@ public abstract class BaseAds implements AdsInterface {
 //		}		
 		
 		if (SStringUtil.isNotEmpty(preferredUrl)) {
-			SLogUtil.logD("ads PreferredUrl:" + preferredUrl);
+			SLog.logD("ads PreferredUrl:" + preferredUrl);
 		//	request = EfunHttpUtil.efunExecutePostRequest(preferredUrl, params);
 			request = HttpRequest.post(preferredUrl, map);
 			Log.d("efunLog", "ads PreferredUrl respone:" + request);
 		}
 		if (SStringUtil.isEmpty(request) && SStringUtil.isNotEmpty(spareUrl)) {
-			SLogUtil.logD("ads SpareUrl:" + spareUrl);
+			SLog.logD("ads SpareUrl:" + spareUrl);
 			request = HttpRequest.post(spareUrl, map);
 			Log.d("efunLog", "ads SpareUrl respone:" + request);
 		}
