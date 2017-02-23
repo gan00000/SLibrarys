@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.core.base.utils.SStringUtil;
+import com.core.base.utils.ToastUtils;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
@@ -12,6 +13,7 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.pay.PayType;
+import com.starpy.pay.IPayCallBack;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
 import com.starpy.pay.gp.constants.GooglePayContant;
@@ -63,7 +65,7 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void pay(Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
+    public void pay(final Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
 
         if (payType == PayType.OTHERS){//第三方储值
 
@@ -96,6 +98,17 @@ public class StarpyImpl implements IStarpy {
             if (iPay == null){
                 iPay = IPayFactory.create(IPayFactory.PAY_GOOGLE);
             }
+            iPay.setIPayCallBack(new IPayCallBack() {
+                @Override
+                public void success() {
+                    ToastUtils.toast(activity,"pay success");
+                }
+
+                @Override
+                public void fail() {
+                    ToastUtils.toast(activity,"success fail");
+                }
+            });
             iPay.startPay(activity,googlePayCreateOrderIdReqBean);
 
         }

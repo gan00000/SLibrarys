@@ -9,6 +9,7 @@ import com.starpy.base.utils.SLog;
 import com.starpy.pay.gp.BasePayActivity;
 import com.starpy.pay.gp.bean.req.GoogleExchangeReqBean;
 import com.starpy.pay.gp.bean.QueryInventoryState;
+import com.starpy.pay.gp.bean.res.GPExchangeRes;
 import com.starpy.pay.gp.constants.GooglePayDomainSite;
 import com.starpy.pay.gp.util.IabHelper;
 import com.starpy.pay.gp.util.IabHelper.QueryInventoryFinishedListener;
@@ -82,9 +83,10 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 					exchangeReqBean.setRequestMethod(GooglePayDomainSite.google_send);
 
 					GoogleExchangeReqTask googleExchangeReqTask = new GoogleExchangeReqTask(payActivity, exchangeReqBean);
-					googleExchangeReqTask.setReqCallBack(new ISReqCallBack() {
+					googleExchangeReqTask.setReqCallBack(new ISReqCallBack<GPExchangeRes>() {
+
 						@Override
-						public void success(Object o, String rawResult) {
+						public void success(GPExchangeRes gpExchangeRes, String rawResult) {
 							PL.i("exchange callback");
 							// 消费
 						/*if (mHelper != null) {
@@ -103,7 +105,7 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 
 						}
 					});
-					googleExchangeReqTask.excute();
+					googleExchangeReqTask.excute(GPExchangeRes.class);
 				}
 
 			}

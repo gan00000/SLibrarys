@@ -8,13 +8,14 @@ import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.PL;
 import com.starpy.base.utils.SLog;
 import com.starpy.pay.IPay;
+import com.starpy.pay.IPayCallBack;
 import com.starpy.pay.gp.bean.req.BasePayReqBean;
 import com.starpy.pay.gp.bean.req.GoogleExchangeReqBean;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
-import com.starpy.pay.gp.bean.res.CreateOrderIdRes;
+import com.starpy.pay.gp.bean.res.GPCreateOrderIdRes;
+import com.starpy.pay.gp.bean.res.GPExchangeRes;
 import com.starpy.pay.gp.constants.GooglePayContant;
 import com.starpy.pay.gp.constants.GooglePayDomainSite;
-import com.starpy.pay.gp.task.EndFlag;
 import com.starpy.pay.gp.task.GoogleCreateOrderReqTask;
 import com.starpy.pay.gp.task.GoogleExchangeReqTask;
 import com.starpy.pay.gp.task.LoadingDialog;
@@ -43,6 +44,35 @@ public class GooglePayImpl implements IPay {
     private GooglePayCreateOrderIdReqBean createOrderIdReqBean;
 
     private Activity activity;
+
+    private IPayCallBack iPayCallBack;
+
+
+
+    private void callbackSuccess(){
+
+        if (loadingDialog != null){
+            loadingDialog.dismissProgressDialog();
+        }
+
+        if (iPayCallBack != null){
+            iPayCallBack.success();
+        }
+    }
+
+    private void callbackFail(){
+
+        if (loadingDialog != null){
+            loadingDialog.dismissProgressDialog();
+        }
+        if (iPayCallBack != null){
+            iPayCallBack.fail();
+        }
+    }
+
+    public void setIPayCallBack(IPayCallBack iPayCallBack) {
+        this.iPayCallBack = iPayCallBack;
+    }
 
     @Override
     public void startPay(Activity activity, BasePayReqBean basePayReqBean) {
@@ -125,13 +155,11 @@ public class GooglePayImpl implements IPay {
         loadingDialog.showProgressDialog();
         if (!mHelper.isSetupDone()) {
             mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+
                 public void onIabSetupFinished(IabResult result) {
                     SLog.logI("startSetup onIabSetupFinished.");
                     if (!result.isSuccess()) {
-                        if (loadingDialog != null) {
-                            loadingDialog.dismissProgressDialog();
-                        }
-                        //showGoogleStoreErrorMessage();
+                        callbackFail();
                         return;
                     }
                     mHelper.queryInventoryAsync(queryInventoryFinishedListener);
@@ -141,9 +169,7 @@ public class GooglePayImpl implements IPay {
                 @Override
                 public void onError(String message) {//发生错误时提示
                     SLog.logI("message:" + message);
-                    if (loadingDialog != null) {
-                        loadingDialog.dismissProgressDialog();
-                    }
+                    callbackFail();
                 }
             });
         } else {
@@ -174,44 +200,38 @@ public class GooglePayImpl implements IPay {
     protected synchronized void startPurchase() {
 
         GoogleCreateOrderReqTask googleCreateOrderReqTask = new GoogleCreateOrderReqTask(createOrderIdReqBean);
-        googleCreateOrderReqTask.setReqCallBack(new ISReqCallBack<CreateOrderIdRes>() {
+        googleCreateOrderReqTask.setReqCallBack(new ISReqCallBack<GPCreateOrderIdRes>() {
 
             @Override
-            public void success(CreateOrderIdRes createOrderIdRes, String rawResult) {
+            public void success(GPCreateOrderIdRes createOrderIdRes, String rawResult) {
                 if (createOrderIdRes != null && createOrderIdRes.isRequestSuccess() && !TextUtils.isEmpty(createOrderIdRes.getOrderId())) {
                     launchPurchase(createOrderIdRes);
                 } else {
-                    if (loadingDialog != null) {
-                        loadingDialog.dismissProgressDialog();
-                    }
+                    callbackFail();
                 }
             }
 
             @Override
             public void timeout(String code) {
-                if (loadingDialog != null) {
-                    loadingDialog.dismissProgressDialog();
-                }
+                callbackFail();
             }
 
             @Override
             public void noData() {
-                if (loadingDialog != null) {
-                    loadingDialog.dismissProgressDialog();
-                }
+                callbackFail();
             }
         });
-        googleCreateOrderReqTask.excute(CreateOrderIdRes.class);
+        googleCreateOrderReqTask.excute(GPCreateOrderIdRes.class);
 
     }
 
 
-    private void launchPurchase(CreateOrderIdRes createOrderIdRes) {
+    private void launchPurchase(GPCreateOrderIdRes createOrderIdRes) {
 
         JSONObject mjson = new JSONObject();
         try {
             mjson.put("orderId", createOrderIdRes.getOrderId());
-            mjson.put("paygpid", createOrderIdRes.getPaygpid());
+            mjson.put("paygpId", createOrderIdRes.getPaygpId());
 
             mjson.put("cpOrderId", createOrderIdReqBean.getCpOrderId());
             mjson.put("userId", createOrderIdReqBean.getUserId());
@@ -239,10 +259,7 @@ public class GooglePayImpl implements IPay {
                         SLog.logI("onIabPurchaseFinished");
 
                         if (purchase == null || result.isFailure()) {
-
-                            if (loadingDialog != null) {
-                                loadingDialog.dismissProgressDialog();
-                            }
+                            callbackFail();
                             SLog.logI("purchase is null.");
 
                             if (result.getResponse() == IabHelper.IABHELPER_USER_CANCELLED) {
@@ -268,79 +285,41 @@ public class GooglePayImpl implements IPay {
                             }*/
 
                             GoogleExchangeReqTask googleExchangeReqTask = new GoogleExchangeReqTask(activity, exchangeReqBean);
-                            googleExchangeReqTask.setReqCallBack(new ISReqCallBack() {
-                                @Override
-                                public void success(Object o, String rawResult) {
+                            googleExchangeReqTask.setReqCallBack(new ISReqCallBack<GPExchangeRes>() {
 
+                                @Override
+                                public void success(GPExchangeRes gpExchangeRes, String rawResult) {
                                     PL.i("exchange callback");
                                     // 消费
-                                    if (mHelper != null) {
+                                    if (mHelper != null && gpExchangeRes != null && gpExchangeRes.isRequestSuccess()) {
                                         PL.i("google pay consumeAsync");
                                         mHelper.consumeAsync(purchase, mlaunchPurchaseConsumeFinishedListener);
                                     } else {
-
-                                        if (loadingDialog != null) {
-                                            loadingDialog.dismissProgressDialog();
-                                        }
-
+                                        callbackFail();
                                     }
                                 }
 
                                 @Override
                                 public void timeout(String code) {
-
-                                    if (loadingDialog != null) {
-                                        loadingDialog.dismissProgressDialog();
-                                    }
+                                    callbackFail();
                                 }
 
                                 @Override
                                 public void noData() {
-                                    if (loadingDialog != null) {
-                                        loadingDialog.dismissProgressDialog();
-                                    }
+                                    callbackFail();
                                 }
                             });
-                            googleExchangeReqTask.excute();
+                            googleExchangeReqTask.excute(GPExchangeRes.class);
 
                         }
-
-					/*
-                        //服务端订单验证失败（公密googleKey进行数据验证失败）
-						if (result != null && result.getResponse() == IabHelper.IABHELPER_VERIFICATION_FAILED && null == result.getmEfunState()) {
-							SLog.logI("本次购买失败: " + result.getMessage());
-							payDialog.dismissProgressDialog();
-							EndFlag.setEndFlag(true);
-							payDialog.complainCloseAct(act.getEfunPayError().getGoogleBuyFailError());
-							return;
-						}
-						//请求验证订单的时候服务器超时或者返回结果失败
-						if (null != result.getmEfunState() && GooglePayContant.IAB_STATE .equals(result.getmEfunState()) && null != result.getMessage()) {
-							SLog.logI("msg : " + result.getMessage());
-							payDialog.dismissProgressDialog();
-							EndFlag.setEndFlag(true);
-							payDialog.complainCloseAct(result.getMessage());
-							return;
-						}
-						//购买成功开始消费
-						if (result != null && result.isSuccess() && purchase.getPurchaseState() == 0) {
-							// 消费
-							mHelper.consumeAsync(purchase, mConsumeFinishedListener);
-						} else {
-							SLog.logI("本次购买失败...");
-							EndFlag.setEndFlag(true);
-							payDialog.dismissProgressDialog();
-							if (act != null) {
-								act.finish();
-							}
-						}
-
-						*/
                     }
                 }, developerPayload);
 
     }
 
+    /**
+     * 购买的时候消费
+     */
     private IabHelper.OnConsumeFinishedListener mlaunchPurchaseConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
             if (result.isSuccess()) {
@@ -348,10 +327,7 @@ public class GooglePayImpl implements IPay {
             } else {
                 SLog.logI("消费失败");
             }
-            EndFlag.setEndFlag(true);
-            if (loadingDialog != null) {
-                loadingDialog.dismissProgressDialog();
-            }
+            callbackSuccess();
         }
     };
 
@@ -369,7 +345,7 @@ public class GooglePayImpl implements IPay {
     private void handleQueryResult(IabResult result, Inventory inventory) {
 
         if (result.isFailure()) {
-            loadingDialog.dismissProgressDialog();
+           // callbackFail();
             PL.i("query result:" + result.getMessage());
             SLog.logD("getQueryInventoryState is null");
         } else {
@@ -379,7 +355,7 @@ public class GooglePayImpl implements IPay {
 
             if (null == purchaseList || purchaseList.isEmpty()) {
 
-                loadingDialog.dismissProgressDialog();
+              //  callbackFail();
                 SLog.logD("purchases is empty");
 
             } else {
@@ -399,9 +375,10 @@ public class GooglePayImpl implements IPay {
                         exchangeReqBean.setRequestMethod(GooglePayDomainSite.google_send);
 
                         GoogleExchangeReqTask googleExchangeReqTask = new GoogleExchangeReqTask(activity, exchangeReqBean);
-                        googleExchangeReqTask.setReqCallBack(new ISReqCallBack() {
+                        googleExchangeReqTask.setReqCallBack(new ISReqCallBack<GPExchangeRes>() {
+
                             @Override
-                            public void success(Object o, String rawResult) {
+                            public void success(GPExchangeRes gpExchangeRes, String rawResult) {
                                 PL.i("exchange callback");
                                 // 消费
 						/*if (mHelper != null) {
@@ -420,7 +397,7 @@ public class GooglePayImpl implements IPay {
 
                             }
                         });
-                        googleExchangeReqTask.excute();
+                        googleExchangeReqTask.excute(GPExchangeRes.class);
                     }
 
                 }
@@ -439,16 +416,13 @@ public class GooglePayImpl implements IPay {
 
 
     /**
-     * 多个未消费
+     * 查询时 多个未消费
      */
     private IabHelper.OnConsumeMultiFinishedListener mConsumeMultiFinishedListener = new IabHelper.OnConsumeMultiFinishedListener() {
 
         @Override
         public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
             SLog.logD("Consume Multiple finished.");
-            if (loadingDialog != null) {
-                loadingDialog.dismissProgressDialog();
-            }
             for (int i = 0; i < purchases.size(); i++) {
                 if (results.get(i).isSuccess()) {
                     SLog.logD("sku: " + purchases.get(i).getSku() + " Consume finished success");
@@ -463,7 +437,7 @@ public class GooglePayImpl implements IPay {
     };
 
     /**
-     * 只有一个未消费
+     * 查询时 只有一个未消费
      */
     private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
@@ -472,9 +446,6 @@ public class GooglePayImpl implements IPay {
                 SLog.logD("Purchase: " + purchase.toString() + ", result: " + result);
             } else {
                 SLog.logD("Purchase is null");
-            }
-            if (loadingDialog != null) {
-                loadingDialog.dismissProgressDialog();
             }
             if (result.isSuccess()) {
                 SLog.logD("Consumption successful.");
@@ -489,5 +460,6 @@ public class GooglePayImpl implements IPay {
             startPurchase();
         }
     };
+
 
 }

@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 
 import com.starpy.base.utils.SLog;
-import com.starpy.pay.gp.task.EndFlag;
 
 /**
  * Created by Efun on 2017/2/23.

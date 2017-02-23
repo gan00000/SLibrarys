@@ -6,10 +6,10 @@ import com.core.base.request.bean.BaseResponseModel;
  * Created by Efun on 2017/2/23.
  */
 
-public class CreateOrderIdRes extends BaseResponseModel {
+public class GPCreateOrderIdRes extends BaseResponseModel {
 
     private String orderId;
-    private String paygpid;
+    private String paygpId;
 
 
     public String getOrderId() {
@@ -20,11 +20,11 @@ public class CreateOrderIdRes extends BaseResponseModel {
         this.orderId = orderId;
     }
 
-    public String getPaygpid() {
-        return paygpid;
+    public String getPaygpId() {
+        return paygpId;
     }
 
-    public void setPaygpid(String paygpid) {
-        this.paygpid = paygpid;
+    public void setPaygpId(String paygpId) {
+        this.paygpId = paygpId;
     }
 }

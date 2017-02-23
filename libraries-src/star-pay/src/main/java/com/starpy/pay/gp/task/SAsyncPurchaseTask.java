@@ -10,6 +10,7 @@ import com.starpy.base.utils.SLog;
 import com.starpy.pay.gp.BasePayActivity;
 import com.starpy.pay.gp.bean.req.GoogleExchangeReqBean;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
+import com.starpy.pay.gp.bean.res.GPExchangeRes;
 import com.starpy.pay.gp.constants.GooglePayDomainSite;
 import com.starpy.pay.gp.constants.GooglePayContant;
 import com.starpy.pay.gp.util.IabHelper;
@@ -105,7 +106,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 			mjson.put("serverCode", createOrderIdReqBean.getServerCode());
 			mjson.put("roleId", createOrderIdReqBean.getRoleId());
 
-			mjson.put("paygpid", paygpid);
+			mjson.put("paygpId", paygpid);
 
 		} catch (JSONException e) {
 			SLog.logI("JSONException异常");
@@ -162,9 +163,10 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 							}
 
 							GoogleExchangeReqTask googleExchangeReqTask = new GoogleExchangeReqTask(act,exchangeReqBean);
-							googleExchangeReqTask.setReqCallBack(new ISReqCallBack() {
+							googleExchangeReqTask.setReqCallBack(new ISReqCallBack<GPExchangeRes>() {
+
 								@Override
-								public void success(Object o, String rawResult) {
+								public void success(GPExchangeRes gpExchangeRes, String rawResult) {
 
 									PL.i("exchange callback");
 									// 消费
@@ -189,7 +191,7 @@ public class SAsyncPurchaseTask extends SRequestAsyncTask {
 
 								}
 							});
-							googleExchangeReqTask.excute();
+							googleExchangeReqTask.excute(GPExchangeRes.class);
 
 						}
 

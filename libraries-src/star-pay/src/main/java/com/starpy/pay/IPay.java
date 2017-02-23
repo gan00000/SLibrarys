@@ -13,5 +13,5 @@ public interface IPay extends IGameLifeCycle{
 
     public void startPay(Activity activity,BasePayReqBean basePayReqBean);
 
-
+    public void setIPayCallBack(IPayCallBack iPayCallBack);
 }
