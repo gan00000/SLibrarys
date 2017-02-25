@@ -32,20 +32,22 @@ public class PayHelper {
 	public static WebPayReqBean buildWebPayBean(Context context, String cpOrderId, String roleLevel, String extra){
 		WebPayReqBean webPayReqBean = new WebPayReqBean(context);
 
-		if (SStringUtil.isEmpty(webPayReqBean.getSimOperator())) {
+		if (SStringUtil.isEmpty(webPayReqBean.getIswifi())) {
 			String simOperator = "";
 			if (ApkInfoUtil.isWifiAvailable(context)) {
 				simOperator = GooglePayContant.WIFI;
 			} else {
 				simOperator = ApkInfoUtil.getSimOperator(context);
 			}
-			webPayReqBean.setSimOperator(simOperator);
+			webPayReqBean.setIswifi(simOperator);
 		}
 
 		webPayReqBean.setUserId(StarPyUtil.getUid(context));
 		webPayReqBean.setCpOrderId(cpOrderId);
 		webPayReqBean.setRoleLevel(roleLevel);
 		webPayReqBean.setExtra(extra);
+
+		webPayReqBean.setPsid("62");
 
 		return webPayReqBean;
 

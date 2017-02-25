@@ -79,30 +79,7 @@ public class EfunWalletApi {
 	}
 	
 	
-	/**
-	* <p>Title: reportRefund</p>
-	* <p>Description: 上报退款</p>
-	* @param payActivity
-	* @param purchase
-	* @return
-	*/
-	public static String reportRefund(final Activity payActivity, final Purchase purchase) {
-		if (purchase == null) {
-			return "";
-		}
-//		List<NameValuePair> postParams = new ArrayList<NameValuePair>();
-		Map<String, String> postParams = new HashMap<String, String>();
-		postParams.put("dataSignature", purchase.getSignature());
-		postParams.put("purchaseData", purchase.getOriginalJson());
-		postParams.put("packageName", payActivity.getPackageName());
-		// http://pay.efuntw.com/googlePlay_logPint.shtml
-		
-		String efunResponse = doRequest(payActivity, GooglePayDomainSite.EFUN_REPORT_REFUND, postParams);
-		SLog.logD("efun", "efunResponse:" + efunResponse);
-		return efunResponse;
 
-	}
-	
 	/**
 	* <p>Title: doRequest</p>
 	* <p>Description: 实际网络请求</p>

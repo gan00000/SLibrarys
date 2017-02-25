@@ -1,6 +1,7 @@
 package com.core.base.cipher;
 
 import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -13,7 +14,10 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.DESedeKeySpec;
+import javax.crypto.spec.IvParameterSpec;
 
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
@@ -111,37 +115,38 @@ public class DESCipher {
 		return result;
 	}
 
+	private static final String IV_3DES = "10000000";
 
-//
-//	public static String encrypt3DES(String plainText, String secretKey) throws Exception {
-//		if (TextUtils.isEmpty(plainText) || TextUtils.isEmpty(secretKey)) {
-//			return null;
-//		}
-//		DESedeKeySpec spec = new DESedeKeySpec(secretKey.getBytes());
-//		SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
-//		Key deskey = keyfactory.generateSecret(spec);
-//		IvParameterSpec ips = new IvParameterSpec(IV_3DES.getBytes("utf-8"));
-//		Cipher cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
-//		cipher.init(Cipher.ENCRYPT_MODE, deskey, ips);
-//		byte[] encryptData = cipher.doFinal(plainText.getBytes("utf-8"));
-//		String base64_ciphertext = Base64.encodeToString(encryptData, Base64.DEFAULT);
-//		return base64_ciphertext;
-//
-//	}
-//
-//	public static String decrypt3DES(String encryptText, String secretKey) throws Exception {
-//		if (TextUtils.isEmpty(encryptText) || TextUtils.isEmpty(secretKey)) {
-//			return null;
-//		}
-//		DESedeKeySpec spec = new DESedeKeySpec(secretKey.getBytes("utf-8"));
-//		SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
-//		Key deskey = keyfactory.generateSecret(spec);
-//		Cipher cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
-//		IvParameterSpec ips = new IvParameterSpec(IV_3DES.getBytes("utf-8"));
-//		cipher.init(Cipher.DECRYPT_MODE, deskey, ips);
-//		byte[] decryptData = cipher.doFinal(Base64.decode(encryptText, Base64.DEFAULT));
-//		return new String(decryptData, "utf-8");
-//
-//	}
+
+	public static String encrypt3DES(String plainText, String secretKey) throws Exception {
+		if (TextUtils.isEmpty(plainText) || TextUtils.isEmpty(secretKey)) {
+			return null;
+		}
+		DESedeKeySpec spec = new DESedeKeySpec(secretKey.getBytes());
+		SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
+		Key deskey = keyfactory.generateSecret(spec);
+		IvParameterSpec ips = new IvParameterSpec(IV_3DES.getBytes("utf-8"));
+		Cipher cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
+		cipher.init(Cipher.ENCRYPT_MODE, deskey, ips);
+		byte[] encryptData = cipher.doFinal(plainText.getBytes("utf-8"));
+		String base64_ciphertext = Base64.encodeToString(encryptData, Base64.DEFAULT);
+		return base64_ciphertext;
+
+	}
+
+	public static String decrypt3DES(String encryptText, String secretKey) throws Exception {
+		if (TextUtils.isEmpty(encryptText) || TextUtils.isEmpty(secretKey)) {
+			return null;
+		}
+		DESedeKeySpec spec = new DESedeKeySpec(secretKey.getBytes("utf-8"));
+		SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
+		Key deskey = keyfactory.generateSecret(spec);
+		Cipher cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
+		IvParameterSpec ips = new IvParameterSpec(IV_3DES.getBytes("utf-8"));
+		cipher.init(Cipher.DECRYPT_MODE, deskey, ips);
+		byte[] decryptData = cipher.doFinal(Base64.decode(encryptText, Base64.DEFAULT));
+		return new String(decryptData, "utf-8");
+
+	}
 
 }

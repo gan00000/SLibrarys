@@ -127,26 +127,7 @@ public class QueryInventoryFinished implements QueryInventoryFinishedListener {
 		}
 	}
 
-	/**
-	* <p>Title: startReportRefund</p>
-	* <p>Description: 开启线程上报退款</p>
-	* @param mPurchase
-	*/
-	private void startReportRefund(final Purchase mPurchase) {
-		Thread thread = new Thread(){
-			public void run() {
-				EfunWalletApi.reportRefund(payActivity, mPurchase);
-			};
-		};
-		thread.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-			
-			@Override
-			public void uncaughtException(Thread thread, Throwable ex) {
-				ex.printStackTrace();
-			}
-		});
-		thread.start();
-	}
+
 
 	/**
 	* <p>Title: sendLocalFileToServer</p>

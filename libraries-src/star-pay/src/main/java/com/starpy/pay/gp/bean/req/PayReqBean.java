@@ -8,10 +8,9 @@ import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.pay.gp.constants.GooglePayContant;
 
-public class BasePayReqBean extends BaseReqeustBean {
+public class PayReqBean extends BPayReqBean {
 
 	private String userId;
-	private String gameCode;
 	private String payFrom = GooglePayContant.PAY_FROM;
 
 	private String serverCode;
@@ -24,30 +23,24 @@ public class BasePayReqBean extends BaseReqeustBean {
 	private String roleLevel = "";
 	private String cpOrderId = "";
 
-	private String gameLanguage;
-	private String accessToken;
-
-	private String timestamp = System.currentTimeMillis() + "";
-	private String signature = "";
-
-	public BasePayReqBean(Context context) {
+	public PayReqBean(Context context) {
 		super(context);
 
-		init(context);
+		initm(context);
 
 	}
 
-	private void init(Context context) {
+	private void initm(Context context) {
 		userId = StarPyUtil.getUid(context);
-		accessToken = StarPyUtil.getSdkAccessToken(context);
-		gameCode = ResConfig.getGameCode(context);
-		gameLanguage = ResConfig.getGameLanguage(context);
 
 		serverCode = StarPyUtil.getServerCode(context);
 		serverName = StarPyUtil.getServerName(context);
 		roleName = StarPyUtil.getRoleName(context);
 		roleId = StarPyUtil.getRoleId(context);
-		signature = SStringUtil.toMd5(ResConfig.getAppKey(context) + gameCode + timestamp);
+	}
+
+	public boolean isInitOk(){
+		return !SStringUtil.hasEmpty(userId,getGameCode(),serverCode,roleId);
 	}
 
 	public String getUserId() {
@@ -66,13 +59,6 @@ public class BasePayReqBean extends BaseReqeustBean {
 		this.serverCode = serverCode;
 	}
 
-	public String getGameCode() {
-		return gameCode;
-	}
-
-	public void setGameCode(String gameCode) {
-		this.gameCode = gameCode;
-	}
 
 	public String getPayFrom() {
 		return payFrom;
@@ -122,20 +108,4 @@ public class BasePayReqBean extends BaseReqeustBean {
 		this.cpOrderId = cpOrderId;
 	}
 
-
-	public String getGameLanguage() {
-		return gameLanguage;
-	}
-
-	public void setGameLanguage(String gameLanguage) {
-		this.gameLanguage = gameLanguage;
-	}
-
-	public String getAccessToken() {
-		return accessToken;
-	}
-
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-	}
 }

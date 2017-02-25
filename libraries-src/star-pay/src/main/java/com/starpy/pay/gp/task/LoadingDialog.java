@@ -42,7 +42,7 @@ public class LoadingDialog {
         progressDialog.setMessage(message);
         progressDialog.setIndeterminate(true);
 
-        progressDialog.setCancelable(true);
+        progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 

@@ -108,7 +108,7 @@ public class ResConfig {
 		return efunGetConfigUrl(context, "star_py_pay_spa_url");
 	}
 	public static String getPayThirdMethod(Context context) {
-		return efunGetConfigUrl(context, "star_pay_third_method");
+		return efunGetString(context, "star_pay_third_method");
 	}
 
 	/**

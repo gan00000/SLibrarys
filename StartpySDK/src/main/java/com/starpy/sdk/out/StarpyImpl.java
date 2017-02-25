@@ -50,7 +50,7 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void registerRoleInfo(Activity activity, String roleId, String roleName, String roleLevel, String severCode, String serverName) {
-        StarPyUtil.saveRoleInfo(activity, roleId, roleLevel, severCode, serverName);//保存角色信息
+        StarPyUtil.saveRoleInfo(activity, roleId, roleName, severCode, serverName);//保存角色信息
     }
 
     @Override
@@ -101,12 +101,12 @@ public class StarpyImpl implements IStarpy {
             iPay.setIPayCallBack(new IPayCallBack() {
                 @Override
                 public void success() {
-                    ToastUtils.toast(activity,"pay success");
+//                    ToastUtils.toast(activity,"pay success");
                 }
 
                 @Override
                 public void fail() {
-                    ToastUtils.toast(activity,"success fail");
+//                    ToastUtils.toast(activity,"pay fail");
                 }
             });
             iPay.startPay(activity,googlePayCreateOrderIdReqBean);

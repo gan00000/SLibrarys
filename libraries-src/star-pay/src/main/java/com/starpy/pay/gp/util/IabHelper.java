@@ -1163,7 +1163,6 @@ public class IabHelper {
 			public void run() {
 				try {
 					int result = mService.consumePurchase(3, packageName, purchaseToken);
-					Log.d("efun", "is success:" + result);
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

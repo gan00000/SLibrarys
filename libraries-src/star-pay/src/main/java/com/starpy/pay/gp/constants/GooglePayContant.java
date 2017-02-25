@@ -3,26 +3,8 @@ package com.starpy.pay.gp.constants;
 
 public class GooglePayContant {
 	
-	public static final String IAB_STATE = "efun";
 	public static final int RC_REQUEST = 10001;
 	
-	/**
-	 * SERCET_KEY 更多储值MD5验证key
-	 */
-	public static final String SERCET_KEY = "B708A6BC2006911EDF5AC3871E7FB7CF";
-	/**
-	 * SERCET_KEY_GW 官网MD5验证key
-	 */
-	public static final String SERCET_KEY_GW = "SJKDJEIALKD45SKLWOIZKJDSA4SKDJEUWOQP";
-	/**
-	 * SERCET_KEY_GOODLIST 网页版Google储值界面请求验证key
-	 */
-	public static final String SERCET_KEY_GOODLIST = "KSAJFKGJKLAJENI2374KASJDFKWEGOODLIST";
-	
-	/**
-	 * MONEY_TYPE monkey type 参数默认值
-	 */
-	public static final String MONEY_TYPE = "USD";
 	/**
 	 * PAY_FROM payform 参数默认值
 	 */

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.starpy.pay.gp.constants.GooglePayContant;
 
-public class GooglePayCreateOrderIdReqBean extends BasePayReqBean {
+public class GooglePayCreateOrderIdReqBean extends PayReqBean {
 
 	private String productId;
 	private String payType = GooglePayContant.GOOGLEPAYTYPE;

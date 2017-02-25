@@ -170,11 +170,8 @@ public class SStringUtil {
 	 * 
 	 * @param inputValue
 	 *            要加密的字符
-	 * @param isLower
 	 *            true为小写,false为大写
 	 * @return
-	 * @author Joe
-	 * @date 2013-4-16
 	 */
 	public static String toMd5(String inputValue) {
 		return toMd5(inputValue, true);
@@ -219,11 +216,16 @@ public class SStringUtil {
 		return true;
 	}
 
-	public static boolean isAllNotEmpty(String... mString) {
-		if (isAllEmpty(mString)) {
-			return false;
+	public static boolean hasEmpty(String... mString) {
+		if (mString == null){
+			return true;
 		}
-		return true;
+		for (String m : mString) {
+			if (isEmpty(m)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static boolean isEmpty(CharSequence cs) {

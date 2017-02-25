@@ -26,8 +26,6 @@ public class IabResult {
 	int mResponse;
 	String mMessage;
 
-	String mEfunState;
-
 	public IabResult(int response, String message) {
 		mResponse = response;
 		if (message == null || message.trim().length() == 0) {
@@ -37,17 +35,6 @@ public class IabResult {
 		}
 	}
 
-	/**
-	 * @param state
-	 *            必须填入efun
-	 * @param message
-	 */
-	public IabResult(String state, String message) {
-		mEfunState = state;
-		if ("efun".equals(state) && message != null && message.trim().length() > 0) {
-			mMessage = message;
-		}
-	}
 
 	public int getResponse() {
 		return mResponse;
@@ -69,7 +56,4 @@ public class IabResult {
 		return "IabResult: " + getMessage();
 	}
 
-	public String getmEfunState() {
-		return mEfunState;
-	}
 }

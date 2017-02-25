@@ -2,14 +2,13 @@ package com.starpy.pay.gp.bean.req;
 
 import android.content.Context;
 
-import com.starpy.pay.gp.bean.req.BasePayReqBean;
 import com.starpy.pay.gp.constants.GooglePayContant;
 
-public class WebPayReqBean extends BasePayReqBean {
+public class WebPayReqBean extends PayReqBean {
 
 	private String payType = GooglePayContant.THIRDPAYTYPE;
 
-	private String simOperator;
+	private String iswifi;
 
 	private String appPlatFrom;
 
@@ -18,7 +17,7 @@ public class WebPayReqBean extends BasePayReqBean {
 	 *	0：游戏内置储值跳转使用级别限制，根据等级控制显示储值金流；
 	 *	1：游戏内置储值跳转不使用级别限制，仅看到第三方储值
 	 */
-	private String levelType = "0";
+//	private String levelType = "0";
 
 	public WebPayReqBean(Context context) {
 		super(context);
@@ -38,16 +37,16 @@ public class WebPayReqBean extends BasePayReqBean {
 		this.payType = payType;
 	}
 	/**
-	 * @return the simOperator
+	 * @return the iswifi
 	 */
-	public String getSimOperator() {
-		return simOperator;
+	public String getIswifi() {
+		return iswifi;
 	}
 	/**
-	 * @param simOperator the simOperator to set
+	 * @param iswifi the iswifi to set
 	 */
-	public void setSimOperator(String simOperator) {
-		this.simOperator = simOperator;
+	public void setIswifi(String iswifi) {
+		this.iswifi = iswifi;
 	}
 	public String getAppPlatFrom() {
 		return appPlatFrom;
@@ -57,10 +56,10 @@ public class WebPayReqBean extends BasePayReqBean {
 	}
 
 
-	public String getLevelType() {
-		return levelType;
-	}
-	public void setLevelType(String levelType) {
-		this.levelType = levelType;
-	}
+//	public String getLevelType() {
+//		return levelType;
+//	}
+//	public void setLevelType(String levelType) {
+//		this.levelType = levelType;
+//	}
 }

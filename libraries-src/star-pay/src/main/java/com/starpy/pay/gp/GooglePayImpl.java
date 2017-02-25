@@ -6,10 +6,11 @@ import android.text.TextUtils;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.PL;
+import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.SLog;
 import com.starpy.pay.IPay;
 import com.starpy.pay.IPayCallBack;
-import com.starpy.pay.gp.bean.req.BasePayReqBean;
+import com.starpy.pay.gp.bean.req.PayReqBean;
 import com.starpy.pay.gp.bean.req.GoogleExchangeReqBean;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.res.GPCreateOrderIdRes;
@@ -46,6 +47,7 @@ public class GooglePayImpl implements IPay {
     private Activity activity;
 
     private IPayCallBack iPayCallBack;
+    boolean isPaying = false;//防止连续快速点击储值出现未知异常
 
 
 
@@ -75,7 +77,7 @@ public class GooglePayImpl implements IPay {
     }
 
     @Override
-    public void startPay(Activity activity, BasePayReqBean basePayReqBean) {
+    public void startPay(Activity activity, PayReqBean payReqBean) {
 
         this.createOrderIdReqBean = null;
 
@@ -84,14 +86,21 @@ public class GooglePayImpl implements IPay {
             return;
         }
 
-        if (basePayReqBean == null) {
-            PL.w("basePayReqBean is null");
+        if (payReqBean == null) {
+            PL.w("payReqBean is null");
             return;
         }
 
+        if (isPaying){
+            PL.w("google is paying...");
+            return;
+        }
+        PL.w("google set paying...");
+        isPaying = true;
+
         this.activity = activity;
 
-        this.createOrderIdReqBean = (GooglePayCreateOrderIdReqBean) basePayReqBean;
+        this.createOrderIdReqBean = (GooglePayCreateOrderIdReqBean) payReqBean;
         this.createOrderIdReqBean.setRequestUrl(PayHelper.getPreferredUrl(activity));
         this.createOrderIdReqBean.setRequestMethod(GooglePayDomainSite.google_order_create);
 
@@ -104,8 +113,14 @@ public class GooglePayImpl implements IPay {
             mHelper = new IabHelper(activity);
         }
 
+        if (this.createOrderIdReqBean.isInitOk()){
 
-        googlePaySetUp();
+            googlePaySetUp();
+        }else{
+            ToastUtils.toast(activity,"please log in to the game first");
+        }
+        isPaying = false;
+        PL.w("google set not paying");
     }
 
     @Override
@@ -207,12 +222,17 @@ public class GooglePayImpl implements IPay {
                 if (createOrderIdRes != null && createOrderIdRes.isRequestSuccess() && !TextUtils.isEmpty(createOrderIdRes.getOrderId())) {
                     launchPurchase(createOrderIdRes);
                 } else {
+                    if (createOrderIdRes!=null && !TextUtils.isEmpty(createOrderIdRes.getMessage())){
+                        ToastUtils.toast(activity,createOrderIdRes.getMessage());
+                    }
                     callbackFail();
                 }
             }
 
             @Override
             public void timeout(String code) {
+
+                ToastUtils.toast(activity, "connect timeout, please try again");
                 callbackFail();
             }
 
@@ -295,12 +315,16 @@ public class GooglePayImpl implements IPay {
                                         PL.i("google pay consumeAsync");
                                         mHelper.consumeAsync(purchase, mlaunchPurchaseConsumeFinishedListener);
                                     } else {
+                                        if (gpExchangeRes!=null && !TextUtils.isEmpty(gpExchangeRes.getMessage())){
+                                            ToastUtils.toast(activity,gpExchangeRes.getMessage());
+                                        }
                                         callbackFail();
                                     }
                                 }
 
                                 @Override
                                 public void timeout(String code) {
+                                    ToastUtils.toast(activity, "connect timeout, please try again");
                                     callbackFail();
                                 }
 
