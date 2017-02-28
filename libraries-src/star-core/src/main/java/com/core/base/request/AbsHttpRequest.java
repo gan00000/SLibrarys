@@ -106,14 +106,37 @@ public abstract class AbsHttpRequest implements ISRqeust {
      */
     public String doRequest(BaseReqeustBean baseReqeustBean) {
         if (SStringUtil.isNotEmpty(baseReqeustBean.getCompleteUrl())) {
-            HttpRequest httpRequest = new HttpRequest();
-            coreHttpResponse = httpRequest.postReuqest(baseReqeustBean.getCompleteUrl(), baseReqeustBean.fieldValueToMap());
-            return coreHttpResponse.getResult();
+
+            if (isGetMethod) {
+                if (isNeedGetParams){
+
+                    coreHttpResponse = HttpRequest.getReuqest(baseReqeustBean.getCompleteUrl(),baseReqeustBean.fieldValueToMap());
+                }else{
+
+                    coreHttpResponse = HttpRequest.getReuqest(baseReqeustBean.getCompleteUrl());
+                }
+
+            }else{
+                coreHttpResponse = HttpRequest.postReuqest(baseReqeustBean.getCompleteUrl(), baseReqeustBean.fieldValueToMap());
+
+            }
+            if (coreHttpResponse != null) {
+                return coreHttpResponse.getResult();
+            }
         }
         return "";
     }
 
     public void setLoadDialog(Dialog loadDialog) {
         this.loadDialog = loadDialog;
+    }
+
+    private boolean isGetMethod = false;
+    private boolean isNeedGetParams = false;
+
+
+    public void setGetMethod(boolean getMethod, boolean isNeedGetParams) {
+        isGetMethod = getMethod;
+        this.isNeedGetParams = isNeedGetParams;
     }
 }

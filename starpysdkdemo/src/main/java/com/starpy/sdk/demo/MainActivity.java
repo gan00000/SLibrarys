@@ -3,13 +3,17 @@ package com.starpy.sdk.demo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.core.base.utils.FileUtil;
+import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.SLog;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.pay.PayType;
@@ -102,7 +106,6 @@ public class MainActivity extends Activity {
             }
         });
     }
-
 
     @Override
     protected void onResume() {

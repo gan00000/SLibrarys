@@ -1,5 +1,6 @@
 package com.starpy.base.utils;
 
+import com.core.base.cipher.DESCipher;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -198,5 +199,23 @@ public class StarPyUtil {
         return false;
     }
 
+    private static final String PY_DY_ENCRYPT_SECRETKEY = "(starpy99988820170227dyrl)";
+    public static String encryptDyUrl(Context context,String data){
+        try {
+            return DESCipher.encrypt3DES(data,PY_DY_ENCRYPT_SECRETKEY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String decryptDyUrl(Context context,String data){
+        try {
+            return DESCipher.decrypt3DES(data,PY_DY_ENCRYPT_SECRETKEY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
 }

@@ -112,6 +112,8 @@ public class SStringUtil {
 	}
 
 	public static boolean isEqual(String str1, String str2){
+		if (TextUtils.isEmpty(str1))
+			return false;
 		return str1.equals(str2);
 	}
 

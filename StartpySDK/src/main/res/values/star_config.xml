@@ -24,7 +24,14 @@
     <string name="star_py_pay_pre_url">http://pay.starb168.com/</string>
     <string name="star_py_pay_spa_url">http://pay.starb168.com/</string>
 
+    <!--平台CND的主域名：autocdn-palt.starb168.com-->
+    <!--备用域名：autocdn-paltsl.starb168.com-->
+    <string name="star_py_cdn_pre_url">http://autocdn-palt.starb168.com/</string>
+    <string name="star_py_cdn_spa_url">http://autocdn-paltsl.starb168.com/</string>
 
+
+    <!--是否侵权 true为侵权，默认为非侵权-->
+    <string name="star_infringement"></string>
     <string name="star_app_key">97d9636e3aa6e8a6a4dd85cb5fd8db9e</string>
     <string name="star_game_language">zh-TW</string>
 

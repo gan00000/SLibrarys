@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.core.base.utils.SStringUtil;
-import com.core.base.utils.ToastUtils;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
@@ -35,7 +34,7 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void initSDK(Activity activity) {
-//        ConfigRequest.requestCfg(activity.getApplicationContext());//下载配置文件
+        ConfigRequest.requestBaseCfg(activity.getApplicationContext());//下载配置文件
         ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
         // 1.初始化fb sdk
         SFacebookProxy.initFbSdk(activity);

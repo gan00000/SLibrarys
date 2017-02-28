@@ -37,6 +37,11 @@ public class HttpRequest {
 		HttpRequestCore requestCore = new HttpRequestCore();
 		return requestCore.excuteGetRequest(urlStr);
 	}
+
+	public static HttpResponse getReuqest(String urlStr, Map<String, String> dataMap) {
+		HttpRequestCore requestCore = new HttpRequestCore();
+		return requestCore.excuteGetRequest(urlStr,dataMap);
+	}
 	
 	/**
 	 * <p>Description: 发送post请求</p>

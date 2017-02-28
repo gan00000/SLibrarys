@@ -10,6 +10,21 @@
     !-- VERY IMPORTANT! Don't forget this permission, or in-app billing won't work. -->
     <uses-permission android:name="com.android.vending.BILLING" />
 
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.NETWORK"
+        android:required="false" />
 
     <application
            >

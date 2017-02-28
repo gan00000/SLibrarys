@@ -3,6 +3,7 @@ package com.core.base.utils;
 import android.content.Context;
 import android.text.TextUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,6 +11,20 @@ import java.util.Map;
 
 public class JsonUtil {
 
+    public static JSONArray getArrayObjByKey(String jsonStr, String key) {
+
+        if (!TextUtils.isEmpty(jsonStr)) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonStr);
+                if (jsonObject.has(key)) {
+                    return jsonObject.optJSONArray(key);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 
     public static String getValueByKey(Context context, String jsonStr, String key) {
         return  getValueByKey(context, jsonStr, key,"");
@@ -21,7 +36,7 @@ public class JsonUtil {
         if (!TextUtils.isEmpty(jsonStr)) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonStr);
-                if (jsonObject != null && jsonObject.has(key)) {
+                if (jsonObject.has(key)) {
                     String value = jsonObject.optString(key, defaultValue);
                     if (!TextUtils.isEmpty(value)) {
                         return value;

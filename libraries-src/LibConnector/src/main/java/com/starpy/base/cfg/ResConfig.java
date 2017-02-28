@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.core.base.utils.ResUtil;
+import com.core.base.utils.SStringUtil;
 import com.starpy.base.utils.StarPyUtil;
 
 public class ResConfig {
@@ -107,9 +108,23 @@ public class ResConfig {
 		}
 		return efunGetConfigUrl(context, "star_py_pay_spa_url");
 	}
+
+	public static String getCdnPreferredUrl(Context context) {
+		return efunGetConfigUrl(context, "star_py_cdn_pre_url");
+	}
+	public static String getCdnSpareUrl(Context context) {
+		return efunGetConfigUrl(context, "star_py_cdn_spa_url");
+	}
+
+	public static boolean isInfringement(Context context){
+		return SStringUtil.isEqual(efunGetString(context, "star_infringement"),"true");
+	}
+
 	public static String getPayThirdMethod(Context context) {
 		return efunGetString(context, "star_pay_third_method");
 	}
+
+
 
 	/**
 	 * <p>Description: 获取广告域名</p>
