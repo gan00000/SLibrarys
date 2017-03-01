@@ -8,14 +8,14 @@
 //
 //public class MainActivity extends FragmentActivity {
 //
-//    GoogleSignIn gs;
+//    SGoogleSignIn gs;
 //    public static final String TAG = "Google";
 //    int googleServicesCode1;
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-//        gs = new GoogleSignIn(this);
+//        gs = new SGoogleSignIn(this);
 //
 //        EfunGoogleProxy.onCreateMainActivity(this);
 //
@@ -27,8 +27,8 @@
 //
 //            @Override
 //            public void onClick(View view) {
-//                gs = new GoogleSignIn(MainActivity.this);
-//                gs.startSignIn(new GoogleSignIn.GoogleSignInCallBack() {
+//                gs = new SGoogleSignIn(MainActivity.this);
+//                gs.startSignIn(new SGoogleSignIn.GoogleSignInCallBack() {
 //                    @Override
 //                    public void success(String id, String mFullName, String mEmail) {
 //                        Log.d(TAG,"ID:" + id);

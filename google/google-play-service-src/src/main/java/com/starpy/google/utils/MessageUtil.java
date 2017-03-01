@@ -10,8 +10,8 @@ import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.core.base.utils.PL;
-import com.starpy.google.EfunFirebaseMessagingService;
-import com.starpy.google.EfunPushReceiver;
+import com.starpy.google.SFirebaseMessagingService;
+import com.starpy.google.SPushReceiver;
 import com.starpy.google.bean.NotificationMessage;
 
 /**
@@ -35,7 +35,7 @@ public class MessageUtil {
             return;
         }
 
-        EfunFirebaseMessagingService.getNotificationMessages().add(notificationMessage);
+        SFirebaseMessagingService.getNotificationMessages().add(notificationMessage);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setContentTitle(notificationMessage.getTitle())
@@ -50,20 +50,20 @@ public class MessageUtil {
             mBuilder.setSmallIcon(context.getApplicationInfo().icon);
         }
 
-        if (EfunFirebaseMessagingService.getNotificationMessages() != null && EfunFirebaseMessagingService.getNotificationMessages().size() == 1) {
+        if (SFirebaseMessagingService.getNotificationMessages() != null && SFirebaseMessagingService.getNotificationMessages().size() == 1) {
             NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
             bigTextStyle.bigText(notificationMessage.getContent());
             bigTextStyle.setBigContentTitle(notificationMessage.getTitle());
             mBuilder.setStyle(bigTextStyle);
-        }else if(EfunFirebaseMessagingService.getNotificationMessages() != null){
+        }else if(SFirebaseMessagingService.getNotificationMessages() != null){
 
             NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
             // Sets a title for the Inbox in expanded layout
-            inboxStyle.setBigContentTitle(EfunFirebaseMessagingService.getNotificationMessages().size() + " new messages:");
+            inboxStyle.setBigContentTitle(SFirebaseMessagingService.getNotificationMessages().size() + " new messages:");
             // Moves events into the expanded layout
-            for (int i = 0; i < EfunFirebaseMessagingService.getNotificationMessages().size(); i++) {
+            for (int i = 0; i < SFirebaseMessagingService.getNotificationMessages().size(); i++) {
 
-                inboxStyle.addLine(EfunFirebaseMessagingService.getNotificationMessages().get(i).getTitle());
+                inboxStyle.addLine(SFirebaseMessagingService.getNotificationMessages().get(i).getTitle());
 
             }
             // Moves the expanded layout object into the notification object.
@@ -74,16 +74,16 @@ public class MessageUtil {
         //mBuilder.setGroupSummary(true);
         //mBuilder.setLights(0xff00ff00, 300, 1000);
         mBuilder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND);
-        mBuilder.setNumber(EfunFirebaseMessagingService.getNotificationMessages().size());
+        mBuilder.setNumber(SFirebaseMessagingService.getNotificationMessages().size());
 
         //设置清除消息的intent
-        Intent deleteIntent = new Intent(EfunPushReceiver.NOTIFICATION_DELETE);
+        Intent deleteIntent = new Intent(SPushReceiver.NOTIFICATION_DELETE);
         deleteIntent.setPackage(context.getPackageName());
         deleteIntent.putExtra(EFUN_PUSH_MESSAGE_ACTION_KEY, DELETE_INTENT_NOTIFICATION);
         PendingIntent deletePendIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setDeleteIntent(deletePendIntent);
 
-        Intent clickIntent = new Intent(EfunPushReceiver.NOTIFICATION_CLICK);
+        Intent clickIntent = new Intent(SPushReceiver.NOTIFICATION_CLICK);
         clickIntent.putExtra(EFUN_PUSH_MESSAGE_ACTION_KEY, CLICK_INTENT_NOTIFICATION);
         clickIntent.setPackage(context.getPackageName());
         PendingIntent clickPendIntent = PendingIntent.getBroadcast(context, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);

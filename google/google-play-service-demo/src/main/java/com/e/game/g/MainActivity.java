@@ -12,7 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.starpy.google.GoogleSignIn;
+import com.starpy.google.SGoogleSignIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity {
 
     FirebaseRemoteConfig mFirebaseRemoteConfig;
-    GoogleSignIn googleSignIn;
+    SGoogleSignIn SGoogleSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +29,12 @@ public class MainActivity extends FragmentActivity {
 //        EAds.initEAds(this);
 //        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 //        fetchConfig();
-        googleSignIn = new GoogleSignIn(this);
+        SGoogleSignIn = new SGoogleSignIn(this);
 
         findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                googleSignIn.startSignIn(new GoogleSignIn.GoogleSignInCallBack() {
+                SGoogleSignIn.startSignIn(new SGoogleSignIn.GoogleSignInCallBack() {
                     @Override
                     public void success(String id, String mFullName, String mEmail) {
                         Log.d("MainActivity","success:" + id);
@@ -51,7 +51,7 @@ public class MainActivity extends FragmentActivity {
         findViewById(R.id.signout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                googleSignIn.handleActivityDestroy(MainActivity.this);
+                SGoogleSignIn.handleActivityDestroy(MainActivity.this);
             }
         });
 
@@ -62,14 +62,14 @@ public class MainActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        googleSignIn.handleActivityResult(this,requestCode,resultCode,data);
+        SGoogleSignIn.handleActivityResult(this,requestCode,resultCode,data);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        googleSignIn.handleActivityDestroy(this);
+        SGoogleSignIn.handleActivityDestroy(this);
     }
 
     public void fetchConfig() {

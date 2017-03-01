@@ -9,7 +9,7 @@ include ':facebook:HelloFacebookSampleActivity'
 
 include ':libraries-src:star-core'
 include ':libraries-src:star-pay'
-include ':libraries-src:efunAds'
+include ':libraries-src:star-ads'
 include ':libraries-src:EfunLoginCommon'
 include ':libraries-src:PushNotifition'
 include ':libraries-src:Efun-Interface-lib'

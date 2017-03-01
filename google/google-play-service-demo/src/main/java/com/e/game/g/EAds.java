@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.util.Log;
 
-import com.starpy.google.EfunGoogleProxy;
+import com.starpy.google.SGoogleProxy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,11 +19,11 @@ public class EAds {
     public static void initEAds(Activity activity){
         if (activity == null)
             return;
-//        EfunGoogleProxy.EfunGoogleAnalytics.initDefaultTracker()
-        EfunGoogleProxy.onCreateMainActivity(activity);
-        EfunGoogleProxy.initPush(activity.getApplicationContext());
+//        SGoogleProxy.SGoogleAnalytics.initDefaultTracker()
+        SGoogleProxy.onCreateMainActivity(activity);
+        SGoogleProxy.initPush(activity.getApplicationContext());
         showEads(activity);
-        EfunGoogleProxy.EfunFirebaseAnalytics.logEvent(activity.getApplicationContext(),activity.getPackageName() + "_" + Constant.appStart);//firebase分析，记录激活
+        SGoogleProxy.SFirebaseAnalytics.logEvent(activity.getApplicationContext(),activity.getPackageName() + "_" + Constant.appStart);//firebase分析，记录激活
     }
 
     /**
