@@ -362,6 +362,7 @@ public class GooglePayImpl implements IPay {
         public void onQueryInventoryFinished(IabResult result, Inventory inv) {
 
             handleQueryResult(result, inv);
+//            startPurchase();//查询结束开始购买
 
         }
     };
@@ -433,6 +434,7 @@ public class GooglePayImpl implements IPay {
                     SLog.logD("mConsumeMultiFinishedListener.消费多个");
                     mHelper.consumeAsync(purchaseList, mConsumeMultiFinishedListener);
                 }
+                return;
             }
         }
         startPurchase();
