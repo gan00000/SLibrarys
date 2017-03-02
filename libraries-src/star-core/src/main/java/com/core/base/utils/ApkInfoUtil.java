@@ -73,13 +73,14 @@ public class ApkInfoUtil {
 	
 	public static String getMacAddress(Context ctx) {
 
-		WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
-		WifiInfo info = wifi.getConnectionInfo();
-		String macTmp = info.getMacAddress();
-//		if (TextUtils.isEmpty(macTmp) || macTmp.endsWith("00:00:00:00:00:00")) {
-//			Log.d("efunLog", "getLocalMacAddressFromIp");
-//			macTmp = getLocalMacAddressFromIp(ctx);
-//		}
+		String macTmp = "";
+		try {
+			WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+			WifiInfo info = wifi.getConnectionInfo();
+			macTmp = info.getMacAddress();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return macTmp;
 	}
 
@@ -99,18 +100,18 @@ public class ApkInfoUtil {
 	 */
 	private static synchronized String getCustomizedUniqueId(Context ctx) {
 
-		if (!TextUtils.isEmpty(customizedUniqueId) && customizedUniqueId.length() > 30) {
+		if (!TextUtils.isEmpty(customizedUniqueId) && customizedUniqueId.length() >= 30) {
 			return customizedUniqueId;
 		}
 		if (SdcardUtil.isExternalStorageExist()) {
 			String sdcardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 			String dataPath = sdcardPath + File.separator + "Android" + File.separator + "data" + File.separator;
 			
-			String efundataPathDir = dataPath + "stardata" + File.separator;
-			File dir = new File(efundataPathDir);
+			String dataTempPathDir = dataPath + "stardata" + File.separator;
+			File dir = new File(dataTempPathDir);
 			if (!dir.exists()) {
 				if(!dir.mkdirs()){
-					Log.e("efun", "没有添加android.permission.WRITE_EXTERNAL_STORAGE权限?");
+					PL.w("没有添加android.permission.WRITE_EXTERNAL_STORAGE权限?");
 				}
 			}
 			
@@ -118,15 +119,15 @@ public class ApkInfoUtil {
 				return "";
 			}
 
-			String efundataPath = efundataPathDir +"stardata-uuid.txt";
+			String dataTempPath = dataTempPathDir +"stardata-uuid.txt";
 
 			try {
-				customizedUniqueId = FileUtil.readFile(efundataPath);
+				customizedUniqueId = FileUtil.readFile(dataTempPath);
 				if (!TextUtils.isEmpty(customizedUniqueId)) {
 					return customizedUniqueId;
 				}
 				String uuid = UUID.randomUUID().toString();
-				if (FileUtil.writeFileData(ctx, efundataPath, uuid)) {
+				if (FileUtil.writeFileData(ctx, dataTempPath, uuid)) {
 					customizedUniqueId = uuid;
 				}
 			} catch (IOException e) {
