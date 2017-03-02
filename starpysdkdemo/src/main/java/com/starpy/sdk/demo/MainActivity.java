@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
         iStarpy.onCreate(this);
 
         //在游戏获得角色信息的时候调用
-        iStarpy.registerRoleInfo(this, "roleid_1", "roleName", "rolelevel", "s1001", "serverName");
+        iStarpy.registerRoleInfo(this, "roleid_1", "roleName", "rolelevel", "1", "serverName");
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +101,7 @@ public class MainActivity extends Activity {
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, PayType.GOOGLE, "" + System.currentTimeMillis(), "com.xx.eem2", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, PayType.GOOGLE, "" + System.currentTimeMillis(), "py.brmmd.1.99", "roleLevel", "customize");
 
             }
         });

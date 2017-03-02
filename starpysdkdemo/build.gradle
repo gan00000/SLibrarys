@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
+        brmmdsign {
             keyAlias 'brmmd'
             keyPassword 'brmmd666888'
             storeFile file('../keystore/brmmd-keystore.jks')
@@ -45,10 +45,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config222
+            signingConfig signingConfigs.brmmdsign
         }
         debug {
-            signingConfig signingConfigs.config222
+            signingConfig signingConfigs.brmmdsign
         }
     }
     productFlavors {
@@ -60,26 +60,10 @@ android {
             versionCode 1
             versionName '1.0'
         }
-        fbtet2 {
-            minSdkVersion 9
-            applicationId 'com.xx.fbtt2'
-            signingConfig signingConfigs.config222
-            targetSdkVersion 22
-            versionCode 1
-            versionName '1.0'
-        }
-        fbtet3 {
-            minSdkVersion 9
-            applicationId 'com.xx.fbtt3'
-            signingConfig signingConfigs.config222
-            targetSdkVersion 22
-            versionCode 1
-            versionName '1.0'
-        }
 
-        gameConfig {
+        gameBrmmd {
             applicationId "com.star.mrmmd.tw"
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.brmmdsign
             minSdkVersion 9
             targetSdkVersion 22
             versionCode 2

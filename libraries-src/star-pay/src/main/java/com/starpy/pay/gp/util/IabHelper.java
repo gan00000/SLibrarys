@@ -1131,7 +1131,7 @@ public class IabHelper {
 
 	void logDebug(String msg) {
 		if (mDebugLog)
-			Log.d(mDebugTag, msg);
+			Log.i(mDebugTag, msg);
 	}
 
 	void logError(String msg) {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.cfg.ConfigRequest;
@@ -34,6 +35,7 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void initSDK(Activity activity) {
+        PL.i("IStarpy initSDK");
         ConfigRequest.requestBaseCfg(activity.getApplicationContext());//下载配置文件
         ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
         // 1.初始化fb sdk
@@ -44,17 +46,18 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void setGameLanguage(Activity activity, String gameLanguage) {
-
+        PL.i("IStarpy setGameLanguage");
     }
 
     @Override
     public void registerRoleInfo(Activity activity, String roleId, String roleName, String roleLevel, String severCode, String serverName) {
+        PL.i("IStarpy registerRoleInfo");
         StarPyUtil.saveRoleInfo(activity, roleId, roleName, severCode, serverName);//保存角色信息
     }
 
     @Override
     public void login(Activity activity, ILoginCallBack iLoginCallBack) {
-
+        PL.i("IStarpy login");
         this.loginCallBack = iLoginCallBack;
 
         Intent intent = new Intent(activity, SLoginActivity.class);
@@ -65,7 +68,7 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void pay(final Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
-
+        PL.i("IStarpy pay");
         if (payType == PayType.OTHERS){//第三方储值
 
             WebPayReqBean webPayReqBean = PayHelper.buildWebPayBean(activity,cpOrderId,roleLevel,extra);
@@ -115,17 +118,17 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void onCreate(Activity activity) {
-
+        PL.i("IStarpy onCreate");
     }
 
     @Override
     public void onResume(Activity activity) {
-
+        PL.i("onResume");
     }
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-
+        PL.i("IStarpy onActivityResult");
         if (requestCode == SLoginActivity.S_LOGIN_REQUEST && resultCode == SLoginActivity.S_LOGIN_RESULT && data != null) {
             SLoginResponse sLoginResponse = (SLoginResponse) data.getSerializableExtra(SLoginActivity.S_LOGIN_RESPONSE_OBJ);
             if (this.loginCallBack != null) {
@@ -140,12 +143,12 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void onPause(Activity activity) {
-
+        PL.i("IStarpy onPause");
     }
 
     @Override
     public void onStop(Activity activity) {
-
+        PL.i("IStarpy onStop");
         if (iPay != null){
             iPay .onStop(activity);
         }
@@ -154,7 +157,7 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void onDestroy(Activity activity) {
-
+        PL.i("IStarpy onDestroy");
         if (iPay != null){
             iPay .onDestroy(activity);
         }

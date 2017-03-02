@@ -2,21 +2,11 @@
 
     <!-- fb配置 -->
     <!-- 必须跟fb后台一致的名字 -->
-    <!--<string name="facebook_app_name">kkaam2</string>-->
-    <!--<string name="facebook_app_id">1838084456454219</string>-->
-    <!--<string name="facebook_authorities">com.facebook.app.FacebookContentProvider1838084456454219</string>-->
-
-    <!--<string name="facebook_app_name">kkaam</string>-->
-    <!--<string name="facebook_app_id">716834465154872</string>-->
-    <!--<string name="facebook_authorities">com.facebook.app.FacebookContentProvider716834465154872</string>-->
-
-    <string name="facebook_app_name">stargame</string>
+    <string name="facebook_app_name">別惹萌萌噠</string>
     <string name="facebook_app_id">1286278484776251</string>
     <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1286278484776251</string>
     <!-- fb配置end -->
-    <!--<string name="star_game_code">brmmd</string>-->
-    <string name="star_game_code">test</string>
-    <!--<string name="star_game_code">test1</string>-->
+    <string name="star_game_code">brmmd</string>
 
     <string name="star_py_login_pre_url">http://login.starb168.com/</string>
     <string name="star_py_login_spa_url">http://login.starb168.com/</string>
