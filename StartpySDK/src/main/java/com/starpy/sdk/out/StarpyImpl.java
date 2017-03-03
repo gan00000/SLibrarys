@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.SFacebookProxy;
+import com.starpy.ads.StarEventLogger;
 import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
@@ -40,8 +41,7 @@ public class StarpyImpl implements IStarpy {
         ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
         // 1.初始化fb sdk
         SFacebookProxy.initFbSdk(activity);
-        //广告
-//        SFacebookProxy.activateApp(activity);
+
     }
 
     @Override
@@ -119,6 +119,8 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onCreate(Activity activity) {
         PL.i("IStarpy onCreate");
+        //广告
+        StarEventLogger.activateApp(activity);
     }
 
     @Override

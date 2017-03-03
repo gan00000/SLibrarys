@@ -8,8 +8,10 @@ import android.widget.RelativeLayout;
 
 import com.core.base.utils.FragmentUtil;
 import com.core.base.utils.PL;
+import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.facebook.sfb.SFacebookProxy;
+import com.starpy.ads.StarEventLogger;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.response.SLoginResponse;
@@ -73,7 +75,24 @@ public class SLoginActivity extends BaseLoginActivity {
 //        onDestroy调用onDestroy
         sFacebookProxy.onDestroy(this);
 
-//        setResult();
+//        handleRegisteOrLoginSuccess();
+    }
+
+    public void handleRegisteOrLoginSuccess(SLoginResponse loginResponse) {
+        try {
+            if (loginResponse != null){
+                //1001 注册成功    1000登入成功
+                if (SStringUtil.isEqual("1000",loginResponse.getCode())){
+                    StarEventLogger.trackinLoginEvent(this);
+                }else if (SStringUtil.isEqual("1001",loginResponse.getCode())){
+                    StarEventLogger.trackinRegisterEvent(this);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        setResult(loginResponse);
     }
 
     public void setResult(SLoginResponse loginResponse) {

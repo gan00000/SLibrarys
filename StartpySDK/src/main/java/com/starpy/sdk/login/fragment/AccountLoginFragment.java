@@ -105,7 +105,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                         ToastUtils.toast(getActivity(), R.string.py_login_success);
                         StarPyUtil.saveSdkLoginData(getContext(),rawResult);
 
-                        sLoginActivity.setResult(sLoginResponse);
+                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse);
 
                         //1001 注册成功    1000登入成功
                         if (SStringUtil.isEqual("1001", sLoginResponse.getCode())) {
@@ -201,7 +201,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                     if (sLoginResponse.isRequestSuccess()){
 
                         ToastUtils.toast(getActivity(), R.string.py_login_success);
-                        sLoginActivity.setResult(sLoginResponse);
+                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse);
                         StarPyUtil.saveSdkLoginData(getContext(),rawResult);
                         getActivity().finish();
                     }else{

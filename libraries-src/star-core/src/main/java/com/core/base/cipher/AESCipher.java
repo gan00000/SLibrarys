@@ -86,6 +86,8 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
+import com.core.base.utils.PL;
+
 /**
 * <p>Title: AESCipher</p>
 * <p>Description: AES加密解密文件</p>
@@ -123,10 +125,10 @@ public class AESCipher {
 			return base64_ciphertext;
 		} catch (NoSuchAlgorithmException nsae) {
 			nsae.printStackTrace();
-			Log.e("efun", "no key factory support for PBEWITHSHAANDTWOFISH-CBC");
+			PL.i( "no key factory support for PBEWITHSHAANDTWOFISH-CBC");
 		} catch (InvalidKeySpecException ikse) {
 			ikse.printStackTrace();
-			Log.e("efun", "invalid key spec for PBEWITHSHAANDTWOFISH-CBC");
+			PL.i( "invalid key spec for PBEWITHSHAANDTWOFISH-CBC");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -156,10 +158,10 @@ public class AESCipher {
 			
 		} catch (NoSuchAlgorithmException nsae) {
 			nsae.printStackTrace();
-			Log.e("efun", "no key factory support for PBEWITHSHAANDTWOFISH-CBC");
+			PL.i( "no key factory support for PBEWITHSHAANDTWOFISH-CBC");
 		} catch (InvalidKeySpecException ikse) {
 			ikse.printStackTrace();
-			Log.e("efun", "invalid key spec for PBEWITHSHAANDTWOFISH-CBC");
+			PL.i( "invalid key spec for PBEWITHSHAANDTWOFISH-CBC");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -215,22 +217,22 @@ public class AESCipher {
 			return c.doFinal(msg);
 		} catch (NoSuchAlgorithmException nsae) {
 			nsae.printStackTrace();
-			Log.e("efun", "no cipher getinstance support for " + transformation);
+			PL.i("no cipher getinstance support for " + transformation);
 		} catch (NoSuchPaddingException nspe) {
 			nspe.printStackTrace();
-			Log.e("efun", "no cipher getinstance support for padding " + transformation);
+			PL.i("no cipher getinstance support for padding " + transformation);
 		} catch (InvalidKeyException e) {
 			e.printStackTrace();
-			Log.e("efun", "invalid key exception");
+			PL.i( "invalid key exception");
 		} catch (InvalidAlgorithmParameterException e) {
 			e.printStackTrace();
-			Log.e("efun", "invalid algorithm parameter exception");
+			PL.i("invalid algorithm parameter exception");
 		} catch (IllegalBlockSizeException e) {
 			e.printStackTrace();
-			Log.e("efun", "illegal block size exception");
+			PL.i( "illegal block size exception");
 		} catch (BadPaddingException e) {
 			e.printStackTrace();
-			Log.e("efun", "bad padding exception");
+			PL.i("bad padding exception");
 		}
 		return null;
 	}
@@ -242,22 +244,22 @@ public class AESCipher {
 			return c.doFinal(ciphertext);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
-			Log.e("efun", "no cipher getinstance support for " + transformation);
+			PL.i("no cipher getinstance support for " + transformation);
 		} catch (NoSuchPaddingException e) {
 			e.printStackTrace();
-			Log.e("efun", "no cipher getinstance support for padding " + transformation);
+			PL.i( "no cipher getinstance support for padding " + transformation);
 		} catch (InvalidKeyException e) {
 			e.printStackTrace();
-			Log.e("efun", "invalid key exception");
+			PL.i( "invalid key exception");
 		} catch (InvalidAlgorithmParameterException e) {
 			e.printStackTrace();
-			Log.e("efun", "invalid algorithm parameter exception");
+			PL.i( "invalid algorithm parameter exception");
 		} catch (IllegalBlockSizeException e) {
 			e.printStackTrace();
-			Log.e("efun", "illegal block size exception");
+			PL.i("illegal block size exception");
 		} catch (BadPaddingException e) {
 			e.printStackTrace();
-			Log.e("efun", "bad padding exception");
+			PL.i( "bad padding exception");
 		}
 		return null;
 	}

@@ -64,6 +64,12 @@
                 android:authorities="@string/facebook_authorities"
                 android:exported="true"/>
 
+        <receiver android:name="com.google.ads.conversiontracking.InstallReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

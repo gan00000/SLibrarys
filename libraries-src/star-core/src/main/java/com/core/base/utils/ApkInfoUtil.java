@@ -59,7 +59,7 @@ public class ApkInfoUtil {
 	    if(resourceId > 0){//2.4添加，过滤没有导航栏的设备
 	    	height = resources.getDimensionPixelSize(resourceId);
 	    }
-	    Log.d("efun", "Navi height:" + height);
+		PL.i( "Navi height:" + height);
 	    return height;
 	}
 	

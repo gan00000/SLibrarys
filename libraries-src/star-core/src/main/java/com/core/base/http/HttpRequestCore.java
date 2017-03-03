@@ -303,7 +303,7 @@ public class HttpRequestCore{
 			conn.setRequestProperty("Connection", "Keep-Alive");
 			conn.connect();
 			int code = conn.getResponseCode();
-			Log.d("efun", "域名文件 http response code:" + code);
+			PL.i("域名文件 http response code:" + code);
 			if (200 == code) {
 				File saveFile = new File(savePath);
 				FileUtil.deleteFile(saveFile);
@@ -326,7 +326,7 @@ public class HttpRequestCore{
 				return true;
 			}
 		} catch (IOException e) {
-			Log.d("efun", "exception:" + e.getMessage());
+			PL.i("exception:" + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			if (null != conn) {

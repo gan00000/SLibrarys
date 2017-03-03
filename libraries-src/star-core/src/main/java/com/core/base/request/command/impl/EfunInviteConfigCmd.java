@@ -15,6 +15,7 @@ import com.core.base.beans.InviteConfigBean;
 import com.core.base.http.HttpRequest;
 import com.core.base.http.HttpResponse;
 import com.core.base.request.command.abstracts.EfunCommonCmd;
+import com.core.base.utils.PL;
 
 public class EfunInviteConfigCmd extends EfunCommonCmd<InviteConfigBean> {
 	private InviteConfigBean inviteConfigBean = null;
@@ -69,18 +70,18 @@ public class EfunInviteConfigCmd extends EfunCommonCmd<InviteConfigBean> {
 	@Override
 	public void execute() throws Exception {
 		if(inviteFileUrl==null||"".equals(inviteFileUrl.trim())){
-			Log.e("efun", "inviteFileUrl is empty");
+			PL.i( "inviteFileUrl is empty");
 			return;
 		}
-		Log.i("efun", "开始下载："+inviteFileUrl);
+		PL.i("开始下载："+inviteFileUrl);
 		//result = getHttpResult(inviteFileCdnUrl, inviteFileUrl);
 		
 		HttpRequest httpRequest = new HttpRequest();
 		HttpResponse httpResponse = httpRequest.getReuqestIn2Url(inviteFileCdnUrl, inviteFileUrl);
 		result = httpResponse.getResult();
 		serverTime = httpResponse.getServerTime();
-		
-			Log.i("efun", "inviteNotice result:" + result);
+
+		PL.i( "inviteNotice result:" + result);
 			if(result==null||"".equals(result.trim())){
 				Log.i("efun", "服务器返回空");
 				return;

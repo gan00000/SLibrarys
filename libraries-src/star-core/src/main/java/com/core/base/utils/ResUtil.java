@@ -82,7 +82,7 @@ public class ResUtil {
 		try {
 			res = context.getResources().getString(getResourcesIdByName(context, "string", resourcesName));
 		} catch (Exception e) {
-			Log.e("efun", "resourcesName:" + resourcesName);
+			PL.i( "resourcesName:" + resourcesName);
 		}
 		return res;
 	}

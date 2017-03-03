@@ -58,7 +58,7 @@ public class EfunReadFileConfigCmd extends EfunCommand {
 	@Override
 	public void execute() throws Exception {
 		if (fileUrl == null || "".equals(fileUrl.trim())) {
-			Log.e("efun", "fileUrl is empty");
+			PL.i( "fileUrl is empty");
 			return;
 		}
 		PL.d("开始下载：" + fileUrl);
