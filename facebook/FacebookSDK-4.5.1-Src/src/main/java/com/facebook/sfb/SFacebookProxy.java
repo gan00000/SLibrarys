@@ -89,14 +89,15 @@ public class SFacebookProxy {
 	}
 	
 	public static void activateApp(final Context context,final String appId){
-		FacebookSdk.sdkInitialize(context.getApplicationContext(),new InitializeCallback() {
-			
-			@Override
-			public void onInitialized() {
-				Log.d(TAG, "InitializeCallback");
-				AppEventsLogger.activateApp(context, appId);
-			}
-		});
+//		FacebookSdk.sdkInitialize(context.getApplicationContext(),new InitializeCallback() {
+//
+//			@Override
+//			public void onInitialized() {
+//				Log.d(TAG, "InitializeCallback");
+//				AppEventsLogger.activateApp(context, appId);
+//			}
+//		});
+		AppEventsLogger.activateApp(context, appId);
 	}
 	
 	public static void trackingEvent(Activity activity,String eventName){
