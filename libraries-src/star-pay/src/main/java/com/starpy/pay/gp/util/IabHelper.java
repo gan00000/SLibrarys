@@ -256,9 +256,10 @@ public class IabHelper {
 
 			@Override
 			public void onServiceConnected(ComponentName name, IBinder service) {
-				if (mDisposed)
-					return;
 				logDebug("Billing service connected.");
+				if (mDisposed) {
+					return;
+				}
 				mService = IInAppBillingService.Stub.asInterface(service);
 				String packageName = context.getPackageName();
 				try {

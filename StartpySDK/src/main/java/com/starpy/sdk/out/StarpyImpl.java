@@ -97,9 +97,6 @@ public class StarpyImpl implements IStarpy {
             i.putExtra(GooglePayActivity.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
             activity.startActivity(i);*/
 
-            if (iPay == null){
-                iPay = IPayFactory.create(IPayFactory.PAY_GOOGLE);
-            }
             iPay.setIPayCallBack(new IPayCallBack() {
                 @Override
                 public void success() {
@@ -121,6 +118,12 @@ public class StarpyImpl implements IStarpy {
         PL.i("IStarpy onCreate");
         //广告
         StarEventLogger.activateApp(activity);
+        if (iPay == null){
+            iPay = IPayFactory.create(IPayFactory.PAY_GOOGLE);
+        }
+        if (iPay != null) {
+            iPay.onCreate(activity);
+        }
     }
 
     @Override
