@@ -50,7 +50,6 @@ public class GooglePayImpl implements IPay {
     boolean isPaying = false;//防止连续快速点击储值出现未知异常
 
 
-
     private void callbackSuccess(){
 
         if (loadingDialog != null){
@@ -85,7 +84,7 @@ public class GooglePayImpl implements IPay {
             PL.w("activity is null");
             return;
         }
-
+        this.activity = activity;
         if (payReqBean == null) {
             PL.w("payReqBean is null");
             return;
@@ -98,7 +97,6 @@ public class GooglePayImpl implements IPay {
         PL.w("google set paying...");
         isPaying = true;
 
-        this.activity = activity;
 
         this.createOrderIdReqBean = (GooglePayCreateOrderIdReqBean) payReqBean;
         this.createOrderIdReqBean.setRequestUrl(PayHelper.getPreferredUrl(activity));

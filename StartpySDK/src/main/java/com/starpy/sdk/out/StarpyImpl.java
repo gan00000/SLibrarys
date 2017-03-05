@@ -15,6 +15,8 @@ import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.pay.PayType;
 import com.starpy.pay.IPayCallBack;
+import com.starpy.pay.gp.GooglePayActivity;
+import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
 import com.starpy.pay.gp.constants.GooglePayContant;
@@ -93,9 +95,10 @@ public class StarpyImpl implements IStarpy {
             googlePayCreateOrderIdReqBean.setRoleLevel(roleLevel);
             googlePayCreateOrderIdReqBean.setExtra(extra);
 
-            /*Intent i = new Intent(activity, GooglePayActivity.class);
+            Intent i = new Intent(activity, GooglePayActivity2.class);
             i.putExtra(GooglePayActivity.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
-            activity.startActivity(i);*/
+            activity.startActivity(i);
+/*
 
             iPay.setIPayCallBack(new IPayCallBack() {
                 @Override
@@ -109,6 +112,7 @@ public class StarpyImpl implements IStarpy {
                 }
             });
             iPay.startPay(activity,googlePayCreateOrderIdReqBean);
+*/
 
         }
     }
@@ -119,7 +123,7 @@ public class StarpyImpl implements IStarpy {
         //广告
         StarEventLogger.activateApp(activity);
         if (iPay == null){
-            iPay = IPayFactory.create(IPayFactory.PAY_GOOGLE);
+//            iPay = IPayFactory.create(IPayFactory.PAY_GOOGLE);
         }
         if (iPay != null) {
             iPay.onCreate(activity);
@@ -128,7 +132,7 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void onResume(Activity activity) {
-        PL.i("onResume");
+        PL.i("IStarpy onResume");
     }
 
     @Override
