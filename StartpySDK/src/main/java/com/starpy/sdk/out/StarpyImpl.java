@@ -11,18 +11,15 @@ import com.starpy.ads.StarEventLogger;
 import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.login.ILoginCallBack;
+import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.pay.PayType;
-import com.starpy.pay.IPayCallBack;
-import com.starpy.pay.gp.GooglePayActivity;
+import com.starpy.pay.IPay;
 import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
 import com.starpy.pay.gp.constants.GooglePayContant;
 import com.starpy.pay.gp.util.PayHelper;
-import com.starpy.pay.IPayFactory;
-import com.starpy.pay.IPay;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.login.SLoginActivity;
 
@@ -35,6 +32,8 @@ public class StarpyImpl implements IStarpy {
     private ILoginCallBack loginCallBack;
 
     private IPay iPay;
+
+    private long firstClickTime;
 
     @Override
     public void initSDK(Activity activity) {
@@ -71,33 +70,26 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void pay(final Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
         PL.i("IStarpy pay");
+        if ((System.currentTimeMillis() - firstClickTime) < 800){//防止连续点击
+            PL.i("点击过快，无效");
+            return;
+        }
+        firstClickTime = System.currentTimeMillis();
+
         if (payType == PayType.OTHERS){//第三方储值
 
-            WebPayReqBean webPayReqBean = PayHelper.buildWebPayBean(activity,cpOrderId,roleLevel,extra);
-
-            Intent i = new Intent(activity, SWebViewActivity.class);
-            String payThirdUrl = null;
-            if (StarPyUtil.getSdkCfg(activity) != null) {
-
-                payThirdUrl = StarPyUtil.getSdkCfg(activity).getS_Third_PayUrl();
-            }
-            if (TextUtils.isEmpty(payThirdUrl)){
-                payThirdUrl = ResConfig.getPayPreferredUrl(activity) + ResConfig.getPayThirdMethod(activity);
-            }
-            i.putExtra(SWebViewActivity.PLAT_WEBVIEW_URL,payThirdUrl + "?" + SStringUtil.map2strData(webPayReqBean.fieldValueToMap()));
-            activity.startActivity(i);
+            othersPay(activity, cpOrderId, roleLevel, extra);
 
         }else{//默认Google储值
 
-            GooglePayCreateOrderIdReqBean googlePayCreateOrderIdReqBean = new GooglePayCreateOrderIdReqBean(activity);
-            googlePayCreateOrderIdReqBean.setCpOrderId(cpOrderId);
-            googlePayCreateOrderIdReqBean.setProductId(productId);
-            googlePayCreateOrderIdReqBean.setRoleLevel(roleLevel);
-            googlePayCreateOrderIdReqBean.setExtra(extra);
+            if (StarPyUtil.getSdkCfg(activity) != null && StarPyUtil.getSdkCfg(activity).isGoogleToOthersPay()){//假若Google包侵权被下架，次配置可以启动三方储值
+                PL.i("转第三方储值");
+                othersPay(activity, cpOrderId, roleLevel, extra);
 
-            Intent i = new Intent(activity, GooglePayActivity2.class);
-            i.putExtra(GooglePayActivity.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
-            activity.startActivity(i);
+            }else{
+
+                googlePay(activity, cpOrderId, productId, roleLevel, extra);
+            }
 /*
 
             iPay.setIPayCallBack(new IPayCallBack() {
@@ -115,6 +107,34 @@ public class StarpyImpl implements IStarpy {
 */
 
         }
+    }
+
+    private void googlePay(Activity activity, String cpOrderId, String productId, String roleLevel, String extra) {
+        GooglePayCreateOrderIdReqBean googlePayCreateOrderIdReqBean = new GooglePayCreateOrderIdReqBean(activity);
+        googlePayCreateOrderIdReqBean.setCpOrderId(cpOrderId);
+        googlePayCreateOrderIdReqBean.setProductId(productId);
+        googlePayCreateOrderIdReqBean.setRoleLevel(roleLevel);
+        googlePayCreateOrderIdReqBean.setExtra(extra);
+
+        Intent i = new Intent(activity, GooglePayActivity2.class);
+        i.putExtra(GooglePayActivity2.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
+        activity.startActivity(i);
+    }
+
+    private void othersPay(Activity activity, String cpOrderId, String roleLevel, String extra) {
+        WebPayReqBean webPayReqBean = PayHelper.buildWebPayBean(activity,cpOrderId,roleLevel,extra);
+
+        Intent i = new Intent(activity, SWebViewActivity.class);
+        String payThirdUrl = null;
+        if (StarPyUtil.getSdkCfg(activity) != null) {
+
+            payThirdUrl = StarPyUtil.getSdkCfg(activity).getS_Third_PayUrl();
+        }
+        if (TextUtils.isEmpty(payThirdUrl)){
+            payThirdUrl = ResConfig.getPayPreferredUrl(activity) + ResConfig.getPayThirdMethod(activity);
+        }
+        i.putExtra(SWebViewActivity.PLAT_WEBVIEW_URL,payThirdUrl + "?" + SStringUtil.map2strData(webPayReqBean.fieldValueToMap()));
+        activity.startActivity(i);
     }
 
     @Override

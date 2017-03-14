@@ -170,8 +170,9 @@ public class GooglePayImpl implements IPay {
             mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
 
                 public void onIabSetupFinished(IabResult result) {
-                    SLog.logI("startSetup onIabSetupFinished.");
+                    SLog.logI("startSetup onIabSetupFinished.");//No account found
                     if (!result.isSuccess()) {
+                        ToastUtils.toast(activity.getApplicationContext(),"Your phone or Google account does not support In-app Billing");
                         callbackFail();
                         return;
                     }
@@ -179,11 +180,6 @@ public class GooglePayImpl implements IPay {
 
                 }
 
-                @Override
-                public void onError(String message) {//发生错误时提示
-                    SLog.logI("message:" + message);
-                    callbackFail();
-                }
             });
         } else {
             mHelper.queryInventoryAsync(queryInventoryFinishedListener);

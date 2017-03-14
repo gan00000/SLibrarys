@@ -1,21 +1,19 @@
 package com.starpy.pay.gp.util;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.core.base.utils.ApkInfoUtil;
-import com.starpy.base.cfg.ResConfig;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.pay.gp.BasePayActivity;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
 import com.starpy.pay.gp.constants.GooglePayContant;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class PayHelper {
 	
@@ -77,12 +75,6 @@ public class PayHelper {
 		return url;
 	}
 	
-	
-	public static void logCurrentVersion(){
-		Log.d("efun", "pay version " + BasePayActivity.GOOGLE_PAY_VERSION);
-		Log.d("efun", "changeLog: " + BasePayActivity.GOOGLE_PAY_VERSION_CHAGE_LOG);
-	}
-
 	
 	public static void saveCurrentOrderId(Context ctx,String orderId){
 		SPUtil.saveSimpleInfo(ctx, GooglePayContant.EFUNFILENAME, GooglePayContant.EFUN_CURRENT_ORDER_ID_KEY, orderId);

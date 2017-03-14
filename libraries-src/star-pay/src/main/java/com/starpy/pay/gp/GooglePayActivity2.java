@@ -13,10 +13,13 @@ import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 
 public class GooglePayActivity2 extends Activity {
 
-	IPay iPay;
-	GooglePayCreateOrderIdReqBean googlePayCreateOrderIdReqBean;
+	public static final String GooglePayReqBean_Extra_Key = "GooglePayReqBean_Extra_Key";
 
-	Activity activity;
+
+	private IPay iPay;
+	private GooglePayCreateOrderIdReqBean googlePayCreateOrderIdReqBean;
+
+	private Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class GooglePayActivity2 extends Activity {
 
 		Intent intent = getIntent();
 		if (intent != null){
-			googlePayCreateOrderIdReqBean = (GooglePayCreateOrderIdReqBean) intent.getSerializableExtra(GooglePayActivity.GooglePayReqBean_Extra_Key);
+			googlePayCreateOrderIdReqBean = (GooglePayCreateOrderIdReqBean) intent.getSerializableExtra(GooglePayReqBean_Extra_Key);
 
 			iPay.startPay(this,googlePayCreateOrderIdReqBean);
 		}

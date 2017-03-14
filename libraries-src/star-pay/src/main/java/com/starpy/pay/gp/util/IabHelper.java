@@ -183,8 +183,9 @@ public class IabHelper {
 	 *            "developer public key".
 	 */
 	public IabHelper(Context mContext) {
-		 context = mContext.getApplicationContext();
+//		 context = mContext.getApplicationContext();
 		// mSignatureBase64 = base64PublicKey;
+		context = mContext;
 		logDebug("IAB helper created.");
 	}
 
@@ -221,7 +222,7 @@ public class IabHelper {
 		 */
 		public void onIabSetupFinished(IabResult result);
 		
-		void onError(String message);
+//		void onError(String message);
 	}
 
 	/**
@@ -269,8 +270,8 @@ public class IabHelper {
 					int response = mService.isBillingSupported(3, packageName, ITEM_TYPE_INAPP);//检查应用内商品是否支持购买
 					if (response != BILLING_RESPONSE_RESULT_OK) {
 						if (listener != null)
-							//listener.onIabSetupFinished(new IabResult(response, "Error checking for billing v3 support."));
-							listener.onError("Google Play not support billing v3,update Google Play please");
+							listener.onIabSetupFinished(new IabResult(response, "Error checking for billing v3 support."));
+//							listener.onError("Google Play not support billing v3,update Google Play please");
 						
 						// if in-app purchases aren't supported, neither are
 						// subscriptions.
@@ -292,8 +293,8 @@ public class IabHelper {
 				} catch (RemoteException e) {
 					e.printStackTrace();
 					if (listener != null) {
-						//listener.onIabSetupFinished(new IabResult(IABHELPER_REMOTE_EXCEPTION, "RemoteException while setting up in-app billing."));
-						listener.onError("error while setting up in-app billing");
+						listener.onIabSetupFinished(new IabResult(IABHELPER_REMOTE_EXCEPTION, "RemoteException while setting up in-app billing."));
+//						listener.onError("error while setting up in-app billing");
 					}
 					return;
 				}
@@ -314,8 +315,8 @@ public class IabHelper {
 			Log.d(mDebugTag, "resolveInfos为null,找不到google play 远程服务");
 			// no service available to handle that Intent
 			if (listener != null) {
-				//listener.onIabSetupFinished(new IabResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE, "Billing service unavailable on device."));
-				listener.onError("Google Play unavailable on device");
+				listener.onIabSetupFinished(new IabResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE, "Billing service unavailable on device."));
+//				listener.onError("Google Play unavailable on device");
 			}
 		}
 	}

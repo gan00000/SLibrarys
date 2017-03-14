@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.facebook.sfb.SFacebookProxy;
 import com.google.ads.conversiontracking.AdWordsConversionReporter;
+import com.startpy.sdk.R;
 
 /**
  * Created by gan on 2017/3/3.
@@ -22,7 +23,7 @@ public class StarEventLogger {
             // Add this code to the onCreate() method of your application activity
 
             AdWordsConversionReporter.reportWithConversionId(context.getApplicationContext(),
-                    "858913995", "lniQCKDX5G4Qy_nHmQM", "0.00", false);
+                    context.getString(R.string.star_ads_adword_conversionId), context.getString(R.string.star_ads_adword_label), "0.00", false);
         } catch (Exception e) {
             e.printStackTrace();
         }

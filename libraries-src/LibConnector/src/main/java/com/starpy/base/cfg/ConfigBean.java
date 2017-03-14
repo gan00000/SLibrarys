@@ -15,6 +15,7 @@ public class ConfigBean {
     private String S_Third_PayUrl = "";
     private String S_Login_password_Regularly = "";
     private String S_Login_account_Regularly = "";
+    private boolean GoogleToOthersPay = false;
 
     public String getS_AppKey() {
         return S_AppKey;
@@ -58,4 +59,11 @@ public class ConfigBean {
         return S_Login_account_Regularly;
     }
 
+    public boolean isGoogleToOthersPay() {
+        return GoogleToOthersPay;
+    }
+
+    public void setGoogleToOthersPay(boolean googleToOthersPay) {
+        GoogleToOthersPay = googleToOthersPay;
+    }
 }

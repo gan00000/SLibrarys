@@ -29,6 +29,9 @@
 
     <string name="star_pay_third_method">dynamic_change</string>
 
+    <!--adword ads  String conversionId, String label  "858913995", "lniQCKDX5G4Qy_nHmQM"-->
+    <string name="star_ads_adword_conversionId">858913995</string>
+    <string name="star_ads_adword_label">lniQCKDX5G4Qy_nHmQM</string>
 
 
 </resources>
