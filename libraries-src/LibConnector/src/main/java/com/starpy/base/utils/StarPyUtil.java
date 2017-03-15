@@ -91,12 +91,12 @@ public class StarPyUtil {
         return decryptPassword(SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_PASSWORD));
     }
 
-    private final static String cipherKey = "20170314starpypassword";
+//    private final static String cipherKey = "20170314starpypassword";
     private final static String cipherPasswordFlag = "888*****888";
     private static String encryptPassword(String password){
         try {
             if (SStringUtil.isNotEmpty(password)){
-                return cipherPasswordFlag + DESCipher.encrypt3DES(password,cipherKey);
+                return cipherPasswordFlag + DESCipher.encrypt3DES(password,PY_DY_ENCRYPT_SECRETKEY);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +107,7 @@ public class StarPyUtil {
         try {
             if (SStringUtil.isNotEmpty(encryptText) && encryptText.startsWith(cipherPasswordFlag)){
                 encryptText = encryptText.replace(cipherPasswordFlag,"");
-                return DESCipher.decrypt3DES(encryptText,cipherKey);
+                return DESCipher.decrypt3DES(encryptText,PY_DY_ENCRYPT_SECRETKEY);
             }
         } catch (Exception e) {
             e.printStackTrace();

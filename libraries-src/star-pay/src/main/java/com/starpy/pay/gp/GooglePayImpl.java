@@ -116,6 +116,7 @@ public class GooglePayImpl implements IPay {
             googlePaySetUp();
         }else{
             ToastUtils.toast(activity,"please log in to the game first");
+            callbackFail();
         }
         isPaying = false;
         PL.w("google set not paying");

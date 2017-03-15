@@ -46,7 +46,7 @@ public class ConfigRequest{
                     return;
                 }
                 rawResult = StarPyUtil.decryptDyUrl(context,rawResult);
-                PL.d("sdk cfg:" + rawResult);
+                PL.i("sdk cfg:" + rawResult);
                 JSONArray a = JsonUtil.getArrayObjByKey(rawResult,"S_Is_Reload_Cfg");
                 if (a != null && a.length() > 0){
                     for (int i = 0; i < a.length(); i++) {
