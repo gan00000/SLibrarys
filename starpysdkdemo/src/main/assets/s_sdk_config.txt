@@ -1,12 +1,12 @@
 {
-    "S_Pay_Spa_Url": "http://pay.starb168.com/",
-    "S_Pay_Pre_Url": "http://pay.starb168.com/",
-    "S_Login_Spa_Url": "http://login.starb168.com/",
-    "S_Login_Pre_Url": "http://login.starb168.com/",
-    "S_Login_password_Regularly": "",
-    "S_Login_account_Regularly": "",
-    "S_Is_Reload_Cfg": [
-        "DK",
-        "KDK"
-    ]
+  "S_Pay_Spa_Url": "http://pay.starb168.com/",
+  "S_Pay_Pre_Url": "http://pay.starb168.com/",
+  "S_Login_Spa_Url": "http://login.starb168.com/",
+  "S_Login_Pre_Url": "http://login.starb168.com/",
+  "S_Login_password_Regularly": "",
+  "S_Login_account_Regularly": "",
+  "GoogleToOthersPay": false,
+  "S_Is_Reload_Cfg": [
+
+  ]
 }

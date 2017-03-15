@@ -1,6 +1,7 @@
 package com.starpy.base.utils;
 
 import com.core.base.cipher.DESCipher;
+import com.core.base.utils.SStringUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -76,18 +77,42 @@ public class StarPyUtil {
     }
 
     public static void savePassword(Context context,String password){
-        SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE, STARPY_LOGIN_PASSWORD, password);
+        SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE, STARPY_LOGIN_PASSWORD, encryptPassword(password));
     }
 
     public static String getPassword(Context context){
-        return SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_LOGIN_PASSWORD);
+        return decryptPassword(SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_LOGIN_PASSWORD));
     }
     public static void saveMacPassword(Context context,String password){
-        SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_PASSWORD, password);
+        SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_PASSWORD, encryptPassword(password));
     }
 
     public static String getMacPassword(Context context){
-        return SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_PASSWORD);
+        return decryptPassword(SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_PASSWORD));
+    }
+
+    private final static String cipherKey = "20170314starpypassword";
+    private final static String cipherPasswordFlag = "888*****888";
+    private static String encryptPassword(String password){
+        try {
+            if (SStringUtil.isNotEmpty(password)){
+                return cipherPasswordFlag + DESCipher.encrypt3DES(password,cipherKey);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return password;
+    }
+    private static String decryptPassword(String encryptText){
+        try {
+            if (SStringUtil.isNotEmpty(encryptText) && encryptText.startsWith(cipherPasswordFlag)){
+                encryptText = encryptText.replace(cipherPasswordFlag,"");
+                return DESCipher.decrypt3DES(encryptText,cipherKey);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return encryptText;
     }
 
   /*  public static void saveUid(Context context,String uid){

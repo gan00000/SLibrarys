@@ -15,7 +15,7 @@ public class ConfigBean {
     private String S_Third_PayUrl = "";
     private String S_Login_password_Regularly = "";
     private String S_Login_account_Regularly = "";
-    private boolean GoogleToOthersPay = false;
+    private boolean GoogleToOthersPay = false;//Google储值是否转移为第三方储值
 
     public String getS_AppKey() {
         return S_AppKey;
