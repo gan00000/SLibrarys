@@ -1,15 +1,20 @@
 package com.starpy.sdk;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.core.base.BaseWebChromeClient;
 import com.core.base.BaseWebViewClient;
 import com.core.base.SBaseActivity;
 import com.core.base.SWebView;
 import com.core.base.utils.PL;
+import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.startpy.sdk.R;
 
@@ -35,7 +40,9 @@ public class SWebViewActivity extends SBaseActivity {
         if (getIntent() != null) {
             webUrl = getIntent().getStringExtra(PLAT_WEBVIEW_URL);
             webTitle = getIntent().getStringExtra(PLAT_WEBVIEW_TITLE);
+            initTitle(webTitle);
         }
+
 
         if (TextUtils.isEmpty(webUrl)){
             ToastUtils.toast(getApplicationContext(),"url error");
@@ -52,6 +59,32 @@ public class SWebViewActivity extends SBaseActivity {
         sWebView.setWebViewClient(new BaseWebViewClient(this));
         PL.i("SWebViewActivity url:" + webUrl);
         sWebView.loadUrl(webUrl);
+
+    }
+
+    private void initTitle(String webTitle) {
+
+       View titleLayout = findViewById(R.id.py_title_layout_id);
+        if (SStringUtil.isNotEmpty(webTitle)){
+            titleLayout.setVisibility(View.VISIBLE);
+            titleLayout.setBackgroundResource(R.mipmap.py_title_sdk_bg);
+        }else{
+            titleLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        findViewById(R.id.py_back_button).setVisibility(View.GONE);
+        TextView titleTextView = (TextView) findViewById(R.id.py_title_id);
+        titleTextView.setText(webTitle);
+        View rightCloseView = findViewById(R.id.py_title_right_button);
+        rightCloseView.setVisibility(View.VISIBLE);
+        rightCloseView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
     }
 

@@ -22,6 +22,7 @@ import com.starpy.pay.gp.constants.GooglePayContant;
 import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.login.SLoginActivity;
+import com.startpy.sdk.R;
 
 /**
  * Created by Efun on 2017/2/13.
@@ -134,6 +135,7 @@ public class StarpyImpl implements IStarpy {
             payThirdUrl = ResConfig.getPayPreferredUrl(activity) + ResConfig.getPayThirdMethod(activity);
         }
         i.putExtra(SWebViewActivity.PLAT_WEBVIEW_URL,payThirdUrl + "?" + SStringUtil.map2strData(webPayReqBean.fieldValueToMap()));
+        i.putExtra(SWebViewActivity.PLAT_WEBVIEW_TITLE,activity.getString(R.string.py_pay_title));
         activity.startActivity(i);
     }
 

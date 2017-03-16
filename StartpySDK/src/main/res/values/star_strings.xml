@@ -25,5 +25,6 @@
     <string name="py_error_occur">發生錯誤，請重試</string>
     <string name="py_error_time_out">鏈接超時，請重試</string>
     <string name="py_auto_login_change">切換帳號</string>
+    <string name="py_pay_title">儲值</string>
 
 </resources>
