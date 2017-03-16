@@ -339,22 +339,21 @@ public class SLoginActivity extends BaseLoginActivity {
 //                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
 //                        getActivity().finish();
                     }else{
-
-                        ToastUtils.toast(sLoginActivity, sLoginResponse.getMessage());
+                        goCommomLogin();
                     }
                 } else {
-                    ToastUtils.toast(sLoginActivity, R.string.py_error_occur);
+                    goCommomLogin();
                 }
             }
 
             @Override
             public void timeout(String code) {
-
+                goCommomLogin();
             }
 
             @Override
             public void noData() {
-
+                goCommomLogin();
             }
         });
         cmd.excute(SLoginResponse.class);
