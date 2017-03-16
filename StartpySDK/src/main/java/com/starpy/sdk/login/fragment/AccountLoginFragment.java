@@ -12,17 +12,18 @@ import android.view.ViewGroup;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.BitmapUtil;
+import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
+import com.core.base.utils.ToastUtils;
 import com.facebook.sfb.FbSp;
 import com.facebook.sfb.SFacebookProxy;
-import com.core.base.utils.PL;
 import com.starpy.base.utils.StarPyUtil;
+import com.starpy.data.login.constant.SLoginType;
 import com.starpy.data.login.execute.FBLoginRegRequestTask;
 import com.starpy.data.login.execute.MacLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
-import com.startpy.sdk.R;
 import com.starpy.sdk.utils.DialogUtil;
-import com.core.base.utils.ToastUtils;
+import com.startpy.sdk.R;
 
 /**
  * Created by Efun on 2017/2/6.
@@ -102,10 +103,8 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
             public void success(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null) {
                     if (sLoginResponse.isRequestSuccess()) {
-                        ToastUtils.toast(getActivity(), R.string.py_login_success);
-                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
-
-                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse);
+//                        ToastUtils.toast(getActivity(), R.string.py_login_success);
+//                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
 
                         //1001 注册成功    1000登入成功
                         if (SStringUtil.isEqual("1001", sLoginResponse.getCode())) {
@@ -114,8 +113,10 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
                         StarPyUtil.saveMacAccount(getContext(),sLoginResponse.getFreeRegisterName());
                         StarPyUtil.saveMacPassword(getContext(),sLoginResponse.getFreeRegisterPwd());
+                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult,SLoginType.LOGIN_TYPE_MAC);
 
-                        getActivity().finish();
+
+//                        getActivity().finish();
                     }else {
 
                         ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
@@ -200,10 +201,10 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
                     if (sLoginResponse.isRequestSuccess()){
 
-                        ToastUtils.toast(getActivity(), R.string.py_login_success);
-                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse);
-                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
-                        getActivity().finish();
+//                        ToastUtils.toast(getActivity(), R.string.py_login_success);
+                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_FB);
+//                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
+//                        getActivity().finish();
                     }else{
 
                         ToastUtils.toast(getActivity(), sLoginResponse.getMessage());

@@ -36,6 +36,7 @@ public class StarPyUtil {
     public static final String STARPY_SDK_LOGIN_TERMS = "STARPY_SDK_LOGIN_TERMS";
     public static final String STARPY_MAC_LOGIN_USERNAME = "STARPY_MAC_LOGIN_USERNAME";
     public static final String STARPY_MAC_LOGIN_PASSWORD = "STARPY_MAC_LOGIN_PASSWORD";
+    public static final String STARPY_PREVIOUS_LOGIN_TYPE = "STARPY_PREVIOUS_LOGIN_TYPE";
 
 
     public static void saveSdkCfg(Context context,String cfg){
@@ -89,6 +90,14 @@ public class StarPyUtil {
 
     public static String getMacPassword(Context context){
         return decryptPassword(SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_MAC_LOGIN_PASSWORD));
+    }
+
+    public static void savePreviousLoginType(Context context,String loginType){
+        SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE, STARPY_PREVIOUS_LOGIN_TYPE, loginType);
+    }
+
+    public static String getPreviousLoginType(Context context){
+        return decryptPassword(SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_PREVIOUS_LOGIN_TYPE));
     }
 
 //    private final static String cipherKey = "20170314starpypassword";

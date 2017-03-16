@@ -48,12 +48,6 @@ android {
             signingConfig signingConfigs.config222
         }
 
-        releasedemo {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config222
-        }
-
         debug {
             signingConfig signingConfigs.brmmdsign
         }

@@ -111,6 +111,11 @@ public class SStringUtil {
 		return false;
 	}
 
+	/**
+	 * @param str1
+	 * @param str2
+	 * @return  若str1为empty,返回FALSE，若str1.equals(str2)
+	 */
 	public static boolean isEqual(String str1, String str2){
 		if (TextUtils.isEmpty(str1))
 			return false;

@@ -12,7 +12,9 @@
                   android:id="@+id/fragment_content"
 
     >
-
-
     </RelativeLayout>
+
+
+    <include layout="@layout/py_auto_login_loading"/>
+
 </RelativeLayout>

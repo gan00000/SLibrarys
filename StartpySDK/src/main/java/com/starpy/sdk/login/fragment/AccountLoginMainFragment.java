@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.SStringUtil;
+import com.starpy.data.login.constant.SLoginType;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.startpy.sdk.R;
@@ -144,13 +145,13 @@ public class AccountLoginMainFragment extends BaseFragment {
             public void success(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null){
                     if (sLoginResponse.isRequestSuccess()) {
-                        ToastUtils.toast(getActivity(),R.string.py_login_success);
-                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse);
+//                        ToastUtils.toast(getActivity(),R.string.py_login_success);
                         StarPyUtil.saveAccount(getContext(),account);
                         StarPyUtil.savePassword(getContext(),password);
-                        StarPyUtil.saveSdkLoginData(getActivity(),sLoginResponse.getRawResponse());
-
-                        getActivity().finish();
+//                        StarPyUtil.saveSdkLoginData(getActivity(),sLoginResponse.getRawResponse());
+//
+                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
+//                        getActivity().finish();
                     }else{
 
                         ToastUtils.toast(getActivity(),sLoginResponse.getMessage());

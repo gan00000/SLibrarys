@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.SStringUtil;
+import com.starpy.data.login.constant.SLoginType;
 import com.starpy.data.login.execute.AccountRegisterRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.startpy.sdk.R;
@@ -170,11 +171,10 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
                 if (sLoginResponse != null) {
                     if (sLoginResponse.isRequestSuccess()) {
                         ToastUtils.toast(getActivity(), R.string.py_register_success);
-                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse);
+                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
 
                         StarPyUtil.saveAccount(getContext(),account);
                         StarPyUtil.savePassword(getContext(),password);
-                        StarPyUtil.saveSdkLoginData(getActivity(),sLoginResponse.getRawResponse());
 
                         getActivity().finish();
                     }else{
