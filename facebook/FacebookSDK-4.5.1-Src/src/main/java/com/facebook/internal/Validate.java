@@ -133,9 +133,13 @@ public final class Validate {
 
     public static void sdkInitialized() {
         if (!FacebookSdk.isInitialized()) {
-            throw new FacebookSdkNotInitializedException(
-                    "The SDK has not been initialized, make sure to call " +
+//            throw new FacebookSdkNotInitializedException(
+//                    "The SDK has not been initialized, make sure to call " +
+//                    "FacebookSdk.sdkInitialize() first.");
+
+            Log.e("FB", "The SDK has not been initialized, make sure to call " +
                     "FacebookSdk.sdkInitialize() first.");
+
         }
     }
 
