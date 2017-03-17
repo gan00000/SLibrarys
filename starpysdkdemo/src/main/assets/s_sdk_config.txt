@@ -6,6 +6,7 @@
   "S_Login_password_Regularly": "",
   "S_Login_account_Regularly": "",
   "GoogleToOthersPay": false,
+  "OpenOthersPay": "",
   "S_Is_Reload_Cfg": [
 
   ]

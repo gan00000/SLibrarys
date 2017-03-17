@@ -1,5 +1,9 @@
 package com.starpy.base.cfg;
 
+import android.content.Context;
+
+import com.core.base.utils.SStringUtil;
+
 /**
  * Created by Efun on 2017/2/16.
  */
@@ -15,7 +19,8 @@ public class ConfigBean {
     private String S_Third_PayUrl = "";
     private String S_Login_password_Regularly = "";
     private String S_Login_account_Regularly = "";
-    private boolean GoogleToOthersPay = false;//Google储值是否转移为第三方储值
+    private boolean GoogleToOthersPay = false;//Google储值是否转移为第三方储值,废弃
+    private String OpenOthersPay = "";//Google储值是否转移为第三方储值
 
     public String getS_AppKey() {
         return S_AppKey;
@@ -63,7 +68,11 @@ public class ConfigBean {
         return GoogleToOthersPay;
     }
 
-    public void setGoogleToOthersPay(boolean googleToOthersPay) {
-        GoogleToOthersPay = googleToOthersPay;
+
+    public boolean openOthersPay(Context context){
+        if (SStringUtil.isNotEmpty(OpenOthersPay) && OpenOthersPay.contains(context.getPackageName())){
+            return true;
+        }
+        return false;
     }
 }

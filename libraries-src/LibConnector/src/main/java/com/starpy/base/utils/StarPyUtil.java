@@ -46,9 +46,9 @@ public class StarPyUtil {
     private static ConfigBean configBean;
 
     public static ConfigBean getSdkCfg(Context context){
-        if (configBean != null){//缓存
-            return configBean;
-        }
+//        if (configBean != null){//缓存
+//            return configBean;
+//        }
         String cfg = SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_SDK_CFG);
         if (JsonUtil.isJson(cfg)){
             try {

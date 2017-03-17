@@ -83,7 +83,7 @@ public class StarpyImpl implements IStarpy {
 
         }else{//默认Google储值
 
-            if (StarPyUtil.getSdkCfg(activity) != null && StarPyUtil.getSdkCfg(activity).isGoogleToOthersPay()){//假若Google包侵权被下架，次配置可以启动三方储值
+            if (StarPyUtil.getSdkCfg(activity) != null && StarPyUtil.getSdkCfg(activity).openOthersPay(activity)){//假若Google包侵权被下架，次配置可以启动三方储值
                 PL.i("转第三方储值");
                 othersPay(activity, cpOrderId, roleLevel, extra);
 
