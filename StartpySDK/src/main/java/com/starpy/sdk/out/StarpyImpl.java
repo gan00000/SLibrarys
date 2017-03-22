@@ -54,6 +54,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void registerRoleInfo(Activity activity, String roleId, String roleName, String roleLevel, String severCode, String serverName) {
         PL.i("IStarpy registerRoleInfo");
+        PL.i("roleId:" + roleId + ",roleName:" + roleName + ",severCode:" + severCode + ",serverName:" + serverName);
         StarPyUtil.saveRoleInfo(activity, roleId, roleName, severCode, serverName);//保存角色信息
     }
 

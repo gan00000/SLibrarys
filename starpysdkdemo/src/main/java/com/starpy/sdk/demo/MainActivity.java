@@ -69,9 +69,9 @@ public class MainActivity extends Activity {
                     }
                 });
 
-//                String s = StarPyUtil.encryptDyUrl(getApplicationContext(),FileUtil.readAssetsTxtFile(getApplicationContext(),"s_sdk_config.txt"));
+                String s = StarPyUtil.encryptDyUrl(getApplicationContext(),FileUtil.readAssetsTxtFile(getApplicationContext(),"s_sdk_config.txt"));
 //
-//                PL.i(s);
+                PL.i(s);
             }
         });
 

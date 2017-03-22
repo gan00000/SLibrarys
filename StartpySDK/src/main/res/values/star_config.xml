@@ -33,5 +33,8 @@
     <string name="star_ads_adword_conversionId">858913995</string>
     <string name="star_ads_adword_label">lniQCKDX5G4Qy_nHmQM</string>
 
+    <!--<data android:scheme="starpy" android:host="@string/star_game_code"/>-->
+    <!--<scheme>://<host>:<port>[<path>|<pathPrefix>|<pathPattern>]-->
+    <string name="star_android_scheme">starpy</string>
 
 </resources>
