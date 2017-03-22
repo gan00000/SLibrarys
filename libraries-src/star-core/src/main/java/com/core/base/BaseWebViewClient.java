@@ -12,6 +12,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.core.base.utils.PL;
+
 /**
  * Created by Efun on 2016/12/2.
  */
@@ -79,6 +81,7 @@ public class BaseWebViewClient extends WebViewClient {
 
         } else */
 
+        PL.i("overrideUrlLoading url:" + url);
         if (url.toLowerCase().startsWith("http") || url.toLowerCase().startsWith("https") || url.toLowerCase().startsWith("file")) {
             webView.loadUrl(url);
         } else {
