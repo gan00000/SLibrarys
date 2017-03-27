@@ -6,7 +6,7 @@
     <string name="facebook_app_id">1286278484776251</string>
     <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1286278484776251</string>
     <!-- fb配置end -->
-    <string name="star_game_code">brmmd</string>
+
 
     <string name="star_py_login_pre_url">http://login.starb168.com/</string>
     <string name="star_py_login_spa_url">http://login.starb168.com/</string>
@@ -19,7 +19,7 @@
     <string name="star_py_cdn_pre_url">http://autocdn-palt.starb168.com/</string>
     <string name="star_py_cdn_spa_url">http://autocdn-paltsl.starb168.com/</string>
 
-
+    <string name="star_game_code">brmmd</string>
     <!--是否侵权 true为侵权，默认为非侵权-->
     <string name="star_infringement"></string>
     <string name="star_app_key">97d9636e3aa6e8a6a4dd85cb5fd8db9e</string>
