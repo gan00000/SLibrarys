@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.SStringUtil;
-import com.starpy.data.login.constant.SLoginType;
+import com.starpy.base.bean.SLoginType;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.startpy.sdk.R;

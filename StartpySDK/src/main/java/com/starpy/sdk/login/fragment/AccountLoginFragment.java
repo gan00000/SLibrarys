@@ -17,8 +17,8 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.facebook.sfb.FbSp;
 import com.facebook.sfb.SFacebookProxy;
+import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.data.login.constant.SLoginType;
 import com.starpy.data.login.execute.FBLoginRegRequestTask;
 import com.starpy.data.login.execute.MacLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
@@ -143,10 +143,12 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
     private void cteateUserImage(Context context,String freeRegisterName, String freeRegisterPwd) {
         String appName = ApkInfoUtil.getApplicationName(context);
-        String text = "你登入" + appName + "的帳號和密碼如下:\n帳號:" + freeRegisterName + "\n" + "密碼:" + freeRegisterPwd;
+//        String text = "你登入" + appName + "的帳號和密碼如下:\n帳號:" + freeRegisterName + "\n" + "密碼:" + freeRegisterPwd;
+        String text = String.format(context.getResources().getString(R.string.py_login_mac_tips), appName, freeRegisterName, freeRegisterPwd);
+        PL.i("cteateUserImage:" + text);
         Bitmap bitmap = BitmapUtil.bitmapAddText(BitmapFactory.decodeResource(getResources(),R.drawable.image_bg),text);
         BitmapUtil.saveImageToGallery(getContext(),bitmap);
-        ToastUtils.toast(context,"你的帳號密碼已經保存到相冊中");
+        ToastUtils.toast(context, getResources().getString(R.string.py_login_mac_saveimage_tips));
     }
 
 

@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.bean.SLoginType;
 import com.starpy.data.login.request.ThirdLoginRegRequest;
-import com.starpy.data.login.constant.SLoginType;
 
 /**
  * <p>Title: MacLoginRegRequestTask</p> <p>Description: 新三方登陆&注册接口</p> <p>Company: EFun</p>

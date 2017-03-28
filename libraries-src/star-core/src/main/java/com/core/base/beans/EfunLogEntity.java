@@ -1,3 +1,4 @@
+/*
 package com.core.base.beans;
 
 import com.google.gson.Gson;
@@ -8,28 +9,40 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+*/
 /**
  * 记录日志的类
  * Created by Efun on 2016/10/25.
- */
+ *//*
+
 
 public class EfunLogEntity implements Serializable{
 
-    /** 日志时间戳 */
+    */
+/** 日志时间戳 *//*
+
     private String timestamp;
-    /** 事件 */
+    */
+/** 事件 *//*
+
     private String event;
-    /** 日志信息 */
+    */
+/** 日志信息 *//*
+
     private Map<String, String> info;
-    /** 附加信息 */
+    */
+/** 附加信息 *//*
+
     private String remark;
 
-    /**
+    */
+/**
      * 初始化一个日志的实体，该实体会自动获取系统时间戳，用于标识日志时间
      * @param event 事件
      * @param info 信息
      * @param remark 附加信息
-     */
+     *//*
+
     public EfunLogEntity(String event, Map<String, String> info, String remark){
         this.timestamp = getTimestampText();
         this.event = event;
@@ -41,11 +54,13 @@ public class EfunLogEntity implements Serializable{
         return timestamp;
     }
 
-    /**
+    */
+/**
      * 获取固定时间格式的时间串<br>
      *     时间格式：yyyy-MM-dd hh:mm:ss
      * @return 固定时间格式的时间串
-     */
+     *//*
+
     public String getTimestampText(){
         long timestamp = System.currentTimeMillis();
         String formatDate = "";
@@ -96,3 +111,4 @@ public class EfunLogEntity implements Serializable{
         return json + "\n";
     }
 }
+*/

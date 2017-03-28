@@ -1,3 +1,4 @@
+/*
 package com.core.base.request;
 
 import com.core.base.request.command.abstracts.EfunCommand;
@@ -82,7 +83,9 @@ public class SCommandAsyncTask extends SRequestAsyncTask {
 			if (!command.isShowProgress()) {
 				return null;
 			}
-			if(context!=null/*&&!context.isFinishing()*/){
+			if(context!=null*/
+/*&&!context.isFinishing()*//*
+){
 				if(progress!=null&&progress.isShowing()){
 					try {
 						progress.dismiss();
@@ -121,7 +124,9 @@ public class SCommandAsyncTask extends SRequestAsyncTask {
 				return;
 			}
 			
-			if(context!=null/*&&!context.isFinishing()*/){
+			if(context!=null*/
+/*&&!context.isFinishing()*//*
+){
 				if(progress!=null&&progress.isShowing()){
 					try {
 						progress.dismiss();
@@ -151,3 +156,4 @@ public class SCommandAsyncTask extends SRequestAsyncTask {
 	}
 
 }
+*/

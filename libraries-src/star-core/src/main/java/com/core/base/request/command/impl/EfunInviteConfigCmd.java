@@ -1,3 +1,4 @@
+/*
 package com.core.base.request.command.impl;
 
 import java.io.File;
@@ -24,9 +25,11 @@ public class EfunInviteConfigCmd extends EfunCommonCmd<InviteConfigBean> {
 	private String inviteFileCdnUrl;
 	private String serverTime;
 	private String result; 
-	/**
+	*/
+/**
 	 * 
-	 */
+	 *//*
+
 	private static final long serialVersionUID = 1L;
 
 	public void setInviteFileCdnUrl(String inviteFileCdnUrl) {
@@ -127,63 +130,6 @@ public class EfunInviteConfigCmd extends EfunCommonCmd<InviteConfigBean> {
 		        }   
 			}
 	}
-//	public String getHttpResult(String reqUrl, String reqUrl2){
-//		String res = "";
-//		HttpURLConnection httpUrlConnection = null;
-//		try {
-//			httpUrlConnection  = getHttpConnection(reqUrl);
-//		}catch (Exception e) {
-//			try {
-//				httpUrlConnection = getHttpConnection(reqUrl2);
-//			} catch (Exception e1) {
-//				e1.printStackTrace();
-//			}
-//			e.printStackTrace();
-//		}
-//		try {
-//			int httpCode = httpUrlConnection.getResponseCode();
-//			if(httpCode!=200){
-//				httpUrlConnection = getHttpConnection(reqUrl2);
-//			}
-//			serverTime = httpUrlConnection.getHeaderField("Date");
-//			InputStream inStream = httpUrlConnection.getInputStream();
-//			byte[] buffer = new byte[1024];
-//			StringBuffer stringBuffer = new StringBuffer();
-//			int count;
-//			while ((count = inStream.read(buffer))>0) {
-//				stringBuffer.append(new String(buffer, 0, count));
-//			}
-//			res = stringBuffer.toString();
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		} catch (ProtocolException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return res;
-//	}
 
-//	private HttpURLConnection getHttpConnection(String reqUrl)
-//			throws MalformedURLException, IOException, ProtocolException {
-//		Log.i("efun", "当前访问地址："+reqUrl);
-//		URL url = new URL(reqUrl);
-//		URLConnection rulConnection = url.openConnection();
-//		HttpURLConnection httpUrlConnection = (HttpURLConnection) rulConnection;
-//		httpUrlConnection.setConnectTimeout(15000);
-//		httpUrlConnection.setReadTimeout(15000);
-//		httpUrlConnection.setDoOutput(false);
-//		httpUrlConnection.setDoInput(true);
-//		httpUrlConnection.setUseCaches(false);
-//		httpUrlConnection.setRequestProperty("accept", "*/*");
-//		httpUrlConnection.setRequestProperty("connection", "Keep-Alive");
-//		// 进行编码
-//		httpUrlConnection.setRequestProperty("Content-Type",
-//				"application/x-www-form-urlencoded");
-//		// 设定请求的方法为"POST"，默认是GET
-//		httpUrlConnection.setRequestMethod("GET");
-//		// 连接，从上述第2条中url.openConnection()至此的配置必须要在connect之前完成，
-//		httpUrlConnection.connect();
-//		return httpUrlConnection;
-//	}
 }
+*/

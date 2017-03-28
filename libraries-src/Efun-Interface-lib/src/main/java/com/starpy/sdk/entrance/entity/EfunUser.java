@@ -1,6 +1,7 @@
 package com.starpy.sdk.entrance.entity;
 
-import com.starpy.data.login.constant.SLoginType;
+
+import com.starpy.base.bean.SLoginType;
 
 import java.io.Serializable;
 

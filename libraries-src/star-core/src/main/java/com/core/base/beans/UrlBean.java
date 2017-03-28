@@ -1,3 +1,4 @@
+/*
 package com.core.base.beans;
 
 import java.io.Serializable;
@@ -6,9 +7,11 @@ import android.text.TextUtils;
 
 public class UrlBean implements Serializable{
 
-	/**
+	*/
+/**
 	 * serialVersionUID
-	 */
+	 *//*
+
 	private static final long serialVersionUID = 1L;
 	
 	private String efunLoginPreferredUrl;
@@ -112,9 +115,11 @@ public class UrlBean implements Serializable{
 
 	
 
-	/* (non-Javadoc)
+	*/
+/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
-	 */
+	 *//*
+
 	@Override
 	public String toString() {
 		return "UrlBean [efunLoginPreferredUrl=" + efunLoginPreferredUrl + ", efunLoginSpareUrl=" + efunLoginSpareUrl + ", efunAdsPreferredUrl="
@@ -125,13 +130,16 @@ public class UrlBean implements Serializable{
 				+ isQxdlSwitch + "]";
 	}
 
+*/
 /*	public String getEfunLuaSwitchUrl() {
 		return efunLuaSwitchUrl;
 	}
 
 	public void setEfunLuaSwitchUrl(String efunLuaSwitchUrl) {
 		this.efunLuaSwitchUrl = efunLuaSwitchUrl;
-	}*/
+	}*//*
+
 	
 	
 }
+*/

@@ -11,6 +11,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,6 +21,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 /**
@@ -391,4 +393,16 @@ public class ApkInfoUtil {
 		return getLocaleLanguage();
 	}
 
+	public static void updateConfigurationLocale(Context context, Locale newLocale) {
+		if (null == newLocale){
+			return;
+		}
+		Resources resources = context.getResources();//获得res资源对象
+		Configuration config = resources.getConfiguration();//获得设置对象
+		PL.i("old onConfigurationChanged:" + config.toString());
+		DisplayMetrics dm = resources.getDisplayMetrics();//获得屏幕参数：主要是分辨率，像素等。
+		config.locale = newLocale; //简体中文
+		resources.updateConfiguration(config, dm);
+		PL.i("new onConfigurationChanged:" + config.toString());
+	}
 }

@@ -1,22 +1,25 @@
+/*
 package com.core.base.beans;
 
 import java.io.Serializable;
 
 public class DynamicVersionBean implements Serializable {
 
-	/**
+	*/
+/**
 	 * serialVersionUID
-	 */
+	 *//*
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private String versionCode;
 	private String signValue;
 	private String qxdlSwitch;
-	
+
 	public String getVersionCode() {
 		return versionCode;
 	}
-	
+
 	public void setVersionCode(String versionCode) {
 		this.versionCode = versionCode;
 	}
@@ -32,8 +35,9 @@ public class DynamicVersionBean implements Serializable {
 	public void setQxdlSwitch(String qxdlSwitch) {
 		this.qxdlSwitch = qxdlSwitch;
 	}
-	
+
 	public boolean isHasNull(){
 		return versionCode == null || signValue == null;
 	}
 }
+*/

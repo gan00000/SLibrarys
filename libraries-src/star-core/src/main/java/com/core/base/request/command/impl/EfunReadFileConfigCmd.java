@@ -1,3 +1,4 @@
+/*
 package com.core.base.request.command.impl;
 
 import android.content.Context;
@@ -16,9 +17,11 @@ public class EfunReadFileConfigCmd extends EfunCommand {
 	private String saveFilePath = null;
 	String result = null;
 	Context context;
-	/**
+	*/
+/**
 	 * 
-	 */
+	 *//*
+
 	private static final long serialVersionUID = 1L;
 
 	public EfunReadFileConfigCmd(Context context) {
@@ -48,9 +51,11 @@ public class EfunReadFileConfigCmd extends EfunCommand {
 	
 	private long requestTime;
 	
-	/**
+	*/
+/**
 	 * @return the requestTime
-	 */
+	 *//*
+
 	public long getRequestTime() {
 		return requestTime;
 	}
@@ -63,7 +68,8 @@ public class EfunReadFileConfigCmd extends EfunCommand {
 		}
 		PL.d("开始下载：" + fileUrl);
 		requestTime = System.currentTimeMillis();
-	/*	HttpGet request = new HttpGet(fileUrl);
+	*/
+/*	HttpGet request = new HttpGet(fileUrl);
 		HttpClient client = new DefaultHttpClient();
 		client.getParams().setParameter("http.connection.timeout", Integer.valueOf(10000));
 		client.getParams().setParameter("http.socket.timeout", Integer.valueOf(10000));
@@ -86,7 +92,8 @@ public class EfunReadFileConfigCmd extends EfunCommand {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}*/
+		}*//*
+
 		
 		HttpRequestCore r = new HttpRequestCore();
 		result = r.excuteGetRequest(fileUrl).getResult();
@@ -97,3 +104,4 @@ public class EfunReadFileConfigCmd extends EfunCommand {
 	}
 
 }
+*/

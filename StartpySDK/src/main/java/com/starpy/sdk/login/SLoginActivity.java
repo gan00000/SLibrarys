@@ -18,9 +18,9 @@ import com.core.base.utils.ToastUtils;
 import com.facebook.sfb.FbSp;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.ads.StarEventLogger;
+import com.starpy.base.bean.SLoginType;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.data.login.constant.SLoginType;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
 import com.starpy.data.login.execute.FBLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
@@ -234,7 +234,7 @@ public class SLoginActivity extends BaseLoginActivity {
                 return;
             }
 
-            autoLoginTips.setText("帳號 " + account + " 正在登錄");
+            autoLoginTips.setText(String.format(getResources().getString(R.string.py_login_autologin_tips),account));
         }else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_FB, loginType)){
             autoLoginTips.setText("facebook帳號正在登錄");
         }

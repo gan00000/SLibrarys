@@ -4,7 +4,9 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.core.base.utils.PL;
 import com.core.base.utils.ResUtil;
+import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.utils.StarPyUtil;
 
@@ -25,7 +27,7 @@ public class ResConfig {
 		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_GameCode())){
 			return StarPyUtil.getSdkCfg(context).getS_GameCode();
 		}
-		return efunGetString(context, "star_game_code");
+		return getResStringByName(context, "star_game_code");
 	}
 	
 
@@ -39,26 +41,34 @@ public class ResConfig {
 		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_AppKey())){
 			return StarPyUtil.getSdkCfg(context).getS_AppKey();
 		}
-		return efunGetString(context, "star_app_key");
+		return getResStringByName(context, "star_app_key");
 	}
 
 	public static String getApplicationId(Context context) {
-		return efunGetString(context, "facebook_app_id");
+		return getResStringByName(context, "facebook_app_id");
 	}
 
 
 	public static String getGameLanguage(Context context) {
-		//String language = SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_SDK_LANGUAGE);
-//		if (TextUtils.isEmpty(language)) {
-//			language =  efunGetString(context, "efunLanguage");
-//		}
-		String language =  efunGetString(context, "star_game_language");
+		String language = SPUtil.getSimpleString(context, StarPyUtil.STAR_PY_SP_FILE, StarPyUtil.STARPY_GAME_LANGUAGE);
+		if (TextUtils.isEmpty(language)) {
+			language =  getResStringByName(context, "star_game_language");
+		}
 		return language;
+	}
+
+	public static void saveGameLanguage(Context context,String language) {
+		if (TextUtils.isEmpty(language)) {
+			return;
+		}
+		SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, StarPyUtil.STARPY_GAME_LANGUAGE,language);
 	}
 	
 	public static String getGameLanguageLower(Context context){
 		return getGameLanguage(context).toLowerCase();
 	}
+
+
 
 	//===========================================参数配置end===============================================	
 	//===========================================参数配置end===============================================	
@@ -80,14 +90,14 @@ public class ResConfig {
 		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Login_Pre_Url())){
 			return StarPyUtil.getSdkCfg(context).getS_Login_Pre_Url();
 		}
-		return efunGetConfigUrl(context, "star_py_login_pre_url");
+		return getConfigUrl(context, "star_py_login_pre_url");
 	}
 
 	public static String getLoginSpareUrl(Context context) {
 		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Login_Spa_Url())){
 			return StarPyUtil.getSdkCfg(context).getS_Login_Spa_Url();
 		}
-		return efunGetConfigUrl(context, "star_py_login_spa_url");
+		return getConfigUrl(context, "star_py_login_spa_url");
 	}
 
 	/**
@@ -100,28 +110,28 @@ public class ResConfig {
 		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Pay_Pre_Url())){
 			return StarPyUtil.getSdkCfg(context).getS_Pay_Pre_Url();
 		}
-		return efunGetConfigUrl(context, "star_py_pay_pre_url");
+		return getConfigUrl(context, "star_py_pay_pre_url");
 	}
 	public static String getPaySpareUrl(Context context) {
 		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Pay_Spa_Url())){
 			return StarPyUtil.getSdkCfg(context).getS_Pay_Spa_Url();
 		}
-		return efunGetConfigUrl(context, "star_py_pay_spa_url");
+		return getConfigUrl(context, "star_py_pay_spa_url");
 	}
 
 	public static String getCdnPreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "star_py_cdn_pre_url");
+		return getConfigUrl(context, "star_py_cdn_pre_url");
 	}
 	public static String getCdnSpareUrl(Context context) {
-		return efunGetConfigUrl(context, "star_py_cdn_spa_url");
+		return getConfigUrl(context, "star_py_cdn_spa_url");
 	}
 
 	public static boolean isInfringement(Context context){
-		return SStringUtil.isEqual(efunGetString(context, "star_infringement"),"true");
+		return SStringUtil.isEqual(getResStringByName(context, "star_infringement"),"true");
 	}
 
 	public static String getPayThirdMethod(Context context) {
-		return efunGetString(context, "star_pay_third_method");
+		return getResStringByName(context, "star_pay_third_method");
 	}
 
 
@@ -133,11 +143,11 @@ public class ResConfig {
 	 * @date 2015年2月5日
 	 */
 	public static String getAdsPreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "efunAdsPreferredUrl");
+		return getConfigUrl(context, "efunAdsPreferredUrl");
 	}
 	
 	public static String getAdsSpareUrl(Context context) {
-		return efunGetConfigUrl(context, "efunAdsSpareUrl");
+		return getConfigUrl(context, "efunAdsSpareUrl");
 	}
 	
 	/**
@@ -147,11 +157,11 @@ public class ResConfig {
 	 * @date 2015年2月5日
 	 */
 	public static String getGamePreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "efunGamePreferredDomainUrl");
+		return getConfigUrl(context, "efunGamePreferredDomainUrl");
 	}
 	
 	public static String getGameSpareUrl(Context context) {
-		return efunGetConfigUrl(context, "efunGameSpareDomainUrl");
+		return getConfigUrl(context, "efunGameSpareDomainUrl");
 	}
 	
 	/**
@@ -161,11 +171,11 @@ public class ResConfig {
 	 * @date 2015年2月5日
 	 */
 	public static String getFBPreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "efunFbPreferredUrl");
+		return getConfigUrl(context, "efunFbPreferredUrl");
 	}
 	
 	public static String getFBSpareUrl(Context context) {
-		return efunGetConfigUrl(context, "efunFbSpareUrl");
+		return getConfigUrl(context, "efunFbSpareUrl");
 	}
 	/**
 	 * <p>Description: 获取FB工程域名</p>
@@ -174,20 +184,20 @@ public class ResConfig {
 	 * @date 2015年2月5日
 	 */
 	public static String getQuestionPreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "efunQuestionPreUrl");
+		return getConfigUrl(context, "efunQuestionPreUrl");
 	}
 	
 	public static String getQuestionSpareUrl(Context context) {
-		return efunGetConfigUrl(context, "efunQuestionSpaUrl");
+		return getConfigUrl(context, "efunQuestionSpaUrl");
 	}
 	
 	
 	public static String getPushServerPreferredUrl(Context context) {
-		return efunGetConfigUrl(context, "efunPushPreferredUrl");
+		return getConfigUrl(context, "efunPushPreferredUrl");
 	}
 	
 	public static String getPushServerSpareUrl(Context context) {
-		return efunGetConfigUrl(context, "efunPushSpareUrl");
+		return getConfigUrl(context, "efunPushSpareUrl");
 	}
 
 //===========================================域名获取end===============================================	
@@ -195,20 +205,20 @@ public class ResConfig {
 //===========================================域名获取end===============================================	
 	
 	public static String getGoogleAnalyticsTrackingId(Context context) {
-		return efunGetString(context, "efunGoogleAnalyticsTrackingId");
+		return getResStringByName(context, "efunGoogleAnalyticsTrackingId");
 	}
 	
 	public static String getS2SListenerName(Context context) {
-		return efunGetString(context, "efunS2SListenerName");
+		return getResStringByName(context, "efunS2SListenerName");
 	}
 	
 	public static String getGAListenerName(Context context) {
-		return efunGetString(context, "efunGAListenerName");
+		return getResStringByName(context, "efunGAListenerName");
 	}
 	
 	//<string name="reg_jp_efunAdsPreferredUrl">http://ad.efunjp.com/</string>
-	public static String efunGetConfigUrl(Context context,String xmlSchemaName){
-		String url = efunGetString(context, xmlSchemaName);
+	public static String getConfigUrl(Context context, String xmlSchemaName){
+		String url = getResStringByName(context, xmlSchemaName);
 		
 		if (TextUtils.isEmpty(url)) {
 			return "";
@@ -219,13 +229,13 @@ public class ResConfig {
 		return "";
 	}
 	
-	private static String efunGetString(Context context,String xmlSchemaName){
+	private static String getResStringByName(Context context, String xmlSchemaName){
 
 		String xmlSchemaContent = "";
 		try {
 			xmlSchemaContent = context.getResources().getString(ResUtil.findStringIdByName(context, xmlSchemaName));
 		} catch (Exception e) {
-			Log.w("efun", "String not find:" + xmlSchemaName);
+			PL.w("String not find:" + xmlSchemaName);
 			e.printStackTrace();
 			return "";
 		}

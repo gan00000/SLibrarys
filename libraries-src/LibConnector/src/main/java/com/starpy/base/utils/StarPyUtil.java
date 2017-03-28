@@ -26,6 +26,7 @@ public class StarPyUtil {
     public static final String STARPY_SDK_LOGIN_TERMS_FILE = "starpy_sdk_login_terms_file.xml";
 
     public static final String ADS_ADVERTISERS_NAME = "ADS_ADVERTISERS_NAME";
+    public static final String STARPY_GAME_LANGUAGE = "STARPY_GAME_LANGUAGE";
 
     public static final String STARPY_LOGIN_USERNAME = "STARPY_LOGIN_USERNAME";//保存用户的账号
     public static final String STARPY_LOGIN_PASSWORD = "STARPY_LOGIN_PASSWORD";//保存用户的密码

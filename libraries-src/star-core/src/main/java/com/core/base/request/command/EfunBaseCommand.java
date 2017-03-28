@@ -1,3 +1,4 @@
+/*
 package com.core.base.request.command;
 
 import java.io.Serializable;
@@ -66,20 +67,24 @@ public class EfunBaseCommand implements Serializable{
 
 	HttpResponse httpResponse;
 	
-	/**
+	*/
+/**
 	 * @return the httpResponse
-	 */
+	 *//*
+
 	public HttpResponse getHttpResponse() {
 		return httpResponse;
 	}
 
-	/**
+	*/
+/**
 	 * <p>Description: </p>
 	 * @param requestParams 请求参数	
 	 * @param requestUrls  请求连接
 	 * @return
 	 * @date 2016年8月15日
-	 */
+	 *//*
+
 	protected HttpResponse doRequest_Post(Map<String, String> requestParams,String... requestUrls){
 		
 		for (String url : requestUrls) {
@@ -99,3 +104,4 @@ public class EfunBaseCommand implements Serializable{
 		
 	}
 }
+*/

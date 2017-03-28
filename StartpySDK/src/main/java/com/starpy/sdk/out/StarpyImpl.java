@@ -4,16 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.ads.StarEventLogger;
+import com.starpy.base.bean.SGameLanguage;
+import com.starpy.base.bean.SPayType;
 import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
-import com.starpy.data.pay.PayType;
 import com.starpy.pay.IPay;
 import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
@@ -23,6 +25,8 @@ import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.login.SLoginActivity;
 import com.startpy.sdk.R;
+
+import java.util.Locale;
 
 /**
  * Created by Efun on 2017/2/13.
@@ -36,6 +40,11 @@ public class StarpyImpl implements IStarpy {
 
     private long firstClickTime;
 
+    private static boolean isInitSdk = false;
+
+    public StarpyImpl() {
+    }
+
     @Override
     public void initSDK(Activity activity) {
         PL.i("IStarpy initSDK");
@@ -43,12 +52,28 @@ public class StarpyImpl implements IStarpy {
         ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
         // 1.初始化fb sdk
         SFacebookProxy.initFbSdk(activity);
+        isInitSdk = true;
 
     }
 
     @Override
-    public void setGameLanguage(Activity activity, String gameLanguage) {
-        PL.i("IStarpy setGameLanguage");
+    public void setGameLanguage(Activity activity, SGameLanguage gameLanguage) {
+        PL.i("IStarpy setGameLanguage:" + gameLanguage);
+
+        if (gameLanguage == null){
+            gameLanguage = SGameLanguage.zh_TW;
+        }
+        ResConfig.saveGameLanguage(activity,gameLanguage.getLanguage());
+
+        if (gameLanguage == SGameLanguage.zh_CH){
+
+            ApkInfoUtil.updateConfigurationLocale(activity, Locale.SIMPLIFIED_CHINESE);
+
+        }else{
+            ApkInfoUtil.updateConfigurationLocale(activity, Locale.TRADITIONAL_CHINESE);
+
+        }
+
     }
 
     @Override
@@ -70,7 +95,7 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void pay(final Activity activity, PayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
+    public void pay(final Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
         PL.i("IStarpy pay");
         if ((System.currentTimeMillis() - firstClickTime) < 800){//防止连续点击
             PL.i("点击过快，无效");
@@ -78,7 +103,7 @@ public class StarpyImpl implements IStarpy {
         }
         firstClickTime = System.currentTimeMillis();
 
-        if (payType == PayType.OTHERS){//第三方储值
+        if (payType == SPayType.OTHERS){//第三方储值
 
             othersPay(activity, cpOrderId, roleLevel, extra);
 
@@ -150,6 +175,10 @@ public class StarpyImpl implements IStarpy {
         }
         if (iPay != null) {
             iPay.onCreate(activity);
+        }
+
+        if (!isInitSdk){
+            initSDK(activity);
         }
     }
 

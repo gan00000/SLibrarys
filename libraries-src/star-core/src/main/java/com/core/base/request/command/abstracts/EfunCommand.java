@@ -1,46 +1,59 @@
+/*
 package com.core.base.request.command.abstracts;
 
 import com.core.base.request.command.EfunBaseCommand;
 
 import android.content.DialogInterface.OnCancelListener;
 
+*/
 /**
  * Class Description：
  * @author Joe
  * @date 2013-4-16
  * @version 1.0
- */
+ *//*
+
 public abstract class EfunCommand extends EfunBaseCommand {
 	
 	private static final long serialVersionUID = 1L;
 	
-	/**
+	*/
+/**
 	 * getRequest Method
 	 * Method Description :返回值
-	 */
+	 *//*
+
 	public abstract String getResponse();
 
-	/**
+	*/
+/**
 	 * 执行操作
 	 * @throws Exception
-	 */
+	 *//*
+
 	public abstract void execute() throws Exception;
 	
-	/**
+	*/
+/**
 	 * 任务是否已经该取消
-	 */
+	 *//*
+
 	protected volatile boolean hasCancel = false;
 
-	/**
+	*/
+/**
 	 * @return the hasCancel
-	 */
+	 *//*
+
 	public boolean isHasCancel() {
 		return hasCancel;
 	}
 
-	/**
+	*/
+/**
 	 * @param hasCancel the hasCancel to set
-	 */
+	 *//*
+
 	public void setHasCancel(boolean hasCancel) {
 		this.hasCancel = hasCancel;
 	}
@@ -71,3 +84,4 @@ public abstract class EfunCommand extends EfunBaseCommand {
 	}
 	
 }
+*/

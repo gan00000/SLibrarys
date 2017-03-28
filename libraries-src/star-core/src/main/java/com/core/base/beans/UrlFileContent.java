@@ -1,3 +1,4 @@
+/*
 package com.core.base.beans;
 
 import java.io.Serializable;
@@ -6,9 +7,11 @@ import android.text.TextUtils;
 
 public class UrlFileContent implements Serializable {
 
-	/**
+	*/
+/**
 	 * serialVersionUID
-	 */
+	 *//*
+
 	private static final long serialVersionUID = 1L;
 	
 	String versionCode = "";
@@ -34,13 +37,16 @@ public class UrlFileContent implements Serializable {
 		this.urlContent = urlContent;
 	}
 	
-	/**
+	*/
+/**
 	* <p>Title: hasFileEmpty</p>
 	* <p>Description: 判断是否有属性为空值</p>
 	* @return
-	*/
+	*//*
+
 	public boolean hasFiledEmpty(){
 		return TextUtils.isEmpty(urlContent) || TextUtils.isEmpty(versionCode) || TextUtils.isEmpty(versionContentMd5);
 	}
 	
 }
+*/
