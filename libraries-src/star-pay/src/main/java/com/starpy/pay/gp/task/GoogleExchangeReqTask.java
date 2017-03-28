@@ -21,7 +21,7 @@ public class GoogleExchangeReqTask extends AbsHttpRequest {
     }
 
     @Override
-    public BaseReqeustBean onHttpRequest() {
+    public BaseReqeustBean createRequestBean() {
 
 
         return baseReqeustBean;

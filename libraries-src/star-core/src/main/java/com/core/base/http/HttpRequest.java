@@ -25,10 +25,13 @@ public class HttpRequest {
 	}
 	
 
-	public static HttpResponse getReuqestIn2Url(String preUrl,String sprUrl) {
+	public static HttpResponse getReuqestIn2Url(String preUrl,String spaUrl) {
 		HttpResponse s = getReuqest(preUrl);
-		if (s != null && TextUtils.isEmpty(s.getResult())) {
-			return getReuqest(sprUrl);
+		if (s != null && !TextUtils.isEmpty(s.getResult())) {
+			return s;
+		}
+		if (SStringUtil.isNotEmpty(spaUrl)) {
+			s = getReuqest(spaUrl);
 		}
 		return s;
 	}
@@ -70,12 +73,17 @@ public class HttpRequest {
 	}
 	
 	
-	public static String postIn2Url(String preUrl,String sprUrl,Map<String, String> dataMap) {
-		String result = post(preUrl, dataMap);
-		if (TextUtils.isEmpty(result)) {
-			result = post(sprUrl, dataMap);
+	public static HttpResponse postIn2Url(String preUrl,String spaUrl,Map<String, String> dataMap) {
+
+		HttpResponse mHttpResponse = postReuqest(preUrl, dataMap);
+		if (mHttpResponse != null && SStringUtil.isNotEmpty(mHttpResponse.getResult())) {
+			return mHttpResponse;
 		}
-		return result;
+		if (SStringUtil.isNotEmpty(spaUrl)) {
+			mHttpResponse = postReuqest(spaUrl, dataMap);
+		}
+		return mHttpResponse;
+
 	}
 
 	/**
@@ -94,13 +102,13 @@ public class HttpRequest {
 	}
 
 
-	public static String postIn2Url(String preUrl,String sprUrl,String mInterfaceName,Map<String, String> dataMap) {
+	public static String postIn2Url(String preUrl,String spaUrl,String mInterfaceName,Map<String, String> dataMap) {
 		preUrl = SStringUtil.checkUrl(preUrl) + mInterfaceName;
 		String result = post(preUrl, dataMap);
 
 		if (TextUtils.isEmpty(result)) {//备用域名请求
-			sprUrl = SStringUtil.checkUrl(sprUrl) + mInterfaceName;
-			result = post(sprUrl, dataMap);
+			spaUrl = SStringUtil.checkUrl(spaUrl) + mInterfaceName;
+			result = post(spaUrl, dataMap);
 		}
 		return result;
 	}

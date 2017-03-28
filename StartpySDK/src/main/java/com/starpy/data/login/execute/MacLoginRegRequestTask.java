@@ -39,8 +39,8 @@ public class MacLoginRegRequestTask extends BaseRequestTask {
     }
 
     @Override
-    public BaseReqeustBean onHttpRequest() {
-        super.onHttpRequest();
+    public BaseReqeustBean createRequestBean() {
+        super.createRequestBean();
         macLoginRegRequest.setSignature(SStringUtil.toMd5(macLoginRegRequest.getAppKey() + macLoginRegRequest.getTimestamp() +
                 macLoginRegRequest.getUniqueId() + macLoginRegRequest.getGameCode()));
         return macLoginRegRequest;

@@ -14,8 +14,11 @@ import java.util.Map;
 public abstract class AbsReqeustBean implements Serializable{
 
     private String requestUrl = "";
+    private String requestSpaUrl = "";
     private String requestMethod = "";
     private String completeUrl = "";
+
+    private String completeSpaUrl = "";
 
     public String getRequestMethod() {
         return requestMethod;
@@ -45,5 +48,26 @@ public abstract class AbsReqeustBean implements Serializable{
     public void setCompleteUrl(String completeUrl) {
         this.completeUrl = completeUrl;
     }
+
+    public String getCompleteSpaUrl() {
+
+        if (TextUtils.isEmpty(completeSpaUrl) && !TextUtils.isEmpty(requestSpaUrl) && !TextUtils.isEmpty(requestMethod)){
+            completeSpaUrl = requestSpaUrl + requestMethod;
+        }
+        return completeSpaUrl;
+    }
+
+    public void setCompleteSpaUrl(String completeSpaUrl) {
+        this.completeSpaUrl = completeSpaUrl;
+    }
+
+    public String getRequestSpaUrl() {
+        return requestSpaUrl;
+    }
+
+    public void setRequestSpaUrl(String requestSpaUrl) {
+        this.requestSpaUrl = requestSpaUrl;
+    }
+
 
 }

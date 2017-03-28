@@ -9,6 +9,7 @@ import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.JsonUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
+import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.utils.StarPyUtil;
 
 import org.json.JSONArray;
@@ -118,10 +119,14 @@ public class ConfigRequest{
         BaseReqeustBean baseReqeustBean = new BaseReqeustBean(context);
 
         String mUrl = null;
+        String lanuage = ResConfig.getGameLanguage(context);
+        if (SStringUtil.isEmpty(lanuage)){
+            lanuage = SGameLanguage.zh_TW.getLanguage();
+        }
         if (!ResConfig.isInfringement(context)) {
-            mUrl = ResConfig.getCdnPreferredUrl(context) + "android/nonifm/s_sdk_login_terms.txt";
+            mUrl = ResConfig.getCdnPreferredUrl(context) + "android/nonifm/" + lanuage + "/s_sdk_login_terms.txt";
         }else{
-            mUrl = ResConfig.getCdnPreferredUrl(context) + "android/ifm/s_sdk_login_terms.txt";
+            mUrl = ResConfig.getCdnPreferredUrl(context) + "android/ifm/" + lanuage + "/s_sdk_login_terms.txt";
         }
 
         baseReqeustBean.setCompleteUrl(mUrl);

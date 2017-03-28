@@ -18,7 +18,7 @@ public class GoogleCreateOrderReqTask extends AbsHttpRequest {
 
 
     @Override
-    public BaseReqeustBean onHttpRequest() {
+    public BaseReqeustBean createRequestBean() {
         return createOrderIdReqBean;
     }
 

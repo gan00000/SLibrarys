@@ -33,8 +33,8 @@ public class AccountRegisterRequestTask extends BaseRequestTask {
 
 
     @Override
-    public BaseReqeustBean onHttpRequest() {
-        super.onHttpRequest();
+    public BaseReqeustBean createRequestBean() {
+        super.createRequestBean();
 
         regRequest.setSignature(SStringUtil.toMd5(regRequest.getAppKey() + regRequest.getTimestamp() +
                 regRequest.getName() + regRequest.getPwd() + regRequest.getGameCode()));

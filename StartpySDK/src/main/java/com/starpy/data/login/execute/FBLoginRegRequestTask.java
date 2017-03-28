@@ -34,8 +34,8 @@ public class FBLoginRegRequestTask extends BaseRequestTask {
     }
 
     @Override
-    public BaseReqeustBean onHttpRequest() {
-        super.onHttpRequest();
+    public BaseReqeustBean createRequestBean() {
+        super.createRequestBean();
 
 
         macLoginRegRequest.setSignature(SStringUtil.toMd5(macLoginRegRequest.getAppKey() + macLoginRegRequest.getTimestamp() +

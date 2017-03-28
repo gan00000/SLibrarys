@@ -33,7 +33,7 @@ public abstract class BaseRequestTask extends AbsHttpRequest {
 
 
 	@Override
-	public BaseReqeustBean onHttpRequest() {
+	public BaseReqeustBean createRequestBean() {
 		if (this.context == null) {
 			PL.d("execute context is null");
 			return null;
@@ -42,9 +42,9 @@ public abstract class BaseRequestTask extends AbsHttpRequest {
 		if (SStringUtil.isEmpty(baseRequest.getRequestUrl())) {
 			baseRequest.setRequestUrl(ResConfig.getLoginPreferredUrl(context));
 		}
-		/*if (SStringUtil.isEmpty(sparedUrl)) {
-			sparedUrl = ResConfig.getLoginSpareUrl(context);
-		}*/
+		if (SStringUtil.isEmpty(baseRequest.getRequestSpaUrl())) {
+			baseRequest.setRequestSpaUrl(ResConfig.getLoginSpareUrl(context));
+		}
 		if (SStringUtil.isEmpty(baseRequest.getGameCode())) {
 			baseRequest.setGameCode(ResConfig.getGameCode(context));
 		}

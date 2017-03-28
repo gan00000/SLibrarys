@@ -16,7 +16,7 @@ public class CfgFileRequest extends AbsHttpRequest {
 
 
     @Override
-    public BaseReqeustBean onHttpRequest() {
+    public BaseReqeustBean createRequestBean() {
         return baseReqeustBean;
     }
 

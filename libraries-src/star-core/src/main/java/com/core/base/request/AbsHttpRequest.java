@@ -51,7 +51,7 @@ public abstract class AbsHttpRequest implements ISRqeust {
 
             @Override
             protected String doInBackground(String... params) {
-                BaseReqeustBean baseReqeustBean = onHttpRequest();
+                BaseReqeustBean baseReqeustBean = createRequestBean();
                 if (baseReqeustBean == null) {
                     return "";
                 }
@@ -113,12 +113,11 @@ public abstract class AbsHttpRequest implements ISRqeust {
                     coreHttpResponse = HttpRequest.getReuqest(baseReqeustBean.getCompleteUrl(),baseReqeustBean.fieldValueToMap());
                 }else{
 
-                    coreHttpResponse = HttpRequest.getReuqest(baseReqeustBean.getCompleteUrl());
+                    coreHttpResponse = HttpRequest.getReuqestIn2Url(baseReqeustBean.getCompleteUrl(),baseReqeustBean.getCompleteSpaUrl());
                 }
 
             }else{
-                coreHttpResponse = HttpRequest.postReuqest(baseReqeustBean.getCompleteUrl(), baseReqeustBean.fieldValueToMap());
-
+                coreHttpResponse = HttpRequest.postIn2Url(baseReqeustBean.getCompleteUrl(), baseReqeustBean.getCompleteSpaUrl(), baseReqeustBean.fieldValueToMap());
             }
             if (coreHttpResponse != null) {
                 return coreHttpResponse.getResult();

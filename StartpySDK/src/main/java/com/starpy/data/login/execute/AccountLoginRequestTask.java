@@ -28,8 +28,8 @@ public class AccountLoginRequestTask extends BaseRequestTask {
 
 
 	@Override
-	public BaseReqeustBean onHttpRequest() {
-		super.onHttpRequest();
+	public BaseReqeustBean createRequestBean() {
+		super.createRequestBean();
 
 		accountLoginRequest.setSignature(SStringUtil.toMd5(accountLoginRequest.getAppKey() + accountLoginRequest.getTimestamp() +
 				accountLoginRequest.getName() + accountLoginRequest.getPwd() + accountLoginRequest.getGameCode()));

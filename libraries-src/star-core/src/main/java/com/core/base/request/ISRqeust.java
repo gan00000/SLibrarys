@@ -12,7 +12,7 @@ public interface ISRqeust {
 
     void excute();
 
-    BaseReqeustBean onHttpRequest();
+    BaseReqeustBean createRequestBean();
 
     <T> void onHttpSucceess(T responseModel);
 

@@ -12,6 +12,7 @@ import com.core.base.utils.FileUtil;
 import com.core.base.utils.JsonUtil;
 import com.core.base.utils.SPUtil;
 import com.starpy.base.cfg.ConfigBean;
+import com.starpy.base.cfg.ResConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -145,7 +146,8 @@ public class StarPyUtil {
     public static String getSdkLoginTerms(Context context){
         String m = SPUtil.getSimpleString(context,STARPY_SDK_LOGIN_TERMS_FILE,STARPY_SDK_LOGIN_TERMS);
         if (TextUtils.isEmpty(m)){
-            m = FileUtil.readAssetsTxtFile(context,"starpy/s_sdk_login_terms.txt");
+            String gameLanguage = ResConfig.getGameLanguage(context);
+            m = FileUtil.readAssetsTxtFile(context,"starpy/" + gameLanguage + "/s_sdk_login_terms.txt");
         }
         return m;
     }

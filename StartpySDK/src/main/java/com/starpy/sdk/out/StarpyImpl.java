@@ -48,6 +48,11 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void initSDK(Activity activity) {
         PL.i("IStarpy initSDK");
+
+        if (SStringUtil.isEmpty(ResConfig.getGameLanguage(activity))){
+            setGameLanguage(activity,SGameLanguage.zh_TW);
+        }
+
         ConfigRequest.requestBaseCfg(activity.getApplicationContext());//下载配置文件
         ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
         // 1.初始化fb sdk
@@ -55,6 +60,11 @@ public class StarpyImpl implements IStarpy {
         isInitSdk = true;
 
     }
+
+    /*
+        语言默认繁体zh-TW，用来设置UI界面语言，提示等
+        需要在其他所有方法之前调用
+    * */
 
     @Override
     public void setGameLanguage(Activity activity, SGameLanguage gameLanguage) {

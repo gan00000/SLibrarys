@@ -100,6 +100,7 @@ public class GooglePayImpl implements IPay {
 
         this.createOrderIdReqBean = (GooglePayCreateOrderIdReqBean) payReqBean;
         this.createOrderIdReqBean.setRequestUrl(PayHelper.getPreferredUrl(activity));
+        this.createOrderIdReqBean.setRequestSpaUrl(PayHelper.getSpareUrl(activity));
         this.createOrderIdReqBean.setRequestMethod(GooglePayDomainSite.google_order_create);
 
         loadingDialog = new LoadingDialog(activity);
@@ -290,6 +291,7 @@ public class GooglePayImpl implements IPay {
                             exchangeReqBean.setPurchaseData(purchase.getOriginalJson());
 
                             exchangeReqBean.setRequestUrl(PayHelper.getPreferredUrl(activity));
+                            exchangeReqBean.setRequestSpaUrl(PayHelper.getSpareUrl(activity));
                             exchangeReqBean.setRequestMethod(GooglePayDomainSite.google_send);
 
                             /*SkuDetails skuDetails = activity.getSkuDetails();
@@ -392,6 +394,7 @@ public class GooglePayImpl implements IPay {
                         exchangeReqBean.setPurchaseData(mPurchase.getOriginalJson());
 
                         exchangeReqBean.setRequestUrl(PayHelper.getPreferredUrl(activity));
+                        exchangeReqBean.setRequestSpaUrl(PayHelper.getSpareUrl(activity));
                         exchangeReqBean.setRequestMethod(GooglePayDomainSite.google_send);
 
                         GoogleExchangeReqTask googleExchangeReqTask = new GoogleExchangeReqTask(activity, exchangeReqBean);

@@ -25,7 +25,7 @@
     <string name="star_app_key">97d9636e3aa6e8a6a4dd85cb5fd8db9e</string>
 
     <!--语言默认繁体zh-TW，用来设置UI界面语言，提示等-->
-    <string name="star_game_language">zh-TW</string>
+    <!--<string name="star_game_language">zh-TW</string>-->
 
 
     <string name="star_pay_third_method">dynamic_change</string>
