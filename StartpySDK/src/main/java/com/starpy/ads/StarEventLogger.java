@@ -35,10 +35,10 @@ public class StarEventLogger {
     }
 
     public static void trackinLoginEvent(Activity activity){
-        SFacebookProxy.trackingEvent(activity,"starpy_login_event");
+        SFacebookProxy.trackingEvent(activity,"starpy_login_event_android");
     }
 
     public static void trackinRegisterEvent(Activity activity){
-        SFacebookProxy.trackingEvent(activity,"starpy_register_event");
+        SFacebookProxy.trackingEvent(activity,"starpy_register_event_android");
     }
 }

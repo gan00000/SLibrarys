@@ -63,10 +63,11 @@
             android:name="com.facebook.sdk.ApplicationName"
             android:value="@string/facebook_app_name" />
 
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="@string/facebook_authorities"
-            android:exported="true" />
+        <!--如果要通过 Android 版 Facebook 应用分享链接、图片或视频，还需要在清单文件中声明 FacebookContentProvider-->
+        <!--<provider-->
+            <!--android:name="com.facebook.FacebookContentProvider"-->
+            <!--android:authorities="@string/facebook_authorities"-->
+            <!--android:exported="true" />-->
 
         <receiver
             android:name="com.google.ads.conversiontracking.InstallReceiver"
