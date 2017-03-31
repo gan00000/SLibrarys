@@ -68,7 +68,7 @@ public class SWebViewPopu extends SBasePopu {
         this.setContentView(relativeLayout);
 
         this.setWidth(screenHelper.getScreenWidth() - 100);
-        this.setHeight(screenHelper.getScreenHeight()-800);
+        this.setHeight(screenHelper.getScreenHeight()-80);
 
         this.setFocusable(true);
         this.setOutsideTouchable(true);
@@ -91,6 +91,9 @@ public class SWebViewPopu extends SBasePopu {
     }
 
     public void showPop(String webUrl) {
+
+        PL.i("SWebViewActivity url:" + webUrl);
+
         if (TextUtils.isEmpty(webUrl)){
             ToastUtils.toast(activity,"url error");
             PL.i("webUrl is empty");
@@ -98,7 +101,6 @@ public class SWebViewPopu extends SBasePopu {
         }
         this.showAtLocation(relativeLayout, Gravity.CENTER,0,0);
         sWebView.loadUrl(webUrl);
-        PL.i("SWebViewActivity url:" + webUrl);
 
     }
 

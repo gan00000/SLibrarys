@@ -47,18 +47,25 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void initSDK(Activity activity) {
+    public void initSDK(final Activity activity) {
         PL.i("IStarpy initSDK");
 
-        if (SStringUtil.isEmpty(ResConfig.getGameLanguage(activity))){
-            setGameLanguage(activity,SGameLanguage.zh_TW);
-        }
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
-        ConfigRequest.requestBaseCfg(activity.getApplicationContext());//下载配置文件
-        ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
-        // 1.初始化fb sdk
-        SFacebookProxy.initFbSdk(activity);
-        isInitSdk = true;
+                if (SStringUtil.isEmpty(ResConfig.getGameLanguage(activity))){
+                    setGameLanguage(activity,SGameLanguage.zh_TW);
+                }
+
+                ConfigRequest.requestBaseCfg(activity.getApplicationContext());//下载配置文件
+                ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
+                // 1.初始化fb sdk
+                SFacebookProxy.initFbSdk(activity);
+                isInitSdk = true;
+            }
+        });
+
 
     }
 
@@ -68,9 +75,19 @@ public class StarpyImpl implements IStarpy {
     * */
 
     @Override
-    public void setGameLanguage(Activity activity, SGameLanguage gameLanguage) {
+    public void setGameLanguage(final Activity activity, final SGameLanguage gameLanguage) {
         PL.i("IStarpy setGameLanguage:" + gameLanguage);
 
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                gameLanguage(activity, gameLanguage);
+            }
+        });
+
+    }
+
+    private void gameLanguage(Activity activity, SGameLanguage gameLanguage){
         if (gameLanguage == null){
             gameLanguage = SGameLanguage.zh_TW;
         }
@@ -84,7 +101,6 @@ public class StarpyImpl implements IStarpy {
             ApkInfoUtil.updateConfigurationLocale(activity, Locale.TRADITIONAL_CHINESE);
 
         }
-
     }
 
     @Override
@@ -95,18 +111,24 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void login(Activity activity, ILoginCallBack iLoginCallBack) {
+    public void login(final Activity activity, ILoginCallBack iLoginCallBack) {
         PL.i("IStarpy login");
         this.loginCallBack = iLoginCallBack;
 
-        Intent intent = new Intent(activity, SLoginActivity.class);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(activity, SLoginActivity.class);
 
-        activity.startActivityForResult(intent, SLoginActivity.S_LOGIN_REQUEST);//開啟登入
+                activity.startActivityForResult(intent, SLoginActivity.S_LOGIN_REQUEST);//開啟登入
+            }
+        });
+
 
     }
 
     @Override
-    public void pay(final Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
+    public void pay(final Activity activity, final SPayType payType, final String cpOrderId, final String productId, final String roleLevel, final String extra) {
         PL.i("IStarpy pay");
         if ((System.currentTimeMillis() - firstClickTime) < 800){//防止连续点击
             PL.i("点击过快，无效");
@@ -114,6 +136,16 @@ public class StarpyImpl implements IStarpy {
         }
         firstClickTime = System.currentTimeMillis();
 
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                starPay(activity, payType, cpOrderId, productId, roleLevel, extra);
+            }
+        });
+
+    }
+
+    private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
         if (payType == SPayType.OTHERS){//第三方储值
 
             othersPay(activity, cpOrderId, roleLevel, extra);
@@ -128,21 +160,6 @@ public class StarpyImpl implements IStarpy {
 
                 googlePay(activity, cpOrderId, productId, roleLevel, extra);
             }
-/*
-
-            iPay.setIPayCallBack(new IPayCallBack() {
-                @Override
-                public void success() {
-//                    ToastUtils.toast(activity,"pay success");
-                }
-
-                @Override
-                public void fail() {
-//                    ToastUtils.toast(activity,"pay fail");
-                }
-            });
-            iPay.startPay(activity,googlePayCreateOrderIdReqBean);
-*/
 
         }
     }
