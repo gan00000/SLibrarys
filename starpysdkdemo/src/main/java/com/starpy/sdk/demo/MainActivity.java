@@ -2,21 +2,30 @@ package com.starpy.sdk.demo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
 
+import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
+import com.core.base.utils.ScreenHelper;
 import com.core.base.utils.ToastUtils;
+import com.starpy.base.bean.SGameLanguage;
+import com.starpy.base.bean.SPayType;
 import com.starpy.base.utils.SLog;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
-import com.starpy.data.pay.PayType;
+import com.starpy.sdk.SWebViewDialog;
+import com.starpy.sdk.SWebViewPopu;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
 
@@ -38,6 +47,8 @@ public class MainActivity extends Activity {
         SLog.enableDebug(true);
 
         iStarpy = StarpyFactory.create();
+
+        iStarpy.setGameLanguage(this, SGameLanguage.zh_CH);
 
         //初始化sdk
         iStarpy.initSDK(this);
@@ -72,6 +83,11 @@ public class MainActivity extends Activity {
                 String s = StarPyUtil.encryptDyUrl(getApplicationContext(),FileUtil.readAssetsTxtFile(getApplicationContext(),"s_sdk_config.txt"));
 //
                 PL.i(s);
+
+                PL.i(StarPyUtil.decryptDyUrl(getApplicationContext(),s));
+                Resources resources = getResources();//获得res资源对象
+                Configuration config = resources.getConfiguration();//获得设置对象
+                PL.i("onConfigurationChanged:" + config.toString());
             }
         });
 
@@ -82,13 +98,14 @@ public class MainActivity extends Activity {
 
                /*
                 充值接口
-                PayType PayType.OTHERS为第三方储值，PayType.GOOGLE为Google储值
+                SPayType SPayType.OTHERS为第三方储值，SPayType.GOOGLE为Google储值
                 cpOrderId cp订单号，请保持每次的值都是不会重复的
                 productId 充值的商品id
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, PayType.OTHERS, "" + System.currentTimeMillis(), "payone", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, SPayType.OTHERS, "" + System.currentTimeMillis(), "payone", "roleLevel", "customize");
+
 
             }
         });
@@ -97,15 +114,15 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                     /*
+                /*
                 充值接口
-                PayType PayType.OTHERS为第三方储值，PayType.GOOGLE为Google储值
+                SPayType SPayType.OTHERS为第三方储值，SPayType.GOOGLE为Google储值
                 cpOrderId cp订单号，请保持每次的值都是不会重复的
                 productId 充值的商品id
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, PayType.GOOGLE, "" + System.currentTimeMillis(), "py.brmmd.1.99", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, SPayType.GOOGLE, "" + System.currentTimeMillis(), "py.brmmd.1.99", "roleLevel", "customize");
 
             }
         });
@@ -115,6 +132,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         iStarpy.onResume(this);
+        PL.i("activity onResume");
     }
 
 
@@ -129,17 +147,22 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
         iStarpy.onPause(this);
+        PL.i("activity onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        PL.i("activity onStop");
         iStarpy.onStop(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        PL.i("activity onDestroy");
         iStarpy.onDestroy(this);
     }
+
+
 }
