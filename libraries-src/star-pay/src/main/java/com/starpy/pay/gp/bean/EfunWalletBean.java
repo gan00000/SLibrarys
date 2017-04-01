@@ -1,49 +1,68 @@
+/*
 package com.starpy.pay.gp.bean;
 
 
 public class EfunWalletBean extends EfunBaseWalletBean{
 	
-	/**
+	*/
+/**
 	 * serialVersionUID
-	 */
+	 *//*
+
 	private static final long serialVersionUID = 1L;
 	
-	/**
+	*/
+/**
 	 * itemName 商品id
-	 */
+	 *//*
+
 	private String itemName;
-	/**
+	*/
+/**
 	 * itemPrice 商品价格
-	 */
+	 *//*
+
 	private String itemPrice;
-	/**
+	*/
+/**
 	 * currencyType 货币类型
-	 */
+	 *//*
+
 	private String currencyType;
-	/**
+	*/
+/**
 	 * itemNum 商品的个数
-	 */
+	 *//*
+
 	private String itemNum;
 	
-	/**
+	*/
+/**
 	 * sku 商品id
-	 */
+	 *//*
+
 	private String productId;
 	
-	/**
+	*/
+/**
 	 * googleOrderId google订单号
-	 */
+	 *//*
+
 	private String googleOrderId;
 	
-	/**
+	*/
+/**
 	 * skuPrice 商品价格
-	 */
+	 *//*
+
 	private String skuPrice;
 	
 	private String errorDesc = "";
-	/**
+	*/
+/**
 	 * 1表示创单失败，2表示其他失败
-	 */
+	 *//*
+
 	private int errorType = 0;
 
 	@Deprecated
@@ -101,19 +120,23 @@ public class EfunWalletBean extends EfunBaseWalletBean{
 		this.errorDesc = errorDesc;
 	}
 	
-	/**
+	*/
+/**
 	 * <p>Description: 1表示创单失败，2表示其他失败</p>
 	 * @return
 	 * @date 2016年1月14日
-	 */
+	 *//*
+
 	public int getErrorType() {
 		return errorType;
 	}
-	/**
+	*/
+/**
 	 * <p>Description: 1表示创单失败，2表示其他失败</p>
 	 * @param errorType
 	 * @date 2016年1月14日
-	 */
+	 *//*
+
 	public void setErrorType(int errorType) {
 		this.errorType = errorType;
 	}
@@ -122,3 +145,4 @@ public class EfunWalletBean extends EfunBaseWalletBean{
 	
 	
 }
+*/

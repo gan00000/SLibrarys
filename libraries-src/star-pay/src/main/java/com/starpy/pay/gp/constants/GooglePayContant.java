@@ -54,10 +54,5 @@ public class GooglePayContant {
 	
 	public static final String EFUN_CURRENT_ORDER_ID_KEY = "EFUN_CURRENT_ORDER_ID_KEY";//用于保存后台获取的skus json 数据key
 	
-	public static final String ExtraGWKey = "GWPayURL";
-	public static final String ExtraGWWebOrderBean = "ExtraGWWebOrderBean";
-	public static final String ExtraOtherWebOrderBean = "ExtraOtherWebOrderBean";
-	public static final String ExtraOtherKey = "otherPayURL";
-	
 
 }

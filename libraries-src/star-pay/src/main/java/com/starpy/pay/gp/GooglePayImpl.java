@@ -32,7 +32,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 /**
- * Created by Efun on 2017/2/23.
+ * Created by gan on 2017/2/23.
  */
 
 public class GooglePayImpl implements IPay {

@@ -1,3 +1,4 @@
+/*
 package com.starpy.pay.gp.bean;
 
 import java.io.Serializable;
@@ -6,19 +7,25 @@ import com.starpy.pay.gp.constants.GooglePayContant;
 
 public class EfunBaseWalletBean implements Serializable{
 	
-	/**
+	*/
+/**
 	 * serialVersionUID
-	 */
+	 *//*
+
 	private static final long serialVersionUID = 1L;
 
-	/**
+	*/
+/**
 	 * purchaseState 储值成功失败状态
-	 */
+	 *//*
+
 	private int purchaseState;
 	
-	/**
+	*/
+/**
 	 * orderId efun订单号
-	 */
+	 *//*
+
 	private String orderId;
 	
 	public int getPurchaseState() {
@@ -56,3 +63,4 @@ public class EfunBaseWalletBean implements Serializable{
 	
 	
 }
+*/
