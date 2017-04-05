@@ -1,11 +1,13 @@
 package com.starpy.pay.gp;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.PL;
+import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.SLog;
 import com.starpy.pay.IPay;
@@ -61,14 +63,32 @@ public class GooglePayImpl implements IPay {
         }
     }
 
-    private void callbackFail(){
+    private void callbackFail(String message){
 
         if (loadingDialog != null){
             loadingDialog.dismissProgressDialog();
         }
-        if (iPayCallBack != null){
-            iPayCallBack.fail();
+        if (SStringUtil.isNotEmpty(message)){//提示错误信息
+
+            loadingDialog.alert(message, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.dismiss();
+
+                    if (iPayCallBack != null){
+                        iPayCallBack.fail();
+                    }
+                }
+            });
+
+        }else{//用户取消
+
+            if (iPayCallBack != null){
+                iPayCallBack.fail();
+            }
         }
+
     }
 
     public void setIPayCallBack(IPayCallBack iPayCallBack) {
@@ -117,7 +137,7 @@ public class GooglePayImpl implements IPay {
             googlePaySetUp();
         }else{
             ToastUtils.toast(activity,"please log in to the game first");
-            callbackFail();
+            callbackFail("please log in to the game first");
         }
         isPaying = false;
         PL.w("google set not paying");
@@ -175,7 +195,7 @@ public class GooglePayImpl implements IPay {
                     SLog.logI("startSetup onIabSetupFinished.");//No account found
                     if (!result.isSuccess()) {
                         ToastUtils.toast(activity.getApplicationContext(),"Your phone or Google account does not support In-app Billing");
-                        callbackFail();
+                        callbackFail(result.getMessage());
                         return;
                     }
                     mHelper.queryInventoryAsync(queryInventoryFinishedListener);
@@ -221,20 +241,20 @@ public class GooglePayImpl implements IPay {
                     if (createOrderIdRes!=null && !TextUtils.isEmpty(createOrderIdRes.getMessage())){
                         ToastUtils.toast(activity,createOrderIdRes.getMessage());
                     }
-                    callbackFail();
+                    callbackFail("order id error, please try again");
                 }
             }
 
             @Override
             public void timeout(String code) {
 
-                ToastUtils.toast(activity, "connect timeout, please try again");
-                callbackFail();
+//                ToastUtils.toast(activity, "connect timeout, please try again");
+                callbackFail("connect timeout, please try again");
             }
 
             @Override
             public void noData() {
-                callbackFail();
+                callbackFail("server error, please try again");
             }
         });
         googleCreateOrderReqTask.excute(GPCreateOrderIdRes.class);
@@ -275,14 +295,17 @@ public class GooglePayImpl implements IPay {
                         SLog.logI("onIabPurchaseFinished");
 
                         if (purchase == null || result.isFailure()) {
-                            callbackFail();
+
                             SLog.logI("purchase is null.");
 
                             if (result.getResponse() == IabHelper.IABHELPER_USER_CANCELLED) {
-                                SLog.logI("info: " + result.getMessage());
+                                PL.i("info: " + result.getMessage());
+                                callbackFail("");//用户去掉不提示
                                 return;
                             }
-                            loadingDialog.complain(result.getMessage());
+                            callbackFail(result.getMessage());
+//                            loadingDialog.complain(result.getMessage());
+//                            ToastUtils.toast();
                             return;
 
                         } else {
@@ -315,19 +338,19 @@ public class GooglePayImpl implements IPay {
                                         if (gpExchangeRes!=null && !TextUtils.isEmpty(gpExchangeRes.getMessage())){
                                             ToastUtils.toast(activity,gpExchangeRes.getMessage());
                                         }
-                                        callbackFail();
+                                        callbackFail("error, please contact customer service");
                                     }
                                 }
 
                                 @Override
                                 public void timeout(String code) {
-                                    ToastUtils.toast(activity, "connect timeout, please try again");
-                                    callbackFail();
+//                                    ToastUtils.toast(activity, "connect timeout, please try again");
+                                    callbackFail("connect timeout, please try again");
                                 }
 
                                 @Override
                                 public void noData() {
-                                    callbackFail();
+                                    callbackFail("server error, please try again");
                                 }
                             });
                             googleExchangeReqTask.excute(GPExchangeRes.class);
@@ -388,39 +411,8 @@ public class GooglePayImpl implements IPay {
                     if (mPurchase.getPurchaseState() == 2) {//退款订单
                         PL.i("refunded:属于退款订单");
                     } else {
-
-                        GoogleExchangeReqBean exchangeReqBean = new GoogleExchangeReqBean(activity);
-                        exchangeReqBean.setDataSignature(mPurchase.getSignature());
-                        exchangeReqBean.setPurchaseData(mPurchase.getOriginalJson());
-
-                        exchangeReqBean.setRequestUrl(PayHelper.getPreferredUrl(activity));
-                        exchangeReqBean.setRequestSpaUrl(PayHelper.getSpareUrl(activity));
-                        exchangeReqBean.setRequestMethod(GooglePayDomainSite.google_send);
-
-                        GoogleExchangeReqTask googleExchangeReqTask = new GoogleExchangeReqTask(activity, exchangeReqBean);
-                        googleExchangeReqTask.setReqCallBack(new ISReqCallBack<GPExchangeRes>() {
-
-                            @Override
-                            public void success(GPExchangeRes gpExchangeRes, String rawResult) {
-                                PL.i("exchange callback");
-                                // 消费
-						/*if (mHelper != null) {
-							PL.i("google pay consumeAsync");
-							mHelper.consumeAsync(mPurchase, mConsumeFinishedListener);
-						}*/
-                            }
-
-                            @Override
-                            public void timeout(String code) {
-
-                            }
-
-                            @Override
-                            public void noData() {
-
-                            }
-                        });
-                        googleExchangeReqTask.excute(GPExchangeRes.class);
+                        //补发
+                        replacement(mPurchase);
                     }
 
                 }
@@ -436,6 +428,41 @@ public class GooglePayImpl implements IPay {
             }
         }
         startPurchase();
+    }
+
+    private void replacement(Purchase mPurchase) {
+        GoogleExchangeReqBean exchangeReqBean = new GoogleExchangeReqBean(activity);
+        exchangeReqBean.setDataSignature(mPurchase.getSignature());
+        exchangeReqBean.setPurchaseData(mPurchase.getOriginalJson());
+
+        exchangeReqBean.setRequestUrl(PayHelper.getPreferredUrl(activity));
+        exchangeReqBean.setRequestSpaUrl(PayHelper.getSpareUrl(activity));
+        exchangeReqBean.setRequestMethod(GooglePayDomainSite.google_send);
+
+        GoogleExchangeReqTask googleExchangeReqTask = new GoogleExchangeReqTask(activity, exchangeReqBean);
+        googleExchangeReqTask.setReqCallBack(new ISReqCallBack<GPExchangeRes>() {
+
+            @Override
+            public void success(GPExchangeRes gpExchangeRes, String rawResult) {
+                PL.i("exchange callback");
+                // 消费
+        /*if (mHelper != null) {
+            PL.i("google pay consumeAsync");
+            mHelper.consumeAsync(mPurchase, mConsumeFinishedListener);
+        }*/
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+        googleExchangeReqTask.excute(GPExchangeRes.class);
     }
 
 

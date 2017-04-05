@@ -84,10 +84,10 @@ public class LoadingDialog {
      * @param message
      */
     public void complain(String message) {
-        alert("Error: " + message, null);
+        alert(message, null);
     }
 
-    private void alert(final String message,final DialogInterface.OnClickListener listener) {
+    public void alert(final String message,final DialogInterface.OnClickListener listener) {
         try{
             mActivity.runOnUiThread(new Runnable() {
 
