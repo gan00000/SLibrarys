@@ -1,8 +1,6 @@
 package com.starpy.sdk;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,7 +14,6 @@ import com.core.base.SWebView;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
-import com.startpy.sdk.R;
 
 /**
  * Created by Efun on 2016/12/1.

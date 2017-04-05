@@ -28,7 +28,7 @@ import com.starpy.sdk.login.fragment.AccountLoginFragment;
 import com.starpy.sdk.login.fragment.AccountLoginMainFragment;
 import com.starpy.sdk.login.fragment.BaseFragment;
 import com.starpy.sdk.utils.DialogUtil;
-import com.startpy.sdk.R;
+import com.starpy.sdk.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

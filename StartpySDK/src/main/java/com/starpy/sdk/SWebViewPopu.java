@@ -19,7 +19,6 @@ import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ScreenHelper;
 import com.core.base.utils.ToastUtils;
-import com.startpy.sdk.R;
 
 /**
  * Created by gan on 2017/3/31.

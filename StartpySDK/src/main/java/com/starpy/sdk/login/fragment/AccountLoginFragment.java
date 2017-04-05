@@ -23,7 +23,7 @@ import com.starpy.data.login.execute.FBLoginRegRequestTask;
 import com.starpy.data.login.execute.MacLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.utils.DialogUtil;
-import com.startpy.sdk.R;
+import com.starpy.sdk.R;
 
 /**
  * Created by Efun on 2017/2/6.

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.starpy.base.utils.StarPyUtil;
-import com.startpy.sdk.R;
+import com.starpy.sdk.R;
 
 /**
  * Created by Efun on 2017/2/6.

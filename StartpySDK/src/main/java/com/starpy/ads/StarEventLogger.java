@@ -6,7 +6,7 @@ import android.content.Context;
 import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.google.ads.conversiontracking.AdWordsConversionReporter;
-import com.startpy.sdk.R;
+import com.starpy.sdk.R;
 
 /**
  * Created by gan on 2017/3/3.

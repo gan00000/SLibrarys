@@ -25,7 +25,6 @@ import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.SWebViewPopu;
 import com.starpy.sdk.login.SLoginActivity;
-import com.startpy.sdk.R;
 
 import java.util.Locale;
 

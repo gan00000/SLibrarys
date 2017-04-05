@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.startpy.sdk.R;
+import com.starpy.sdk.R;
 
 /**
  * Created by Efun on 2017/2/6.

@@ -18,7 +18,7 @@ import com.core.base.utils.SStringUtil;
 import com.starpy.base.bean.SLoginType;
 import com.starpy.data.login.execute.AccountRegisterRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
-import com.startpy.sdk.R;
+import com.starpy.sdk.R;
 import com.starpy.sdk.utils.DialogUtil;
 import com.starpy.base.utils.StarPyUtil;
 import com.core.base.utils.ToastUtils;
