@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -83,9 +84,22 @@ public class SWebViewPopu extends SBasePopu {
 
         progressBar = (ProgressBar) contentView.findViewById(R.id.s_webview_pager_loading_percent);
         sWebView = (SWebView) contentView.findViewById(R.id.s_webview_id);
-
         sWebView.setBaseWebChromeClient(new BaseWebChromeClient(progressBar, activity));
         sWebView.setWebViewClient(new BaseWebViewClient(activity));
+
+        this.setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                try {
+                    sWebView.clearHistory();
+                    sWebView.clearCache(true);
+                    sWebView.destroy();
+                    sWebView = null;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
@@ -98,7 +112,17 @@ public class SWebViewPopu extends SBasePopu {
             PL.i("webUrl is empty");
             return;
         }
-        this.showAtLocation(relativeLayout, Gravity.CENTER,0,0);
+//        this.showAtLocation(activity.getWindow().getDecorView(), Gravity.CENTER,0,0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            this.showAsDropDown(activity.getWindow().getDecorView(),
+
+                    (activity.getWindow().getDecorView().getWidth() - this.getWidth())/2,
+
+                    this.getHeight() + (activity.getWindow().getDecorView().getHeight() - this.getHeight())/2
+            );
+        }else{
+            this.showAtLocation(activity.getWindow().getDecorView(), Gravity.CENTER,0,0);
+        }
         sWebView.loadUrl(webUrl);
 
     }

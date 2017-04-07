@@ -65,7 +65,7 @@ makeLibraryJar.dependsOn(clearJar,build)
 def getJarName(){
     return "py-star-sdk-1.6"
 }
-task copyJar(type: Copy) {
+task copySdkJar(type: Copy) {
 
     from('build/libs/')
 
@@ -73,4 +73,4 @@ task copyJar(type: Copy) {
     include(getJarName() + '.jar')
 }
 
-copyJar.dependsOn(makeLibraryJar)
+copySdkJar.dependsOn(makeLibraryJar)
