@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 
         iStarpy = StarpyFactory.create();
 
-        iStarpy.setGameLanguage(this, SGameLanguage.en_US);
+        iStarpy.setGameLanguage(this, SGameLanguage.zh_TW);
 
         //初始化sdk
         iStarpy.initSDK(this);
@@ -124,8 +124,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        iStarpy.onResume(this);
         PL.i("activity onResume");
+        iStarpy.onResume(this);
     }
 
 

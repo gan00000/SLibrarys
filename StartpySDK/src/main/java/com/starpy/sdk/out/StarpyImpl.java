@@ -14,6 +14,7 @@ import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
+import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.pay.gp.GooglePayActivity2;
@@ -97,6 +98,9 @@ public class StarpyImpl implements IStarpy {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                //清除上一次登录成功的返回值
+                StarPyUtil.saveSdkLoginData(activity,"");
+
                 Intent intent = new Intent(activity, SLoginActivity.class);
 
                 activity.startActivityForResult(intent, SLoginActivity.S_LOGIN_REQUEST);//開啟登入
@@ -122,6 +126,22 @@ public class StarpyImpl implements IStarpy {
             }
         });
 
+    }
+
+    @Override
+    public void cs(Activity activity, String roleLevel, String roleVipLevel) {
+        CsReqeustBean csReqeustBean = new CsReqeustBean(activity);
+        csReqeustBean.setRoleLevel(roleLevel);
+        csReqeustBean.setRoleVipLevel(roleVipLevel);
+
+        // TODO: 2017/4/11 需要设置域名
+//        csReqeustBean.setRequestUrl();
+
+        SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
+
+        sWebViewDialog.setWebUrl(csReqeustBean.createPreRequestUrl());
+
+        sWebViewDialog.show();
     }
 
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {

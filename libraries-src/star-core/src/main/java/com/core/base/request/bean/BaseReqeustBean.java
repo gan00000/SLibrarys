@@ -3,6 +3,7 @@ package com.core.base.request.bean;
 import android.content.Context;
 
 import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.SStringUtil;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -76,6 +77,34 @@ public class BaseReqeustBean extends AbsReqeustBean {
             c = c.getSuperclass();
         }
         return postParams;
+    }
+
+    public String fieldValueToString() {
+        return SStringUtil.map2strData(fieldValueToMap());
+    }
+
+
+    public String createPreRequestUrl(){
+        String s = getCompleteUrl();
+        if (SStringUtil.isNotEmpty(s)){
+            return s + fieldValueToString();
+        }
+        return "";
+    }
+
+    public String createSpaRequestUrl(){
+        String s = getCompleteSpaUrl();
+        if (SStringUtil.isNotEmpty(s)){
+            return s + fieldValueToString();
+        }
+        return "";
+    }
+
+    public String[] createRequestUrls(){
+        String[] m = new String[2];
+        m[0] = createPreRequestUrl();
+        m[1] = createSpaRequestUrl();
+        return m;
     }
 
 }

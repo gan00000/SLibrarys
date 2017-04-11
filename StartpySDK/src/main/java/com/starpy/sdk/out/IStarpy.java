@@ -23,4 +23,5 @@ public interface IStarpy extends IGameLifeCycle {
 
     public void pay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra);
 
+    public void cs(Activity activity, String roleLevel, String roleVipLevel);
 }
