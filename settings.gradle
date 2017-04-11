@@ -1,4 +1,4 @@
-include ':google:google-play-services_lib_9256000', ':StartpySDK', ':Starpysdkdemo', ':app', ':AppTest'
+include ':google:google-play-services_lib_9256000', ':StartpySDK', ':StarpySdkDemo', ':app', ':AppTest'
 //include ':google:google-play-service-src'
 //include ':google:google-play-service-demo'
 
