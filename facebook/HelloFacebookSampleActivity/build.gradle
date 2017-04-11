@@ -1,12 +1,22 @@
 apply plugin: 'com.android.application'
 android {
 
+    signingConfigs {
+        brmmdsign {
+            keyAlias 'brmmd'
+            keyPassword 'brmmd666888'
+            storeFile file('../../keystore/brmmd-keystore.jks')
+            storePassword 'brmmd666888'
+        }
+
+    }
+
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId "com.efun.hh"
-        minSdkVersion 9
+        applicationId "com.gan.hello1"
+        minSdkVersion 15
         targetSdkVersion 25
     }
 
@@ -19,10 +29,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.brmmdsign
+        }
+        debug {
+            signingConfig signingConfigs.brmmdsign
         }
     }
 }
 
 dependencies {
-    compile project(':facebook:FacebookSDK-4.5.1-Src')
+    compile project(':facebook:facebook-4.20.0')
 }

@@ -23,9 +23,9 @@
 
     <!-- fb配置 -->
     <!-- 必须跟fb后台一致的名字 -->
-    <string name="facebook_app_name">Efun-六龍御天</string>
-    <string name="efunFBApplicationId">1643907709190422</string>
-    <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1643907709190422</string>
+    <!--<string name="facebook_app_name">Efun-六龍御天</string>-->
+    <string name="facebook_app_id">1286278484776251</string>
+    <!--<string name="facebook_authorities">com.facebook.app.FacebookContentProvider1643907709190422</string>-->
     
      <!-- fb配置end -->
     

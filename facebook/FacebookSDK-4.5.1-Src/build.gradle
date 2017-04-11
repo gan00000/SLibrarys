@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -29,19 +32,47 @@ dependencies {
 
 
 
-def getVersionName() {
-    return "1.2"
-}
+//./gradlew makeJar 出现env: bash\r: No such file or directory的话是由
+// 于window生成的工程gradlew文件在mac下换行符有问题
 
+
+//打包之前，删除以前的文件
 task clearJar(type: Delete) {
-    delete "build/outputs/efun-utils-${getVersionName()}.jar"
+    delete 'build/libs/'+ getJarName() + '.jar'
 }
 
-task makeJar(type: Copy) {
-    from('build/intermediates/bundles/release/')
-    into('build/outputs/')
-    include('classes.jar')
-    rename ('classes.jar', "facebook-sdk-${getVersionName()}.jar")
+//打包生成test.jar
+task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
+    //指定生成的jar名
+    baseName getJarName()
+
+    //去掉不需要打包的目录和文件
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE.txt'
+    //过滤不需要的class
+    exclude "**/**/BuildConfig.class"
+    exclude "**/**/BuildConfig\$*.class"
+    exclude "**/R.class"
+    exclude "**/R\$*.class"
+
+    //从哪里打包class文件,可以指定文件和目录
+    from('build/intermediates/classes/release/')
+    //打包到jar后的目录结构
+//    into('./')
 }
 
-makeJar.dependsOn(clearJar, build)
+makeLibraryJar.dependsOn(clearJar,build)
+
+def getJarName(){
+    return "facebook-sdk-1.3"
+}
+
+task copyJar(type: Copy) {
+
+    from('build/libs/')
+
+    into('../libs/')
+    include(getJarName() + '.jar')
+}
+
+copyJar.dependsOn(makeLibraryJar)
