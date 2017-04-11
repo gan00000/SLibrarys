@@ -5,18 +5,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupWindow;
 
-import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
-import com.core.base.utils.ScreenHelper;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
@@ -24,8 +19,6 @@ import com.starpy.base.utils.SLog;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
-import com.starpy.sdk.SWebViewDialog;
-import com.starpy.sdk.SWebViewPopu;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
 
@@ -48,7 +41,7 @@ public class MainActivity extends Activity {
 
         iStarpy = StarpyFactory.create();
 
-        iStarpy.setGameLanguage(this, SGameLanguage.zh_CH);
+        iStarpy.setGameLanguage(this, SGameLanguage.en_US);
 
         //初始化sdk
         iStarpy.initSDK(this);
@@ -122,7 +115,7 @@ public class MainActivity extends Activity {
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, SPayType.GOOGLE, "" + System.currentTimeMillis(), "py.brmmd.1.99", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, SPayType.GOOGLE, "" + System.currentTimeMillis(), "py.brmmd.29.99", "roleLevel", "customize");
 
             }
         });

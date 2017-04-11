@@ -9,7 +9,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
-                  android:screenOrientation="landscape">
+                  android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
