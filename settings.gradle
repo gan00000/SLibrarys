@@ -1,10 +1,11 @@
-include ':google:google-play-services_lib_9256000', ':StartpySDK', ':Starpysdkdemo', ':app'
+include ':google:google-play-services_lib_9256000', ':StartpySDK', ':Starpysdkdemo', ':app', ':AppTest'
 //include ':google:google-play-service-src'
 //include ':google:google-play-service-demo'
 
 
 include ':facebook:FacebookSDK-4.5.1-Src'
 include ':facebook:HelloFacebookSampleActivity'
+include ':facebook:facebook-4.20.0'
 
 
 include ':libraries-src:star-core'

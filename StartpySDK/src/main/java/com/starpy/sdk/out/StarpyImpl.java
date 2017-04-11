@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.SFacebookProxy;
@@ -13,21 +12,18 @@ import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
 import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
+import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
-import com.starpy.pay.IPay;
 import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
-import com.starpy.pay.gp.constants.GooglePayContant;
 import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.SWebViewDialog;
 import com.starpy.sdk.login.SLoginActivity;
-
-import java.util.Locale;
 
 /**
  * Created by Efun on 2017/2/13.
@@ -36,8 +32,6 @@ import java.util.Locale;
 public class StarpyImpl implements IStarpy {
 
     private ILoginCallBack loginCallBack;
-
-    private IPay iPay;
 
     private long firstClickTime;
 
@@ -81,27 +75,12 @@ public class StarpyImpl implements IStarpy {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                gameLanguage(activity, gameLanguage);
+                Localization.gameLanguage(activity, gameLanguage);
             }
         });
 
     }
 
-    private void gameLanguage(Activity activity, SGameLanguage gameLanguage){
-        if (gameLanguage == null){
-            gameLanguage = SGameLanguage.zh_TW;
-        }
-        ResConfig.saveGameLanguage(activity,gameLanguage.getLanguage());
-
-        if (gameLanguage == SGameLanguage.zh_CH){
-
-            ApkInfoUtil.updateConfigurationLocale(activity, Locale.SIMPLIFIED_CHINESE);
-
-        }else{
-            ApkInfoUtil.updateConfigurationLocale(activity, Locale.TRADITIONAL_CHINESE);
-
-        }
-    }
 
     @Override
     public void registerRoleInfo(Activity activity, String roleId, String roleName, String roleLevel, String severCode, String serverName) {
@@ -130,7 +109,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void pay(final Activity activity, final SPayType payType, final String cpOrderId, final String productId, final String roleLevel, final String extra) {
         PL.i("IStarpy pay");
-        if ((System.currentTimeMillis() - firstClickTime) < 800){//防止连续点击
+        if ((System.currentTimeMillis() - firstClickTime) < 1000){//防止连续点击
             PL.i("点击过快，无效");
             return;
         }
@@ -211,12 +190,6 @@ public class StarpyImpl implements IStarpy {
         PL.i("IStarpy onCreate");
         //广告
         StarEventLogger.activateApp(activity);
-        if (iPay == null){
-//            iPay = IPayFactory.create(IPayFactory.PAY_GOOGLE);
-        }
-        if (iPay != null) {
-            iPay.onCreate(activity);
-        }
 
         if (!isInitSdk){
             initSDK(activity);
@@ -236,10 +209,6 @@ public class StarpyImpl implements IStarpy {
             if (this.loginCallBack != null) {
                 this.loginCallBack.onLogin(sLoginResponse);
             }
-        }else if (requestCode == GooglePayContant.RC_REQUEST){
-            if (iPay != null){
-                iPay .onActivityResult(activity, requestCode, resultCode, data);
-            }
         }
     }
 
@@ -251,18 +220,12 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onStop(Activity activity) {
         PL.i("IStarpy onStop");
-        if (iPay != null){
-            iPay .onStop(activity);
-        }
 
     }
 
     @Override
     public void onDestroy(Activity activity) {
         PL.i("IStarpy onDestroy");
-        if (iPay != null){
-            iPay .onDestroy(activity);
-        }
 
     }
 }
