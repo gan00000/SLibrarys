@@ -1,14 +1,14 @@
 <resources>
 
-    <string name="py_account_login">Account Logged In</string>
+    <string name="py_account_login">Account Login</string>
     <string name="py_account">Account:</string>
     <string name="py_account_hit">Account</string>
     <string name="py_password">Password:</string>
     <string name="py_password_hit">Password</string>
     <string name="py_login">Login</string>
-    <string name="py_register_account">Registration</string>
-    <string name="py_login_fb">Facebook Logged In</string>
-    <string name="py_login_star">Account Logged In</string>
+    <string name="py_register_account">Sign Up</string>
+    <string name="py_login_fb">Facebook Login</string>
+    <string name="py_login_star">Account Login</string>
     <string name="py_login_mac">Login Without Registration</string>
     <string name="py_register_account_hit">6~18 Characters</string>
     <string name="py_confire">Confirm</string>
