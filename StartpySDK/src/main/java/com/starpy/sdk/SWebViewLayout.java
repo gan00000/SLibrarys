@@ -2,8 +2,6 @@ package com.starpy.sdk;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,7 +18,7 @@ import com.core.base.utils.SStringUtil;
  * Created by gan on 2017/4/7.
  */
 
-public class SWebViewLayout extends RelativeLayout {
+public class SWebViewLayout extends SBaseRelativeLayout {
 
 
     private Activity activity;
@@ -52,10 +50,6 @@ public class SWebViewLayout extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public SWebViewLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
 
     private void initView(){
 

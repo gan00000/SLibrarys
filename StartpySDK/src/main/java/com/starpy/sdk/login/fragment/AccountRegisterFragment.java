@@ -171,12 +171,12 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
                 if (sLoginResponse != null) {
                     if (sLoginResponse.isRequestSuccess()) {
                         ToastUtils.toast(getActivity(), R.string.py_register_success);
-                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
 
                         StarPyUtil.saveAccount(getContext(),account);
                         StarPyUtil.savePassword(getContext(),password);
+                        sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
 
-                        getActivity().finish();
+//                        getActivity().finish();
                     }else{
 
                         ToastUtils.toast(getActivity(), sLoginResponse.getMessage());

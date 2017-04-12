@@ -37,19 +37,19 @@ public class SWebViewDialog extends SBaseDialog {
     public SWebViewDialog(@NonNull Context context) {
         super(context);
         this.activity = (Activity)context;
-        initContentLayout();
+//        initContentLayout();
     }
 
     public SWebViewDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
         this.activity = (Activity)context;
-        initContentLayout();
+//        initContentLayout();
     }
 
     protected SWebViewDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         this.activity = (Activity)context;
-        initContentLayout();
+//        initContentLayout();
     }
 
     void initContentLayout(){
