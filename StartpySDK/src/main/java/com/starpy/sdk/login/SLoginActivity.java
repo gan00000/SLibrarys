@@ -2,7 +2,6 @@ package com.starpy.sdk.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,11 +23,11 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
 import com.starpy.data.login.execute.FBLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.sdk.R;
 import com.starpy.sdk.login.fragment.AccountLoginFragment;
 import com.starpy.sdk.login.fragment.AccountLoginMainFragment;
 import com.starpy.sdk.login.fragment.BaseFragment;
 import com.starpy.sdk.utils.DialogUtil;
-import com.starpy.sdk.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,6 +62,11 @@ public class SLoginActivity extends BaseLoginActivity {
         // 2.实例EfunFacebookProxy
         sFacebookProxy = new SFacebookProxy(this.getApplicationContext());
 
+        login();
+
+    }
+
+    private void login() {
         String previousLoginType = StarPyUtil.getPreviousLoginType(this);
 
         if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, previousLoginType)) {//自動登錄
@@ -90,7 +94,6 @@ public class SLoginActivity extends BaseLoginActivity {
         }
 
         PL.i("fb keyhash:" + SignatureUtil.getHashKey(this, getPackageName()));
-
     }
 
     private void goCommomLogin() {
