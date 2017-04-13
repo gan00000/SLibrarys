@@ -16,7 +16,6 @@ import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
-import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
@@ -24,7 +23,8 @@ import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.SWebViewDialog;
-import com.starpy.sdk.login.SLoginActivity;
+import com.starpy.sdk.login.ILogin;
+import com.starpy.sdk.login.ILoginFactory;
 
 /**
  * Created by Efun on 2017/2/13.
@@ -32,13 +32,14 @@ import com.starpy.sdk.login.SLoginActivity;
 
 public class StarpyImpl implements IStarpy {
 
-    private ILoginCallBack loginCallBack;
+    ILogin iLogin;
 
     private long firstClickTime;
 
     private static boolean isInitSdk = false;
 
     public StarpyImpl() {
+        iLogin = ILoginFactory.create();
     }
 
     @Override
@@ -91,19 +92,17 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void login(final Activity activity, ILoginCallBack iLoginCallBack) {
+    public void login(final Activity activity, final ILoginCallBack iLoginCallBack) {
         PL.i("IStarpy login");
-        this.loginCallBack = iLoginCallBack;
-
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //清除上一次登录成功的返回值
-                StarPyUtil.saveSdkLoginData(activity,"");
 
-                Intent intent = new Intent(activity, SLoginActivity.class);
-
-                activity.startActivityForResult(intent, SLoginActivity.S_LOGIN_REQUEST);//開啟登入
+                if (iLogin != null){
+                    //清除上一次登录成功的返回值
+                    StarPyUtil.saveSdkLoginData(activity,"");
+                    iLogin.startLogin(activity, iLoginCallBack);
+                }
             }
         });
 
@@ -214,38 +213,48 @@ public class StarpyImpl implements IStarpy {
         if (!isInitSdk){
             initSDK(activity);
         }
+        if (iLogin != null) {
+            iLogin.onCreate(activity);
+        }
     }
 
     @Override
     public void onResume(Activity activity) {
         PL.i("IStarpy onResume");
+        if (iLogin != null) {
+            iLogin.onResume(activity);
+        }
     }
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         PL.i("IStarpy onActivityResult");
-        if (requestCode == SLoginActivity.S_LOGIN_REQUEST && resultCode == SLoginActivity.S_LOGIN_RESULT && data != null) {
-            SLoginResponse sLoginResponse = (SLoginResponse) data.getSerializableExtra(SLoginActivity.S_LOGIN_RESPONSE_OBJ);
-            if (this.loginCallBack != null) {
-                this.loginCallBack.onLogin(sLoginResponse);
-            }
+        if (iLogin != null) {
+            iLogin.onActivityResult(activity, requestCode, resultCode, data);
         }
     }
 
     @Override
     public void onPause(Activity activity) {
         PL.i("IStarpy onPause");
+        if (iLogin != null) {
+            iLogin.onPause(activity);
+        }
     }
 
     @Override
     public void onStop(Activity activity) {
         PL.i("IStarpy onStop");
-
+        if (iLogin != null) {
+            iLogin.onStop(activity);
+        }
     }
 
     @Override
     public void onDestroy(Activity activity) {
         PL.i("IStarpy onDestroy");
-
+        if (iLogin != null) {
+            iLogin.onDestroy(activity);
+        }
     }
 }
