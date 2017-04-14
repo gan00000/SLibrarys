@@ -1,6 +1,7 @@
 package com.core.base.request.bean;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SStringUtil;
@@ -86,18 +87,27 @@ public class BaseReqeustBean extends AbsReqeustBean {
 
     public String createPreRequestUrl(){
         String s = getCompleteUrl();
+        return getStyeUrl(s);
+    }
+
+    @NonNull
+    private String getStyeUrl(String s) {
         if (SStringUtil.isNotEmpty(s)){
-            return s + fieldValueToString();
+            String fieldParams = fieldValueToString();
+            if (SStringUtil.isEmpty(fieldParams)){
+                return s;
+            }
+            if (s.endsWith("?")){
+                return s + fieldParams;
+            }
+            return s + "?" + fieldParams;
         }
         return "";
     }
 
     public String createSpaRequestUrl(){
         String s = getCompleteSpaUrl();
-        if (SStringUtil.isNotEmpty(s)){
-            return s + fieldValueToString();
-        }
-        return "";
+        return getStyeUrl(s);
     }
 
     public String[] createRequestUrls(){

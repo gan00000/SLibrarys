@@ -19,12 +19,13 @@ import com.starpy.base.utils.SLog;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.sdk.out.ISdkCallBack;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
 
 public class MainActivity extends Activity {
 
-    private Button loginButton, othersPayButton,googlePayBtn;
+    private Button loginButton, othersPayButton,googlePayBtn,csButton,shareButton;
 
     private IStarpy iStarpy;
 
@@ -35,6 +36,8 @@ public class MainActivity extends Activity {
         loginButton = (Button) findViewById(R.id.demo_login);
         othersPayButton = (Button) findViewById(R.id.demo_pay);
         googlePayBtn = (Button) findViewById(R.id.demo_pay_google);
+        csButton = (Button) findViewById(R.id.demo_cs);
+        shareButton = (Button) findViewById(R.id.demo_share);
 
         SLog.enableInfo(true);
         SLog.enableDebug(true);
@@ -117,6 +120,42 @@ public class MainActivity extends Activity {
                 */
                 iStarpy.pay(MainActivity.this, SPayType.GOOGLE, "" + System.currentTimeMillis(), "py.brmmd.29.99", "roleLevel", "customize");
 
+            }
+        });
+
+
+        csButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iStarpy.cs(MainActivity.this,"level","vipLevel");
+            }
+        });
+
+
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //下面的参数请按照实际传值
+                String title = "hello world";
+                String message = "hello world message";
+                String shareUrl = "http://www.starb168.com/brmmd_201703171125.html";
+                String picUrl = "https://lh3.googleusercontent.com/mOgnBSExg8wbssGwPGj-rscvNEklCvV3mGVqXuViUqROUok0P6P3JTo6Hmho0LRXoC8=w300-rw";
+
+                ISdkCallBack iSdkCallBack = new ISdkCallBack() {
+                    @Override
+                    public void success() {
+                        PL.i("share  success");
+                    }
+
+                    @Override
+                    public void failure() {
+                        PL.i("share  failure");
+                    }
+                };
+
+                iStarpy.share(MainActivity.this,iSdkCallBack,title, message, shareUrl, picUrl);
             }
         });
     }

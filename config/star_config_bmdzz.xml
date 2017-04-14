@@ -10,7 +10,7 @@
     <string name="star_game_code">bmdzz</string>
     <!--是否侵权 true为侵权，默认为非侵权-->
     <string name="star_infringement"></string>
-    <string name="star_app_key">0dad1b29847ce8606654e167d3bb8a78</string>
+    <string name="star_app_key">97d9636e3aa6e8a6a4dd85cb5fd8db88</string>
 
     <!--语言默认繁体zh-TW，用来设置UI界面语言，提示等-->
     <!--<string name="star_game_language">zh-TW</string>-->

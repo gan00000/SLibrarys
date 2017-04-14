@@ -2,7 +2,6 @@ package com.starpy.base.cfg;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.core.base.utils.PL;
 import com.core.base.utils.ResUtil;
@@ -117,6 +116,19 @@ public class ResConfig {
 			return StarPyUtil.getSdkCfg(context).getS_Pay_Spa_Url();
 		}
 		return getConfigUrl(context, "star_py_pay_spa_url");
+	}
+
+	public static String getCsPreferredUrl(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_CS_Pre_Url())){
+			return StarPyUtil.getSdkCfg(context).getS_CS_Pre_Url();
+		}
+		return getConfigUrl(context, "star_py_cs_pre_url");
+	}
+	public static String getCsSpareUrl(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_CS_Spa_Url())){
+			return StarPyUtil.getSdkCfg(context).getS_CS_Spa_Url();
+		}
+		return getConfigUrl(context, "star_py_cs_spa_url");
 	}
 
 	public static String getCdnPreferredUrl(Context context) {

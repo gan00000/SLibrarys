@@ -55,7 +55,7 @@ android {
     productFlavors {
         googleresdemo {
             minSdkVersion 11
-            applicationId 'com.star.brmmd.xm'
+            applicationId 'com.starpy.bmdzz.tw'
             signingConfig signingConfigs.brmmdsign
             targetSdkVersion 22
             versionCode 10700

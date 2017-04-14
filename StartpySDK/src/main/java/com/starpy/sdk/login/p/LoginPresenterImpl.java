@@ -207,7 +207,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         if (sFacebookProxy == null) {
             return;
         }
-        sFacebookProxy.fbLogin(activity, new SFacebookProxy.EfunFbLoginCallBack() {
+        sFacebookProxy.fbLogin(activity, new SFacebookProxy.FbLoginCallBack() {
             @Override
             public void onCancel() {
 
@@ -228,7 +228,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     private void requestBusinessId(Activity activity, SFacebookProxy sFacebookProxy, final String fbScopeId){
 
-        sFacebookProxy.requestBusinessId(activity, new SFacebookProxy.EfunFbBusinessIdCallBack() {
+        sFacebookProxy.requestBusinessId(activity, new SFacebookProxy.FbBusinessIdCallBack() {
             @Override
             public void onError() {
 

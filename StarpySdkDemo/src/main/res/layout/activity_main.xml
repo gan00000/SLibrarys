@@ -25,6 +25,16 @@
         android:id="@+id/demo_pay_google"
         android:text="google储值"
         />
+    <Button android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/demo_cs"
+        android:text="客服"
+        />
+    <Button android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/demo_share"
+        android:text="分享"
+        />
 
 
     <ImageView android:layout_width="@dimen/px_600"

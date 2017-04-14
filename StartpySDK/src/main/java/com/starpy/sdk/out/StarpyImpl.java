@@ -27,9 +27,6 @@ import com.starpy.sdk.SWebViewDialog;
 import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
 
-/**
- * Created by Efun on 2017/2/13.
- */
 
 public class StarpyImpl implements IStarpy {
 
@@ -39,6 +36,8 @@ public class StarpyImpl implements IStarpy {
 
     private static boolean isInitSdk = false;
 
+    private SFacebookProxy sFacebookProxy;
+
     public StarpyImpl() {
         iLogin = ObjFactory.create(DialogLoginImpl.class);
     }
@@ -46,6 +45,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void initSDK(final Activity activity) {
         PL.i("IStarpy initSDK");
+
 
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -58,11 +58,11 @@ public class StarpyImpl implements IStarpy {
                 ConfigRequest.requestBaseCfg(activity.getApplicationContext());//下载配置文件
                 ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
                 // 1.初始化fb sdk
-                SFacebookProxy.initFbSdk(activity);
+                SFacebookProxy.initFbSdk(activity.getApplicationContext());
+                sFacebookProxy = new SFacebookProxy(activity.getApplicationContext());
                 isInitSdk = true;
             }
         });
-
 
     }
 
@@ -130,18 +130,50 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void cs(Activity activity, String roleLevel, String roleVipLevel) {
+
         CsReqeustBean csReqeustBean = new CsReqeustBean(activity);
         csReqeustBean.setRoleLevel(roleLevel);
         csReqeustBean.setRoleVipLevel(roleVipLevel);
 
-        // TODO: 2017/4/11 需要设置域名
-//        csReqeustBean.setRequestUrl();
+        csReqeustBean.setRequestUrl(ResConfig.getCsPreferredUrl(activity));
+        csReqeustBean.setRequestSpaUrl(ResConfig.getCsSpareUrl(activity));
+        csReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_cs_method));
 
         SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
 
         sWebViewDialog.setWebUrl(csReqeustBean.createPreRequestUrl());
 
         sWebViewDialog.show();
+    }
+
+    @Override
+    public void share(Activity activity, final ISdkCallBack iSdkCallBack, String title, String message, String shareLinkUrl, String sharePictureUrl) {
+        if (sFacebookProxy != null){
+
+            SFacebookProxy.FbShareCallBack fbShareCallBack = new SFacebookProxy.FbShareCallBack() {
+                @Override
+                public void onCancel() {
+                    if (iSdkCallBack != null){
+                        iSdkCallBack.failure();
+                    }
+                }
+
+                @Override
+                public void onError(String message) {
+                    if (iSdkCallBack != null){
+                        iSdkCallBack.failure();
+                    }
+                }
+
+                @Override
+                public void onSuccess() {
+                    if (iSdkCallBack != null){
+                        iSdkCallBack.success();
+                    }
+                }
+            };
+            sFacebookProxy.fbShare(activity, fbShareCallBack,title,message,shareLinkUrl,sharePictureUrl);
+        }
     }
 
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
@@ -233,6 +265,9 @@ public class StarpyImpl implements IStarpy {
         if (iLogin != null) {
             iLogin.onActivityResult(activity, requestCode, resultCode, data);
         }
+        if (sFacebookProxy != null){
+            sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -256,6 +291,9 @@ public class StarpyImpl implements IStarpy {
         PL.i("IStarpy onDestroy");
         if (iLogin != null) {
             iLogin.onDestroy(activity);
+        }
+        if (sFacebookProxy != null){
+            sFacebookProxy.onDestroy(activity);
         }
     }
 }

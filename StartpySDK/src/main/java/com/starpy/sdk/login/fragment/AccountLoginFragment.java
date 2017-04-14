@@ -156,7 +156,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
         if (sLoginActivity.getsFacebookProxy() == null) {
             return;
         }
-        sLoginActivity.getsFacebookProxy().fbLogin(sLoginActivity, new SFacebookProxy.EfunFbLoginCallBack() {
+        sLoginActivity.getsFacebookProxy().fbLogin(sLoginActivity, new SFacebookProxy.FbLoginCallBack() {
             @Override
             public void onCancel() {
 
@@ -177,7 +177,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
     private void requestBusinessId(final String fbScopeId){
 
-        sLoginActivity.getsFacebookProxy().requestBusinessId(sLoginActivity, new SFacebookProxy.EfunFbBusinessIdCallBack() {
+        sLoginActivity.getsFacebookProxy().requestBusinessId(sLoginActivity, new SFacebookProxy.FbBusinessIdCallBack() {
             @Override
             public void onError() {
 

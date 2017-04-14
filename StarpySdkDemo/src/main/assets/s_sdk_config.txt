@@ -3,6 +3,8 @@
   "S_Pay_Pre_Url": "http://pay.starb168.com/",
   "S_Login_Spa_Url": "http://login.starb168.com/",
   "S_Login_Pre_Url": "http://login.starb168.com/",
+  "S_CS_Spa_Url": "http://cs.starb168.com/",
+  "S_CS_Pre_Url": "http://cs.starb168.com/",
   "S_Login_password_Regularly": "",
   "S_Login_account_Regularly": "",
   "GoogleToOthersPay": false,

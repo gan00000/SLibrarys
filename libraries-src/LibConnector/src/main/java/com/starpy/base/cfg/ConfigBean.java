@@ -22,6 +22,9 @@ public class ConfigBean {
     private boolean GoogleToOthersPay = false;//Google储值是否转移为第三方储值,废弃
     private String OpenOthersPay = "";//Google储值是否转移为第三方储值
 
+    private String S_CS_Pre_Url;
+    private String S_CS_Spa_Url;
+
     public String getS_AppKey() {
         return S_AppKey;
     }
@@ -74,5 +77,13 @@ public class ConfigBean {
             return true;
         }
         return false;
+    }
+
+    public String getS_CS_Spa_Url() {
+        return S_CS_Spa_Url;
+    }
+
+    public String getS_CS_Pre_Url() {
+        return S_CS_Pre_Url;
     }
 }

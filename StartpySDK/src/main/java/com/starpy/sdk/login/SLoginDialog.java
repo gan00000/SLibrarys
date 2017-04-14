@@ -132,7 +132,7 @@ public class SLoginDialog extends SBaseDialog implements LoginContract.ILoginVie
         LoginAdapter loginAdapter = new LoginAdapter(context, viewPageList);
         loginViewPager.setPageTransformer(true,new DepthPageTransformer());
         FixedSpeedScroller fixedSpeedScroller = new FixedSpeedScroller(context,new LinearOutSlowInInterpolator());
-        fixedSpeedScroller.setmDuration(2000);
+        fixedSpeedScroller.setmDuration(1000);
 
         ViewPageUitl.setScrollDuration(activity,loginViewPager,fixedSpeedScroller);
 
