@@ -2,27 +2,28 @@ package com.starpy.sdk.login;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.core.base.utils.SStringUtil;
-import com.core.base.utils.ToastUtils;
 import com.facebook.sfb.SFacebookProxy;
-import com.starpy.ads.StarEventLogger;
-import com.starpy.base.utils.StarPyUtil;
+import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SBaseDialog;
 import com.starpy.sdk.login.adapter.LoginAdapter;
+import com.starpy.sdk.login.p.LoginPresenterImpl;
 import com.starpy.sdk.login.widget.AccountLoginLayout;
 import com.starpy.sdk.login.widget.AccountLoginMainLayout;
 import com.starpy.sdk.login.widget.AccountRegisterLayout;
 import com.starpy.sdk.login.widget.AccountRegisterTermsLayout;
-import com.starpy.sdk.login.widget.DepthPageTransformer;
+import com.starpy.sdk.DepthPageTransformer;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import java.util.List;
  * Created by gan on 2017/4/12.
  */
 
-public class SLoginDialog extends SBaseDialog {
+public class SLoginDialog extends SBaseDialog implements LoginContract.ILoginView{
 
     private Context context;
     private Activity activity;
@@ -40,6 +41,11 @@ public class SLoginDialog extends SBaseDialog {
     private ViewPager loginViewPager;
     private View autoLoginPage;
 
+    //    自動登錄頁面控件
+    private RelativeLayout autoLoginLayout;
+    private TextView autoLoginTips;
+    private TextView autoLoginWaitTime;
+    private TextView autoLoginChangeAccount;
 
     private SLoginBaseRelativeLayout loginView;
     private SLoginBaseRelativeLayout accountLoginView;
@@ -49,36 +55,54 @@ public class SLoginDialog extends SBaseDialog {
 
     private SFacebookProxy sFacebookProxy;
 
+    private LoginContract.ILoginPresenter iLoginPresenter;
+
+    private ILoginCallBack iLoginCallBack;
+
     public SLoginDialog(@NonNull Context context) {
         super(context);
-        if (context instanceof Activity){
-            this.activity = (Activity) context;
-        }
-        this.context = context;
+        init(context);
     }
 
     public SLoginDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
-        this.context = context;
-        if (context instanceof Activity){
-            this.activity = (Activity) context;
-        }
+        init(context);
     }
 
     protected SLoginDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
+        init(context);
+    }
+
+    private void init(Context context){
         this.context = context;
         if (context instanceof Activity){
             this.activity = (Activity) context;
         }
+        setCanceledOnTouchOutside(false);
+        setFullScreen();
+        iLoginPresenter = new LoginPresenterImpl();
+        iLoginPresenter.setBaseView(this);
+
+        setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                iLoginPresenter.destory(activity);
+            }
+        });
     }
 
+    public LoginContract.ILoginPresenter getLoginPresenter() {
+        return iLoginPresenter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.py_login_activity_main_2);
+
+        initAutoLoginView();
 
         loginViewPager = (ViewPager) findViewById(R.id.py_login_viewpage_id);
         autoLoginPage = findViewById(R.id.py_auto_login_page);
@@ -106,6 +130,21 @@ public class SLoginDialog extends SBaseDialog {
         loginViewPager.setPageTransformer(true,new DepthPageTransformer());
         loginViewPager.setAdapter(loginAdapter);
 
+        iLoginPresenter.autoLogin(activity);
+
+    }
+
+    private void initAutoLoginView() {
+        autoLoginLayout = (RelativeLayout) findViewById(R.id.py_auto_login_page);
+        autoLoginTips = (TextView) findViewById(R.id.py_auto_login_tips);
+        autoLoginWaitTime = (TextView) findViewById(R.id.py_auto_login_wait_time);
+        autoLoginChangeAccount = (TextView) findViewById(R.id.py_auto_login_change);
+        autoLoginChangeAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iLoginPresenter.autoLoginChangeAccount(activity);
+            }
+        });
     }
 
     @Override
@@ -151,7 +190,7 @@ public class SLoginDialog extends SBaseDialog {
         loginViewPager.setCurrentItem(viewPageList.indexOf(registerTermsView), true);
     }
 
-    public SFacebookProxy getsFacebookProxy() {
+    public SFacebookProxy getFacebookProxy() {
         return sFacebookProxy;
     }
 
@@ -167,38 +206,43 @@ public class SLoginDialog extends SBaseDialog {
         this.activity = activity;
     }
 
-
-    public void handleRegisteOrLoginSuccess(SLoginResponse loginResponse, String rawResult, String loginType) {
-        try {
-            StarPyUtil.saveSdkLoginData(getContext(), loginResponse.getRawResponse());
-
-            if (loginResponse != null) {
-                //1001 注册成功    1000登入成功
-                if (SStringUtil.isEqual("1000", loginResponse.getCode())) {
-                    StarEventLogger.trackinLoginEvent(activity);
-                } else if (SStringUtil.isEqual("1001", loginResponse.getCode())) {
-                    StarEventLogger.trackinRegisterEvent(activity);
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+    @Override
+    public void LoginSuccess(SLoginResponse sLoginResponse) {
+        if (iLoginCallBack != null){
+            iLoginCallBack.onLogin(sLoginResponse);
         }
-
-//        setResult(loginResponse);
-
-        StarPyUtil.savePreviousLoginType(activity, loginType);
-
-    /*    if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, loginType)) {
-
-        } else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_MAC, loginType)) {
-
-        } else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_FB, loginType)) {
-
-        }*/
-
-        ToastUtils.toast(activity, R.string.py_login_success);
-
         this.dismiss();
+    }
+
+    @Override
+    public void showAutoLoginTips(String tips) {
+        autoLoginTips.setText(tips);
+    }
+
+    @Override
+    public void showAutoLoginView() {
+        loginViewPager.setVisibility(View.GONE);
+        autoLoginLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hildAutoLoginView() {
+        loginViewPager.setVisibility(View.VISIBLE);
+        autoLoginLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showLoginView() {
+        loginViewPager.setVisibility(View.VISIBLE);
+        autoLoginLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showAutoLoginWaitTime(String time) {
+        autoLoginWaitTime.setText(time);
+    }
+
+    public void setLoginCallBack(ILoginCallBack iLoginCallBack) {
+        this.iLoginCallBack = iLoginCallBack;
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.core.base.ObjFactory;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.SFacebookProxy;
@@ -23,8 +24,8 @@ import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.SWebViewDialog;
+import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
-import com.starpy.sdk.login.ILoginFactory;
 
 /**
  * Created by Efun on 2017/2/13.
@@ -32,14 +33,14 @@ import com.starpy.sdk.login.ILoginFactory;
 
 public class StarpyImpl implements IStarpy {
 
-    ILogin iLogin;
+    private ILogin iLogin;
 
     private long firstClickTime;
 
     private static boolean isInitSdk = false;
 
     public StarpyImpl() {
-        iLogin = ILoginFactory.create();
+        iLogin = ObjFactory.create(DialogLoginImpl.class);
     }
 
     @Override

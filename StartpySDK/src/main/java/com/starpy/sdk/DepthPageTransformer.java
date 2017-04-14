@@ -1,4 +1,4 @@
-package com.starpy.sdk.login.widget;
+package com.starpy.sdk;
 
 import android.annotation.TargetApi;
 import android.os.Build;

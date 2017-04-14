@@ -30,7 +30,9 @@ public class DialogLoginImpl implements ILogin {
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-        sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
+        if (sFacebookProxy != null) {
+            sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -45,13 +47,16 @@ public class DialogLoginImpl implements ILogin {
 
     @Override
     public void onDestroy(Activity activity) {
-        sFacebookProxy.onDestroy(activity);
+        if (sFacebookProxy != null) {
+            sFacebookProxy.onDestroy(activity);
+        }
     }
 
     @Override
     public void startLogin(Activity activity, ILoginCallBack iLoginCallBack) {
         SLoginDialog sLoginDialog = new SLoginDialog(activity , com.starpy.sdk.R.style.StarDialogTheme);
         sLoginDialog.setsFacebookProxy(sFacebookProxy);
+        sLoginDialog.setLoginCallBack(iLoginCallBack);
         sLoginDialog.show();
     }
 }

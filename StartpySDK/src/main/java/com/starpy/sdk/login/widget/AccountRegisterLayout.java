@@ -12,15 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
-import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.data.login.execute.AccountRegisterRequestTask;
-import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
-import com.starpy.sdk.utils.DialogUtil;
 
 /**
  * Created by Efun on 2017/2/6.
@@ -154,43 +149,7 @@ public class AccountRegisterLayout extends SLoginBaseRelativeLayout implements V
             return;
         }
 
-        AccountRegisterRequestTask accountRegisterCmd = new AccountRegisterRequestTask(getActivity(), account, password);
-        accountRegisterCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
-        accountRegisterCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
-            @Override
-            public void success(SLoginResponse sLoginResponse, String rawResult) {
-                if (sLoginResponse != null) {
-                    if (sLoginResponse.isRequestSuccess()) {
-                        ToastUtils.toast(getActivity(), R.string.py_register_success);
-
-                        StarPyUtil.saveAccount(getContext(),account);
-                        StarPyUtil.savePassword(getContext(),password);
-                        sLoginDialog.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
-
-                    }else{
-
-                        ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
-                    }
-
-                } else {
-                    ToastUtils.toast(getActivity(), R.string.py_error_occur);
-                }
-            }
-
-            @Override
-            public void timeout(String code) {
-
-            }
-
-            @Override
-            public void noData() {
-
-            }
-
-        });
-        accountRegisterCmd.excute(SLoginResponse.class);
-
-
+        sLoginDialog.getLoginPresenter().register(sLoginDialog.getActivity(), account, password);
     }
 
 

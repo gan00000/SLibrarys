@@ -35,19 +35,40 @@ public class SBaseDialog extends Dialog {
         //获得dialog的window窗口
         Window window = this.getWindow();
 
-        int padDimension = context.getResources().getDimensionPixelSize(R.dimen.px_20);
+        int padDimension = context.getResources().getDimensionPixelSize(R.dimen.px_15);
         window.getDecorView().setPadding(padDimension, padDimension, padDimension, padDimension);
+
+        //获得window窗口的属性
+        android.view.WindowManager.LayoutParams lp = window.getAttributes();
+
+        //设置窗口宽度为充满全屏
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+
+        setCanceledOnTouchOutside(true);
+
+    }
+
+    protected void setFullScreen(){
+
+        //获得dialog的window窗口
+        Window window = this.getWindow();
+
+        window.getDecorView().setPadding(0, 0, 0, 0);
 
         //获得window窗口的属性
         android.view.WindowManager.LayoutParams lp = window.getAttributes();
         //设置窗口宽度为充满全屏
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         //设置窗口高度为包裹内容
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
         //将设置好的属性set回去
         window.setAttributes(lp);
-
-        setCanceledOnTouchOutside(true);
 
     }
 }

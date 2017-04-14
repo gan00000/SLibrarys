@@ -12,15 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
-import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.data.login.execute.AccountLoginRequestTask;
-import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
-import com.starpy.sdk.utils.DialogUtil;
 
 /**
  * Created by Efun on 2017/2/6.
@@ -157,7 +152,8 @@ public class AccountLoginMainLayout extends SLoginBaseRelativeLayout {
             return;
         }
 
-        AccountLoginRequestTask accountLoginCmd = new AccountLoginRequestTask(getActivity(), account, password);
+        sLoginDialog.getLoginPresenter().starpyAccountLogin(sLoginDialog.getActivity(),account,password);
+     /*   AccountLoginRequestTask accountLoginCmd = new AccountLoginRequestTask(getActivity(), account, password);
         accountLoginCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(),"Loading..."));
         accountLoginCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
@@ -186,7 +182,7 @@ public class AccountLoginMainLayout extends SLoginBaseRelativeLayout {
 
             }
         });
-        accountLoginCmd.excute(SLoginResponse.class);
+        accountLoginCmd.excute(SLoginResponse.class);*/
 
     }
 
