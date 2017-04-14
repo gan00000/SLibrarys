@@ -77,6 +77,13 @@ public class AccountRegisterLayout extends SLoginBaseRelativeLayout implements V
         return contentView;
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (registerAccountEditText != null){
+            registerAccountEditText.requestFocus();
+        }
+    }
 
     @Override
     public void onClick(View v) {
