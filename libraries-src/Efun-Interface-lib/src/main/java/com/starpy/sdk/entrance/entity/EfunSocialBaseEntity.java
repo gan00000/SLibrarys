@@ -25,7 +25,7 @@ public class EfunSocialBaseEntity extends EfunBaseEntity {
 		return imageUrl;
 	}
 	/**
-	 * @param imageUrl the imageUrl to set
+	 * @param imageUrl the imageUrl to setScrollDuration
 	 */
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
@@ -37,7 +37,7 @@ public class EfunSocialBaseEntity extends EfunBaseEntity {
 		return imageHeight;
 	}
 	/**
-	 * @param imageHeight the imageHeight to set
+	 * @param imageHeight the imageHeight to setScrollDuration
 	 */
 	public void setImageHeight(String imageHeight) {
 		this.imageHeight = imageHeight;
@@ -49,7 +49,7 @@ public class EfunSocialBaseEntity extends EfunBaseEntity {
 		return imageWidth;
 	}
 	/**
-	 * @param imageWidth the imageWidth to set
+	 * @param imageWidth the imageWidth to setScrollDuration
 	 */
 	public void setImageWidth(String imageWidth) {
 		this.imageWidth = imageWidth;
@@ -61,7 +61,7 @@ public class EfunSocialBaseEntity extends EfunBaseEntity {
 		return senderName;
 	}
 	/**
-	 * @param senderName the senderName to set
+	 * @param senderName the senderName to setScrollDuration
 	 */
 	public void setSenderName(String senderName) {
 		this.senderName = senderName;
@@ -73,7 +73,7 @@ public class EfunSocialBaseEntity extends EfunBaseEntity {
 		return senderScore;
 	}
 	/**
-	 * @param senderScore the senderScore to set
+	 * @param senderScore the senderScore to setScrollDuration
 	 */
 	public void setSenderScore(String senderScore) {
 		this.senderScore = senderScore;
@@ -85,7 +85,7 @@ public class EfunSocialBaseEntity extends EfunBaseEntity {
 		return senderServerCode;
 	}
 	/**
-	 * @param senderServerCode the senderServerCode to set
+	 * @param senderServerCode the senderServerCode to setScrollDuration
 	 */
 	public void setSenderServerCode(String senderServerCode) {
 		this.senderServerCode = senderServerCode;
@@ -97,7 +97,7 @@ public class EfunSocialBaseEntity extends EfunBaseEntity {
 		return receiverName;
 	}
 	/**
-	 * @param receiverName the receiverName to set
+	 * @param receiverName the receiverName to setScrollDuration
 	 */
 	public void setReceiverName(String receiverName) {
 		this.receiverName = receiverName;
@@ -109,7 +109,7 @@ public class EfunSocialBaseEntity extends EfunBaseEntity {
 		return receiverScore;
 	}
 	/**
-	 * @param receiverScore the receiverScore to set
+	 * @param receiverScore the receiverScore to setScrollDuration
 	 */
 	public void setReceiverScore(String receiverScore) {
 		this.receiverScore = receiverScore;
@@ -121,7 +121,7 @@ public class EfunSocialBaseEntity extends EfunBaseEntity {
 		return receiverServerCode;
 	}
 	/**
-	 * @param receiverServerCode the receiverServerCode to set
+	 * @param receiverServerCode the receiverServerCode to setScrollDuration
 	 */
 	public void setReceiverServerCode(String receiverServerCode) {
 		this.receiverServerCode = receiverServerCode;

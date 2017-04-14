@@ -23,7 +23,7 @@ public final class EfunInvitationEntity extends EfunSocialBaseEntity {
 	}
 
 	/**
-	 * @param invitationType the invitationType to set
+	 * @param invitationType the invitationType to setScrollDuration
 	 */
 	public void setInvitationType(EfunInvitationType invitationType) {
 		this.invitationType = invitationType;
@@ -37,7 +37,7 @@ public final class EfunInvitationEntity extends EfunSocialBaseEntity {
 	}
 
 	/**
-	 * @param inviteTemplateId the inviteTemplateId to set
+	 * @param inviteTemplateId the inviteTemplateId to setScrollDuration
 	 */
 	public void setInviteTemplateId(String inviteTemplateId) {
 		this.inviteTemplateId = inviteTemplateId;
@@ -51,7 +51,7 @@ public final class EfunInvitationEntity extends EfunSocialBaseEntity {
 	}
 
 	/**
-	 * @param inviteMessage the inviteMessage to set
+	 * @param inviteMessage the inviteMessage to setScrollDuration
 	 */
 	public void setInviteMessage(String inviteMessage) {
 		this.inviteMessage = inviteMessage;

@@ -31,7 +31,7 @@ public class EfunAdsWallEntity extends EfunBaseEntity {
 
 
 	/**
-	 * @param callAfterLogin the callAfterLogin to set
+	 * @param callAfterLogin the callAfterLogin to setScrollDuration
 	 */
 	@Deprecated
 	public void setCallAfterLogin(boolean callAfterLogin) {

@@ -18,7 +18,7 @@ public final class EfunFormEntity extends EfunBaseEntity {
 	}
 
 	/**
-	 * @param formUrl the formUrl to set
+	 * @param formUrl the formUrl to setScrollDuration
 	 */
 	public void setFormUrl(String formUrl) {
 		this.formUrl = formUrl;

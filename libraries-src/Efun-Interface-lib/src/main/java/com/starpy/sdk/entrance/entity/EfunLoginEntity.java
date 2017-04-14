@@ -16,7 +16,7 @@ public final class EfunLoginEntity extends EfunEntity {
 		return isShowNotice;
 	}
 	/**
-	 * @param isShowNotice the isShowNotice to set
+	 * @param isShowNotice the isShowNotice to setScrollDuration
 	 */
 	public void setShowNotice(boolean isShowNotice) {
 		this.isShowNotice = isShowNotice;
@@ -28,7 +28,7 @@ public final class EfunLoginEntity extends EfunEntity {
 		return isAutoLogin;
 	}
 	/**
-	 * @param isAutoLogin the isAutoLogin to set
+	 * @param isAutoLogin the isAutoLogin to setScrollDuration
 	 */
 	public void setAutoLogin(boolean isAutoLogin) {
 		this.isAutoLogin = isAutoLogin;

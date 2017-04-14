@@ -50,7 +50,7 @@ public class EfunUser implements Serializable {
 
 	/**
 	 * @param loginType
-	 *            the loginType to set
+	 *            the loginType to setScrollDuration
 	 */
 	public void setLoginType(SLoginType loginType) {
 		this.loginType = loginType;
@@ -65,7 +65,7 @@ public class EfunUser implements Serializable {
 
 	/**
 	 * @param userId
-	 *            the userId to set
+	 *            the userId to setScrollDuration
 	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
@@ -80,7 +80,7 @@ public class EfunUser implements Serializable {
 
 	/**
 	 * @param timestamp
-	 *            the timestamp to set
+	 *            the timestamp to setScrollDuration
 	 */
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
@@ -95,7 +95,7 @@ public class EfunUser implements Serializable {
 
 	/**
 	 * @param emailMsn
-	 *            the emailMsn to set
+	 *            the emailMsn to setScrollDuration
 	 */
 	public void setEmailMsn(String emailMsn) {
 		this.emailMsn = emailMsn;
@@ -110,7 +110,7 @@ public class EfunUser implements Serializable {
 
 	/**
 	 * @param sign
-	 *            the sign to set
+	 *            the sign to setScrollDuration
 	 */
 	public void setSign(String sign) {
 		this.sign = sign;
@@ -125,7 +125,7 @@ public class EfunUser implements Serializable {
 
 	/**
 	 * @param region
-	 *            the region to set
+	 *            the region to setScrollDuration
 	 */
 	public void setRegion(String region) {
 		this.region = region;
@@ -140,7 +140,7 @@ public class EfunUser implements Serializable {
 
 	/**
 	 * @param thirdPlateId
-	 *            the thirdPlateId to set
+	 *            the thirdPlateId to setScrollDuration
 	 */
 	public void setThirdPlateId(String thirdPlateId) {
 		this.thirdPlateId = thirdPlateId;

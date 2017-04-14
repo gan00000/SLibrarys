@@ -314,7 +314,7 @@ public abstract class EfunSDK {
 	 * @date 2016年3月10日
 	 */
 	public void efunSetLanguage(Context context, String language) {
-		Log.d(SDK_TAG, "set gameLanguage:" + language);
+		Log.d(SDK_TAG, "setScrollDuration gameLanguage:" + language);
 		SPUtil.saveSimpleInfo(context, StarPyUtil.STAR_PY_SP_FILE, EFUN_SDK_LANGUAGE, language);
 	}
 

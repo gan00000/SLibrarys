@@ -26,7 +26,7 @@ public final class EfunPayEntity extends EfunBaseEntity {
 		return payType;
 	}
 	/**
-	 * @param payType the payType to set
+	 * @param payType the payType to setScrollDuration
 	 */
 	public void setPayType(EfunPayType payType) {
 		this.payType = payType;
@@ -38,7 +38,7 @@ public final class EfunPayEntity extends EfunBaseEntity {
 		return productId;
 	}
 	/**
-	 * @param productId the productId to set
+	 * @param productId the productId to setScrollDuration
 	 */
 	public void setProductId(String productId) {
 		this.productId = productId;
@@ -50,7 +50,7 @@ public final class EfunPayEntity extends EfunBaseEntity {
 		return creditId;
 	}
 	/**
-	 * @param creditId the creditId to set
+	 * @param creditId the creditId to setScrollDuration
 	 */
 	public void setCreditId(String creditId) {
 		this.creditId = creditId;
@@ -62,7 +62,7 @@ public final class EfunPayEntity extends EfunBaseEntity {
 		return remark;
 	}
 	/**
-	 * @param remark the remark to set
+	 * @param remark the remark to setScrollDuration
 	 */
 	public void setRemark(String remark) {
 		this.remark = remark;
@@ -74,7 +74,7 @@ public final class EfunPayEntity extends EfunBaseEntity {
 		return payMoney;
 	}
 	/**
-	 * @param payMoney the payMoney to set
+	 * @param payMoney the payMoney to setScrollDuration
 	 */
 	public void setPayMoney(String payMoney) {
 		this.payMoney = payMoney;
@@ -86,7 +86,7 @@ public final class EfunPayEntity extends EfunBaseEntity {
 		return payStone;
 	}
 	/**
-	 * @param payStone the payStone to set
+	 * @param payStone the payStone to setScrollDuration
 	 */
 	public void setPayStone(String payStone) {
 		this.payStone = payStone;
@@ -98,7 +98,7 @@ public final class EfunPayEntity extends EfunBaseEntity {
 		return payCardData;
 	}
 	/**
-	 * @param payCardData the payCardData to set
+	 * @param payCardData the payCardData to setScrollDuration
 	 */
 	public void setPayCardData(String payCardData) {
 		this.payCardData = payCardData;

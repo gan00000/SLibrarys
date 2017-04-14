@@ -35,7 +35,7 @@ public final class EfunPlatformEntity extends EfunBaseEntity {
 		return creditId;
 	}
 	/**
-	 * @param creditId the creditId to set
+	 * @param creditId the creditId to setScrollDuration
 	 */
 	public void setCreditId(String creditId) {
 		this.creditId = creditId;
@@ -47,7 +47,7 @@ public final class EfunPlatformEntity extends EfunBaseEntity {
 		return remark;
 	}
 	/**
-	 * @param remark the remark to set
+	 * @param remark the remark to setScrollDuration
 	 */
 	public void setRemark(String remark) {
 		this.remark = remark;

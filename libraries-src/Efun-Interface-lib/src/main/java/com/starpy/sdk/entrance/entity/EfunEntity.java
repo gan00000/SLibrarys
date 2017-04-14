@@ -31,7 +31,7 @@ public class EfunEntity implements Serializable {
 	}
 
 	/**
-	 * @param ISCallBack the ISCallBack to set
+	 * @param ISCallBack the ISCallBack to setScrollDuration
 	 */
 	public void setISCallBack(ISCallBack ISCallBack) {
 		this.ISCallBack = ISCallBack;
@@ -45,7 +45,7 @@ public class EfunEntity implements Serializable {
 	}
 
 	/**
-	 * @param language the gameLanguage to set
+	 * @param language the gameLanguage to setScrollDuration
 	 */
 	public void setLanguage(String language) {
 		this.language = language;

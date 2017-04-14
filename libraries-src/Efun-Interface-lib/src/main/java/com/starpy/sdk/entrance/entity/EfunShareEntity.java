@@ -36,7 +36,7 @@ public final class EfunShareEntity extends EfunBaseEntity {
 		return shareType;
 	}
 	/**
-	 * @param shareType the shareType to set
+	 * @param shareType the shareType to setScrollDuration
 	 */
 	public void setShareType(EfunShareType shareType) {
 		this.shareType = shareType;
@@ -48,7 +48,7 @@ public final class EfunShareEntity extends EfunBaseEntity {
 		return shareLinkName;
 	}
 	/**
-	 * @param shareLinkName the shareLinkName to set
+	 * @param shareLinkName the shareLinkName to setScrollDuration
 	 */
 	public void setShareLinkName(String shareLinkName) {
 		this.shareLinkName = shareLinkName;
@@ -60,7 +60,7 @@ public final class EfunShareEntity extends EfunBaseEntity {
 		return shareLinkUrl;
 	}
 	/**
-	 * @param shareLinkUrl the shareLinkUrl to set
+	 * @param shareLinkUrl the shareLinkUrl to setScrollDuration
 	 */
 	public void setShareLinkUrl(String shareLinkUrl) {
 		this.shareLinkUrl = shareLinkUrl;
@@ -72,7 +72,7 @@ public final class EfunShareEntity extends EfunBaseEntity {
 		return shareDescrition;
 	}
 	/**
-	 * @param shareDescrition the shareDescrition to set
+	 * @param shareDescrition the shareDescrition to setScrollDuration
 	 */
 	public void setShareDescrition(String shareDescrition) {
 		this.shareDescrition = shareDescrition;
@@ -84,7 +84,7 @@ public final class EfunShareEntity extends EfunBaseEntity {
 		return sharePictureUrl;
 	}
 	/**
-	 * @param sharePictureUrl the sharePictureUrl to set
+	 * @param sharePictureUrl the sharePictureUrl to setScrollDuration
 	 */
 	public void setSharePictureUrl(String sharePictureUrl) {
 		this.sharePictureUrl = sharePictureUrl;
@@ -96,7 +96,7 @@ public final class EfunShareEntity extends EfunBaseEntity {
 		return shareCaption;
 	}
 	/**
-	 * @param shareCaption the shareCaption to set
+	 * @param shareCaption the shareCaption to setScrollDuration
 	 */
 	public void setShareCaption(String shareCaption) {
 		this.shareCaption = shareCaption;
@@ -108,7 +108,7 @@ public final class EfunShareEntity extends EfunBaseEntity {
 		return isLocalPicture;
 	}
 	/**
-	 * @param isLocalPicture the isLocalPicture to set
+	 * @param isLocalPicture the isLocalPicture to setScrollDuration
 	 */
 	public void setLocalPicture(boolean isLocalPicture) {
 		this.isLocalPicture = isLocalPicture;

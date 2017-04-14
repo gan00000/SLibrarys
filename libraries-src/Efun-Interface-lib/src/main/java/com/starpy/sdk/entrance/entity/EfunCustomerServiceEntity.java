@@ -17,7 +17,7 @@ public final class EfunCustomerServiceEntity extends EfunBaseEntity {
 		return vipLevel;
 	}
 	/**
-	 * @param vipLevel the vipLevel to set
+	 * @param vipLevel the vipLevel to setScrollDuration
 	 */
 	public void setVipLevel(String vipLevel) {
 		this.vipLevel = vipLevel;
@@ -29,7 +29,7 @@ public final class EfunCustomerServiceEntity extends EfunBaseEntity {
 		return remark;
 	}
 	/**
-	 * @param remark the remark to set
+	 * @param remark the remark to setScrollDuration
 	 */
 	public void setRemark(String remark) {
 		this.remark = remark;

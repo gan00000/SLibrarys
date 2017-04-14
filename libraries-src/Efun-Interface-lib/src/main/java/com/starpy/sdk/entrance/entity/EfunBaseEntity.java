@@ -23,7 +23,7 @@ public class EfunBaseEntity extends EfunEntity {
 		return userId;
 	}
 	/**
-	 * @param userId the userId to set
+	 * @param userId the userId to setScrollDuration
 	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
@@ -35,7 +35,7 @@ public class EfunBaseEntity extends EfunEntity {
 		return serverCode;
 	}
 	/**
-	 * @param serverCode the serverCode to set
+	 * @param serverCode the serverCode to setScrollDuration
 	 */
 	public void setServerCode(String serverCode) {
 		this.serverCode = serverCode;
@@ -47,7 +47,7 @@ public class EfunBaseEntity extends EfunEntity {
 		return serverName;
 	}
 	/**
-	 * @param serverName the serverName to set
+	 * @param serverName the serverName to setScrollDuration
 	 */
 	public void setServerName(String serverName) {
 		this.serverName = serverName;
@@ -59,7 +59,7 @@ public class EfunBaseEntity extends EfunEntity {
 		return roleId;
 	}
 	/**
-	 * @param roleId the roleId to set
+	 * @param roleId the roleId to setScrollDuration
 	 */
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
@@ -71,7 +71,7 @@ public class EfunBaseEntity extends EfunEntity {
 		return roleName;
 	}
 	/**
-	 * @param roleName the roleName to set
+	 * @param roleName the roleName to setScrollDuration
 	 */
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
@@ -83,7 +83,7 @@ public class EfunBaseEntity extends EfunEntity {
 		return roleLevel;
 	}
 	/**
-	 * @param roleLevel the roleLevel to set
+	 * @param roleLevel the roleLevel to setScrollDuration
 	 */
 	public void setRoleLevel(String roleLevel) {
 		this.roleLevel = roleLevel;

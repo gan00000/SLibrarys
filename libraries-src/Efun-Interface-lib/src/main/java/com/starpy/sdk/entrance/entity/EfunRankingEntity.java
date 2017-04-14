@@ -29,7 +29,7 @@ public final class EfunRankingEntity extends EfunSocialBaseEntity {
 	}
 
 	/**
-	 * @param rankingType the rankingType to set
+	 * @param rankingType the rankingType to setScrollDuration
 	 */
 	public void setRankingType(EfunRankingType rankingType) {
 		this.rankingType = rankingType;
@@ -43,7 +43,7 @@ public final class EfunRankingEntity extends EfunSocialBaseEntity {
 	}
 
 	/**
-	 * @param rankingTemplateId the rankingTemplateId to set
+	 * @param rankingTemplateId the rankingTemplateId to setScrollDuration
 	 */
 	public void setRankingTemplateId(String rankingTemplateId) {
 		this.rankingTemplateId = rankingTemplateId;
