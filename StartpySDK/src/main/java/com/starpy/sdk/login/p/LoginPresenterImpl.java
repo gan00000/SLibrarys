@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.ApkInfoUtil;
@@ -120,6 +121,22 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             autoLoginTimer.cancel();
         }
         showLoginView();
+    }
+
+    @Override
+    public boolean hasAccountLogin() {
+
+        String account = StarPyUtil.getAccount(activity);
+        String password = StarPyUtil.getPassword(activity);
+        if (TextUtils.isEmpty(account)) {
+            account = StarPyUtil.getMacAccount(activity);
+            password = StarPyUtil.getMacPassword(activity);
+        }
+
+        if (SStringUtil.hasEmpty(account,password)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -409,8 +426,8 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     private void showLoginView() {
         if (iLoginView != null){
-            iLoginView.hildAutoLoginView();
-//            iLoginView.showLoginView();
+//            iLoginView.hildAutoLoginView();
+            iLoginView.showLoginView();
         }
     }
 

@@ -21,8 +21,6 @@ public class LoginContract {
 
         public void showAutoLoginView();
 
-        public void hildAutoLoginView();
-
         public void showLoginView();
 
         public void showAutoLoginWaitTime(String time);
@@ -43,6 +41,8 @@ public class LoginContract {
         public void autoLogin(Activity activity);
 
         public void autoLoginChangeAccount(Activity activity);
+
+        public boolean hasAccountLogin();
 
         public void destory(Activity activity);
 

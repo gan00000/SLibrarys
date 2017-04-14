@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.sdk.FixedSpeedScroller;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SBaseDialog;
 import com.starpy.sdk.login.adapter.LoginAdapter;
@@ -25,6 +27,7 @@ import com.starpy.sdk.login.widget.AccountRegisterLayout;
 import com.starpy.sdk.login.widget.AccountRegisterTermsLayout;
 import com.starpy.sdk.DepthPageTransformer;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
+import com.starpy.sdk.utils.ViewPageUitl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,6 +131,11 @@ public class SLoginDialog extends SBaseDialog implements LoginContract.ILoginVie
 
         LoginAdapter loginAdapter = new LoginAdapter(context, viewPageList);
         loginViewPager.setPageTransformer(true,new DepthPageTransformer());
+        FixedSpeedScroller fixedSpeedScroller = new FixedSpeedScroller(context,new LinearOutSlowInInterpolator());
+        fixedSpeedScroller.setmDuration(2000);
+
+        ViewPageUitl.setScrollDuration(activity,loginViewPager,fixedSpeedScroller);
+
         loginViewPager.setAdapter(loginAdapter);
 
         iLoginPresenter.autoLogin(activity);
@@ -225,16 +233,16 @@ public class SLoginDialog extends SBaseDialog implements LoginContract.ILoginVie
         autoLoginLayout.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void hildAutoLoginView() {
-        loginViewPager.setVisibility(View.VISIBLE);
-        autoLoginLayout.setVisibility(View.GONE);
-    }
 
     @Override
     public void showLoginView() {
         loginViewPager.setVisibility(View.VISIBLE);
         autoLoginLayout.setVisibility(View.GONE);
+        if (iLoginPresenter.hasAccountLogin()){
+           toAccountLoginView();
+        }else{
+            toLoginView();
+        }
     }
 
     @Override
