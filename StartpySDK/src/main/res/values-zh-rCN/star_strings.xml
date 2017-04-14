@@ -29,5 +29,6 @@
     <string name="py_login_mac_tips">你登入 %1$s 的账号和密码如下:\n账号: %2$s 密码: %3$s</string>
     <string name="py_login_mac_saveimage_tips">你的账号密码已经保存到相册中</string>
     <string name="py_login_autologin_tips">账号 %1$s 正在登录</string>
+    <string name="py_login_autologin_fblogining_tips">facebook账号正在登录</string>
 
 </resources>
