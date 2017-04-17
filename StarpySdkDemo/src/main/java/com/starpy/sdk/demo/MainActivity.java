@@ -49,7 +49,15 @@ public class MainActivity extends Activity {
         //在游戏Activity的onCreate生命周期中调用
         iStarpy.onCreate(this);
 
-        //在游戏获得角色信息的时候调用
+
+        /**
+         * 在游戏获得角色信息的时候调用
+         * roleId 角色id
+         * roleName  角色名
+         * rolelevel 角色等级
+         * severCode 角色伺服器id
+         * serverName 角色伺服器名称
+         */
         iStarpy.registerRoleInfo(this, "roleid_1", "roleName", "rolelevel", "1", "serverName");
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +130,11 @@ public class MainActivity extends Activity {
         csButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * 打开客服接口
+                 * level：游戏等级
+                 * vipLevel：vip等级，没有就选""
+                 */
                 iStarpy.cs(MainActivity.this,"level","vipLevel");
             }
         });
@@ -137,7 +150,7 @@ public class MainActivity extends Activity {
                 String message = "hello world message";
                 String shareUrl = "http://www.starb168.com/brmmd_201703171125.html";
                 String picUrl = "https://lh3.googleusercontent.com/mOgnBSExg8wbssGwPGj-rscvNEklCvV3mGVqXuViUqROUok0P6P3JTo6Hmho0LRXoC8=w300-rw";
-
+                //分享回调
                 ISdkCallBack iSdkCallBack = new ISdkCallBack() {
                     @Override
                     public void success() {
@@ -151,6 +164,7 @@ public class MainActivity extends Activity {
                 };
 
                 iStarpy.share(MainActivity.this,iSdkCallBack,title, message, shareUrl, picUrl);
+
             }
         });
     }

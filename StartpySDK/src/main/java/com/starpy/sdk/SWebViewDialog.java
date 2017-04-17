@@ -108,7 +108,7 @@ public class SWebViewDialog extends SBaseDialog {
     }
 
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-        if (sWebView != null){
+        if (sWebView != null && isShowing()){
             sWebView.onActivityResult(requestCode, resultCode, data);
         }
     }
