@@ -9,7 +9,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.core.base.utils.PL;
-import com.starpy.sdk.SWebViewActivity;
 
 import java.util.Locale;
 
@@ -26,10 +25,13 @@ public class MainActivity extends Activity {
         findViewById(R.id.testwebview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, SWebViewActivity.class);
-                i.putExtra(SWebViewActivity.PLAT_WEBVIEW_URL,url);
-                i.putExtra(SWebViewActivity.PLAT_WEBVIEW_TITLE,title);
-                startActivity(i);
+//                Intent i = new Intent(MainActivity.this, SWebViewActivity.class);
+//                i.putExtra(SWebViewActivity.PLAT_WEBVIEW_URL,url);
+//                i.putExtra(SWebViewActivity.PLAT_WEBVIEW_TITLE,title);
+//                startActivity(i);
+
+                BatchTask b = new BatchTask();
+                b.start();
             }
         });
 

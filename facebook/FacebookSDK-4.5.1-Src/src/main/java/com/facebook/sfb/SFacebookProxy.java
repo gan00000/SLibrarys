@@ -56,7 +56,7 @@ public class SFacebookProxy {
 	private static LoginBehavior loginBehavior = LoginBehavior.NATIVE_WITH_FALLBACK;
 	private static List<String> permissions = Arrays.asList(new String[]{"public_profile", "user_friends","email"});
 	private static final int REQUEST_TOMESSENGER = 16;
-	EfunFbShareCallBack shareCallBack;
+	FbShareCallBack shareCallBack;
 	
 	//final static List<String> PUBLISH_PERMISSIONS = Arrays.asList("publish_actions");
 
@@ -134,7 +134,7 @@ public class SFacebookProxy {
 	 * @param fbLoginCallBack
 	 * @date 2015年11月20日
 	 */
-	public void fbLogin(final Activity activity, final EfunFbLoginCallBack fbLoginCallBack) {
+	public void fbLogin(final Activity activity, final FbLoginCallBack fbLoginCallBack) {
 
 		if (loginManager == null) {
 			loginManager = LoginManager.getInstance();
@@ -224,7 +224,7 @@ public class SFacebookProxy {
 	 * @param user
 	 * @param fbLoginCallBack
 	 */
-	public void requestTokenForBusines(final Activity activity, final User user, final EfunFbLoginCallBack fbLoginCallBack){
+	public void requestTokenForBusines(final Activity activity, final User user, final FbLoginCallBack fbLoginCallBack){
 		AccessToken accessToken =  AccessToken.getCurrentAccessToken();
 		if (accessToken != null) {
 			GraphRequest request = GraphRequest.newMeRequest(
@@ -270,20 +270,20 @@ public class SFacebookProxy {
 		}
 	}
 	
-	public void fbShare(Activity activity, final EfunFbShareCallBack efunFbShareCallBack, String shareCaption, String shareDescrition,
-			String shareLinkUrl, String sharePictureUrl) {
-		fbShare(activity, efunFbShareCallBack, shareCaption, shareDescrition, shareLinkUrl, sharePictureUrl, "");
+	public void fbShare(Activity activity, final FbShareCallBack fbShareCallBack, String shareCaption, String shareDescrition,
+						String shareLinkUrl, String sharePictureUrl) {
+		fbShare(activity, fbShareCallBack, shareCaption, shareDescrition, shareLinkUrl, sharePictureUrl, "");
 	}
-	public void fbShare(Activity activity, final EfunFbShareCallBack efunFbShareCallBack, String shareCaption, String shareDescrition,
-			String shareLinkUrl, String sharePictureUrl,String shareLinkName) {
+	public void fbShare(Activity activity, final FbShareCallBack fbShareCallBack, String shareCaption, String shareDescrition,
+						String shareLinkUrl, String sharePictureUrl, String shareLinkName) {
 		
 		FacebookCallback<Sharer.Result> shareCallback = new FacebookCallback<Sharer.Result>() {
 			@Override
 			public void onCancel() {
 				Log.d(TAG, "onCancel");
-				if (efunFbShareCallBack != null) {
-					//efunFbShareCallBack.onCancel();
-					efunFbShareCallBack.onSuccess();//由于ios不能判断取消为取消的情况，为了保持一致性，这里也回调成功
+				if (fbShareCallBack != null) {
+					fbShareCallBack.onCancel();
+//					fbShareCallBack.onSuccess();//由于ios不能判断取消为取消的情况，为了保持一致性，这里也回调成功
 				}
 			}
 
@@ -293,8 +293,8 @@ public class SFacebookProxy {
 				if (error != null) {
 					Log.d(TAG, "onError:" + error.getMessage());
 				}
-				if (efunFbShareCallBack != null) {
-					efunFbShareCallBack.onError(error.getMessage());
+				if (fbShareCallBack != null) {
+					fbShareCallBack.onError(error.getMessage());
 				}
 			}
 
@@ -306,8 +306,8 @@ public class SFacebookProxy {
 					Log.d(TAG, "onSuccess,post id:" + id);
 				}
 				
-				if (efunFbShareCallBack != null) {
-					efunFbShareCallBack.onSuccess();
+				if (fbShareCallBack != null) {
+					fbShareCallBack.onSuccess();
 				}
 				
 			}
@@ -342,7 +342,7 @@ public class SFacebookProxy {
 	
 	
 	
-	public void shareLocalPhotos(Activity activity, final EfunFbShareCallBack efunFbShareCallBack, Bitmap ...images) {
+	public void shareLocalPhotos(Activity activity, final FbShareCallBack fbShareCallBack, Bitmap ...images) {
 		if (images != null) {
 			List<SharePhoto> sharePhotos = new ArrayList<>();
 			for (Bitmap bitmap : images) {
@@ -351,56 +351,56 @@ public class SFacebookProxy {
 			}
 			
 			SharePhotoContent contents = new SharePhotoContent.Builder().addPhotos(sharePhotos).build();
-			shareLocalPhotoImpl(activity, efunFbShareCallBack, contents);
+			shareLocalPhotoImpl(activity, fbShareCallBack, contents);
 		}else{
-			shareLocalPhotoImpl(activity, efunFbShareCallBack, null);
+			shareLocalPhotoImpl(activity, fbShareCallBack, null);
 		}
 	}
 	
-	public void shareLocalPhoto(Activity activity, final EfunFbShareCallBack efunFbShareCallBack, Bitmap bitmap) {
+	public void shareLocalPhoto(Activity activity, final FbShareCallBack fbShareCallBack, Bitmap bitmap) {
 		if (bitmap != null) {
 			SharePhoto photo = new SharePhoto.Builder().setBitmap(bitmap).build();
 			SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
-			shareLocalPhotoImpl(activity, efunFbShareCallBack, content);
+			shareLocalPhotoImpl(activity, fbShareCallBack, content);
 		}else{
-			shareLocalPhotoImpl(activity, efunFbShareCallBack, null);
+			shareLocalPhotoImpl(activity, fbShareCallBack, null);
 		}
 		
 	}
 	
-	public void shareLocalPhoto(Activity activity, final EfunFbShareCallBack efunFbShareCallBack, String imagePath) {
+	public void shareLocalPhoto(Activity activity, final FbShareCallBack fbShareCallBack, String imagePath) {
 		Bitmap image = BitmapFactory.decodeFile(imagePath);
 		if (image != null) {
 			SharePhoto photo = new SharePhoto.Builder().setBitmap(image).build();
 			SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
-			shareLocalPhotoImpl(activity, efunFbShareCallBack, content);
+			shareLocalPhotoImpl(activity, fbShareCallBack, content);
 		}else{
-			shareLocalPhotoImpl(activity, efunFbShareCallBack, null);
+			shareLocalPhotoImpl(activity, fbShareCallBack, null);
 		}
 		
 	}
 	
-	public void shareLocalPhoto(Activity activity, final EfunFbShareCallBack efunFbShareCallBack, Uri picUri) {
+	public void shareLocalPhoto(Activity activity, final FbShareCallBack fbShareCallBack, Uri picUri) {
 		if (picUri != null) {
 			SharePhoto photo = new SharePhoto.Builder().setImageUrl(picUri).build();
 			SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
-			shareLocalPhotoImpl(activity, efunFbShareCallBack, content);
+			shareLocalPhotoImpl(activity, fbShareCallBack, content);
 		}else{
-			shareLocalPhotoImpl(activity, efunFbShareCallBack, null);
+			shareLocalPhotoImpl(activity, fbShareCallBack, null);
 		}
 		
 	}
 	
-/*	public void shareLocalPhoto(Activity activity, final EfunFbShareCallBack efunFbShareCallBack, Uri imageUrl){
+/*	public void shareLocalPhoto(Activity activity, final FbShareCallBack efunFbShareCallBack, Uri imageUrl){
 		SharePhoto photo = new SharePhoto.Builder().setImageUrl(imageUrl).build();
 		shareLocalPhoto(activity, efunFbShareCallBack, photo);
 	}*/
 	
-	private void shareLocalPhotoImpl(Activity activity, final EfunFbShareCallBack efunFbShareCallBack,SharePhotoContent content) {
+	private void shareLocalPhotoImpl(Activity activity, final FbShareCallBack fbShareCallBack, SharePhotoContent content) {
 	
 		if (content == null) {
-			if (efunFbShareCallBack != null) {
-				efunFbShareCallBack.onError("SharePhotoContent is null");
+			if (fbShareCallBack != null) {
+				fbShareCallBack.onError("SharePhotoContent is null");
 			}
 			return;
 		}
@@ -409,9 +409,9 @@ public class SFacebookProxy {
 			@Override
 			public void onCancel() {
 				Log.d(TAG, "onCancel");
-				if (efunFbShareCallBack != null) {
-					efunFbShareCallBack.onCancel();
-					//efunFbShareCallBack.onSuccess();//由于ios不能判断取消为取消的情况，为了保持一致性，这里也回调成功
+				if (fbShareCallBack != null) {
+					fbShareCallBack.onCancel();
+					//fbShareCallBack.onSuccess();//由于ios不能判断取消为取消的情况，为了保持一致性，这里也回调成功
 				}
 			}
 
@@ -421,8 +421,8 @@ public class SFacebookProxy {
 				if (error != null) {
 					Log.d(TAG, "onError:" + error.getMessage());
 				}
-				if (efunFbShareCallBack != null) {
-					efunFbShareCallBack.onError(error.getMessage());
+				if (fbShareCallBack != null) {
+					fbShareCallBack.onError(error.getMessage());
 				}
 			}
 
@@ -434,8 +434,8 @@ public class SFacebookProxy {
 					Log.d(TAG, "postId:" + id);
 				}
 				
-				if (efunFbShareCallBack != null) {
-					efunFbShareCallBack.onSuccess();
+				if (fbShareCallBack != null) {
+					fbShareCallBack.onSuccess();
 				}
 				
 			}
@@ -457,8 +457,8 @@ public class SFacebookProxy {
 			 ShareApi.share(content, shareCallback);
 		}else{
 			Toast.makeText(activity, "facebook app is not installed", Toast.LENGTH_SHORT).show();
-			if (efunFbShareCallBack != null) {
-				efunFbShareCallBack.onError("facebook app is not installed and no publish_actions permission");
+			if (fbShareCallBack != null) {
+				fbShareCallBack.onError("facebook app is not installed and no publish_actions permission");
 			}
 		}
 	}
@@ -539,9 +539,9 @@ public class SFacebookProxy {
 		
 	}*/
 	
-	public void requestInviteFriends(Activity activity,final Bundle b, final EfunFbGetInviteFriendsCallBack efunFbGetInviteFriendsCallBack){
+	public void requestInviteFriends(Activity activity,final Bundle b, final FbGetInviteFriendsCallBack fbGetInviteFriendsCallBack){
 		
-		fbLogin(activity, new EfunFbLoginCallBack() {
+		fbLogin(activity, new FbLoginCallBack() {
 			
 			
 			@Override
@@ -558,15 +558,15 @@ public class SFacebookProxy {
 					new GraphRequest(accessToken, "/me/invitable_friends", bundle, HttpMethod.GET, new GraphRequest.Callback() {
 						public void onCompleted(GraphResponse response) {
 							Log.d(TAG, "invite:" + response.toString());
-							if (efunFbGetInviteFriendsCallBack != null && response != null) {
+							if (fbGetInviteFriendsCallBack != null && response != null) {
 								List<InviteFriend>  friends = JsonUtil.parseInviteFriendsJson(response.getJSONObject());
-								efunFbGetInviteFriendsCallBack.onSuccess(response.getJSONObject(),friends);
+								fbGetInviteFriendsCallBack.onSuccess(response.getJSONObject(),friends);
 							}
 						}
 					}).executeAsync();
 				}else{
-					if (efunFbGetInviteFriendsCallBack != null) {
-						efunFbGetInviteFriendsCallBack.onError();
+					if (fbGetInviteFriendsCallBack != null) {
+						fbGetInviteFriendsCallBack.onError();
 					}
 				}
 				
@@ -575,16 +575,16 @@ public class SFacebookProxy {
 			@Override
 			public void onError(String message) {
 				Log.d(TAG, "onError:" + message);
-				if (efunFbGetInviteFriendsCallBack != null) {
-					efunFbGetInviteFriendsCallBack.onError();
+				if (fbGetInviteFriendsCallBack != null) {
+					fbGetInviteFriendsCallBack.onError();
 				}
 				
 			}
 			
 			@Override
 			public void onCancel() {
-				if (efunFbGetInviteFriendsCallBack != null) {
-					efunFbGetInviteFriendsCallBack.onError();
+				if (fbGetInviteFriendsCallBack != null) {
+					fbGetInviteFriendsCallBack.onError();
 				}	
 			}
 		});
@@ -593,7 +593,7 @@ public class SFacebookProxy {
 	}
 	
 	
-	public void inviteFriends(Activity activity,List<InviteFriend> inviteFriendIdsList,String message,final EfunFbInviteFriendsCallBack efunFbInviteFriendsCallBack) {
+	public void inviteFriends(Activity activity,List<InviteFriend> inviteFriendIdsList,String message,final FbInviteFriendsCallBack fbInviteFriendsCallBack) {
 		
 		if (inviteFriendIdsList != null && !inviteFriendIdsList.isEmpty()) {
 //			StringBuilder stringBuilder = new StringBuilder();
@@ -601,7 +601,7 @@ public class SFacebookProxy {
 //				stringBuilder.append(inviteFriend.getId()).append(",");
 //			}
 //		//	inviteFriendIdsString = inviteFriendIdsString.substring(0, inviteFriendIdsString.length()-1);
-//			inviteFriends(activity, stringBuilder.toString(), message, efunFbInviteFriendsCallBack);
+//			inviteFriends(activity, stringBuilder.toString(), message, fbInviteFriendsCallBack);
 			List<InviteFriend> invitingList = new ArrayList<>();
 			for (InviteFriend friend : inviteFriendIdsList){
 				if(!TextUtils.isEmpty(friend.getId())){
@@ -612,13 +612,13 @@ public class SFacebookProxy {
 //			List<InviteFriend> invitingList = inviteFriendIdsList.subList(0, inviteFriendIdsList.size());
 			List<String> fbids = new ArrayList<String>();
 
-			inviteFriendinBatches(activity,invitingList,"",fbids,message,efunFbInviteFriendsCallBack);
+			inviteFriendinBatches(activity,invitingList,"",fbids,message, fbInviteFriendsCallBack);
 		}
 	}
 
 	/* 处理分批次邀请的逻辑*/
 	private void inviteFriendinBatches(final Activity activity, final List<InviteFriend>
-			invitingList,final String requestId, final List<String> fbids, final String message, final EfunFbInviteFriendsCallBack callback) {
+			invitingList,final String requestId, final List<String> fbids, final String message, final FbInviteFriendsCallBack callback) {
 
 		final List<InviteFriend> currentList = new ArrayList<InviteFriend>();
 		while (currentList.size() < 40 && invitingList.size() > 0) {
@@ -629,8 +629,7 @@ public class SFacebookProxy {
 			stringBuilder.append(inviteFriend.getId()).append(",");
 		}
 
-		inviteFriends(activity, stringBuilder.toString(), message, new SFacebookProxy
-				.EfunFbInviteFriendsCallBack() {
+		inviteFriends(activity, stringBuilder.toString(), message, new FbInviteFriendsCallBack() {
 
 
 			@Override
@@ -671,12 +670,12 @@ public class SFacebookProxy {
 	}
 	
 	
-	public void inviteFriends(final Activity activity,final String inviteFriendIds,final String message,final EfunFbInviteFriendsCallBack efunFbInviteFriendsCallBack) {
+	public void inviteFriends(final Activity activity,final String inviteFriendIds,final String message,final FbInviteFriendsCallBack fbInviteFriendsCallBack) {
 		if (TextUtils.isEmpty(message)) {
 			Toast.makeText(activity, "request message is empty", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		fbLogin(activity, new EfunFbLoginCallBack() {
+		fbLogin(activity, new FbLoginCallBack() {
 			
 			@Override
 			public void onSuccess(User user) {
@@ -689,22 +688,22 @@ public class SFacebookProxy {
 						String id = result.getRequestId();
 						List<String> requestRecipients = result.getRequestRecipients();
 						Log.d(TAG, "inviteFriends:" + id);
-						if (efunFbInviteFriendsCallBack != null) {
-							efunFbInviteFriendsCallBack.onSuccess(id,requestRecipients);
+						if (fbInviteFriendsCallBack != null) {
+							fbInviteFriendsCallBack.onSuccess(id,requestRecipients);
 						}
 					}
 
 					public void onCancel() {
 						Log.d(TAG, "inviteFriends onCancel");
-						if (efunFbInviteFriendsCallBack != null) {
-							efunFbInviteFriendsCallBack.onCancel();
+						if (fbInviteFriendsCallBack != null) {
+							fbInviteFriendsCallBack.onCancel();
 						}
 					}
 
 					public void onError(FacebookException error) {
 						Log.d(TAG, "inviteFriends onError:" + error.getMessage());
-						if (efunFbInviteFriendsCallBack != null) {
-							efunFbInviteFriendsCallBack.onError(error.getMessage());
+						if (fbInviteFriendsCallBack != null) {
+							fbInviteFriendsCallBack.onError(error.getMessage());
 						}
 					}
 				});
@@ -721,25 +720,25 @@ public class SFacebookProxy {
 			
 			@Override
 			public void onError(String message) {
-				if (efunFbInviteFriendsCallBack != null) {
-					efunFbInviteFriendsCallBack.onError(message);
+				if (fbInviteFriendsCallBack != null) {
+					fbInviteFriendsCallBack.onError(message);
 				}
 				
 			}
 			
 			@Override
 			public void onCancel() {
-				if (efunFbInviteFriendsCallBack != null) {
-					efunFbInviteFriendsCallBack.onCancel();
+				if (fbInviteFriendsCallBack != null) {
+					fbInviteFriendsCallBack.onCancel();
 				}
 			}
 		});
 		
 	}
 	
-	public void requestMyFriends(Activity activity,final EfunFbMyFriendsCallBack efunFbMyFiendsCallBack){
+	public void requestMyFriends(Activity activity,final FbMyFriendsCallBack efunFbMyFiendsCallBack){
 		
-		fbLogin(activity, new EfunFbLoginCallBack() {
+		fbLogin(activity, new FbLoginCallBack() {
 			
 			@Override
 			public void onSuccess(User user) {
@@ -786,7 +785,7 @@ public class SFacebookProxy {
 	}
 
 
-	public void requestBusinessId(final Activity activity,final EfunFbBusinessIdCallBack efunFbBusinessIdCallBack){
+	public void requestBusinessId(final Activity activity,final FbBusinessIdCallBack fbBusinessIdCallBack){
 		
 		AccessToken accessToken =  AccessToken.getCurrentAccessToken();
 		Bundle b = new Bundle();
@@ -817,25 +816,25 @@ public class SFacebookProxy {
 								apps = stringBuilder.substring(0, stringBuilder.lastIndexOf(","));
 //								activity.getSharedPreferences(FbSp.S_FACEBOOK_FILE, Activity.MODE_PRIVATE).edit().putString(FbSp.S_FB_APP_BUSINESS_IDS, apps).commit();
 								FbSp.saveAppsBusinessId(activity,apps);
-								if (efunFbBusinessIdCallBack != null) {
-									efunFbBusinessIdCallBack.onSuccess(apps);
+								if (fbBusinessIdCallBack != null) {
+									fbBusinessIdCallBack.onSuccess(apps);
 								}
 							}
-						}else if(efunFbBusinessIdCallBack != null){
-							efunFbBusinessIdCallBack.onError();
+						}else if(fbBusinessIdCallBack != null){
+							fbBusinessIdCallBack.onError();
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 			}
 			}).executeAsync();
-		}else if(efunFbBusinessIdCallBack != null){
-			efunFbBusinessIdCallBack.onError();
+		}else if(fbBusinessIdCallBack != null){
+			fbBusinessIdCallBack.onError();
 		}
 	}
 	
 	
-	public void getMyProfile(Activity activity, final EfunFbLoginCallBack callBack) {
+	public void getMyProfile(Activity activity, final FbLoginCallBack callBack) {
 		// me?fields=name,id,first_name,last_name
 		Bundle b = new Bundle();
 		b.putString("fields", "name,first_name,last_name,id,gender,link,middle_name,picture.width(300)");
@@ -889,7 +888,7 @@ public class SFacebookProxy {
 		}).executeAsync();
 	}
 	
-	public void requestMyFriends(Activity activity, Bundle bundle, final EfunFbMyFriendsCallBack efunFbMyFiendsCallBack) {
+	public void requestMyFriends(Activity activity, Bundle bundle, final FbMyFriendsCallBack efunFbMyFiendsCallBack) {
 		AccessToken accessToken = AccessToken.getCurrentAccessToken();
 		if (accessToken != null) {
 			if (bundle == null) {
@@ -925,22 +924,22 @@ public class SFacebookProxy {
 		}
 	}
 	
-	public void shareToMessenger(Activity activity, String picPath, EfunFbShareCallBack efunFbShareCallBack) {
+	public void shareToMessenger(Activity activity, String picPath, FbShareCallBack fbShareCallBack) {
 		if(TextUtils.isEmpty(picPath)) {
 			Log.e(TAG, "shareToMessenger 图片路径为空");
 			return;
 		}
 		File tempFile = new File(picPath);
 		Uri picUri = Uri.fromFile(tempFile);
-		shareToMessenger(activity, picUri, efunFbShareCallBack);
+		shareToMessenger(activity, picUri, fbShareCallBack);
 	}
 	
-	public void shareToMessenger(Activity activity, Uri picUri, EfunFbShareCallBack efunFbShareCallBack) {
+	public void shareToMessenger(Activity activity, Uri picUri, FbShareCallBack fbShareCallBack) {
 		if(picUri == null) {
 			Log.e(TAG, "shareToMessenger 图片Uri为空");
 			return;
 		}
-		this.shareCallBack = efunFbShareCallBack;
+		this.shareCallBack = fbShareCallBack;
 		String mimeType = "image/*";
 		ShareToMessengerParamsBuilder newBuilder = ShareToMessengerParams.newBuilder(picUri, mimeType);
 		ShareToMessengerParams shareToMessengerParams = newBuilder.build();
@@ -966,48 +965,48 @@ public class SFacebookProxy {
 	}
 	
 
-	public interface EfunFbShareCallBack{
+	public interface FbShareCallBack {
 		public void onCancel();
 		public void onError(String message);
 		public void onSuccess();
 	}
 	
-	public interface EfunFbLoginCallBack{
+	public interface FbLoginCallBack {
 		public void onCancel();
 		public void onError(String message);
 		public void onSuccess(User user);
 	}
 	
 	/**
-	* <p>Title: EfunFbInviteFriendsCallBack</p>
+	* <p>Title: FbInviteFriendsCallBack</p>
 	* <p>Description: 请求好友的回调接口</p>
 	* <p>Company: EFun</p> 
 	* @author GanYuanrong
 	* @date 2015年11月23日
 	*/
-	public interface EfunFbInviteFriendsCallBack{
+	public interface FbInviteFriendsCallBack {
 		public void onCancel();
 		public void onError(String message);
 		public void onSuccess(String requestId,List<String> requestRecipients);
 	}
 	
 	/**
-	* <p>Title: EfunFbGetInviteFriendsCallBack</p>
+	* <p>Title: FbGetInviteFriendsCallBack</p>
 	* <p>Description: 获取好友的回调接口</p>
 	* <p>Company: EFun</p> 
 	* @author GanYuanrong
 	* @date 2015年11月23日
 	*/
-	public interface EfunFbGetInviteFriendsCallBack{
+	public interface FbGetInviteFriendsCallBack {
 		public void onError();
 		public void onSuccess(JSONObject graphObject,List<InviteFriend> inviteFriends);
 	}
 	
-	public interface EfunFbMyFriendsCallBack{
+	public interface FbMyFriendsCallBack {
 		public void onError();
 		public void onSuccess(JSONArray objects, JSONObject graphObject);
 	}
-	public interface EfunFbBusinessIdCallBack{
+	public interface FbBusinessIdCallBack {
 		public void onError();
 		public void onSuccess(String businessId);
 	}
