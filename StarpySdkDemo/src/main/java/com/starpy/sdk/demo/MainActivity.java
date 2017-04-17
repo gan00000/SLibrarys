@@ -5,14 +5,11 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.PL;
-import com.core.base.utils.SStringUtil;
-import com.core.base.utils.ToastUtils;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
 import com.starpy.base.utils.SLog;
@@ -67,10 +64,8 @@ public class MainActivity extends Activity {
                             String uid = sLoginResponse.getUserId();
                             String accessToken = sLoginResponse.getAccessToken();
                             String timestamp = sLoginResponse.getTimestamp();
-                            Log.i("IStarpy","uid:" + uid + "  accessToken:" + accessToken + "  yanz:" +  SStringUtil.toMd5("DF7D80A64433C90E263F146315E17A79" +
-                                    uid + sLoginResponse.getGameCode() + timestamp));
 
-                            ToastUtils.toast(MainActivity.this,"uid:" + uid);
+                            PL.i("uid:" + uid);
 
                         }
                     }

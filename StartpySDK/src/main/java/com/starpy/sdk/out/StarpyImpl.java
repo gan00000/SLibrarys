@@ -38,6 +38,9 @@ public class StarpyImpl implements IStarpy {
 
     private SFacebookProxy sFacebookProxy;
 
+    private SWebViewDialog csWebViewDialog;
+    private SWebViewDialog otherPayWebViewDialog;
+
     public StarpyImpl() {
         iLogin = ObjFactory.create(DialogLoginImpl.class);
     }
@@ -139,11 +142,11 @@ public class StarpyImpl implements IStarpy {
         csReqeustBean.setRequestSpaUrl(ResConfig.getCsSpareUrl(activity));
         csReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_cs_method));
 
-        SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
+        csWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
 
-        sWebViewDialog.setWebUrl(csReqeustBean.createPreRequestUrl());
+        csWebViewDialog.setWebUrl(csReqeustBean.createPreRequestUrl());
 
-        sWebViewDialog.show();
+        csWebViewDialog.show();
     }
 
     @Override
@@ -230,11 +233,11 @@ public class StarpyImpl implements IStarpy {
 //        SWebViewPopu p = new SWebViewPopu(activity);
 //        p.showPop(webUrl);
 
-        SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
+        otherPayWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
 
-        sWebViewDialog.setWebUrl(webUrl);
+        otherPayWebViewDialog.setWebUrl(webUrl);
 
-        sWebViewDialog.show();
+        otherPayWebViewDialog.show();
     }
 
     @Override
@@ -267,6 +270,12 @@ public class StarpyImpl implements IStarpy {
         }
         if (sFacebookProxy != null){
             sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
+        }
+        if (csWebViewDialog != null){
+            csWebViewDialog.onActivityResult(activity, requestCode, resultCode, data);
+        }
+        if (otherPayWebViewDialog != null){
+            otherPayWebViewDialog.onActivityResult(activity, requestCode, resultCode, data);
         }
     }
 
