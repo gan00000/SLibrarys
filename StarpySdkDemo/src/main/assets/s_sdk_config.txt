@@ -8,7 +8,7 @@
   "S_Login_password_Regularly": "",
   "S_Login_account_Regularly": "",
   "GoogleToOthersPay": false,
-  "OpenOthersPay": "com.star.mrmmd.tw,com.star.yue.liang,com.ea.uk",
+  "OpenOthersPay": "com.star.yue.liang,com.ea.uk,com.cwgl.brmmd,com.star.mrmmd.tw",
   "S_Is_Reload_Cfg": [
 
   ]

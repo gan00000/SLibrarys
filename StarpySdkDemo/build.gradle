@@ -63,7 +63,7 @@ android {
         }
 
         gameBrmmd {
-            applicationId "com.star.mrmmd.tw"
+            applicationId "com.star.mrmmd.tw.a"
             signingConfig signingConfigs.brmmdsign
             minSdkVersion 11
             targetSdkVersion 22
