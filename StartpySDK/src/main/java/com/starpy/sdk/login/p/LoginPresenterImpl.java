@@ -160,7 +160,13 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 //                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
 
                         //1001 注册成功    1000登入成功
-                        if (SStringUtil.isEqual("1001", sLoginResponse.getCode())) {
+                        if (SStringUtil.isEqual("1001", sLoginResponse.getCode())) {//注册写一次
+
+                            cteateUserImage(getActivity(),sLoginResponse.getFreeRegisterName(),sLoginResponse.getFreeRegisterPwd());
+
+                            //mac登录第一次写一次
+                        }else if(SStringUtil.isEqual("1000", sLoginResponse.getCode()) && SStringUtil.isEmpty(StarPyUtil.getMacAccount(getContext()))) {
+
                             cteateUserImage(getActivity(),sLoginResponse.getFreeRegisterName(),sLoginResponse.getFreeRegisterPwd());
                         }
 
