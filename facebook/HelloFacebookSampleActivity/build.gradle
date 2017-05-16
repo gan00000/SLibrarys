@@ -38,5 +38,5 @@ android {
 }
 
 dependencies {
-    compile project(':facebook:facebook-4.20.0')
+    compile project(':facebook:facebook-4.22.0')
 }
