@@ -2,15 +2,15 @@
 
     <!-- fb配置 -->
     <!-- 必须跟fb后台一致的名字 -->
-    <string name="facebook_app_name">把妹大作戰</string>
-    <string name="facebook_app_id">1759115577751777</string>
-    <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1759115577751777</string>
+    <string name="facebook_app_name">破戰</string>
+    <string name="facebook_app_id">1681010002204975</string>
+    <string name="facebook_authorities">com.facebook.app.FacebookContentProvider1681010002204975</string>
     <!-- fb配置end -->
 
-    <string name="star_game_code">bmdzz</string>
+    <string name="star_game_code">qmah</string>
     <!--是否侵权 true为侵权，默认为非侵权-->
     <string name="star_infringement"></string>
-    <string name="star_app_key">0dad1b29847ce8606654e167d3bb8a78</string>
+    <string name="star_app_key">faa76c29c33e9b280002c67dbe701e7c</string>
 
     <!--语言默认繁体zh-TW，用来设置UI界面语言，提示等-->
     <!--<string name="star_game_language">zh-TW</string>-->

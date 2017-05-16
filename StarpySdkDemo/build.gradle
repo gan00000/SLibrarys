@@ -53,17 +53,26 @@ android {
         }
     }
     productFlavors {
-        googleresdemo {
+        bmdzz_google {
             minSdkVersion 11
             applicationId 'com.starpy.bmdzz.tw'
             signingConfig signingConfigs.brmmdsign
             targetSdkVersion 22
-            versionCode 10700
-            versionName '1.7.0'
+            versionCode 1
+            versionName '1.0'
         }
 
         gameBrmmd {
-            applicationId "com.star.mrmmd.tw.a"
+            applicationId "com.star.mrmmd.tw"
+            signingConfig signingConfigs.brmmdsign
+            minSdkVersion 11
+            targetSdkVersion 22
+            versionCode 2
+            versionName "2.0"
+        }
+
+        qmah {
+            applicationId "com.starpy.qmah.tw"
             signingConfig signingConfigs.brmmdsign
             minSdkVersion 11
             targetSdkVersion 22
