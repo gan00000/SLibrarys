@@ -1,5 +1,6 @@
 package com.core.base;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -102,6 +104,31 @@ public class BaseWebViewClient extends WebViewClient {
             handler.cancel();
         } else {//永远只走这里，这么写是为了躲过google警告
             handler.proceed();
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+//        super.onReceivedError(view, request, error);
+        PL.w("onReceivedError(WebView view, WebResourceRequest request, WebResourceError error)");
+        handleReceivedError(view, request.getUrl().toString());
+    }
+
+    @Override
+    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+//        super.onReceivedError(view, errorCode, description, failingUrl);
+        PL.w("onReceivedError(WebView view, int errorCode, String description, String failingUrl)");
+        handleReceivedError(view, failingUrl);
+    }
+
+    public void handleReceivedError(WebView webView,String url){
+        try {
+            PL.w("ERROR URL:" + url);
+//            webView.loadData(URLEncoder.encode("loading error!!!","utf-8"),"text/html","utf-8");
+            webView.loadData("loading error, Please try again later", "text/html", "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

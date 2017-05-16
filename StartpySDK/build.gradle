@@ -63,7 +63,7 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
 makeLibraryJar.dependsOn(clearJar,build)
 
 def getJarName(){
-    return "py-star-sdk-1.6"
+    return "py-star-sdk-1.7"
 }
 task copySdkJar(type: Copy) {
 
@@ -74,3 +74,13 @@ task copySdkJar(type: Copy) {
 }
 
 copySdkJar.dependsOn(makeLibraryJar)
+
+task generateSdkJar(type: Copy) {
+
+    from('build/libs/')
+
+    into('../libs/')
+    include(getJarName() + '.jar')
+}
+
+generateSdkJar.dependsOn(makeLibraryJar)
