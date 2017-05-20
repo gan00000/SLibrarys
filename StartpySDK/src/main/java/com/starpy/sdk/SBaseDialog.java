@@ -8,6 +8,8 @@ import android.support.annotation.StyleRes;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.starpy.base.utils.Localization;
+
 /**
  * Created by gan on 2017/3/31.
  */
@@ -50,6 +52,8 @@ public class SBaseDialog extends Dialog {
         window.setAttributes(lp);
 
         setCanceledOnTouchOutside(true);
+
+        Localization.updateSGameLanguage(context);//设置应用内语言
 
     }
 

@@ -1,10 +1,5 @@
 package com.core.base.utils;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.UUID;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -23,6 +18,11 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.UUID;
 
 /**
  * 本地信息帮助类
@@ -397,7 +397,7 @@ public class ApkInfoUtil {
 		if (null == newLocale){
 			return;
 		}
-		Resources resources = context.getResources();//获得res资源对象
+		Resources resources = context.getApplicationContext().getResources();//获得res资源对象
 		Configuration config = resources.getConfiguration();//获得设置对象
 		PL.i("old onConfigurationChanged:" + config.toString());
 		DisplayMetrics dm = resources.getDisplayMetrics();//获得屏幕参数：主要是分辨率，像素等。

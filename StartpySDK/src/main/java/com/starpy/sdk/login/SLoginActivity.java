@@ -23,6 +23,7 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
 import com.starpy.data.login.execute.FBLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.sdk.SBaseSdkActivity;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.fragment.AccountLoginFragment;
 import com.starpy.sdk.login.fragment.AccountLoginMainFragment;
@@ -32,7 +33,7 @@ import com.starpy.sdk.utils.DialogUtil;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SLoginActivity extends BaseLoginActivity {
+public class SLoginActivity extends SBaseSdkActivity {
 
     public static final int S_LOGIN_REQUEST = 600;
     public static final int S_LOGIN_RESULT = 700;

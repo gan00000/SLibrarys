@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.core.base.BaseWebChromeClient;
 import com.core.base.BaseWebViewClient;
-import com.core.base.SBaseActivity;
 import com.core.base.SWebView;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
@@ -19,7 +18,7 @@ import com.core.base.utils.ToastUtils;
  * Created by Efun on 2016/12/1.
  */
 
-public class SWebViewActivity extends SBaseActivity {
+public class SWebViewActivity extends SBaseSdkActivity {
 
     public static final String PLAT_WEBVIEW_URL = "PLAT_WEBVIEW_URL";
     public static final String PLAT_WEBVIEW_TITLE = "PLAT_WEBVIEW_TITLE";
