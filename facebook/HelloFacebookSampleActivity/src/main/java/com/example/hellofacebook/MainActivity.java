@@ -1,3 +1,4 @@
+/*
 package com.example.hellofacebook;
 
 import android.app.Activity;
@@ -14,12 +15,6 @@ import com.efun.hh.R;
 import com.facebook.appevents.AppEventsConstants;
 import com.facebook.sfb.InviteFriend;
 import com.facebook.sfb.SFacebookProxy;
-import com.facebook.sfb.SFacebookProxy.EfunFbBusinessIdCallBack;
-import com.facebook.sfb.SFacebookProxy.EfunFbGetInviteFriendsCallBack;
-import com.facebook.sfb.SFacebookProxy.EfunFbInviteFriendsCallBack;
-import com.facebook.sfb.SFacebookProxy.EfunFbLoginCallBack;
-import com.facebook.sfb.SFacebookProxy.EfunFbMyFriendsCallBack;
-import com.facebook.sfb.SFacebookProxy.EfunFbShareCallBack;
 import com.facebook.sfb.SFacebookProxy.User;
 
 import org.json.JSONArray;
@@ -227,8 +222,10 @@ public class MainActivity extends Activity {
 				});
 
 			
-				/*Intent i = new Intent(getApplicationContext(), FacebookActivity.class);
-				startActivity(i);*/
+				*/
+/*Intent i = new Intent(getApplicationContext(), FacebookActivity.class);
+				startActivity(i);*//*
+
 			}
 		});
 		
@@ -263,11 +260,13 @@ public class MainActivity extends Activity {
 		efp.onActivityResult(this, requestCode, resultCode, data);
 	}
 
-	/*
+	*/
+/*
 	 * (non-Javadoc)
 	 * 
 	 * @see android.app.Activity#onDestroy()
-	 */
+	 *//*
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -278,3 +277,4 @@ public class MainActivity extends Activity {
 	}
 
 }
+*/
