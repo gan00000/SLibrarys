@@ -15,6 +15,7 @@ import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
+import com.starpy.data.SGameBaseRequestBean;
 import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.pay.gp.GooglePayActivity2;
@@ -147,6 +148,29 @@ public class StarpyImpl implements IStarpy {
         csWebViewDialog.setWebUrl(csReqeustBean.createPreRequestUrl());
 
         csWebViewDialog.show();
+    }
+
+    @Override
+    public void openWebview(Activity activity, String roleLevel, String roleVipLevel) {
+
+        SGameBaseRequestBean webviewReqeustBean = new SGameBaseRequestBean(activity);
+        webviewReqeustBean.setRoleLevel(roleLevel);
+        webviewReqeustBean.setRoleVipLevel(roleVipLevel);
+
+        //设置签名
+//        appkey+gameCode+userId+roleId+timestamp
+        webviewReqeustBean.setSignature(SStringUtil.toMd5(webviewReqeustBean.getAppKey() + webviewReqeustBean.getGameCode()
+            + webviewReqeustBean.getUserId() + webviewReqeustBean.getRoleId() + webviewReqeustBean.getTimestamp()));
+
+        webviewReqeustBean.setRequestUrl(ResConfig.getActivityPreferredUrl(activity));//活动域名
+        webviewReqeustBean.setRequestSpaUrl(ResConfig.getActivitySpareUrl(activity));
+        webviewReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_act_dynamic_method));
+
+        SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
+
+        sWebViewDialog.setWebUrl(webviewReqeustBean.createPreRequestUrl());
+
+        sWebViewDialog.show();
     }
 
     @Override

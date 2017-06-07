@@ -131,6 +131,19 @@ public class ResConfig {
 		return getConfigUrl(context, "star_py_cs_spa_url");
 	}
 
+	public static String getActivityPreferredUrl(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Act_Pre_Url())){
+			return StarPyUtil.getSdkCfg(context).getS_Act_Pre_Url();
+		}
+		return getConfigUrl(context, "star_py_act_pre_url");
+	}
+	public static String getActivitySpareUrl(Context context) {
+		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_Act_Spa_Url())){
+			return StarPyUtil.getSdkCfg(context).getS_Act_Spa_Url();
+		}
+		return getConfigUrl(context, "star_py_act_spa_url");
+	}
+
 	public static String getCdnPreferredUrl(Context context) {
 		return getConfigUrl(context, "star_py_cdn_pre_url");
 	}

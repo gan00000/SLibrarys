@@ -16,6 +16,9 @@ public class ConfigBean {
     private String S_Pay_Spa_Url = "";
     private String S_Login_Pre_Url = "";
     private String S_Login_Spa_Url = "";
+    private String S_Act_Pre_Url = "";
+    private String S_Act_Spa_Url = "";
+
     private String S_Third_PayUrl = "";
     private String S_Login_password_Regularly = "";
     private String S_Login_account_Regularly = "";
@@ -85,5 +88,13 @@ public class ConfigBean {
 
     public String getS_CS_Pre_Url() {
         return S_CS_Pre_Url;
+    }
+
+    public String getS_Act_Pre_Url() {
+        return S_Act_Pre_Url;
+    }
+
+    public String getS_Act_Spa_Url() {
+        return S_Act_Spa_Url;
     }
 }

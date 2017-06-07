@@ -26,4 +26,6 @@ public interface IStarpy extends IGameLifeCycle {
     public void cs(Activity activity, String roleLevel, String roleVipLevel);
 
     public void share(Activity activity, ISdkCallBack iSdkCallBack, String title, String message , String shareLinkUrl, String sharePictureUrl);
+
+    public void openWebview(Activity activity, String roleLevel, String roleVipLevel);
 }

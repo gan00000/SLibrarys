@@ -167,6 +167,13 @@ public class MainActivity extends Activity {
 
             }
         });
+
+        findViewById(R.id.open_page).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iStarpy.openWebview(MainActivity.this,"roleLevel","10");
+            }
+        });
     }
 
     @Override
