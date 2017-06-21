@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
                     }
                 });
 
-                String s = StarPyUtil.encryptDyUrl(getApplicationContext(),FileUtil.readAssetsTxtFile(getApplicationContext(),"s_sdk_config.txt"));
+                String s = StarPyUtil.encryptDyUrl(getApplicationContext(),FileUtil.readAssetsTxtFile(getApplicationContext(),"s_sdk_config2.txt"));
 //
                 PL.i(s);
 
@@ -171,6 +171,12 @@ public class MainActivity extends Activity {
         findViewById(R.id.open_page).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                /**
+                 * 打开一个活动页面接口
+                 * level：游戏等级
+                 * vipLevel：vip等级，没有就写""
+                 */
                 iStarpy.openWebview(MainActivity.this,"roleLevel","10");
             }
         });
