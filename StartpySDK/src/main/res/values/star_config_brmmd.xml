@@ -19,4 +19,6 @@
     <string name="star_ads_adword_conversionId"></string>
     <string name="star_ads_adword_label"></string>
 
+    <string name="star_ads_appflyer_dev_key">BLFVxBvnUi2zH7iwEb72jB</string>
+
 </resources>

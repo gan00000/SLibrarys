@@ -69,6 +69,13 @@
             android:authorities="@string/facebook_authorities"
             android:exported="true" />
 
+        <!--The AppsFlyer Install Receiver is first and will broadcast to all receivers placed below it-->
+        <receiver android:name="com.appsflyer.MultipleInstallBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
         <receiver
             android:name="com.google.ads.conversiontracking.InstallReceiver"
             android:exported="true">

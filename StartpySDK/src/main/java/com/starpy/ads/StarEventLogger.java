@@ -1,8 +1,8 @@
 package com.starpy.ads;
 
 import android.app.Activity;
-import android.content.Context;
 
+import com.appsflyer.AppsFlyerLib;
 import com.core.base.utils.SStringUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.google.ads.conversiontracking.AdWordsConversionReporter;
@@ -14,18 +14,20 @@ import com.starpy.sdk.R;
 
 public class StarEventLogger {
 
-    public static void activateApp(Context context){
+    public static void activateApp(Activity activity){
 
         try {
 
-            SFacebookProxy.activateApp(context.getApplicationContext());
+            AppsFlyerLib.getInstance().startTracking(activity.getApplication(),activity.getString(R.string.star_ads_appflyer_dev_key));
+
+            SFacebookProxy.activateApp(activity.getApplicationContext());
 
             // Google Android first open conversion tracking snippet
             // Add this code to the onCreate() method of your application activity
 
-            if (SStringUtil.isNotEmpty(context.getString(R.string.star_ads_adword_conversionId))) {
-                AdWordsConversionReporter.reportWithConversionId(context.getApplicationContext(),
-                        context.getString(R.string.star_ads_adword_conversionId), context.getString(R.string.star_ads_adword_label), "0.00", false);
+            if (SStringUtil.isNotEmpty(activity.getString(R.string.star_ads_adword_conversionId))) {
+                AdWordsConversionReporter.reportWithConversionId(activity.getApplicationContext(),
+                        activity.getString(R.string.star_ads_adword_conversionId), activity.getString(R.string.star_ads_adword_label), "0.00", false);
             }
 
         } catch (Exception e) {
