@@ -9,8 +9,8 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 22
+        minSdkVersion 18
+        targetSdkVersion 25
     }
    buildTypes {
         release {
