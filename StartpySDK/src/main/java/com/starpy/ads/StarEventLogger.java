@@ -43,4 +43,8 @@ public class StarEventLogger {
     public static void trackinRegisterEvent(Activity activity){
         SFacebookProxy.trackingEvent(activity,"starpy_register_event_android");
     }
+
+    public static void trackinPayEvent(Activity activity, double payVaule){
+        SFacebookProxy.trackingEvent(activity,"pay_android", payVaule);
+    }
 }

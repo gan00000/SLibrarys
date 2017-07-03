@@ -2,6 +2,7 @@ package com.starpy.sdk.out;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.core.base.ObjFactory;
@@ -27,6 +28,9 @@ import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.SWebViewDialog;
 import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class StarpyImpl implements IStarpy {
@@ -231,7 +235,7 @@ public class StarpyImpl implements IStarpy {
 
         Intent i = new Intent(activity, GooglePayActivity2.class);
         i.putExtra(GooglePayActivity2.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
-        activity.startActivity(i);
+        activity.startActivityForResult(i,GooglePayActivity2.GooglePayReqeustCode);
     }
 
     private void othersPay(Activity activity, String cpOrderId, String roleLevel, String extra) {
@@ -300,6 +304,32 @@ public class StarpyImpl implements IStarpy {
         }
         if (otherPayWebViewDialog != null){
             otherPayWebViewDialog.onActivityResult(activity, requestCode, resultCode, data);
+        }
+        if (requestCode == GooglePayActivity2.GooglePayReqeustCode && resultCode == GooglePayActivity2.GooglePayResultCode){
+            if (data != null && data.getExtras() != null){
+                Bundle b = data.getExtras();
+                GooglePayCreateOrderIdReqBean g = (GooglePayCreateOrderIdReqBean) data.getSerializableExtra("GooglePayCreateOrderIdReqBean");
+                if (b.getInt("status") == 93 && g != null){//充值成功
+                    try {
+                        if (g.getGameCode().equals("gbmmd")) {//全球萌萌哒特殊处理
+                            PL.i("google pay success,value:" + g.getPayValue());
+                            Map<String,Double> id_price = new HashMap<>();
+                            id_price.put("com.brmmd.3.99.month",3.99);
+                            id_price.put("com.brmmd.19.99.month",19.99);
+                            id_price.put("py.brmmd.1.99",1.99);
+                            id_price.put("py.brmmd.4.99",4.99);
+                            id_price.put("py.brmmd.9.99",9.99);
+                            id_price.put("py.brmmd.29.99",29.99);
+                            id_price.put("py.brmmd.49.99",49.99);
+                            id_price.put("py.brmmd.99.99",99.99);
+                            StarEventLogger.trackinPayEvent(activity,id_price.get(g.getProductId()));
+                        }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return;
         }
     }
 
