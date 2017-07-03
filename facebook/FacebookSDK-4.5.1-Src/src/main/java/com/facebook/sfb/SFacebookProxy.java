@@ -101,12 +101,14 @@ public class SFacebookProxy {
 	}
 	
 	public static void trackingEvent(Activity activity,String eventName){
-//		AppEventsLogger logger = AppEventsLogger.newLogger(activity);
-//		logger.logEvent(eventName);
-		trackingEvent(activity, eventName,null);
+		trackingEvent(activity, eventName,null,null);
+	}
+
+	public static void trackingEvent(Activity activity,String eventName,double valueToSum){
+		trackingEvent(activity, eventName,valueToSum,null);
 	}
 	
-	public static void trackingEvent(final Activity activity,final String eventName, final Bundle parameters){
+	public static void trackingEvent(final Activity activity,final String eventName, final Double valueToSum, final Bundle parameters){
 		if (activity == null || TextUtils.isEmpty(eventName)) {
 			return;
 		}
@@ -117,10 +119,14 @@ public class SFacebookProxy {
 			public void onInitialized() {
 				Log.d(TAG, "InitializeCallback");
 				AppEventsLogger logger = AppEventsLogger.newLogger(activity);
-				if (parameters != null) {
-					logger.logEvent(eventName, parameters);
-				}else{
+				if (valueToSum == null && parameters == null){
 					logger.logEvent(eventName);
+				}else if (valueToSum == null && parameters != null){
+					logger.logEvent(eventName, parameters);
+				}else if (valueToSum != null && parameters == null){
+					logger.logEvent(eventName,valueToSum);
+				}else {
+					logger.logEvent(eventName,valueToSum,parameters);
 				}
 			}
 		});

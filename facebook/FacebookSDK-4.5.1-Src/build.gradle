@@ -76,3 +76,13 @@ task copyJar(type: Copy) {
 }
 
 copyJar.dependsOn(makeLibraryJar)
+
+task createFbJar(type: Copy) {
+
+    from('build/libs/')
+
+    into('../libs/')
+    include(getJarName() + '.jar')
+}
+
+createFbJar.dependsOn(makeLibraryJar)
