@@ -1173,12 +1173,12 @@ public class IabHelper {
 		}).start();
 	}
 
-	Inventory efunQuerySkuDetails(String itemSkus) throws IabException {
+	Inventory mQuerySkuDetails(String itemSkus) throws IabException {
 		// checkNotDisposed();
 		if (mDisposed) {
 			return new Inventory();
 		}
-		checkSetupDone("efunQuerySkuDetails");
+		checkSetupDone("mQuerySkuDetails");
 		try {
 			Inventory inv = new Inventory();
 			final List<String> moreItemSkus = new ArrayList<String>();
@@ -1198,34 +1198,13 @@ public class IabHelper {
 		}
 	}
 
-	/*
-	 * public void efunQuerySkuDetailsAsync(final String itemSkus, final
-	 * QueryInventoryFinishedListener listener) { final Handler handler = new
-	 * Handler(); checkNotDisposed(); checkSetupDone("efunQuerySkuDetails");
-	 * flagStartAsync("refresh inventory"); (new Thread(new Runnable() { public
-	 * void run() { IabResult result = new IabResult(BILLING_RESPONSE_RESULT_OK,
-	 * "Inventory refresh successful."); Inventory inv = null; try { inv =
-	 * efunQuerySkuDetails(itemSkus); } catch (IabException ex) { result =
-	 * ex.getResult(); }
-	 * 
-	 * flagEndAsync();
-	 * 
-	 * final IabResult result_f = result; final Inventory inv_f = inv;
-	 * 
-	 * handler.post(new Runnable() { public void run() {
-	 * listener.onQueryInventoryFinished(result_f, inv_f); } });
-	 * 
-	 * if (!mDisposed && listener != null) { handler.post(new Runnable() {
-	 * public void run() { listener.onQueryInventoryFinished(result_f, inv_f); }
-	 * }); } } })).start(); }
-	 */
 
-	public void efunQuerySkuDetails(final String itemSkus, final QueryInventoryFinishedListener listener) {
+	public void mQuerySkuDetails(final String itemSkus, final QueryInventoryFinishedListener listener) {
 		// checkNotDisposed();
 		if (mDisposed) {
 			return;
 		}
-		checkSetupDone("efunQuerySkuDetails");
+		checkSetupDone("mQuerySkuDetails");
 		if (mAsyncInProgress) {
 //			context.getPayDialog().dismissProgressDialog();
 			return;
@@ -1235,7 +1214,7 @@ public class IabHelper {
 		IabResult result = new IabResult(BILLING_RESPONSE_RESULT_OK, "Inventory refresh successful.");
 		Inventory inv = null;
 		try {
-			inv = efunQuerySkuDetails(itemSkus);
+			inv = mQuerySkuDetails(itemSkus);
 		} catch (IabException ex) {
 			result = ex.getResult();
 		}

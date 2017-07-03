@@ -1,5 +1,7 @@
 package com.starpy.pay;
 
+import android.os.Bundle;
+
 import com.core.base.callback.ISCallBack;
 
 /**
@@ -8,7 +10,7 @@ import com.core.base.callback.ISCallBack;
 
 public interface IPayCallBack extends ISCallBack {
 
-    void success();
-    void fail();
+    void success(Bundle bundle);
+    void fail(Bundle bundle);
 
 }

@@ -3,6 +3,7 @@ package com.starpy.pay.gp;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.core.base.callback.ISReqCallBack;
@@ -12,9 +13,9 @@ import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.SLog;
 import com.starpy.pay.IPay;
 import com.starpy.pay.IPayCallBack;
-import com.starpy.pay.gp.bean.req.PayReqBean;
 import com.starpy.pay.gp.bean.req.GoogleExchangeReqBean;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
+import com.starpy.pay.gp.bean.req.PayReqBean;
 import com.starpy.pay.gp.bean.res.GPCreateOrderIdRes;
 import com.starpy.pay.gp.bean.res.GPExchangeRes;
 import com.starpy.pay.gp.constants.GooglePayContant;
@@ -59,7 +60,10 @@ public class GooglePayImpl implements IPay {
         }
 
         if (iPayCallBack != null){
-            iPayCallBack.success();
+            Bundle b = new Bundle();
+            b.putInt("status",93);
+            b.putSerializable("GooglePayCreateOrderIdReqBean", createOrderIdReqBean);
+            iPayCallBack.success(b);
         }
     }
 
@@ -68,6 +72,8 @@ public class GooglePayImpl implements IPay {
         if (loadingDialog != null){
             loadingDialog.dismissProgressDialog();
         }
+        final Bundle b = new Bundle();
+        b.putInt("status",94);
         if (SStringUtil.isNotEmpty(message)){//提示错误信息
 
             loadingDialog.alert(message, new DialogInterface.OnClickListener() {
@@ -77,7 +83,7 @@ public class GooglePayImpl implements IPay {
                     dialog.dismiss();
 
                     if (iPayCallBack != null){
-                        iPayCallBack.fail();
+                        iPayCallBack.fail(b);
                     }
                 }
             });
@@ -85,7 +91,7 @@ public class GooglePayImpl implements IPay {
         }else{//用户取消
 
             if (iPayCallBack != null){
-                iPayCallBack.fail();
+                iPayCallBack.fail(b);
             }
         }
 
@@ -236,6 +242,21 @@ public class GooglePayImpl implements IPay {
             @Override
             public void success(GPCreateOrderIdRes createOrderIdRes, String rawResult) {
                 if (createOrderIdRes != null && createOrderIdRes.isRequestSuccess() && !TextUtils.isEmpty(createOrderIdRes.getOrderId())) {
+                   /* new SRequestAsyncTask(){
+
+                        @Override
+                        protected String doInBackground(String... params) {
+                            mHelper.mQuerySkuDetails(createOrderIdReqBean.getProductId(), new IabHelper.QueryInventoryFinishedListener(){
+
+                                @Override
+                                public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                                    inv.getSkuDetails(createOrderIdReqBean.getProductId());
+                                }
+                            });
+                            return null;
+                        }
+                    }.asyncExcute();*/
+
                     launchPurchase(createOrderIdRes);
                 } else {
                     if (createOrderIdRes!=null && !TextUtils.isEmpty(createOrderIdRes.getMessage())){

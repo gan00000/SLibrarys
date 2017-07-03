@@ -6,6 +6,7 @@ import com.starpy.pay.gp.constants.GooglePayContant;
 
 public class GooglePayCreateOrderIdReqBean extends PayReqBean {
 
+	private String payValue = "0";
 	private String productId;
 	private String payType = GooglePayContant.GOOGLEPAYTYPE;
 
@@ -48,4 +49,11 @@ public class GooglePayCreateOrderIdReqBean extends PayReqBean {
 	}
 
 
+	public String getPayValue() {
+		return payValue;
+	}
+
+	public void setPayValue(String payValue) {
+		this.payValue = payValue;
+	}
 }
