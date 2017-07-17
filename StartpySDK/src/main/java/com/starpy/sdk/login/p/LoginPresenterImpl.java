@@ -20,6 +20,7 @@ import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
 import com.starpy.data.login.execute.AccountRegisterRequestTask;
+import com.starpy.data.login.execute.ChangePwdRequestTask;
 import com.starpy.data.login.execute.FBLoginRegRequestTask;
 import com.starpy.data.login.execute.MacLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
@@ -103,9 +104,9 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     }
 
     @Override
-    public void register(Activity activity, String account, String pwd) {
+    public void register(Activity activity, String account, String pwd, String email) {
         this.activity = activity;
-        registerAccout(activity, account, pwd);
+        registerAccout(activity, account, pwd, email);
     }
 
 
@@ -145,6 +146,51 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         if (autoLoginTimer != null){
             autoLoginTimer.cancel();
         }
+    }
+
+
+    @Override
+    public void changePwd(final Activity activity, final String account, String oldPwd, String newPwd) {
+
+        this.activity = activity;
+        ChangePwdRequestTask changePwdRequestTask = new ChangePwdRequestTask(activity,account,oldPwd,newPwd);
+        changePwdRequestTask.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
+        changePwdRequestTask.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
+
+            @Override
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
+                if (sLoginResponse != null) {
+                    if (sLoginResponse.isRequestSuccess()) {
+
+                        ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                        if (account.equals(StarPyUtil.getAccount(getContext()))){
+                            StarPyUtil.savePassword(getContext(),"");
+                        }
+                        iLoginView.changePwdSuccess(sLoginResponse);
+
+                    }else {
+
+                        ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                    }
+
+                } else {
+                    ToastUtils.toast(getActivity(), R.string.py_error_occur);
+                }
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+
+        changePwdRequestTask.excute(SLoginResponse.class);
+
     }
 
     private void mMacLogin(Activity activity) {
@@ -203,7 +249,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 //        String text = "你登入" + appName + "的帳號和密碼如下:\n帳號:" + freeRegisterName + "\n" + "密碼:" + freeRegisterPwd;
         String text = String.format(context.getResources().getString(R.string.py_login_mac_tips), appName, freeRegisterName, freeRegisterPwd);
         PL.i("cteateUserImage:" + text);
-        Bitmap bitmap = BitmapUtil.bitmapAddText(BitmapFactory.decodeResource(context.getResources(),R.drawable.image_bg),text);
+        Bitmap bitmap = BitmapUtil.bitmapAddText(BitmapFactory.decodeResource(context.getResources(),R.drawable.v2_mac_pwd_bg),text);
         BitmapUtil.saveImageToGallery(getContext(),bitmap);
         ToastUtils.toast(context, context.getResources().getString(R.string.py_login_mac_saveimage_tips));
     }
@@ -319,9 +365,9 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     }
 
-    private void registerAccout(Activity activity, final String account, final String password){
+    private void registerAccout(Activity activity, final String account, final String password, String email){
 
-        AccountRegisterRequestTask accountRegisterCmd = new AccountRegisterRequestTask(getActivity(), account, password);
+        AccountRegisterRequestTask accountRegisterCmd = new AccountRegisterRequestTask(getActivity(), account, password,email);
         accountRegisterCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         accountRegisterCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override

@@ -16,6 +16,7 @@ public class LoginContract {
     public interface ILoginView extends BaseView {
 
         public void LoginSuccess(SLoginResponse sLoginResponse);
+        public void changePwdSuccess(SLoginResponse sLoginResponse);
 
         public void showAutoLoginTips(String tips);
 
@@ -35,7 +36,8 @@ public class LoginContract {
 
         public void macLogin(Activity activity);
 
-        public void register(Activity activity, String account, String pwd);
+        public void register(Activity activity, String account, String pwd, String email);
+        public void changePwd(Activity activity, String account, String oldPwd, String newPwd);
 
 
         public void autoLogin(Activity activity);

@@ -1,4 +1,4 @@
-package com.starpy.sdk.login.widget;
+package com.starpy.sdk.login.widget.v2;
 
 import android.content.Context;
 import android.text.Editable;
@@ -16,31 +16,30 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
+import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
+import com.starpy.sdk.utils.Validator;
 
-/**
- * Created by Efun on 2017/2/6.
- */
 
-public class AccountRegisterLayout extends SLoginBaseRelativeLayout implements View.OnClickListener {
+public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements View.OnClickListener {
 
     private View contentView;
     private ImageView termsSelectImageView, eyeImageView;
     private TextView termsTextView, registerConfirm;
 
-    private EditText registerPasswordEditText, registerAccountEditText;
+    private EditText registerPasswordEditText, registerAccountEditText,registerMailEditText;
 
     private String account;
     private String password;
 
-    public AccountRegisterLayout(Context context) {
+    public AccountRegisterLayoutV2(Context context) {
         super(context);
     }
 
-    public AccountRegisterLayout(Context context, AttributeSet attrs) {
+    public AccountRegisterLayoutV2(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public AccountRegisterLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AccountRegisterLayoutV2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -50,11 +49,9 @@ public class AccountRegisterLayout extends SLoginBaseRelativeLayout implements V
     }
 
     private View onCreateView(LayoutInflater inflater) {
-        contentView = inflater.inflate(R.layout.py_account_register, null);
+        contentView = inflater.inflate(R.layout.v2_account_reg, null);
 
-        backView = contentView.findViewById(R.id.py_back_button);
-        titleTextView = (TextView) contentView.findViewById(R.id.py_title_id);
-        titleTextView.setText(getResources().getText(R.string.py_register_account));
+        backView = contentView.findViewById(R.id.py_back_button_v2);
 
         termsSelectImageView = (ImageView) contentView.findViewById(R.id.py_register_account_terms_check);
         termsTextView = (TextView) contentView.findViewById(R.id.py_register_terms_text_id);
@@ -63,6 +60,7 @@ public class AccountRegisterLayout extends SLoginBaseRelativeLayout implements V
         eyeImageView = (ImageView) contentView.findViewById(R.id.py_eye_imageview_id);
         registerPasswordEditText = (EditText) contentView.findViewById(R.id.py_register_password);
         registerAccountEditText = (EditText) contentView.findViewById(R.id.py_register_account);
+        registerMailEditText = (EditText) contentView.findViewById(R.id.py_register_account_mail);
 
         registerConfirm = (TextView) contentView.findViewById(R.id.py_register_account_confirm);
 
@@ -96,13 +94,17 @@ public class AccountRegisterLayout extends SLoginBaseRelativeLayout implements V
             }
         } else if (v == termsTextView) {
 
-            sLoginDialog.toRegisterTermsView();
+            sLoginDialogv2.toRegisterTermsView();
 
         } else if (v == registerConfirm) {
             register();
         } else if (v == backView) {//返回键
 //            sLoginActivity.popBackStack();
-            sLoginDialog.popBackStack();
+            if (from == 2){
+                sLoginDialogv2.toAccountLoginView();
+            }else{
+                sLoginDialogv2.toLoginView();
+            }
         } else if (v == eyeImageView) {//密码眼睛
 
             if (eyeImageView.isSelected()) {
@@ -138,6 +140,8 @@ public class AccountRegisterLayout extends SLoginBaseRelativeLayout implements V
         }
         password = password.trim();
 
+        String email = registerMailEditText.getEditableText().toString().trim();
+
         if (!termsSelectImageView.isSelected()) {
             ToastUtils.toast(getActivity(), R.string.py_select_terms);
         }
@@ -156,7 +160,12 @@ public class AccountRegisterLayout extends SLoginBaseRelativeLayout implements V
             return;
         }
 
-        sLoginDialog.getLoginPresenter().register(sLoginDialog.getActivity(), account, password,"");
+        if (SStringUtil.isNotEmpty(email) && !Validator.isEmail(email)){
+            ToastUtils.toast(getActivity(), R.string.py_email_format_error);
+            return;
+        }
+
+        sLoginDialogv2.getLoginPresenter().register(sLoginDialogv2.getActivity(), account, password, email);
     }
 
 

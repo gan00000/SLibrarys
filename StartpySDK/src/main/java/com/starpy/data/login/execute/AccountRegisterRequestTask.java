@@ -31,6 +31,27 @@ public class AccountRegisterRequestTask extends BaseRequestTask {
 
     }
 
+    public AccountRegisterRequestTask(Context context, String userName, String password,String email) {
+        super(context);
+
+        userName = userName.toLowerCase();
+        password = password.toLowerCase();
+
+        regRequest = new AccountRegRequest(context);
+        baseRequest = regRequest;
+
+        regRequest.setName(userName);
+
+        password = SStringUtil.toMd5(password);
+        regRequest.setPwd(password);
+
+        regRequest.setEmail(email);
+
+        regRequest.setRequestMethod("register");
+
+
+    }
+
 
     @Override
     public BaseReqeustBean createRequestBean() {

@@ -19,6 +19,7 @@ public class AccountLoginRequest extends LoginBaseRequest{
 	private String name;//用户账号名
 	private String pwd;
 	private String newPwd;
+	private String email;
 
 	public String getName() {
 		return name;
@@ -42,5 +43,13 @@ public class AccountLoginRequest extends LoginBaseRequest{
 
 	public void setNewPwd(String newPwd) {
 		this.newPwd = newPwd;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

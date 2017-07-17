@@ -54,7 +54,7 @@ public class DialogLoginImpl implements ILogin {
 
     @Override
     public void startLogin(Activity activity, ILoginCallBack iLoginCallBack) {
-        SLoginDialog sLoginDialog = new SLoginDialog(activity , com.starpy.sdk.R.style.StarDialogTheme);
+        SLoginDialogV2 sLoginDialog = new SLoginDialogV2(activity , com.starpy.sdk.R.style.StarDialogTheme);
         sLoginDialog.setsFacebookProxy(sFacebookProxy);
         sLoginDialog.setLoginCallBack(iLoginCallBack);
         sLoginDialog.show();

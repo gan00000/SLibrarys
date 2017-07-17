@@ -31,4 +31,13 @@
     <string name="py_login_autologin_tips">帳號 %1$s 正在登錄</string>
     <string name="py_login_autologin_fblogining_tips">facebook帳號正在登錄</string>
 
+    <string name="py_register_email_hit">郵箱,選填,用於找回密碼</string>
+    <string name="py_login_save_account">記住帳號</string>
+    <string name="py_login_by_members">會員登入</string>
+    <string name="py_email_format_error">郵箱格式錯誤</string>
+    <string name="py_old_pwd">舊密碼</string>
+    <string name="py_new_pwd">新密碼</string>
+    <string name="py_change_pwd">修改密碼</string>
+    <string name="py_old_equel_new_pwd">新密碼與舊密碼不能一致</string>
+
 </resources>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.starpy.sdk.SBaseRelativeLayout;
 import com.starpy.sdk.login.SLoginDialog;
+import com.starpy.sdk.login.SLoginDialogV2;
 
 /**
  * Created by gan on 2017/4/12.
@@ -23,9 +24,11 @@ public abstract class SLoginBaseRelativeLayout extends SBaseRelativeLayout {
     LayoutInflater inflater;
 
     protected SLoginDialog sLoginDialog;
+    protected SLoginDialogV2 sLoginDialogv2;
 
     protected View backView;
     protected TextView titleTextView;
+    public static int from;
 
     public SLoginBaseRelativeLayout(Context context) {
         super(context);
@@ -73,5 +76,8 @@ public abstract class SLoginBaseRelativeLayout extends SBaseRelativeLayout {
 
     public void setLoginDialog(SLoginDialog sLoginDialog) {
         this.sLoginDialog = sLoginDialog;
+    }
+    public void setLoginDialogV2(SLoginDialogV2 sLoginDialog) {
+        this.sLoginDialogv2 = sLoginDialog;
     }
 }
