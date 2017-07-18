@@ -65,7 +65,7 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
 makeLibraryJar.dependsOn(clearJar,build)
 
 def getJarName(){
-    return "py-star-sdk-2.0"
+    return "py-star-sdk-v2-1.0"
 }
 task copySdkJar(type: Copy) {
 
