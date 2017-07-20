@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.core.base.utils.PL;
+import com.core.base.utils.SStringUtil;
 
 /**
  * Created by Efun on 2016/12/2.
@@ -126,7 +127,13 @@ public class BaseWebViewClient extends WebViewClient {
         try {
             PL.w("ERROR URL:" + url);
 //            webView.loadData(URLEncoder.encode("loading error!!!","utf-8"),"text/html","utf-8");
-            webView.loadData("loading error, Please try again later", "text/html", "utf-8");
+            if (SStringUtil.isNotEmpty("url") && url.contains("starb168.com") && url.contains("?")){
+                String urlSub = url.substring(0,url.indexOf("?"));
+                PL.w("ERROR URL urlSub:" + urlSub);
+                if (urlSub.contains("starb168.com")){
+                    webView.loadData("loading error, Please try again later", "text/html", "utf-8");
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
