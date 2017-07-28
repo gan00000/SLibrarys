@@ -67,7 +67,7 @@ public class BaseWebViewClient extends WebViewClient {
     }
 
     public boolean overrideUrlLoading(WebView webView,String url){
-        
+
         PL.i("overrideUrlLoading url:" + url);
 
         if (url.startsWith("sms:")) {
