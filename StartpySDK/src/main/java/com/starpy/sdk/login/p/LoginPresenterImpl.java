@@ -18,11 +18,14 @@ import com.facebook.sfb.SFacebookProxy;
 import com.starpy.ads.StarEventLogger;
 import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
+import com.starpy.data.login.execute.AccountInjectionRequestTask;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
 import com.starpy.data.login.execute.AccountRegisterRequestTask;
 import com.starpy.data.login.execute.ChangePwdRequestTask;
 import com.starpy.data.login.execute.FBLoginRegRequestTask;
+import com.starpy.data.login.execute.FindPwdRequestTask;
 import com.starpy.data.login.execute.MacLoginRegRequestTask;
+import com.starpy.data.login.execute.ThirdAccountBindRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.LoginContract;
@@ -94,7 +97,12 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     @Override
     public void fbLogin(Activity activity, SFacebookProxy sFacebookProxy) {
         this.activity = activity;
-        sFbLogin(activity,sFacebookProxy);
+        sFbLogin(activity, sFacebookProxy, new FbLoginCallBack() {
+            @Override
+            public void loginSuccess(String fbScopeId, String businessId, String tokenForBusiness) {
+                fbThirdLogin(fbScopeId, businessId, tokenForBusiness);
+            }
+        });
     }
 
     @Override
@@ -193,6 +201,144 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     }
 
+    @Override
+    public void findPwd(Activity activity, String account, String email) {
+        this.activity = activity;
+        FindPwdRequestTask findPwdRequestTask = new FindPwdRequestTask(getActivity(), account, email);
+        findPwdRequestTask.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
+        findPwdRequestTask.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
+            @Override
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
+                if (sLoginResponse != null) {
+                    if (sLoginResponse.isRequestSuccess()) {
+                        ToastUtils.toast(getActivity(), R.string.py_findpwd_success);
+
+//                        handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
+                        if (iLoginView != null){
+                            iLoginView.findPwdSuccess(sLoginResponse);
+                        }
+                    }else{
+
+                        ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                    }
+
+                } else {
+                    ToastUtils.toast(getActivity(), R.string.py_error_occur);
+                }
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+
+        });
+        findPwdRequestTask.excute(SLoginResponse.class);
+    }
+
+
+    @Override
+    public void accountBind(Activity activity, String account, String pwd, String email, int bindType, SFacebookProxy sFacebookProxy) {
+        this.activity = activity;
+        final String mAccount = account;
+        final String mPwd = pwd;
+        final String mEmail = email;
+        if (bindType == SLoginType.bind_unique){
+
+            ThirdAccountBindRequestTask bindRequestTask = new ThirdAccountBindRequestTask(getActivity(), account,pwd, email);
+            sAccountBind(bindRequestTask);
+
+        }else if (bindType == SLoginType.bind_fb){
+            sFbLogin(activity, sFacebookProxy, new FbLoginCallBack() {
+                @Override
+                public void loginSuccess(String fbScopeId, String businessId, String tokenForBusiness) {
+                    ThirdAccountBindRequestTask bindRequestTask = new ThirdAccountBindRequestTask(getActivity(), mAccount,mPwd, mEmail,fbScopeId,businessId,tokenForBusiness);
+                    sAccountBind(bindRequestTask);
+                }
+            });
+
+        }
+
+
+    }
+
+    @Override
+    public void accountInject(Activity activity, String account, String pwd, String uid) {
+        AccountInjectionRequestTask injectionRequestTask = new AccountInjectionRequestTask(getActivity(),account,pwd,uid);
+        injectionRequestTask.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
+        injectionRequestTask.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
+            @Override
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
+                if (sLoginResponse != null) {
+                    if (sLoginResponse.isRequestSuccess()) {
+
+                        handleRegisteOrLoginSuccess(sLoginResponse,rawResult, "");
+
+                    }else {
+
+                        ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                    }
+
+                } else {
+                    ToastUtils.toast(getActivity(), R.string.py_error_occur);
+                }
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+        injectionRequestTask.excute(SLoginResponse.class);
+    }
+
+    private void sAccountBind(ThirdAccountBindRequestTask bindRequestTask) {
+        bindRequestTask.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
+        bindRequestTask.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
+            @Override
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
+                if (sLoginResponse != null) {
+                    if (sLoginResponse.isRequestSuccess()) {
+                        ToastUtils.toast(getActivity(), R.string.py_success);
+
+//                        handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
+                        if (iLoginView != null){
+                            iLoginView.accountBindSuccess(sLoginResponse);
+                        }
+                    }else{
+
+                        ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                    }
+
+                } else {
+                    ToastUtils.toast(getActivity(), R.string.py_error_occur);
+                }
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+
+        });
+        bindRequestTask.excute(SLoginResponse.class);
+    }
+
     private void mMacLogin(Activity activity) {
 
         MacLoginRegRequestTask macLoginRegCmd = new MacLoginRegRequestTask(getActivity());
@@ -255,7 +401,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     }
 
 
-    private void sFbLogin(final Activity activity, final SFacebookProxy sFacebookProxy) {
+    private void sFbLogin(final Activity activity, final SFacebookProxy sFacebookProxy, final FbLoginCallBack fbLoginCallBack) {
         if (sFacebookProxy == null) {
             return;
         }
@@ -273,26 +419,25 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             @Override
             public void onSuccess(SFacebookProxy.User user) {
                 PL.d("fb uid:" + user.getUserId());
-                requestBusinessId(activity, sFacebookProxy, user.getUserId());
+
+                final String fbScopeId = user.getUserId();
+                sFacebookProxy.requestBusinessId(activity, new SFacebookProxy.FbBusinessIdCallBack() {
+                    @Override
+                    public void onError() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(String businessId) {
+                        PL.d("fb businessId:" + businessId);
+                        if (fbLoginCallBack != null){
+                            fbLoginCallBack.loginSuccess(fbScopeId,businessId,FbSp.getTokenForBusiness(getActivity()));
+                        }
+                    }
+                });
+
             }
         });
-    }
-
-    private void requestBusinessId(Activity activity, SFacebookProxy sFacebookProxy, final String fbScopeId){
-
-        sFacebookProxy.requestBusinessId(activity, new SFacebookProxy.FbBusinessIdCallBack() {
-            @Override
-            public void onError() {
-
-            }
-
-            @Override
-            public void onSuccess(String businessId) {
-                PL.d("fb businessId:" + businessId);
-                fbThirdLogin(fbScopeId,businessId, FbSp.getTokenForBusiness(getActivity()));
-            }
-        });
-
     }
 
     private void fbThirdLogin(String fbScopeId, String fbApps, String fbTokenBusiness) {
@@ -485,23 +630,27 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
 
     private void handleRegisteOrLoginSuccess(SLoginResponse loginResponse, String rawResult, String loginType) {
-        try {
+
+        if (SStringUtil.isNotEmpty(loginType)) {//loginType为空时是账号注入登录，不能空时是其他普通登入
+
             StarPyUtil.saveSdkLoginData(getContext(), loginResponse.getRawResponse());
-
-            if (loginResponse != null) {
-                //1001 注册成功    1000登入成功
-                if (SStringUtil.isEqual("1000", loginResponse.getCode())) {
-                    StarEventLogger.trackinLoginEvent(activity);
-                } else if (SStringUtil.isEqual("1001", loginResponse.getCode())) {
-                    StarEventLogger.trackinRegisterEvent(activity);
+            StarPyUtil.savePreviousLoginType(activity, loginType);
+            try {
+                if (loginResponse != null) {
+                    //1001 注册成功    1000登入成功
+                    if (SStringUtil.isEqual("1000", loginResponse.getCode())) {
+                        StarEventLogger.trackinLoginEvent(activity);
+                    } else if (SStringUtil.isEqual("1001", loginResponse.getCode())) {
+                        StarEventLogger.trackinRegisterEvent(activity);
+                    }
                 }
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        StarPyUtil.savePreviousLoginType(activity, loginType);
+
 
     /*    if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, loginType)) {
 
@@ -516,6 +665,12 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         if (iLoginView != null){
             iLoginView.LoginSuccess(loginResponse);
         }
+    }
+
+
+    interface FbLoginCallBack{
+
+        void loginSuccess(String fbScopeId, String businessId, String tokenForBusiness);
     }
 
 }

@@ -147,6 +147,7 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
 
         if (!termsSelectImageView.isSelected()) {
             ToastUtils.toast(getActivity(), R.string.py_select_terms);
+            return;
         }
 
         if (SStringUtil.isEqual(account, password)) {

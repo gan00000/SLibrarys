@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.StarPyUtil;
@@ -34,6 +35,17 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 
     private String account;
     private String password;
+    private View loginMainGoFindPwd;
+    private View loginMainGoBindUnique;
+    private View loginMainGoBindFb;
+
+
+    private View leftTopView;
+    private View leftBottomView;
+    private long firstClickTime;
+//    private long lastClickTime;
+    private int leftTopClickCount = 0;
+    private int leftBottomClickCount = 0;
 
     public PyAccountLoginV2(Context context) {
         super(context);
@@ -56,18 +68,21 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 
     public View onCreateView(LayoutInflater inflater) {
 
-        contentView = inflater.inflate(R.layout.v2_py_login, null);
+        contentView = inflater.inflate(R.layout.v2_py_account_login, null);
 
         backView = contentView.findViewById(R.id.py_back_button_v2);
         backView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sLoginDialogv2.toLoginView();
+                sLoginDialogv2.toMainLoginView();
             }
         });
 
         loginMainGoRegisterBtn = contentView.findViewById(R.id.py_login_go_reg_v2);
         loginMainGoChangePwd = contentView.findViewById(R.id.py_login_go_changePwd_v2);
+        loginMainGoFindPwd = contentView.findViewById(R.id.py_login_go_findpwd_v2);
+        loginMainGoBindUnique = contentView.findViewById(R.id.py_login_go_bindUnique_v2);
+        loginMainGoBindFb = contentView.findViewById(R.id.py_login_go_bindFb_v2);
 
         eyeImageView = (ImageView) contentView.findViewById(R.id.py_login_password_eye_v2);
 
@@ -75,6 +90,9 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
         loginPasswordEditText = (EditText) contentView.findViewById(R.id.py_login_password_v2);
 
         loginMainLoginBtn = (TextView) contentView.findViewById(R.id.v2_member_btn_login);
+
+        leftTopView = contentView.findViewById(R.id.py_left_top_id);
+        leftBottomView = contentView.findViewById(R.id.py_left_bottom_id);
 
 
         savePwdCheckBox = (ImageView) contentView.findViewById(R.id.py_save_pwd_text_check_id);
@@ -96,7 +114,7 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
             @Override
             public void onClick(View v) {
 //                sLoginActivity.replaceFragment(new AccountLoginFragment());
-                sLoginDialogv2.toLoginView();
+                sLoginDialogv2.toMainLoginView();
             }
         });
 
@@ -113,6 +131,25 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
             @Override
             public void onClick(View v) {
                 sLoginDialogv2.toChangePwdView();
+            }
+        });
+
+        loginMainGoFindPwd.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sLoginDialogv2.toFindPwdView();
+            }
+        });
+        loginMainGoBindUnique.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sLoginDialogv2.toBindUniqueView();
+            }
+        });
+        loginMainGoBindFb.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sLoginDialogv2.toBindFbView();
             }
         });
 
@@ -152,24 +189,65 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
             loginPasswordEditText.setText(password);
         }
 
+        leftTopView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (leftBottomClickCount > 0){//若下方点击不为0，全部重置
+                    leftTopClickCount = 0;
+                    leftBottomClickCount = 0;
+                    firstClickTime = 0;
+                }
+                if (System.currentTimeMillis() - firstClickTime < 10 * 1000){//10秒内点击计数
+                    leftTopClickCount++;
+                    PL.i("leftTopClickCount--- " + leftTopClickCount);
+                    return;
+                }
+                leftTopClickCount = 0;//大于10秒的点击重置
+                leftBottomClickCount = 0;
+                leftTopClickCount++;
+                firstClickTime = System.currentTimeMillis();
+
+            }
+        });
+        leftBottomView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (System.currentTimeMillis() - firstClickTime < 10 * 1000){
+                    leftBottomClickCount++;
+                    PL.i("leftBottomClickCount--- " + leftBottomClickCount);
+                    if (leftTopClickCount >= 5 && leftBottomClickCount >= 5){
+                        PL.i("open set uid page");
+                        leftTopClickCount = 0;
+                        leftBottomClickCount = 0;
+                        firstClickTime = 0;
+                        sLoginDialogv2.toInjectionView();
+                    }
+                    return;
+                }
+                leftTopClickCount = 0;
+                leftBottomClickCount = 0;
+                firstClickTime = 0;
+
+            }
+        });
+
         return contentView;
     }
 
     private void login() {
 
-        account = loginAccountEditText.getEditableText().toString();
+        account = loginAccountEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(account)) {
             ToastUtils.toast(getActivity(), R.string.py_account_empty);
             return;
         }
-        account = account.trim();
 
-        password = loginPasswordEditText.getEditableText().toString();
+        password = loginPasswordEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(password)) {
             ToastUtils.toast(getActivity(), R.string.py_password_empty);
             return;
         }
-        password = password.trim();
 
         if (SStringUtil.isEqual(account, password)) {
             ToastUtils.toast(getActivity(), R.string.py_password_equal_account);

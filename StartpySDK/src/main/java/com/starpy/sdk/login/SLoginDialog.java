@@ -251,8 +251,18 @@ public class SLoginDialog extends SBaseDialog implements LoginContract.ILoginVie
     }
 
     @Override
+    public void findPwdSuccess(SLoginResponse sLoginResponse) {
+
+    }
+
+    @Override
     public void showAutoLoginWaitTime(String time) {
         autoLoginWaitTime.setText(time);
+    }
+
+    @Override
+    public void accountBindSuccess(SLoginResponse sLoginResponse) {
+
     }
 
     public void setLoginCallBack(ILoginCallBack iLoginCallBack) {

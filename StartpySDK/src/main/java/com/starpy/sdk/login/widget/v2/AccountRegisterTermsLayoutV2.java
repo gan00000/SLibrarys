@@ -42,7 +42,21 @@ public class AccountRegisterTermsLayoutV2 extends SLoginBaseRelativeLayout {
         backView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sLoginDialogv2.toRegisterView(0);
+
+                switch (from){
+                    case 1:
+                        sLoginDialogv2.toRegisterView(0);
+                        break;
+                    case 2:
+                        sLoginDialogv2.toBindUniqueView();
+                        break;
+                    case 3:
+                        sLoginDialogv2.toBindFbView();
+                        break;
+                    default:
+                        sLoginDialogv2.toRegisterView(0);
+                        break;
+                }
             }
         });
 

@@ -28,7 +28,7 @@ public abstract class SLoginBaseRelativeLayout extends SBaseRelativeLayout {
 
     protected View backView;
     protected TextView titleTextView;
-    public static int from;
+    public int from;
 
     public SLoginBaseRelativeLayout(Context context) {
         super(context);

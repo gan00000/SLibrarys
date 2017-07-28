@@ -17,12 +17,7 @@
             android:layout_height="@dimen/px_60"
             android:layout_marginTop="@dimen/px_15">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/px_30"
-                android:id="@+id/py_back_button_v2"
-                android:src="@mipmap/v2_back_page" />
+            <include layout="@layout/v2_login_back_layout"/>
         </LinearLayout>
 
 

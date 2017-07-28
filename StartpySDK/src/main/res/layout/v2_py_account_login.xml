@@ -15,14 +15,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_60"
-            android:layout_marginTop="@dimen/px_15">
+            android:layout_marginTop="@dimen/px_15"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/px_30"
-                android:id="@+id/py_back_button_v2"
-                android:src="@mipmap/v2_back_page" />
+            <include layout="@layout/v2_login_back_layout"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/px_120"
+                    android:layout_height="match_parent"
+                    android:id="@+id/py_left_top_id"
+                    android:layout_alignParentRight="true"
+                    />
+
+            </RelativeLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -167,10 +177,11 @@
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/px_15">
 
-            <RelativeLayout
-                android:layout_width="@dimen/px_500"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/px_60"
-                android:gravity="center_vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
                 >
 
 
@@ -182,29 +193,67 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/sp_20"
                     android:textStyle="bold"
-                    android:layout_marginRight="@dimen/px_20"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:id="@+id/py_login_go_findpwd_v2"
+                    android:text="@string/py_findpwd"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/px_20"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/py_login_go_bindUnique_v2"
+                    android:text="@string/py_bind_unique"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/px_20"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/py_login_go_bindFb_v2"
+                    android:text="@string/py_bind_fb"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/px_20"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/py_login_go_reg_v2"
                     android:text="@string/py_register_account"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/sp_20"
                     android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/px_20"
                     />
 
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:id="@+id/py_login_go_reg_v2"-->
-                    <!--android:src="@mipmap/v2_btn_register_new_account"/>-->
-
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="@dimen/px_120"
+                android:layout_height="match_parent"
+                android:id="@+id/py_left_bottom_id"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

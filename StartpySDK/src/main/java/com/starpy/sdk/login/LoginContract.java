@@ -17,6 +17,7 @@ public class LoginContract {
 
         public void LoginSuccess(SLoginResponse sLoginResponse);
         public void changePwdSuccess(SLoginResponse sLoginResponse);
+        public void findPwdSuccess(SLoginResponse sLoginResponse);
 
         public void showAutoLoginTips(String tips);
 
@@ -26,6 +27,7 @@ public class LoginContract {
 
         public void showAutoLoginWaitTime(String time);
 
+        public void accountBindSuccess(SLoginResponse sLoginResponse);
     }
 
     public interface ILoginPresenter extends IBasePresenter<ILoginView> {
@@ -38,7 +40,9 @@ public class LoginContract {
 
         public void register(Activity activity, String account, String pwd, String email);
         public void changePwd(Activity activity, String account, String oldPwd, String newPwd);
-
+        public void findPwd(Activity activity, String account, String email);
+        public void accountBind(Activity activity, String account, String pwd, String email, int bindType, SFacebookProxy sFacebookProxy);
+        public void accountInject(Activity activity, String account, String pwd,String uid);
 
         public void autoLogin(Activity activity);
 

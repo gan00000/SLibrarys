@@ -94,7 +94,7 @@ public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements
             }
         } else if (v == termsTextView) {
 
-            sLoginDialogv2.toRegisterTermsView();
+            sLoginDialogv2.toRegisterTermsView(1);
 
         } else if (v == registerConfirm) {
             register();
@@ -103,7 +103,7 @@ public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements
             if (from == 2){
                 sLoginDialogv2.toAccountLoginView();
             }else{
-                sLoginDialogv2.toLoginView();
+                sLoginDialogv2.toMainLoginView();
             }
         } else if (v == eyeImageView) {//密码眼睛
 
@@ -126,24 +126,23 @@ public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements
 
     private void register() {
 
-        account = registerAccountEditText.getEditableText().toString();
+        account = registerAccountEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(account)) {
             ToastUtils.toast(getActivity(), R.string.py_account_empty);
             return;
         }
-        account = account.trim();
 
-        password = registerPasswordEditText.getEditableText().toString();
+        password = registerPasswordEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(password)) {
             ToastUtils.toast(getActivity(), R.string.py_password_empty);
             return;
         }
-        password = password.trim();
 
         String email = registerMailEditText.getEditableText().toString().trim();
 
         if (!termsSelectImageView.isSelected()) {
             ToastUtils.toast(getActivity(), R.string.py_select_terms);
+            return;
         }
 
         if (SStringUtil.isEqual(account, password)) {

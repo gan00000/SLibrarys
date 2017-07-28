@@ -8,10 +8,9 @@
     <LinearLayout
         android:layout_width="@dimen/px_900"
         android:layout_height="@dimen/px_600"
+        android:layout_centerInParent="true"
         android:background="@mipmap/v2_login_bg"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,6 +18,7 @@
             android:layout_marginTop="@dimen/px_15">
 
             <include layout="@layout/v2_login_back_layout"/>
+
         </LinearLayout>
 
 
@@ -34,7 +34,7 @@
             <ImageView
                 android:layout_width="@dimen/px_400"
                 android:layout_height="match_parent"
-                android:src="@mipmap/v2_bg_title_chang_pwd"/>
+                android:src="@mipmap/v2_bg_title_bind_account"/>
 
 
         </LinearLayout>
@@ -66,10 +66,9 @@
                     android:layout_marginLeft="@dimen/px_15"
                     android:maxLines="1"
                     android:background="@null"
-                    android:hint="@string/py_account_hit"
+                    android:hint="@string/py_register_account_hit"
                     android:textSize="@dimen/sp_18"
-                    android:id="@+id/py_changepwd_account"
-                    android:paddingLeft="@dimen/px_10"
+                    android:id="@+id/py_bind_account"
                     />
 
             </LinearLayout>
@@ -95,20 +94,20 @@
                     android:layout_marginLeft="@dimen/px_15"
                     android:maxLines="1"
                     android:background="@null"
-                    android:hint="@string/py_old_pwd"
+                    android:hint="@string/py_register_account_hit"
                     android:textSize="@dimen/sp_18"
-                    android:paddingLeft="@dimen/px_10"
-                    android:id="@+id/py_changepwd_old_password"
+                    android:inputType="textPassword"
+                    android:id="@+id/py_bind_password"
                     />
 
-<!--
+
                 <ImageView
                     android:layout_width="@dimen/px_60"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/px_15"
                     android:padding="@dimen/px_8"
                     android:id="@+id/py_eye_imageview_id"
-                    android:src="@drawable/py_eye_selector_v2"/>-->
+                    android:src="@drawable/py_eye_selector_v2"/>
 
             </LinearLayout>
             <LinearLayout
@@ -124,7 +123,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/v2_bg_icon_pwd"/>
+                    android:background="@mipmap/v2_bg_icon_email"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -132,17 +131,16 @@
                     android:layout_marginLeft="@dimen/px_15"
                     android:maxLines="1"
                     android:background="@null"
-                    android:hint="@string/py_new_pwd"
+                    android:hint="@string/py_register_email_hit"
                     android:textSize="@dimen/sp_18"
-                    android:id="@+id/py_changepwd_new_password"
-                    android:paddingLeft="@dimen/px_10"
+                    android:id="@+id/py_bind_account_mail"
                     />
 
             </LinearLayout>
 
 
         </LinearLayout>
-<!--
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_60"
@@ -172,19 +170,19 @@
                 />
 
 
-        </LinearLayout>-->
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/px_25">
+            android:layout_marginTop="@dimen/px_15">
 
-            <TextView
+            <Button
                 android:layout_width="@dimen/px_420"
                 android:layout_height="@dimen/px_60"
                 android:background="@mipmap/v2_login_sure"
-                android:id="@+id/py_changepwd_confirm"/>
+                android:id="@+id/py_bind_account_confirm"/>
         </LinearLayout>
 
     </LinearLayout>

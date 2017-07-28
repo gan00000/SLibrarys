@@ -25,7 +25,7 @@ public class MacLoginRegRequestTask extends BaseRequestTask {
 
         baseRequest = macLoginRegRequest;
 
-        macLoginRegRequest.setRegistPlatform(SLoginType.LOGIN_TYPE_MAC);
+        macLoginRegRequest.setRegistPlatform(SLoginType.LOGIN_TYPE_UNIQUE);
         String uniqueId = ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(context);
         if(TextUtils.isEmpty(uniqueId)){
             PL.d("uniqueId:" + uniqueId);

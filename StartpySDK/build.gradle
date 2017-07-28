@@ -27,8 +27,6 @@ dependencies {
     compile project(':facebook:FacebookSDK-4.5.1-Src')
     compile project(':libraries-src:LibConnector')
     compile project(':libraries-src:star-pay')
-    compile files('libs/GoogleConversionTrackingSdk-2.2.4.jar')
-    compile files('libs/AF-Android-SDK.jar')
     compile 'com.google.android.gms:play-services-auth:11.0.1'
 }
 

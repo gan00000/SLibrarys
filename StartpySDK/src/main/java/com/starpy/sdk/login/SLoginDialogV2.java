@@ -13,13 +13,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.sfb.SFacebookProxy;
+import com.starpy.base.bean.SLoginType;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SBaseDialog;
 import com.starpy.sdk.login.p.LoginPresenterImpl;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
+import com.starpy.sdk.login.widget.v2.AccountBindAccountLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountChangePwdLayoutV2;
+import com.starpy.sdk.login.widget.v2.AccountFindPwdLayoutV2;
+import com.starpy.sdk.login.widget.v2.AccountInjectionLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterTermsLayoutV2;
 import com.starpy.sdk.login.widget.v2.MainLoginLayoutV2;
@@ -47,11 +51,15 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     private TextView autoLoginWaitTime;
     private TextView autoLoginChangeAccount;
 
-    private SLoginBaseRelativeLayout loginView;
+    private SLoginBaseRelativeLayout mainLoginView;
     private SLoginBaseRelativeLayout accountLoginView;
     private SLoginBaseRelativeLayout registerView;
     private SLoginBaseRelativeLayout registerTermsView;
     private SLoginBaseRelativeLayout changePwdView;
+    private SLoginBaseRelativeLayout findPwdView;
+    private SLoginBaseRelativeLayout bindUniqueView;
+    private SLoginBaseRelativeLayout bindFbView;
+    private SLoginBaseRelativeLayout injectionView;
 
     private List<SLoginBaseRelativeLayout> viewPageList;
 
@@ -117,14 +125,14 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
         viewPageList = new ArrayList<>();
 
-        /*loginView = new MainLoginLayoutV2(context);
+        /*mainLoginView = new MainLoginLayoutV2(context);
         accountLoginView = new PyAccountLoginV2(context);
         registerView = new AccountRegisterLayoutV2(context);
         registerTermsView = new AccountRegisterTermsLayoutV2(context);
         changePwdView = new AccountChangePwdLayoutV2(context);
 
 
-        viewPageList.add(loginView);
+        viewPageList.add(mainLoginView);
         viewPageList.add(accountLoginView);
         viewPageList.add(registerView);
         viewPageList.add(registerTermsView);
@@ -138,7 +146,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
             }
         }*/
 
-        toLoginView();
+        toMainLoginView();
 
         initAutoLoginView();
 
@@ -176,23 +184,23 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
     }
 
-    public void popBackStack() {
+    public void popBackStack(SLoginBaseRelativeLayout baseRelativeLayout) {
 
     }
 
 
-    public void toLoginView() {
-        if (loginView == null || !viewPageList.contains(loginView)){
-            loginView = new MainLoginLayoutV2(context);
-            loginView.setLoginDialogV2(this);
-            contentFrameLayout.addView(loginView);
-            viewPageList.add(loginView);
+    public void toMainLoginView() {
+        if (mainLoginView == null || !viewPageList.contains(mainLoginView)){
+            mainLoginView = new MainLoginLayoutV2(context);
+            mainLoginView.setLoginDialogV2(this);
+            contentFrameLayout.addView(mainLoginView);
+            viewPageList.add(mainLoginView);
         }
         for (View childView : viewPageList) {
             if (childView == null){
                 continue;
             }
-            if (childView == loginView){
+            if (childView == mainLoginView){
                 childView.setVisibility(View.VISIBLE);
             }else{
                 childView.setVisibility(View.GONE);
@@ -247,7 +255,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
             }
         }
     }
-    public void toRegisterTermsView() {
+    public void toRegisterTermsView(int from) {
 
         if (registerTermsView == null || !viewPageList.contains(registerTermsView)){
             registerTermsView = new AccountRegisterTermsLayoutV2(context);
@@ -255,7 +263,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
             contentFrameLayout.addView(registerTermsView);
             viewPageList.add(registerTermsView);
         }
-
+        registerTermsView.from = from;
         for (View childView : viewPageList) {
 
             if (childView == null){
@@ -286,6 +294,104 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
             }
 
             if (childView == changePwdView){
+                childView.setVisibility(View.VISIBLE);
+            }else{
+                childView.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    public void toFindPwdView() {
+
+        if (findPwdView == null || !viewPageList.contains(findPwdView)){
+            findPwdView = new AccountFindPwdLayoutV2(context);
+            findPwdView.setLoginDialogV2(this);
+            contentFrameLayout.addView(findPwdView);
+            viewPageList.add(findPwdView);
+        }
+
+        for (View childView : viewPageList) {
+
+            if (childView == null){
+                continue;
+            }
+
+            if (childView == findPwdView){
+                childView.setVisibility(View.VISIBLE);
+            }else{
+                childView.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    public void toInjectionView() {
+
+        if (injectionView == null || !viewPageList.contains(injectionView)){
+            injectionView = new AccountInjectionLayoutV2(context);
+            injectionView.setLoginDialogV2(this);
+            contentFrameLayout.addView(injectionView);
+            viewPageList.add(injectionView);
+        }
+
+        for (View childView : viewPageList) {
+
+            if (childView == null){
+                continue;
+            }
+
+            if (childView == injectionView){
+                childView.setVisibility(View.VISIBLE);
+            }else{
+                childView.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    public void toBindUniqueView() {
+
+        if (bindUniqueView == null || !viewPageList.contains(bindUniqueView)){
+            bindUniqueView = new AccountBindAccountLayoutV2(context);
+            ((AccountBindAccountLayoutV2)bindUniqueView).setBindTpye(SLoginType.bind_unique);
+            bindUniqueView.setLoginDialogV2(this);
+            contentFrameLayout.addView(bindUniqueView);
+            viewPageList.add(bindUniqueView);
+        }
+
+        for (View childView : viewPageList) {
+
+            if (childView == null){
+                continue;
+            }
+
+            if (childView == bindUniqueView){
+                childView.setVisibility(View.VISIBLE);
+            }else{
+                childView.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    public void toBindFbView() {
+
+        if (bindFbView == null || !viewPageList.contains(bindFbView)){
+            bindFbView = new AccountBindAccountLayoutV2(context);
+            ((AccountBindAccountLayoutV2)bindFbView).setBindTpye(SLoginType.bind_fb);
+            bindFbView.setLoginDialogV2(this);
+            contentFrameLayout.addView(bindFbView);
+            viewPageList.add(bindFbView);
+        }
+
+        for (View childView : viewPageList) {
+
+            if (childView == null){
+                continue;
+            }
+
+            if (childView == bindFbView){
                 childView.setVisibility(View.VISIBLE);
             }else{
                 childView.setVisibility(View.GONE);
@@ -339,7 +445,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
         if (iLoginPresenter.hasAccountLogin()){
             toAccountLoginView();
         }else{
-            toLoginView();
+            toMainLoginView();
         }
     }
 
@@ -357,5 +463,13 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
         this.iLoginCallBack = iLoginCallBack;
     }
 
+    @Override
+    public void findPwdSuccess(SLoginResponse sLoginResponse) {
 
+    }
+
+    @Override
+    public void accountBindSuccess(SLoginResponse sLoginResponse) {
+
+    }
 }
