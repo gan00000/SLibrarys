@@ -14,8 +14,12 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.core.base.utils.AppUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * Created by Efun on 2016/12/2.
@@ -63,29 +67,31 @@ public class BaseWebViewClient extends WebViewClient {
     }
 
     public boolean overrideUrlLoading(WebView webView,String url){
+        
+        PL.i("overrideUrlLoading url:" + url);
 
-        /*if (url.startsWith("sms:")) {
+        if (url.startsWith("sms:")) {
             try {
                 url = URLDecoder.decode(url, "utf-8");
                 String[] str = url.split("\\?");
-                String[] str1 = str[0].split("\\:");
-                String[] str2 = str[1].split("\\=");
-                AppUtils.sendMessage(activity,str1[1], str2[1]);
+                if (str != null && str.length >= 2) {
+
+                    String[]  str1 = str[0].split("\\:");
+                    String[]  str2 = str[1].split("\\=");
+                    AppUtil.sendMessage(activity,str1[1], str2[1]);
+                }
             } catch (UnsupportedEncodingException e) {
                 webView.loadUrl(url);
             }
 
-        }else if(url.contains("line.naver.jp")){
-            AppUtils.comeDownloadPageInAndroidWeb(activity, url);
+        }else if(url.startsWith("https://line.naver.jp/R/msg/text/?") || url.startsWith("https://line.me/R/msg/text/?")){
+            AppUtil.openInOsWebApp(activity, url);
 
-        }else if(url.startsWith("whatsapp://send")){
-            url = url.replaceAll("whatsapp://send", "http://m.efuntw.com/whatsappShare.html");
-            AppUtils.comeDownloadPageInAndroidWeb(activity, url);
+        }else if(url.startsWith("whatsapp//")){
 
-        } else */
+            AppUtil.openInOsWebApp(activity, url);
 
-        PL.i("overrideUrlLoading url:" + url);
-        if (url.toLowerCase().startsWith("http") || url.toLowerCase().startsWith("https") || url.toLowerCase().startsWith("file")) {
+        } else if (url.toLowerCase().startsWith("http") || url.toLowerCase().startsWith("https") || url.toLowerCase().startsWith("file")) {
             webView.loadUrl(url);
         } else {
             try {
@@ -93,6 +99,7 @@ public class BaseWebViewClient extends WebViewClient {
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 activity.startActivity(intent);
             } catch (Exception e) {
+                e.printStackTrace();
                 webView.loadUrl(url);
             }
         }

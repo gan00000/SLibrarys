@@ -142,12 +142,7 @@ public class ApkInfoUtil {
 		return "";
 	}
 	
-	/**
-	 * getImeiAddress Method
-	 * Method Description : imei Address
-	 * @author Joe
-	 * @date 2013-1-23
-	 */
+
 	public static String getImeiAddress(Context ctx) {
 		String imei = "";
 		try {
@@ -162,12 +157,6 @@ public class ApkInfoUtil {
 		return imei;
 	}
 
-	/**
-	 * getLocalIpAddress Method
-	 * Method Description : Ip Address
-	 * @author Joe
-	 * @date 2013-1-23
-	 */
 	public static String getLocalIpAddress(Context ctx){
 		WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 	    WifiInfo info = wifi.getConnectionInfo();
@@ -183,13 +172,6 @@ public class ApkInfoUtil {
 
 	}
 	
-	/**
-	 * getAndroidId Method
-	 * Method Description :get Android sys ID.
-	 * @param ctx
-	 * @author Joe
-	 * @date 2013-1-25
-	 */
 	public static String getAndroidId(Context ctx) {
 		String mAndroidId = "";
 		try {
@@ -203,14 +185,7 @@ public class ApkInfoUtil {
 		return mAndroidId;
 	}
 	
-	/**
-	 * isNetworkAvaiable Method
-	 * Method Description : wifi or cellular is Open.
-	 * @return boolean
-	 * @author Joe
-	 * @date 2013-1-25
-	 */
-	public static boolean isNetworkAvaiable(Context ctx){  
+	public static boolean isNetworkAvaiable(Context ctx){
 	    ConnectivityManager connectivityManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo info = connectivityManager.getActiveNetworkInfo();
 	    return (info != null && info.isConnected());
@@ -405,4 +380,6 @@ public class ApkInfoUtil {
 		resources.updateConfiguration(config, dm);
 		PL.i("new onConfigurationChanged:" + config.toString());
 	}
+
+
 }
