@@ -95,7 +95,6 @@
                     android:background="@null"
                     android:hint="@string/py_register_account_hit"
                     android:textSize="@dimen/sp_18"
-                    android:inputType="textPassword"
                     android:id="@+id/py_register_password"
                     />
 

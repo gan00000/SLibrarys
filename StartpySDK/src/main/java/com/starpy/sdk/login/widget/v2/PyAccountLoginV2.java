@@ -158,12 +158,12 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
             public void onClick(View v) {
                 if (eyeImageView.isSelected()) {
                     eyeImageView.setSelected(false);
-                    // 显示为密码
-                    loginPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                } else {
-                    eyeImageView.setSelected(true);
                     // 显示为普通文本
                     loginPasswordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                } else {
+                    eyeImageView.setSelected(true);
+                    // 显示为密码
+                    loginPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 }
                 // 使光标始终在最后位置
                 Editable etable = loginPasswordEditText.getText();
