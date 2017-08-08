@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.sfb.SFacebookProxy;
+import com.om.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.FixedSpeedScroller;

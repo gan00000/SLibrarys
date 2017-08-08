@@ -10,7 +10,7 @@ import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
-import com.facebook.sfb.FbSp;
+import com.om.starpy.thirdlib.facebook.FbSp;
 import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.AccountLoginRequestTask;

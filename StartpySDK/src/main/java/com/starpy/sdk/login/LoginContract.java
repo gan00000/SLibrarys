@@ -2,7 +2,7 @@ package com.starpy.sdk.login;
 
 import android.app.Activity;
 
-import com.facebook.sfb.SFacebookProxy;
+import com.om.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.BaseView;
 import com.starpy.IBasePresenter;
 import com.starpy.data.login.response.SLoginResponse;

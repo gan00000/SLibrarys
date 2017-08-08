@@ -1,4 +1,4 @@
-package com.facebook.sfb;
+package com.om.starpy.thirdlib.facebook;
 
 import android.app.Activity;
 import android.content.ComponentName;

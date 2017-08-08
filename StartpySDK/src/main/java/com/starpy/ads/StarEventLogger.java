@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.appsflyer.AppsFlyerLib;
 import com.core.base.utils.SStringUtil;
-import com.facebook.sfb.SFacebookProxy;
+import com.om.starpy.thirdlib.facebook.SFacebookProxy;
 import com.google.ads.conversiontracking.AdWordsConversionReporter;
 import com.starpy.sdk.R;
 

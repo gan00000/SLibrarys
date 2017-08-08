@@ -9,7 +9,7 @@ import com.core.base.ObjFactory;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
-import com.facebook.sfb.SFacebookProxy;
+import com.om.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.ads.StarEventLogger;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
