@@ -22,14 +22,15 @@ import com.starpy.data.login.execute.AccountInjectionRequestTask;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
 import com.starpy.data.login.execute.AccountRegisterRequestTask;
 import com.starpy.data.login.execute.ChangePwdRequestTask;
-import com.starpy.data.login.execute.FBLoginRegRequestTask;
 import com.starpy.data.login.execute.FindPwdRequestTask;
 import com.starpy.data.login.execute.MacLoginRegRequestTask;
 import com.starpy.data.login.execute.ThirdAccountBindRequestTask;
+import com.starpy.data.login.execute.ThirdLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.LoginContract;
 import com.starpy.sdk.utils.DialogUtil;
+import com.starpy.thirdlib.google.SGoogleSignIn;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -77,10 +78,14 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             if (SStringUtil.hasEmpty(fbScopeId,fbApps)){
                 showLoginView();
             }else{
-                startAutoLogin(activity, SLoginType.LOGIN_TYPE_FB, fbScopeId, fbApps);
+                startAutoLogin(activity, SLoginType.LOGIN_TYPE_FB, "", "");
             }
 
-        } else {//進入登錄頁面
+        }  else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_GOOGLE, previousLoginType)) {//自動登錄
+//           thirdPlatLogin(activity,StarPyUtil.getGoogleId(activity),SLoginType.LOGIN_TYPE_GOOGLE);
+            startAutoLogin(activity, SLoginType.LOGIN_TYPE_GOOGLE, "", "");
+
+        }else {//進入登錄頁面
             showLoginView();
         }
 
@@ -103,6 +108,66 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                 fbThirdLogin(fbScopeId, businessId, tokenForBusiness);
             }
         });
+    }
+
+
+    @Override
+    public void googleLogin(final Activity activity, SGoogleSignIn sGoogleSignIn) {
+        if (sGoogleSignIn == null){
+            return;
+        }
+        sGoogleSignIn.startSignIn(new SGoogleSignIn.GoogleSignInCallBack() {
+            @Override
+            public void success(String id, String mFullName, String mEmail) {
+                PL.i("google sign in : " + id);
+                if (SStringUtil.isNotEmpty(id)) {
+                    StarPyUtil.saveGoogleId(activity,id);
+                    thirdPlatLogin(activity,id,SLoginType.LOGIN_TYPE_GOOGLE);
+                }
+            }
+
+            @Override
+            public void failure() {
+                PL.i("google sign in failure");
+            }
+        });
+    }
+
+    @Override
+    public void thirdPlatLogin(Activity activity, String thirdPlatId, final String registPlatform) {
+        this.activity = activity;
+
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),thirdPlatId,registPlatform);
+        cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
+        cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
+            @Override
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
+                if (sLoginResponse != null) {
+
+                    if (sLoginResponse.isRequestSuccess()){
+
+                        handleRegisteOrLoginSuccess(sLoginResponse,rawResult, registPlatform);
+                    }else{
+
+                        ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
+                    }
+                } else {
+                    ToastUtils.toast(getActivity(), R.string.py_error_occur);
+                }
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+        cmd.excute(SLoginResponse.class);
+
     }
 
     @Override
@@ -442,7 +507,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     private void fbThirdLogin(String fbScopeId, String fbApps, String fbTokenBusiness) {
 
-        FBLoginRegRequestTask cmd = new FBLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
@@ -550,14 +615,16 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     }
 
-    private void startAutoLogin(final Activity activity, final String loginType, final String account, final String password) {
+    private void startAutoLogin(final Activity activity, final String registPlatform, final String account, final String password) {
 
-        if (SStringUtil.hasEmpty(account, password)) {
 
-            showLoginView();
-            return;
-        }
-        if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, loginType)) {
+        if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, registPlatform)) {
+
+            if (SStringUtil.hasEmpty(account, password)) {
+
+                showLoginView();
+                return;
+            }
             if (SStringUtil.isEqual(account, password)) {
                 showLoginView();
                 return;
@@ -573,13 +640,10 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             }
 
             iLoginView.showAutoLoginTips(String.format(activity.getResources().getString(R.string.py_login_autologin_tips),account));
-        }else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_FB, loginType)){
-//            autoLoginTips.setText("facebook帳號正在登錄");
-            iLoginView.showAutoLoginTips(activity.getResources().getString(R.string.py_login_autologin_fblogining_tips));
+        }else{
+            String autoLoginTips = activity.getResources().getString(R.string.py_login_autologin_logining_tips);
+            iLoginView.showAutoLoginTips(registPlatform + " " + autoLoginTips);
         }
-//
-//        relativeLayout.setVisibility(View.GONE);
-//        autoLoginLayout.setVisibility(View.VISIBLE);
         iLoginView.showAutoLoginView();
 
         count = 3;
@@ -599,13 +663,19 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                         iLoginView.showAutoLoginWaitTime("(" + count +  ")");
                         if (count == 0){
 
-                            if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, loginType)) {
+                            if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, registPlatform)) {//免注册或者平台用户自动登录
 //                                autoLogin22(activity, account, password);
 
                                 starpyAccountLogin(activity,account,password);
 
-                            }else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_FB, loginType)){
-                                fbThirdLogin(account, password,FbSp.getTokenForBusiness(activity));
+                            }else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_FB, registPlatform)){//fb自动的登录
+                                String fbScopeId = FbSp.getFbId(activity);
+                                String fbApps = FbSp.getAppsBusinessId(activity);
+                                fbThirdLogin(fbScopeId, fbApps,FbSp.getTokenForBusiness(activity));
+
+                            }else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_GOOGLE, registPlatform)){//Google登录
+
+                                thirdPlatLogin(activity,StarPyUtil.getGoogleId(activity),SLoginType.LOGIN_TYPE_GOOGLE);
                             }
 
                             if (autoLoginTimer != null){

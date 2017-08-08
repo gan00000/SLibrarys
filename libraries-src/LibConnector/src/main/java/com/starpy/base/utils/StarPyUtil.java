@@ -1,16 +1,16 @@
 package com.starpy.base.utils;
 
-import com.core.base.cipher.DESCipher;
-import com.core.base.utils.SStringUtil;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.core.base.cipher.DESCipher;
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.JsonUtil;
+import com.core.base.utils.ResUtil;
 import com.core.base.utils.SPUtil;
+import com.core.base.utils.SStringUtil;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.starpy.base.cfg.ConfigBean;
 import com.starpy.base.cfg.ResConfig;
 
@@ -149,6 +149,9 @@ public class StarPyUtil {
             String gameLanguage = ResConfig.getGameLanguage(context);
             m = FileUtil.readAssetsTxtFile(context,"starpy/" + gameLanguage + "/s_sdk_login_terms.txt");
         }
+        if (isXM(context)){
+            m = m.replaceAll("新玩意整合行銷有限公司","星盟網絡科技有限公司");
+        }
         return m;
     }
 
@@ -253,6 +256,18 @@ public class StarPyUtil {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private static final String STARPY_LOGIN_GOOGLE_ID = "STARPY_LOGIN_GOOGLE_ID";
+    public static void saveGoogleId(Context context, String googleId){
+        SPUtil.saveSimpleInfo(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_LOGIN_GOOGLE_ID,googleId);
+    }
+    public static String getGoogleId(Context context){
+       return SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_LOGIN_GOOGLE_ID);
+    }
+
+    public static boolean isXM(Context context){
+       return ResUtil.findStringByName(context,"star_login_type").equals("100");
     }
 
 }

@@ -216,7 +216,7 @@ public class AutoLogin {
 
     private void fbThirdLogin(final SLoginActivity sLoginActivity, String fbScopeId, String fbApps) {
 
-        FBLoginRegRequestTask cmd = new FBLoginRegRequestTask(sLoginActivity,fbScopeId,fbApps, FbSp.getTokenForBusiness(sLoginActivity));
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(sLoginActivity,fbScopeId,fbApps, FbSp.getTokenForBusiness(sLoginActivity));
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(sLoginActivity, "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override

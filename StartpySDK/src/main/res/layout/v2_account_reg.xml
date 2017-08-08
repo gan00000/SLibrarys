@@ -33,6 +33,7 @@
             <ImageView
                 android:layout_width="@dimen/px_400"
                 android:layout_height="match_parent"
+                android:id="@+id/v2_bg_title_register_iv"
                 android:src="@mipmap/v2_bg_title_register"/>
 
 

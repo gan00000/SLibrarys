@@ -20,6 +20,7 @@ public class ThirdLoginRegRequest extends LoginBaseRequest{
 	 */
 	private String registPlatform;
 	private String thirdPlatId;
+
 	/**
 	 * apps 关联应用的FB ID
 	 */

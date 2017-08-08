@@ -19,7 +19,7 @@ import com.facebook.sfb.FbSp;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.data.login.execute.FBLoginRegRequestTask;
+import com.starpy.data.login.execute.ThirdLoginRegRequestTask;
 import com.starpy.data.login.execute.MacLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.utils.DialogUtil;
@@ -194,7 +194,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
     private void fbThirdLogin(String fbScopeId, String fbApps, String fbTokenBusiness) {
 
-        FBLoginRegRequestTask cmd = new FBLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override

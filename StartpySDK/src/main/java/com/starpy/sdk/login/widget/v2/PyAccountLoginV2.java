@@ -94,6 +94,9 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
         leftTopView = contentView.findViewById(R.id.py_left_top_id);
         leftBottomView = contentView.findViewById(R.id.py_left_bottom_id);
 
+        if (StarPyUtil.isXM(getContext())){//星盟标题
+            ((ImageView)contentView.findViewById(R.id.v2_bg_title_login_iv)).setImageResource(R.mipmap.bg_xm_title_login);
+        }
 
         savePwdCheckBox = (ImageView) contentView.findViewById(R.id.py_save_pwd_text_check_id);
 

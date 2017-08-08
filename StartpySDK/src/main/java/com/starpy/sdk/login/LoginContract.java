@@ -6,6 +6,7 @@ import com.facebook.sfb.SFacebookProxy;
 import com.starpy.BaseView;
 import com.starpy.IBasePresenter;
 import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.thirdlib.google.SGoogleSignIn;
 
 /**
  * Created by gan on 2017/4/13.
@@ -35,6 +36,9 @@ public class LoginContract {
         public void starpyAccountLogin(Activity activity, String account, String pwd);
 
         public void fbLogin(Activity activity, SFacebookProxy sFacebookProxy);
+        public void googleLogin(Activity activity, SGoogleSignIn sGoogleSignIn);
+
+        public void thirdPlatLogin(Activity activity, String thirdPlatId, String registPlatform);
 
         public void macLogin(Activity activity);
 

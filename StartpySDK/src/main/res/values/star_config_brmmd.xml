@@ -21,4 +21,7 @@
 
     <string name="star_ads_appflyer_dev_key">BLFVxBvnUi2zH7iwEb72jB</string>
 
+    <!--100登录页为星盟，默认是星彼-->
+    <string name="star_login_type">100</string>
+
 </resources>

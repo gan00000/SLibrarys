@@ -802,5 +802,9 @@
     <dimen name="px_799">399.5dp</dimen>
 
     <dimen name="px_900">450dp</dimen>
+    <dimen name="px_1200">600dp</dimen>
+    <dimen name="px_800">400dp</dimen>
+
+
 
 </resources>

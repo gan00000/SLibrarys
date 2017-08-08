@@ -27,7 +27,7 @@ dependencies {
     compile project(':facebook:FacebookSDK-4.5.1-Src')
     compile project(':libraries-src:LibConnector')
     compile project(':libraries-src:star-pay')
-    compile 'com.google.android.gms:play-services-auth:11.0.1'
+    compile project(':Thirdlibrary')
 }
 
 

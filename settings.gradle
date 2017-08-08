@@ -1,4 +1,4 @@
-include ':google:google-play-services_lib_9256000', ':StartpySDK', ':StarpySdkDemo', ':app', ':AppTest'
+include ':google:google-play-services_lib_9256000', ':StartpySDK', ':StarpySdkDemo', ':Thirdlibrary'
 //include ':google:google-play-service-src'
 //include ':google:google-play-service-demo'
 
@@ -11,7 +11,5 @@ include ':facebook:facebook-4.22.0'
 include ':libraries-src:star-core'
 include ':libraries-src:star-pay'
 //include ':libraries-src:star-ads'
-include ':libraries-src:EfunLoginCommon'
 include ':libraries-src:PushNotifition'
-include ':libraries-src:Efun-Interface-lib'
 include ':libraries-src:LibConnector'

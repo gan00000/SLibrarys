@@ -21,7 +21,7 @@ import com.starpy.base.bean.SLoginType;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
-import com.starpy.data.login.execute.FBLoginRegRequestTask;
+import com.starpy.data.login.execute.ThirdLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.SBaseSdkActivity;
 import com.starpy.sdk.R;
@@ -329,7 +329,7 @@ public class SLoginActivity extends SBaseSdkActivity {
 
     private void fbThirdLogin(final SLoginActivity sLoginActivity, String fbScopeId, String fbApps) {
 
-        FBLoginRegRequestTask cmd = new FBLoginRegRequestTask(sLoginActivity,fbScopeId,fbApps,FbSp.getTokenForBusiness(sLoginActivity));
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(sLoginActivity,fbScopeId,fbApps,FbSp.getTokenForBusiness(sLoginActivity));
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(sLoginActivity, "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override

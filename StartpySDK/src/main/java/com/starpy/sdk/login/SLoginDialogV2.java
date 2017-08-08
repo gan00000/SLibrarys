@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.base.bean.SLoginType;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
@@ -28,6 +29,8 @@ import com.starpy.sdk.login.widget.v2.AccountRegisterLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterTermsLayoutV2;
 import com.starpy.sdk.login.widget.v2.MainLoginLayoutV2;
 import com.starpy.sdk.login.widget.v2.PyAccountLoginV2;
+import com.starpy.sdk.login.widget.v2.XMMainLoginLayoutV2;
+import com.starpy.thirdlib.google.SGoogleSignIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,10 +67,13 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     private List<SLoginBaseRelativeLayout> viewPageList;
 
     private SFacebookProxy sFacebookProxy;
+    private SGoogleSignIn sGoogleSignIn;
 
     private LoginContract.ILoginPresenter iLoginPresenter;
 
     private ILoginCallBack iLoginCallBack;
+
+    private boolean isXM = false;
 
     public SLoginDialogV2(@NonNull Context context) {
         super(context);
@@ -125,26 +131,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
         viewPageList = new ArrayList<>();
 
-        /*mainLoginView = new MainLoginLayoutV2(context);
-        accountLoginView = new PyAccountLoginV2(context);
-        registerView = new AccountRegisterLayoutV2(context);
-        registerTermsView = new AccountRegisterTermsLayoutV2(context);
-        changePwdView = new AccountChangePwdLayoutV2(context);
-
-
-        viewPageList.add(mainLoginView);
-        viewPageList.add(accountLoginView);
-        viewPageList.add(registerView);
-        viewPageList.add(registerTermsView);
-        viewPageList.add(changePwdView);
-
-
-        for (SLoginBaseRelativeLayout childView : viewPageList) {
-            if (childView != null){
-                childView.setLoginDialogV2(this);
-                contentFrameLayout.addView(childView);
-            }
-        }*/
+        isXM = StarPyUtil.isXM(activity);
 
         toMainLoginView();
 
@@ -191,7 +178,12 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
     public void toMainLoginView() {
         if (mainLoginView == null || !viewPageList.contains(mainLoginView)){
-            mainLoginView = new MainLoginLayoutV2(context);
+
+            if (isXM) {
+                mainLoginView = new XMMainLoginLayoutV2(context);
+            }else {
+                mainLoginView = new MainLoginLayoutV2(context);
+            }
             mainLoginView.setLoginDialogV2(this);
             contentFrameLayout.addView(mainLoginView);
             viewPageList.add(mainLoginView);
@@ -471,5 +463,13 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     @Override
     public void accountBindSuccess(SLoginResponse sLoginResponse) {
 
+    }
+
+    public SGoogleSignIn getsGoogleSignIn() {
+        return sGoogleSignIn;
+    }
+
+    public void setsGoogleSignIn(SGoogleSignIn sGoogleSignIn) {
+        this.sGoogleSignIn = sGoogleSignIn;
     }
 }

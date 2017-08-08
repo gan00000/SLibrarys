@@ -5,6 +5,8 @@ import android.content.Intent;
 
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.data.login.ILoginCallBack;
+import com.starpy.sdk.utils.DialogUtil;
+import com.starpy.thirdlib.google.SGoogleSignIn;
 
 /**
  * Created by gan on 2017/4/12.
@@ -14,12 +16,16 @@ public class DialogLoginImpl implements ILogin {
 
     private SFacebookProxy sFacebookProxy;
 
+    private SGoogleSignIn sGoogleSignIn;
+
+
     @Override
     public void onCreate(Activity activity) {
 
-
         // 2.实例EfunFacebookProxy
         sFacebookProxy = new SFacebookProxy(activity.getApplicationContext());
+
+        sGoogleSignIn = new SGoogleSignIn(activity, DialogUtil.createLoadingDialog(activity, "Loading..."));
 
     }
 
@@ -32,6 +38,9 @@ public class DialogLoginImpl implements ILogin {
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         if (sFacebookProxy != null) {
             sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
+        }
+        if (sGoogleSignIn != null){
+            sGoogleSignIn.handleActivityResult(activity,requestCode,resultCode,data);
         }
     }
 
@@ -56,6 +65,7 @@ public class DialogLoginImpl implements ILogin {
     public void startLogin(Activity activity, ILoginCallBack iLoginCallBack) {
         SLoginDialogV2 sLoginDialog = new SLoginDialogV2(activity , com.starpy.sdk.R.style.StarDialogTheme);
         sLoginDialog.setsFacebookProxy(sFacebookProxy);
+        sLoginDialog.setsGoogleSignIn(sGoogleSignIn);
         sLoginDialog.setLoginCallBack(iLoginCallBack);
         sLoginDialog.show();
     }

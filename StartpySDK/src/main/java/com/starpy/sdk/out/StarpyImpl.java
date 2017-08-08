@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.core.base.ObjFactory;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
+import com.core.base.utils.SignatureUtil;
 import com.facebook.sfb.SFacebookProxy;
 import com.starpy.ads.StarEventLogger;
 import com.starpy.base.bean.SGameLanguage;
@@ -106,7 +107,8 @@ public class StarpyImpl implements IStarpy {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
+                PL.i("fb keyhash:" + SignatureUtil.getHashKey(activity, activity.getPackageName()));
+                PL.i("google sha1:" + SignatureUtil.getSignatureSHA1WithColon(activity, activity.getPackageName()));
                 if (iLogin != null){
                     //清除上一次登录成功的返回值
                     StarPyUtil.saveSdkLoginData(activity,"");
