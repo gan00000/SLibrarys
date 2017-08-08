@@ -4,12 +4,12 @@ include ':google:google-play-services_lib_9256000', ':StartpySDK', ':StarpySdkDe
 
 
 include ':facebook:FacebookSDK-4.5.1-Src'
+include ':facebook:facebook-android-sdk-4.25'
 include ':facebook:HelloFacebookSampleActivity'
-include ':facebook:facebook-4.22.0'
 
 
 include ':libraries-src:star-core'
 include ':libraries-src:star-pay'
 //include ':libraries-src:star-ads'
 include ':libraries-src:PushNotifition'
-include ':libraries-src:LibConnector'
+include ':libraries-src:StarpyBaseLib'
