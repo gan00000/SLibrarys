@@ -1,9 +1,9 @@
-package com.starpy.ads.impl;
+package com.starpy.sdk.ads.impl;
 
 import com.starpy.base.cfg.ResConfig;
-import com.starpy.ads.base.BaseAds;
-import com.starpy.ads.util.EfunDomainSite;
-import com.starpy.ads.util.SPUtil;
+import com.starpy.sdk.ads.base.BaseAds;
+import com.starpy.sdk.ads.util.EfunDomainSite;
+import com.starpy.sdk.ads.util.SPUtil;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.SStringUtil;
 

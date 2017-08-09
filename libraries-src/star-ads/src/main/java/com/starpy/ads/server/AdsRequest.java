@@ -1,18 +1,18 @@
-package com.starpy.ads.server;
+package com.starpy.sdk.ads.server;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.starpy.ads.activity.EfunAdsS2SService;
-import com.starpy.ads.base.BaseAds;
-import com.starpy.ads.bean.AdsHttpParams;
-import com.starpy.ads.callback.S2SListener;
-import com.starpy.ads.impl.AdsImpl;
-import com.starpy.ads.util.AdsHelper;
-import com.starpy.ads.util.EfunJsonUtil;
-import com.starpy.ads.util.SPUtil;
+import com.starpy.sdk.ads.activity.EfunAdsS2SService;
+import com.starpy.sdk.ads.base.BaseAds;
+import com.starpy.sdk.ads.bean.AdsHttpParams;
+import com.starpy.sdk.ads.callback.S2SListener;
+import com.starpy.sdk.ads.impl.AdsImpl;
+import com.starpy.sdk.ads.util.AdsHelper;
+import com.starpy.sdk.ads.util.EfunJsonUtil;
+import com.starpy.sdk.ads.util.SPUtil;
 import com.starpy.base.utils.SLog;
 import com.core.base.utils.SStringUtil;
 

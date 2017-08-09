@@ -1,4 +1,4 @@
-package com.starpy.ads.callback;
+package com.starpy.sdk.ads.callback;
 
 import android.content.Context;
 import android.content.Intent;

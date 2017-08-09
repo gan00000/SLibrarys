@@ -1,7 +1,7 @@
 <resources>
 
-    <string name="star_py_login_pre_url">http://10.10.10.114:8081/login/</string>
-    <string name="star_py_login_spa_url">http://10.10.10.114:8081/login/</string>
+    <string name="star_py_login_pre_url">http://testlogin.starb168.com/</string>
+    <string name="star_py_login_spa_url">http://testlogin.starb168.com/</string>
 
     <string name="star_py_pay_pre_url">http://pay.starb168.com/</string>
     <string name="star_py_pay_spa_url">http://pay.starb168.com/</string>

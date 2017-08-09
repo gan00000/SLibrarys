@@ -1,4 +1,4 @@
-package com.starpy.ads.event;
+package com.starpy.sdk.ads.event;
 
 import java.util.HashMap;
 import java.util.Locale;

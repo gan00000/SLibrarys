@@ -3,7 +3,7 @@ package com.starpy.sdk.login;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.om.starpy.thirdlib.facebook.SFacebookProxy;
+import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.sdk.utils.DialogUtil;
 import com.starpy.thirdlib.google.SGoogleSignIn;

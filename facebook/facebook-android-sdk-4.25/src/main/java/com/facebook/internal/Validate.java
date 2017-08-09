@@ -35,7 +35,6 @@ import com.facebook.CustomTabActivity;
 import com.facebook.FacebookActivity;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.FacebookSdkNotInitializedException;
 
 import java.util.Collection;
 import java.util.List;
@@ -142,9 +141,11 @@ public final class Validate {
 
     public static void sdkInitialized() {
         if (!FacebookSdk.isInitialized()) {
-            throw new FacebookSdkNotInitializedException(
-                    "The SDK has not been initialized, make sure to call " +
-                    "FacebookSdk.sdkInitialize() first.");
+//            throw new FacebookSdkNotInitializedException(
+//                    "The SDK has not been initialized, make sure to call " +
+//                    "FacebookSdk.sdkInitialize() first.");
+
+            Log.i("FB","The SDK has not been initialized, make sure to call FacebookSdk.sdkInitialize() first.");
         }
     }
 

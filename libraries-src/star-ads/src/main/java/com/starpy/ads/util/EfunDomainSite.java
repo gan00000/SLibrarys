@@ -1,4 +1,4 @@
-package com.starpy.ads.util;
+package com.starpy.sdk.ads.util;
 
 public class EfunDomainSite {
 	public final static String EFUN_ADS = "ads_installStatistics.shtml";

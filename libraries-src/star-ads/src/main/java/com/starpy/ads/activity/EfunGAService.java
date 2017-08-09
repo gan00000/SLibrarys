@@ -1,4 +1,4 @@
-package com.starpy.ads.activity;
+package com.starpy.sdk.ads.activity;
 
 import android.app.Service;
 import android.content.Intent;

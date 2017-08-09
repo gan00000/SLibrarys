@@ -1,9 +1,9 @@
-package com.starpy.ads.util;
+package com.starpy.sdk.ads.util;
 
 import java.util.Locale;
 
 import com.starpy.base.cfg.ResConfig;
-import com.starpy.ads.bean.AdsHttpParams;
+import com.starpy.sdk.ads.bean.AdsHttpParams;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SPUtil;
 import com.starpy.base.utils.SLog;
@@ -30,7 +30,7 @@ public class AdsHelper {
 			if (existClass("com.google.android.gms.ads.identifier.AdvertisingIdClient")) {//判断google-play-server.jar是否存在
 				String advertisingId = GoogleUtil.getAdvertisingId(context);
 				if (!TextUtils.isEmpty(advertisingId)) {
-					SPUtil.saveSimpleInfo(context, com.starpy.ads.util.SPUtil.EFUN_FILE, com.starpy.ads.util.SPUtil.EFUN_GOOGLE_ADVERTISING_ID, advertisingId);
+					SPUtil.saveSimpleInfo(context, com.starpy.sdk.ads.util.SPUtil.EFUN_FILE, com.starpy.sdk.ads.util.SPUtil.EFUN_GOOGLE_ADVERTISING_ID, advertisingId);
 					adsHttpParams.setAdvertising_id(advertisingId);
 				}
 			}
@@ -61,13 +61,13 @@ public class AdsHelper {
 		}
 		
 		if (SStringUtil.isEmpty(adsHttpParams.getAdvertiser())) {
-			adsHttpParams.setAdvertiser(com.starpy.ads.util.SPUtil.takeAdvertisersName(context, ""));
+			adsHttpParams.setAdvertiser(com.starpy.sdk.ads.util.SPUtil.takeAdvertisersName(context, ""));
 		}
 		if (SStringUtil.isEmpty(adsHttpParams.getPartner())) {
-			adsHttpParams.setPartner(com.starpy.ads.util.SPUtil.takePartnerName(context, ""));
+			adsHttpParams.setPartner(com.starpy.sdk.ads.util.SPUtil.takePartnerName(context, ""));
 		}
 		if (SStringUtil.isEmpty(adsHttpParams.getReferrer())) {
-			adsHttpParams.setReferrer(com.starpy.ads.util.SPUtil.takeReferrer(context, ""));
+			adsHttpParams.setReferrer(com.starpy.sdk.ads.util.SPUtil.takeReferrer(context, ""));
 		}
 		adsHttpParams.setPackageName(context.getPackageName());//添加包名
 		adsHttpParams.setVersionCode(getVersionCode(context));
@@ -141,20 +141,20 @@ public class AdsHelper {
 	}
 	
 	public static boolean existLocalResponeCode(Context context) {
-		SharedPreferences settings = context.getSharedPreferences(com.starpy.ads.util.SPUtil.ads_efun, Context.MODE_PRIVATE);
-		String advertisersResult = settings.getString(com.starpy.ads.util.SPUtil.ADVERTISERS_S2S_KEY, null);
-		if (null != advertisersResult && advertisersResult.equals(com.starpy.ads.util.SPUtil.ADVERTISERS_S2S_RESULT)) {
+		SharedPreferences settings = context.getSharedPreferences(com.starpy.sdk.ads.util.SPUtil.ads_efun, Context.MODE_PRIVATE);
+		String advertisersResult = settings.getString(com.starpy.sdk.ads.util.SPUtil.ADVERTISERS_S2S_KEY, null);
+		if (null != advertisersResult && advertisersResult.equals(com.starpy.sdk.ads.util.SPUtil.ADVERTISERS_S2S_RESULT)) {
 			SLog.logD( "has old local data--ADVERTISERS_SUCCESS_200...Efun.ads");
-			com.starpy.ads.util.SPUtil.saveResponeCode(context, "1000");
+			com.starpy.sdk.ads.util.SPUtil.saveResponeCode(context, "1000");
 			return true;
 		}
-		advertisersResult = context.getSharedPreferences(com.starpy.ads.util.SPUtil.ads_efun_older, Context.MODE_PRIVATE).getString(com.starpy.ads.util.SPUtil.ADVERTISERS_S2S_KEY, null);
-		if (null != advertisersResult && (advertisersResult.equals(com.starpy.ads.util.SPUtil.ADVERTISERS_S2S_RESULT))) {
+		advertisersResult = context.getSharedPreferences(com.starpy.sdk.ads.util.SPUtil.ads_efun_older, Context.MODE_PRIVATE).getString(com.starpy.sdk.ads.util.SPUtil.ADVERTISERS_S2S_KEY, null);
+		if (null != advertisersResult && (advertisersResult.equals(com.starpy.sdk.ads.util.SPUtil.ADVERTISERS_S2S_RESULT))) {
 			SLog.logD( "has old local data--ADVERTISERS_SUCCESS_200...ads.efun");
-			com.starpy.ads.util.SPUtil.saveResponeCode(context, "1000");
+			com.starpy.sdk.ads.util.SPUtil.saveResponeCode(context, "1000");
 			return true;
 		}
-		String localCode = com.starpy.ads.util.SPUtil.takeResponeCode(context,"");
+		String localCode = com.starpy.sdk.ads.util.SPUtil.takeResponeCode(context,"");
 		if (SStringUtil.isNotEmpty(localCode) && SStringUtil.isNotEmpty(localCode.trim()) && !"null".equals(localCode)) {
 			Log.d("efunLog", "ads already  has local ads code:" + localCode);
 			return true;

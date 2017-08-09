@@ -1,10 +1,10 @@
-package com.starpy.ads.activity;
+package com.starpy.sdk.ads.activity;
 
-import com.starpy.ads.bean.AdsHttpParams;
-import com.starpy.ads.callback.S2SListener;
-import com.starpy.ads.server.AdsRequest;
-import com.starpy.ads.util.AdsHelper;
-import com.starpy.ads.util.SPUtil;
+import com.starpy.sdk.ads.bean.AdsHttpParams;
+import com.starpy.sdk.ads.callback.S2SListener;
+import com.starpy.sdk.ads.server.AdsRequest;
+import com.starpy.sdk.ads.util.AdsHelper;
+import com.starpy.sdk.ads.util.SPUtil;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.SLog;
 import com.core.base.utils.SStringUtil;

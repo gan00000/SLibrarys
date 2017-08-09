@@ -1,4 +1,4 @@
-package com.starpy.ads.analytics;
+package com.starpy.sdk.ads.analytics;
 
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.google.SGoogleProxy;

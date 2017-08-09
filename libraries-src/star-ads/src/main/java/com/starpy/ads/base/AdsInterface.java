@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.starpy.ads.base;
+package com.starpy.sdk.ads.base;
 
 
 public interface AdsInterface {

@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -26,7 +25,6 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.plus.PlusShare;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -280,16 +278,6 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 		}
 	}
 	
-
-	public void share(String text,String url){
-		// Launch the Google+ share dialog with attribution to your app.
-	      Intent shareIntent = new PlusShare.Builder(activity)
-	          .setType("text/plain")
-	          .setText(text)
-	          .setContentUrl(Uri.parse(url))
-	          .getIntent();
-	      activity.startActivityForResult(shareIntent, GOOGLE_SHARE_CODE);
-	}
 
 	@Override
 	public void onConnected(@Nullable Bundle bundle) {

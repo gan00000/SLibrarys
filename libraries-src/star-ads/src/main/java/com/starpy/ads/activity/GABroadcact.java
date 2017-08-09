@@ -1,14 +1,14 @@
-package com.starpy.ads.activity;
+package com.starpy.sdk.ads.activity;
 
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.starpy.base.cfg.ResConfig;
-import com.starpy.ads.analytics.GoogleAnalytics;
-import com.starpy.ads.callback.GAListener;
-import com.starpy.ads.server.AdsRequest;
-import com.starpy.ads.util.SPUtil;
+import com.starpy.sdk.ads.analytics.GoogleAnalytics;
+import com.starpy.sdk.ads.callback.GAListener;
+import com.starpy.sdk.ads.server.AdsRequest;
+import com.starpy.sdk.ads.util.SPUtil;
 import com.starpy.base.utils.SLog;
 import com.core.base.utils.SStringUtil;
 

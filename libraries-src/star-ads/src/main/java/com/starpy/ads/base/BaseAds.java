@@ -1,10 +1,10 @@
-package com.starpy.ads.base;
+package com.starpy.sdk.ads.base;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.starpy.ads.bean.AdsHttpParams;
-import com.starpy.ads.util.SPUtil;
+import com.starpy.sdk.ads.bean.AdsHttpParams;
+import com.starpy.sdk.ads.util.SPUtil;
 import com.core.base.http.HttpRequest;
 import com.starpy.base.utils.SLog;
 import com.core.base.utils.SStringUtil;

@@ -1,4 +1,4 @@
-package com.starpy.ads.util;
+package com.starpy.sdk.ads.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

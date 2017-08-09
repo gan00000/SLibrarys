@@ -1,9 +1,9 @@
-package com.starpy.ads.call;
+package com.starpy.sdk.ads.call;
 
 import android.app.Activity;
 import android.content.Context;
 
-import com.starpy.ads.util.SPUtil;
+import com.starpy.sdk.ads.util.SPUtil;
 
 public class EfunAdsManager {
 	private static Activity activity;

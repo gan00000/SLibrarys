@@ -1,4 +1,4 @@
-package com.starpy.ads.util;
+package com.starpy.sdk.ads.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;

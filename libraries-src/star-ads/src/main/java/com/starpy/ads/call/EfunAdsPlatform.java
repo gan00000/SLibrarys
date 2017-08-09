@@ -1,7 +1,7 @@
-package com.starpy.ads.call;
+package com.starpy.sdk.ads.call;
 
-import com.starpy.ads.activity.EfunAdsS2SService;
-import com.starpy.ads.bean.AdsHttpParams;
+import com.starpy.sdk.ads.activity.EfunAdsS2SService;
+import com.starpy.sdk.ads.bean.AdsHttpParams;
 
 import android.app.Activity;
 import android.content.Intent;

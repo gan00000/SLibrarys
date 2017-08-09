@@ -1,4 +1,4 @@
-package com.starpy.ads.event;
+package com.starpy.sdk.ads.event;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

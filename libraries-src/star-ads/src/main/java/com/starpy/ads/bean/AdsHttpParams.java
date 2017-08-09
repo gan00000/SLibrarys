@@ -1,4 +1,4 @@
-package com.starpy.ads.bean;
+package com.starpy.sdk.ads.bean;
 
 import java.io.Serializable;
 

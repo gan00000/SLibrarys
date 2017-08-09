@@ -200,6 +200,7 @@ public final class FacebookSdk {
             Context applicationContext,
             int callbackRequestCodeOffset,
             final InitializeCallback callback) {
+        Log.i("FB","This function initializes the Facebook SDK. This function is called automatically on app...");
         if (sdkInitialized && callbackRequestCodeOffset != FacebookSdk.callbackRequestCodeOffset) {
             throw new FacebookException(CALLBACK_OFFSET_CHANGED_AFTER_INIT);
         }

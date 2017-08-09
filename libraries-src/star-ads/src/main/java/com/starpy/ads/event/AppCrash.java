@@ -1,4 +1,4 @@
-package com.starpy.ads.event;
+package com.starpy.sdk.ads.event;
 
 import com.starpy.base.cfg.ResConfig;
 
