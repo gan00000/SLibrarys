@@ -680,7 +680,12 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             iLoginView.showAutoLoginTips(String.format(activity.getResources().getString(R.string.py_login_autologin_tips),account));
         }else{
             String autoLoginTips = activity.getResources().getString(R.string.py_login_autologin_logining_tips);
-            iLoginView.showAutoLoginTips(registPlatform + " " + autoLoginTips);
+            if (registPlatform.equals(SLoginType.LOGIN_TYPE_FB)){
+                autoLoginTips = "Facebook" + autoLoginTips;
+            }else if (registPlatform.equals(SLoginType.LOGIN_TYPE_GOOGLE)){
+                autoLoginTips = "Google" + autoLoginTips;
+            }
+            iLoginView.showAutoLoginTips(autoLoginTips);
         }
         iLoginView.showAutoLoginView();
 
