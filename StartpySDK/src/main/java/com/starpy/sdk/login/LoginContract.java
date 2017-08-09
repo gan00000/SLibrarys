@@ -35,8 +35,8 @@ public class LoginContract {
 
         public void starpyAccountLogin(Activity activity, String account, String pwd);
 
-        public void fbLogin(Activity activity, SFacebookProxy sFacebookProxy);
-        public void googleLogin(Activity activity, SGoogleSignIn sGoogleSignIn);
+        public void fbLogin(Activity activity);
+        public void googleLogin(Activity activity);
 
         public void thirdPlatLogin(Activity activity, String thirdPlatId, String registPlatform);
 
@@ -45,7 +45,7 @@ public class LoginContract {
         public void register(Activity activity, String account, String pwd, String email);
         public void changePwd(Activity activity, String account, String oldPwd, String newPwd);
         public void findPwd(Activity activity, String account, String email);
-        public void accountBind(Activity activity, String account, String pwd, String email, int bindType, SFacebookProxy sFacebookProxy);
+        public void accountBind(Activity activity, String account, String pwd, String email, int bindType);
         public void accountInject(Activity activity, String account, String pwd,String uid);
 
         public void autoLogin(Activity activity);
@@ -55,6 +55,9 @@ public class LoginContract {
         public boolean hasAccountLogin();
 
         public void destory(Activity activity);
+
+        public void setSGoogleSignIn(SGoogleSignIn sGoogleSignIn);
+        public void setSFacebookProxy(SFacebookProxy sFacebookProxy);
 
     }
 

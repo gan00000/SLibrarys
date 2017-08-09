@@ -21,5 +21,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //    compile files('libs/efun-downloader.jar')
 //    compile files('libs/efun-google-service-9256000-8.jar')
-    compile 'com.android.support:support-v4:25.0.0'
+//    compile 'com.android.support:support-v4:25.0.0'
 }

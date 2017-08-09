@@ -74,9 +74,6 @@ public class SFacebookProxy {
 
 			}
 		});*/
-		// Can we present the share dialog for photos?
-		canPresentShareDialogWithPhotos = ShareDialog.canShow(SharePhotoContent.class);
-		Log.d(TAG, "canPresentShareDialogWithPhotos:" + canPresentShareDialogWithPhotos);
 
 	}
 	

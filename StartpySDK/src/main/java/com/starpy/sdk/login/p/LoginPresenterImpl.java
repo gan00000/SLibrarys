@@ -56,6 +56,19 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         return activity.getApplicationContext();
     }
 
+    private SFacebookProxy sFacebookProxy;
+    private SGoogleSignIn sGoogleSignIn;
+
+    @Override
+    public void setSGoogleSignIn(SGoogleSignIn sGoogleSignIn) {
+        this.sGoogleSignIn = sGoogleSignIn;
+    }
+
+    @Override
+    public void setSFacebookProxy(SFacebookProxy sFacebookProxy) {
+        this.sFacebookProxy = sFacebookProxy;
+    }
+
     @Override
     public void autoLogin(Activity activity) {
         this.activity = activity;
@@ -100,19 +113,21 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     }
 
     @Override
-    public void fbLogin(Activity activity, SFacebookProxy sFacebookProxy) {
+    public void fbLogin(Activity activity) {
         this.activity = activity;
-        sFbLogin(activity, sFacebookProxy, new FbLoginCallBack() {
-            @Override
-            public void loginSuccess(String fbScopeId, String businessId, String tokenForBusiness) {
-                fbThirdLogin(fbScopeId, businessId, tokenForBusiness);
-            }
-        });
+        if (sFacebookProxy != null) {
+            sFbLogin(activity, sFacebookProxy, new FbLoginCallBack() {
+                @Override
+                public void loginSuccess(String fbScopeId, String businessId, String tokenForBusiness) {
+                    fbThirdLogin(fbScopeId, businessId, tokenForBusiness);
+                }
+            });
+        }
     }
 
 
     @Override
-    public void googleLogin(final Activity activity, SGoogleSignIn sGoogleSignIn) {
+    public void googleLogin(final Activity activity) {
         if (sGoogleSignIn == null){
             return;
         }
@@ -308,14 +323,18 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
 
     @Override
-    public void accountBind(Activity activity, String account, String pwd, String email, int bindType, SFacebookProxy sFacebookProxy) {
+    public void accountBind(Activity activity, String account, String pwd, String email, int bindType) {
         this.activity = activity;
         final String mAccount = account;
         final String mPwd = pwd;
         final String mEmail = email;
         if (bindType == SLoginType.bind_unique){
-
-            ThirdAccountBindRequestTask bindRequestTask = new ThirdAccountBindRequestTask(getActivity(), account,pwd, email);
+            String uniqueId = ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(activity);
+            if(TextUtils.isEmpty(uniqueId)){
+                PL.d("thirdPlatId:" + uniqueId);
+                return;
+            }
+            ThirdAccountBindRequestTask bindRequestTask = new ThirdAccountBindRequestTask(getActivity(), account,pwd, email,SLoginType.LOGIN_TYPE_UNIQUE,uniqueId);
             sAccountBind(bindRequestTask);
 
         }else if (bindType == SLoginType.bind_fb){
@@ -327,6 +346,25 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                 }
             });
 
+        }else  if (bindType == SLoginType.bind_google){//Google绑定
+            if (sGoogleSignIn == null){
+                return;
+            }
+            sGoogleSignIn.startSignIn(new SGoogleSignIn.GoogleSignInCallBack() {
+                @Override
+                public void success(String id, String mFullName, String mEmail) {
+                    PL.i("google sign in : " + id);
+                    if (SStringUtil.isNotEmpty(id)) {
+                        ThirdAccountBindRequestTask bindGoogleRequestTask = new ThirdAccountBindRequestTask(getActivity(), mAccount,mPwd, mEmail,SLoginType.LOGIN_TYPE_GOOGLE,id);
+                        sAccountBind(bindGoogleRequestTask);
+                    }
+                }
+
+                @Override
+                public void failure() {
+                    PL.i("google sign in failure");
+                }
+            });
         }
 
 

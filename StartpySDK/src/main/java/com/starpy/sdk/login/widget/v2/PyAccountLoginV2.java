@@ -38,6 +38,7 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
     private View loginMainGoFindPwd;
     private View loginMainGoBindUnique;
     private View loginMainGoBindFb;
+    private View loginMainGoBindGoogle;
 
 
     private View leftTopView;
@@ -83,6 +84,7 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
         loginMainGoFindPwd = contentView.findViewById(R.id.py_login_go_findpwd_v2);
         loginMainGoBindUnique = contentView.findViewById(R.id.py_login_go_bindUnique_v2);
         loginMainGoBindFb = contentView.findViewById(R.id.py_login_go_bindFb_v2);
+        loginMainGoBindGoogle = contentView.findViewById(R.id.py_login_go_bindGoogle);
 
         eyeImageView = (ImageView) contentView.findViewById(R.id.py_login_password_eye_v2);
 
@@ -153,6 +155,12 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
             @Override
             public void onClick(View v) {
                 sLoginDialogv2.toBindFbView();
+            }
+        });
+        loginMainGoBindGoogle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sLoginDialogv2.toBindGoogleView();
             }
         });
 

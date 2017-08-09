@@ -87,6 +87,8 @@ public class SLoginDialog extends SBaseDialog implements LoginContract.ILoginVie
         iLoginPresenter = new LoginPresenterImpl();
         iLoginPresenter.setBaseView(this);
 
+        iLoginPresenter.setSFacebookProxy(sFacebookProxy);
+
         setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {

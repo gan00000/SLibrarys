@@ -21,7 +21,7 @@ import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
 import com.starpy.sdk.utils.Validator;
 
 
-public class AccountBindAccountLayoutV2 extends SLoginBaseRelativeLayout implements View.OnClickListener {
+public class ThirdPlatBindAccountLayoutV2 extends SLoginBaseRelativeLayout implements View.OnClickListener {
 
     private View contentView;
     private ImageView termsSelectImageView, eyeImageView;
@@ -35,15 +35,15 @@ public class AccountBindAccountLayoutV2 extends SLoginBaseRelativeLayout impleme
     private int bindTpye = 0;
 
 
-    public AccountBindAccountLayoutV2(Context context) {
+    public ThirdPlatBindAccountLayoutV2(Context context) {
         super(context);
     }
 
-    public AccountBindAccountLayoutV2(Context context, AttributeSet attrs) {
+    public ThirdPlatBindAccountLayoutV2(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public AccountBindAccountLayoutV2(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ThirdPlatBindAccountLayoutV2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -171,7 +171,7 @@ public class AccountBindAccountLayoutV2 extends SLoginBaseRelativeLayout impleme
             return;
         }
 
-        sLoginDialogv2.getLoginPresenter().accountBind(sLoginDialogv2.getActivity(), account, password, email, bindTpye, sLoginDialogv2.getFacebookProxy());
+        sLoginDialogv2.getLoginPresenter().accountBind(sLoginDialogv2.getActivity(), account, password, email, bindTpye);
     }
 
 

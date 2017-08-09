@@ -56,7 +56,7 @@ public class AccountLoginLayout extends SLoginBaseRelativeLayout implements View
     public void onClick(View v) {
 
         if (v == fbLoginView){
-            sLoginDialog.getLoginPresenter().fbLogin(sLoginDialog.getActivity(),sLoginDialog.getFacebookProxy());
+            sLoginDialog.getLoginPresenter().fbLogin(sLoginDialog.getActivity());
         }else if (v == starLoginView) {
 
             sLoginDialog.toAccountLoginView();

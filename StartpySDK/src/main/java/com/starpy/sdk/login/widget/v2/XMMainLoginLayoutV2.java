@@ -62,7 +62,7 @@ public class XMMainLoginLayoutV2 extends SLoginBaseRelativeLayout implements Vie
     public void onClick(View v) {
 
         if (v == fbLoginView){
-            sLoginDialogv2.getLoginPresenter().fbLogin(sLoginDialogv2.getActivity(),sLoginDialogv2.getFacebookProxy());
+            sLoginDialogv2.getLoginPresenter().fbLogin(sLoginDialogv2.getActivity());
         }else if (v == starLoginView) {
 
             sLoginDialogv2.toAccountLoginView();
@@ -72,7 +72,7 @@ public class XMMainLoginLayoutV2 extends SLoginBaseRelativeLayout implements Vie
             sLoginDialogv2.toRegisterView(1);
         }else if (v == googleLoginView){
             //google+登录
-            sLoginDialogv2.getLoginPresenter().googleLogin(sLoginDialogv2.getActivity(),sLoginDialogv2.getsGoogleSignIn());
+            sLoginDialogv2.getLoginPresenter().googleLogin(sLoginDialogv2.getActivity());
 
         }
     }

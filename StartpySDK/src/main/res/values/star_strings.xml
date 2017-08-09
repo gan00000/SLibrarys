@@ -31,7 +31,7 @@
     <string name="py_login_mac_tips">你登入 %1$s 的帳號和密碼如下:\n帳號: %2$s 密碼: %3$s</string>
     <string name="py_login_mac_saveimage_tips">你的帳號密碼已經保存到相冊中</string>
     <string name="py_login_autologin_tips">帳號 %1$s 正在登錄</string>
-    <string name="py_login_autologin_fblogining_tips">facebook帳號正在登錄</string>
+    <string name="py_login_autologin_fblogining_tips">Facebook帳號正在登錄</string>
     <string name="py_login_autologin_logining_tips">帳號正在登錄</string>
 
     <string name="py_register_email_hit">郵箱,選填,用於找回密碼</string>
@@ -47,6 +47,7 @@
     <string name="py_findpwd_success">找回密碼成功</string>
     <string name="py_findpwd">忘記密碼</string>
     <string name="py_bind_unique">免註冊綁定</string>
-    <string name="py_bind_fb">facebook綁定</string>
+    <string name="py_bind_fb">Facebook綁定</string>
+    <string name="py_bind_google">Google綁定</string>
 
 </resources>

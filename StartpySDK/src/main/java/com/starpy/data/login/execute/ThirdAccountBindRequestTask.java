@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.core.base.request.bean.BaseReqeustBean;
-import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.bean.SLoginType;
@@ -58,12 +57,11 @@ public class ThirdAccountBindRequestTask extends BaseRequestTask {
      * @param pwd
      * @param email
      */
-    public ThirdAccountBindRequestTask(Context context, String name, String pwd, String email) {
+    public ThirdAccountBindRequestTask(Context context, String name, String pwd, String email, String sLoginType, String thirdPlatId) {
         super(context);
 
-        String uniqueId = ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(context);
-        if(TextUtils.isEmpty(uniqueId)){
-            PL.d("uniqueId:" + uniqueId);
+        if(TextUtils.isEmpty(thirdPlatId)){
+            PL.d("thirdPlatId:" + thirdPlatId);
             return;
         }
 
@@ -71,8 +69,8 @@ public class ThirdAccountBindRequestTask extends BaseRequestTask {
 
         baseRequest = thirdAccountBindRequest;
 
-        thirdAccountBindRequest.setRegistPlatform(SLoginType.LOGIN_TYPE_UNIQUE);
-        thirdAccountBindRequest.setThirdPlatId(uniqueId);
+        thirdAccountBindRequest.setRegistPlatform(sLoginType);
+        thirdAccountBindRequest.setThirdPlatId(thirdPlatId);
         thirdAccountBindRequest.setName(name);
         thirdAccountBindRequest.setPwd(SStringUtil.toMd5(pwd));
         thirdAccountBindRequest.setEmail(email);

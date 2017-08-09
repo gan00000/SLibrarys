@@ -21,7 +21,7 @@ import com.starpy.sdk.R;
 import com.starpy.sdk.SBaseDialog;
 import com.starpy.sdk.login.p.LoginPresenterImpl;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
-import com.starpy.sdk.login.widget.v2.AccountBindAccountLayoutV2;
+import com.starpy.sdk.login.widget.v2.ThirdPlatBindAccountLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountChangePwdLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountFindPwdLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountInjectionLayoutV2;
@@ -62,6 +62,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     private SLoginBaseRelativeLayout findPwdView;
     private SLoginBaseRelativeLayout bindUniqueView;
     private SLoginBaseRelativeLayout bindFbView;
+    private SLoginBaseRelativeLayout bindGoogleView;
     private SLoginBaseRelativeLayout injectionView;
 
     private List<SLoginBaseRelativeLayout> viewPageList;
@@ -139,6 +140,11 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
 
         iLoginPresenter.autoLogin(activity);
+
+
+        iLoginPresenter.setSFacebookProxy(sFacebookProxy);
+        iLoginPresenter.setSGoogleSignIn(sGoogleSignIn);
+
 
     }
 
@@ -345,8 +351,8 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     public void toBindUniqueView() {
 
         if (bindUniqueView == null || !viewPageList.contains(bindUniqueView)){
-            bindUniqueView = new AccountBindAccountLayoutV2(context);
-            ((AccountBindAccountLayoutV2)bindUniqueView).setBindTpye(SLoginType.bind_unique);
+            bindUniqueView = new ThirdPlatBindAccountLayoutV2(context);
+            ((ThirdPlatBindAccountLayoutV2)bindUniqueView).setBindTpye(SLoginType.bind_unique);
             bindUniqueView.setLoginDialogV2(this);
             contentFrameLayout.addView(bindUniqueView);
             viewPageList.add(bindUniqueView);
@@ -370,8 +376,8 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     public void toBindFbView() {
 
         if (bindFbView == null || !viewPageList.contains(bindFbView)){
-            bindFbView = new AccountBindAccountLayoutV2(context);
-            ((AccountBindAccountLayoutV2)bindFbView).setBindTpye(SLoginType.bind_fb);
+            bindFbView = new ThirdPlatBindAccountLayoutV2(context);
+            ((ThirdPlatBindAccountLayoutV2)bindFbView).setBindTpye(SLoginType.bind_fb);
             bindFbView.setLoginDialogV2(this);
             contentFrameLayout.addView(bindFbView);
             viewPageList.add(bindFbView);
@@ -392,14 +398,32 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
     }
 
+    public void toBindGoogleView() {
 
-    public SFacebookProxy getFacebookProxy() {
-        return sFacebookProxy;
+        if (bindGoogleView == null || !viewPageList.contains(bindGoogleView)){
+            bindGoogleView = new ThirdPlatBindAccountLayoutV2(context);
+            ((ThirdPlatBindAccountLayoutV2)bindGoogleView).setBindTpye(SLoginType.bind_google);
+            bindGoogleView.setLoginDialogV2(this);
+            contentFrameLayout.addView(bindGoogleView);
+            viewPageList.add(bindGoogleView);
+        }
+
+        for (View childView : viewPageList) {
+
+            if (childView == null){
+                continue;
+            }
+
+            if (childView == bindGoogleView){
+                childView.setVisibility(View.VISIBLE);
+            }else{
+                childView.setVisibility(View.GONE);
+            }
+        }
+
     }
 
-    public void setsFacebookProxy(SFacebookProxy sFacebookProxy) {
-        this.sFacebookProxy = sFacebookProxy;
-    }
+
 
     public Activity getActivity() {
         return activity;
@@ -457,19 +481,28 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
     @Override
     public void findPwdSuccess(SLoginResponse sLoginResponse) {
-
+        toAccountLoginView();
     }
 
     @Override
     public void accountBindSuccess(SLoginResponse sLoginResponse) {
-
+        toAccountLoginView();
     }
 
-    public SGoogleSignIn getsGoogleSignIn() {
+    public SGoogleSignIn getGoogleSignIn() {
         return sGoogleSignIn;
     }
 
-    public void setsGoogleSignIn(SGoogleSignIn sGoogleSignIn) {
+    public void setSGoogleSignIn(SGoogleSignIn sGoogleSignIn) {
         this.sGoogleSignIn = sGoogleSignIn;
+    }
+
+
+    public SFacebookProxy getFacebookProxy() {
+        return sFacebookProxy;
+    }
+
+    public void setSFacebookProxy(SFacebookProxy sFacebookProxy) {
+        this.sFacebookProxy = sFacebookProxy;
     }
 }
