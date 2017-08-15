@@ -1,7 +1,5 @@
 package com.core.base.request;
 
-import com.google.gson.Gson;
-
 import android.app.Dialog;
 import android.text.TextUtils;
 
@@ -12,6 +10,7 @@ import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.request.bean.BaseResponseModel;
 import com.core.base.utils.JsonUtil;
 import com.core.base.utils.SStringUtil;
+import com.google.gson.Gson;
 
 import java.net.HttpURLConnection;
 
@@ -137,5 +136,20 @@ public abstract class AbsHttpRequest implements ISRqeust {
     public void setGetMethod(boolean getMethod, boolean isNeedGetParams) {
         isGetMethod = getMethod;
         this.isNeedGetParams = isNeedGetParams;
+    }
+
+    @Override
+    public <T> void onHttpSucceess(T responseModel) {
+
+    }
+
+    @Override
+    public void onTimeout(String result) {
+
+    }
+
+    @Override
+    public void onNoData(String result) {
+
     }
 }

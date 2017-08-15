@@ -41,7 +41,7 @@ import java.util.TimerTask;
 
 public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
-    private Activity activity;
+    private Activity mActivity;
 
     private LoginContract.ILoginView iLoginView;
 
@@ -49,11 +49,11 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     int count = 3;
 
     private Activity getActivity(){
-        return activity;
+        return mActivity;
     }
 
     private Context getContext(){
-        return activity.getApplicationContext();
+        return mActivity.getApplicationContext();
     }
 
     private SFacebookProxy sFacebookProxy;
@@ -71,7 +71,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     @Override
     public void autoLogin(Activity activity) {
-        this.activity = activity;
+        this.mActivity = activity;
         String previousLoginType = StarPyUtil.getPreviousLoginType(activity);
 
         if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, previousLoginType)) {//自動登錄
@@ -95,7 +95,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             }
 
         }  else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_GOOGLE, previousLoginType)) {//自動登錄
-//           thirdPlatLogin(activity,StarPyUtil.getGoogleId(activity),SLoginType.LOGIN_TYPE_GOOGLE);
+//           thirdPlatLogin(mActivity,StarPyUtil.getGoogleId(mActivity),SLoginType.LOGIN_TYPE_GOOGLE);
             startAutoLogin(activity, SLoginType.LOGIN_TYPE_GOOGLE, "", "");
 
         }else {//進入登錄頁面
@@ -108,13 +108,13 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     @Override
     public void starpyAccountLogin(Activity activity, String account, String pwd) {
-        this.activity = activity;
+        this.mActivity = activity;
         login(activity, account, pwd);
     }
 
     @Override
     public void fbLogin(Activity activity) {
-        this.activity = activity;
+        this.mActivity = activity;
         if (sFacebookProxy != null) {
             sFbLogin(activity, sFacebookProxy, new FbLoginCallBack() {
                 @Override
@@ -143,6 +143,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
             @Override
             public void failure() {
+                ToastUtils.toast(activity,"Google sign in error");
                 PL.i("google sign in failure");
             }
         });
@@ -150,7 +151,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     @Override
     public void thirdPlatLogin(Activity activity, String thirdPlatId, final String registPlatform) {
-        this.activity = activity;
+        this.mActivity = activity;
 
         ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),thirdPlatId,registPlatform);
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
@@ -187,13 +188,13 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     @Override
     public void macLogin(Activity activity) {
-        this.activity = activity;
+        this.mActivity = activity;
         mMacLogin(activity);
     }
 
     @Override
     public void register(Activity activity, String account, String pwd, String email) {
-        this.activity = activity;
+        this.mActivity = activity;
         registerAccout(activity, account, pwd, email);
     }
 
@@ -205,7 +206,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     @Override
     public void autoLoginChangeAccount(Activity activity) {
-        this.activity = activity;
+        this.mActivity = activity;
         if (autoLoginTimer != null){
             autoLoginTimer.cancel();
         }
@@ -215,11 +216,11 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     @Override
     public boolean hasAccountLogin() {
 
-        String account = StarPyUtil.getAccount(activity);
-        String password = StarPyUtil.getPassword(activity);
+        String account = StarPyUtil.getAccount(mActivity);
+        String password = StarPyUtil.getPassword(mActivity);
         if (TextUtils.isEmpty(account)) {
-            account = StarPyUtil.getMacAccount(activity);
-            password = StarPyUtil.getMacPassword(activity);
+            account = StarPyUtil.getMacAccount(mActivity);
+            password = StarPyUtil.getMacPassword(mActivity);
         }
 
         if (SStringUtil.hasEmpty(account,password)) {
@@ -230,7 +231,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     @Override
     public void destory(Activity activity) {
-        this.activity = activity;
+        this.mActivity = activity;
         if (autoLoginTimer != null){
             autoLoginTimer.cancel();
         }
@@ -240,7 +241,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     @Override
     public void changePwd(final Activity activity, final String account, String oldPwd, String newPwd) {
 
-        this.activity = activity;
+        this.mActivity = activity;
         ChangePwdRequestTask changePwdRequestTask = new ChangePwdRequestTask(activity,account,oldPwd,newPwd);
         changePwdRequestTask.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         changePwdRequestTask.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
@@ -283,7 +284,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     @Override
     public void findPwd(Activity activity, String account, String email) {
-        this.activity = activity;
+        this.mActivity = activity;
         FindPwdRequestTask findPwdRequestTask = new FindPwdRequestTask(getActivity(), account, email);
         findPwdRequestTask.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         findPwdRequestTask.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
@@ -324,7 +325,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     @Override
     public void accountBind(Activity activity, String account, String pwd, String email, int bindType) {
-        this.activity = activity;
+        this.mActivity = activity;
         final String mAccount = account;
         final String mPwd = pwd;
         final String mEmail = email;
@@ -362,6 +363,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
                 @Override
                 public void failure() {
+                    ToastUtils.toast(getActivity(),"Google sign in error");
                     PL.i("google sign in failure");
                 }
             });
@@ -707,7 +709,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                         if (count == 0){
 
                             if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, registPlatform)) {//免注册或者平台用户自动登录
-//                                autoLogin22(activity, account, password);
+//                                autoLogin22(mActivity, account, password);
 
                                 starpyAccountLogin(activity,account,password);
 
@@ -747,14 +749,14 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         if (SStringUtil.isNotEmpty(loginType)) {//loginType为空时是账号注入登录，不能空时是其他普通登入
 
             StarPyUtil.saveSdkLoginData(getContext(), loginResponse.getRawResponse());
-            StarPyUtil.savePreviousLoginType(activity, loginType);
+            StarPyUtil.savePreviousLoginType(mActivity, loginType);
             try {
                 if (loginResponse != null) {
                     //1001 注册成功    1000登入成功
                     if (SStringUtil.isEqual("1000", loginResponse.getCode())) {
-                        StarEventLogger.trackinLoginEvent(activity);
+                        StarEventLogger.trackinLoginEvent(mActivity);
                     } else if (SStringUtil.isEqual("1001", loginResponse.getCode())) {
-                        StarEventLogger.trackinRegisterEvent(activity);
+                        StarEventLogger.trackinRegisterEvent(mActivity);
                     }
                 }
 
@@ -773,7 +775,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
         }*/
 
-        ToastUtils.toast(activity, R.string.py_login_success);
+        ToastUtils.toast(mActivity, R.string.py_login_success);
 
         if (iLoginView != null){
             iLoginView.LoginSuccess(loginResponse);

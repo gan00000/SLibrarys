@@ -61,7 +61,7 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
 makeLibraryJar.dependsOn(clearJar,build)
 
 def getJarName(){
-    return "py-connector-1.7"
+    return "py-base-1.7"
 }
 
 task copyJar(type: Copy) {
@@ -74,7 +74,7 @@ task copyJar(type: Copy) {
 
 copyJar.dependsOn(makeLibraryJar)
 
-task pyConnector(type: Copy) {
+task pyBase(type: Copy) {
 
     from('build/libs/')
 
@@ -82,4 +82,4 @@ task pyConnector(type: Copy) {
     include(getJarName() + '.jar')
 }
 
-pyConnector.dependsOn(makeLibraryJar)
+pyBase.dependsOn(makeLibraryJar)

@@ -1,4 +1,4 @@
-include ':google:google-play-services_lib_9256000', ':StartpySDK', ':StarpySdkDemo', ':Thirdlibrary', ':AppCompat'
+include ':google:google-play-services_lib_9256000', ':StartpySDK', ':StarpySdkDemo', ':Thirdlibrary', ':AppCompat', ':facebookfresco'
 //include ':google:google-play-service-src'
 //include ':google:google-play-service-demo'
 
