@@ -27,9 +27,10 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //    compile 'com.google.android.gms:play-services-auth:11.0.1'
     //    compile 'com.google.android.gms:play-services-plus:11.0.1'
-    compile project(':facebook:facebook-android-sdk-4.25')
     //    compile 'com.facebook.fresco:fresco:1.4.0'
+    //    compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile project(':facebookfresco')
+    compile project(':facebook:facebook-android-sdk-4.25')
 }
 
 
