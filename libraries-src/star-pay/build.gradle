@@ -57,7 +57,7 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
 makeLibraryJar.dependsOn(clearJar,build)
 
 def getJarName(){
-    return "py-pay-1.7"
+    return "py-pay-1.8"
 }
 
 task copyJar(type: Copy) {

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 /**
- * Created by Efun on 2017/2/13.
+ * Created by gan on 2017/2/13.
  */
 
 public interface IGameLifeCycle {
