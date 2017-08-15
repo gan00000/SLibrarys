@@ -10,15 +10,18 @@ import android.widget.Button;
 
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.PL;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
 import com.starpy.base.utils.SLog;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.sdk.SWebViewDialog;
 import com.starpy.sdk.out.ISdkCallBack;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
+import com.starpy.sdk.plat.PlatMainActivity;
 
 public class MainActivity extends Activity {
 
@@ -36,6 +39,7 @@ public class MainActivity extends Activity {
         csButton = (Button) findViewById(R.id.demo_cs);
         shareButton = (Button) findViewById(R.id.demo_share);
 
+        Fresco.initialize(this);
         SLog.enableInfo(true);
         SLog.enableDebug(true);
 
@@ -177,7 +181,20 @@ public class MainActivity extends Activity {
                  * level：游戏等级
                  * vipLevel：vip等级，没有就写""
                  */
-                iStarpy.openWebview(MainActivity.this,"roleLevel","10");
+//                iStarpy.openWebview(MainActivity.this,"roleLevel","10");
+                SWebViewDialog sWebViewDialog = new SWebViewDialog(MainActivity.this, com.starpy.sdk.R.style.StarDialogTheme);
+
+                sWebViewDialog.setWebUrl("https://line.naver.jp/R/msg/text/?《六龍御天》入駐新服S41，直升貴族50d%0ahttps://6king.efuntw.com/page/new_39852.html");
+
+                sWebViewDialog.show();
+            }
+        });
+
+        findViewById(R.id.open_plat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, PlatMainActivity.class));
+
             }
         });
     }

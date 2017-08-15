@@ -2,6 +2,8 @@
 
     <string name="star_py_login_pre_url">http://testlogin.starb168.com/</string>
     <string name="star_py_login_spa_url">http://testlogin.starb168.com/</string>
+    <!--<string name="star_py_login_pre_url">http://10.10.10.109:80801/login/</string>-->
+    <!--<string name="star_py_login_spa_url">http://10.10.10.109:8081/login/</string>-->
 
     <string name="star_py_pay_pre_url">http://pay.starb168.com/</string>
     <string name="star_py_pay_spa_url">http://pay.starb168.com/</string>
@@ -24,5 +26,8 @@
     <!--<data android:scheme="starpy" android:host="@string/star_game_code"/>-->
     <!--<scheme>://<host>:<port>[<path>|<pathPrefix>|<pathPattern>]-->
     <string name="star_android_scheme">starpy</string>
+
+    <string name="star_cdn_url">http://testwww.starb168.com/qmah/float_button.txt</string>
+
 
 </resources>

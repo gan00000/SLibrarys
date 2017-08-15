@@ -26,6 +26,8 @@
     <color name="e_a3000000">#a3000000</color>
     <color name="c_a3ffffff">#E6ffffff</color>
     <color name="e_f0f0f0">#f0f0f0</color>
+
+    <color name="e_66000000">#66000000</color>
 </resources>
 
     <!--透明度百分比-开头字母-->

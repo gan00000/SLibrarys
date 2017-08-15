@@ -42,5 +42,11 @@
         android:text="打开页面"
         />
 
+    <Button android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_plat"
+        android:text="打开平台"
+        />
+
 
 </LinearLayout>
