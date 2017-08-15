@@ -9,6 +9,7 @@ import com.core.base.ObjFactory;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.base.bean.SGameLanguage;
@@ -59,6 +60,12 @@ public class StarpyImpl implements IStarpy {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
+                try {
+                    Fresco.initialize(activity.getApplicationContext());//初始化fb Fresco库
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 if (SStringUtil.isEmpty(ResConfig.getGameLanguage(activity))){
                     setGameLanguage(activity,SGameLanguage.zh_TW);
@@ -122,7 +129,7 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void pay(final Activity activity, final SPayType payType, final String cpOrderId, final String productId, final String roleLevel, final String extra) {
-        PL.i("IStarpy pay");
+        PL.i("IStarpy pay cpOrderId:" + cpOrderId + ",productId:" + productId + ",roleLevel:" + roleLevel + ",extra:" + extra);
         if ((System.currentTimeMillis() - firstClickTime) < 1000){//防止连续点击
             PL.i("点击过快，无效");
             return;
@@ -209,6 +216,11 @@ public class StarpyImpl implements IStarpy {
         }
     }
 
+    @Override
+    public void openPlatform(Activity activity, String roleLevel, String roleVipLevel) {
+        PL.i("IStarpy pay roleLevel:" + roleLevel + ",roleVipLevel:" + roleVipLevel);
+    }
+
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
         if (payType == SPayType.OTHERS){//第三方储值
 
@@ -254,14 +266,6 @@ public class StarpyImpl implements IStarpy {
         }
 
         String webUrl = payThirdUrl + "?" + SStringUtil.map2strData(webPayReqBean.fieldValueToMap());
-//        webUrl = "http://pay.starb168.com/dynamic_change?roleName=dome%E7%8D%85%E5%BF%83%E7%8E%8B&packageName=com.star.mrmmd.tw&versionCode=20001&osLanguage=zh&userId=824&timestamp=1491539387924&gameCode=brmmd&serverName=BRT1&roleId=1902&imei=863125039661377&payFrom=starpy&gameLanguage=zh-TW&serverCode=99&androidid=b847f69119f1c240&iswifi=-111111&signature=3222bf99a5f1bc4e6e2ac5dc3f7a14fb&deviceType=HUAWEI%40%40EVA-AL00&mac=7c%3A11%3Acb%3A84%3Aff%3A2f&accessToken=f4112f436e5dabae183192c12c73d81c&versionName=2.0.1&payType=mobile&extra=11a8bb45d73844dbb2ac7ca7eb21d1f0&systemVersion=7.0&roleLevel=4&psid=62&cpOrderId=11a8bb45d73844dbb2ac7ca7eb21d1f0";
-
-//        i.putExtra(SWebViewActivity.PLAT_WEBVIEW_URL, webUrl);
-//        i.putExtra(SWebViewActivity.PLAT_WEBVIEW_TITLE,activity.getString(R.string.py_pay_title));
-//        activity.startActivity(i);
-
-//        SWebViewPopu p = new SWebViewPopu(activity);
-//        p.showPop(webUrl);
 
         otherPayWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
 
