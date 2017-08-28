@@ -63,6 +63,7 @@ public class SGoogleProxy {
 
 	private static String advertisingIdCache = "";
 
+
 	/**
 	 * 获取Google ads id，不能再主线程调用
 	 * @param mContext

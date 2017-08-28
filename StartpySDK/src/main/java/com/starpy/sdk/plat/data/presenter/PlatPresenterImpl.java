@@ -8,6 +8,7 @@ import com.core.base.request.bean.BaseReqeustBean;
 import com.starpy.sdk.R;
 import com.starpy.sdk.plat.data.PlatContract;
 import com.starpy.sdk.plat.data.bean.response.PlatMenuAllModel;
+import com.starpy.sdk.utils.DialogUtil;
 
 import static com.starpy.sdk.plat.data.PlatContract.RequestType.REQ_PLATMENU;
 
@@ -30,7 +31,7 @@ public class PlatPresenterImpl implements PlatContract.IPlatPresenter {
                 return baseReqeustBean;
             }
         };
-
+        absHttpRequest.setLoadDialog(DialogUtil.createLoadingDialog(activity,"Loading..."));
         absHttpRequest.setReqCallBack(new ISReqCallBack<PlatMenuAllModel>() {
             @Override
             public void success(PlatMenuAllModel platMenuAllModel, String rawResult) {

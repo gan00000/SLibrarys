@@ -31,7 +31,7 @@ public class SWebViewActivity extends SBaseSdkActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.s_web_view_layout);
+        setContentView(R.layout.s_web_view_with_title_layout);
 
         if (getIntent() != null) {
             webUrl = getIntent().getStringExtra(PLAT_WEBVIEW_URL);

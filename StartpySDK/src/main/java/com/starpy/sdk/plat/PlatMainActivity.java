@@ -1,22 +1,57 @@
 package com.starpy.sdk.plat;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 
+import com.core.base.SBaseFragment;
+import com.core.base.callback.ISReqCallBack;
+import com.core.base.request.AbsHttpRequest;
+import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.utils.PL;
+import com.core.base.utils.SStringUtil;
+import com.google.gson.reflect.TypeToken;
+import com.starpy.base.cfg.ResConfig;
+import com.starpy.base.utils.StarPyUtil;
+import com.starpy.data.SGameBaseRequestBean;
+import com.starpy.data.SSdkBaseRequestBean;
+import com.starpy.data.cs.CsReqeustBean;
+import com.starpy.data.login.execute.BaseRequestTask;
+import com.starpy.data.login.request.AccountInjectionRequestBean;
+import com.starpy.pay.gp.bean.req.WebPayReqBean;
+import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.R;
+import com.starpy.sdk.plat.adapter.PlatMenuGridViewAdapter;
 import com.starpy.sdk.plat.data.PlatContract;
+import com.starpy.sdk.plat.data.bean.response.PhoneAreaCodeModel;
+import com.starpy.sdk.plat.data.bean.response.PlatArrayObjBaseModel;
 import com.starpy.sdk.plat.data.bean.response.PlatMenuAllModel;
+import com.starpy.sdk.plat.data.bean.response.PlatMenuModel;
+import com.starpy.sdk.plat.data.bean.response.PlatObjBaseModel;
+import com.starpy.sdk.plat.data.bean.response.UserBindInfoModel;
+import com.starpy.sdk.plat.data.bean.response.UserHasGetGiftModel;
 import com.starpy.sdk.plat.data.presenter.PlatPresenterImpl;
-import com.starpy.sdk.plat.fragment.InformationFragment;
+import com.starpy.sdk.plat.fragment.BindPhoneGiftFragment;
+import com.starpy.sdk.plat.fragment.GiftCenterFragment;
+import com.starpy.sdk.plat.fragment.InformantionFragment;
+import com.starpy.sdk.plat.fragment.MessageBoxFragment;
+import com.starpy.sdk.plat.fragment.NotStarpyAccountManagerFragment;
+import com.starpy.sdk.plat.fragment.PlatCommonWebViewFragment;
+import com.starpy.sdk.plat.fragment.StarpyAccountManagerFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlatMainActivity extends AppCompatActivity implements PlatContract.IPlatView {
 
@@ -33,7 +68,10 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
 
     private FragmentManager fragmentManager;
 
-    PlatPresenterImpl platPresenter;
+    private PlatPresenterImpl platPresenter;
+
+
+    private ArrayList<PlatMenuModel> platMenuModels;
 
     DrawerLayout.DrawerListener drawerListener = new DrawerLayout.DrawerListener() {
         @Override
@@ -70,11 +108,21 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
     };
     private PlatMenuGridViewAdapter platMenuGridViewAdapter;
 
+    private InformantionFragment informantionFragment;
+    private GiftCenterFragment giftCenterFragment;
+    private MessageBoxFragment messageBoxFragment;
+
+    private UserBindInfoModel userBindInfoModel;
+    private  UserHasGetGiftModel userHasGetGiftModel;
+    private List<PhoneAreaCodeModel> phoneAreaCodeModels;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.plat_activity_content_page);
+
+        fragmentManager = getSupportFragmentManager();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -95,21 +143,94 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
 
         gridView.setAdapter(platMenuGridViewAdapter);
 
-
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.i(TAG,"onItemClick");
+                Log.i(TAG,"onItemClick i--" + i);
                 if (currentClickView != null) {
                     currentClickView.setBackgroundColor(Color.TRANSPARENT);
                 }
                 view.setBackgroundResource(R.drawable.plat_menu_item_bg);
                 currentClickView = view;
 
-                fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(contentFrameLayout.getId(),new InformationFragment());
-                fragmentTransaction.commit();
+                if (platMenuModels != null){
+                    PlatMenuModel platMenuModel = platMenuModels.get(i);
+                    if (platMenuModel.getItemId().equals("information")){
+
+                        showInfoFragment(platMenuModel);
+
+                    }else if (platMenuModel.getItemId().equals("bindGiftBag")){
+
+                        changeToBindPhoneGiftFragment(platMenuModel);
+
+                    }else if (platMenuModel.getItemId().equals("account")){
+
+                        if (userBindInfoModel != null) {
+                            if (userBindInfoModel.isStarpyUser()) {
+                                StarpyAccountManagerFragment accountManagerFragment = new StarpyAccountManagerFragment();
+                                accountManagerFragment.setTitle(platMenuModel.getName());
+                                accountManagerFragment.setUserBindInfoModel(userBindInfoModel);
+                                changeFragmentNotBackStack(accountManagerFragment);
+                            }else {
+
+                                NotStarpyAccountManagerFragment accountManagerFragment = new NotStarpyAccountManagerFragment();
+                                accountManagerFragment.setTitle(platMenuModel.getName());
+                                accountManagerFragment.setUserBindInfoModel(userBindInfoModel);
+                                changeFragmentNotBackStack(accountManagerFragment);
+                            }
+
+
+                        }
+
+                    }else if (platMenuModel.getItemId().equals("letterBox")){
+
+                        if (messageBoxFragment == null) {
+                            messageBoxFragment = new MessageBoxFragment();
+                        }
+                        messageBoxFragment.setTitle(platMenuModel.getName());
+                        changeFragment(messageBoxFragment);
+
+                    }else if (platMenuModel.getItemId().equals("giftBagCentre")){
+                        if (giftCenterFragment == null) {
+                            giftCenterFragment = new GiftCenterFragment();
+                            giftCenterFragment.setTitle(platMenuModel.getName());
+                        }
+                        changeFragment(giftCenterFragment);
+
+                    }else if (platMenuModel.getItemId().equals("storedValue")){
+
+                        WebPayReqBean webPayReqBean = PayHelper.buildWebPayBean(PlatMainActivity.this,"",
+                                StarPyUtil.getRoleLevel(PlatMainActivity.this),"");
+
+                        String payThirdUrl = null;
+                        if (StarPyUtil.getSdkCfg(PlatMainActivity.this) != null) {
+
+                            payThirdUrl = StarPyUtil.getSdkCfg(PlatMainActivity.this).getS_Third_PayUrl();
+                        }
+                        if (TextUtils.isEmpty(payThirdUrl)){
+                            payThirdUrl = ResConfig.getPayPreferredUrl(PlatMainActivity.this) + ResConfig.getPayThirdMethod(PlatMainActivity.this);
+                        }
+                        webPayReqBean.setCompleteUrl(payThirdUrl);
+
+                        openPlatWebViewFragment(webPayReqBean.createPreRequestUrl(),platMenuModel.getName(),platMenuModel.getName());
+
+
+                    }else if (platMenuModel.getItemId().equals("service")){
+                        CsReqeustBean csReqeustBean = new CsReqeustBean(PlatMainActivity.this);
+                        csReqeustBean.setRoleLevel(StarPyUtil.getRoleLevel(PlatMainActivity.this));
+                        csReqeustBean.setRoleVipLevel(StarPyUtil.getRoleVip(PlatMainActivity.this));
+
+                        csReqeustBean.setRequestUrl(ResConfig.getCsPreferredUrl(PlatMainActivity.this));
+                        csReqeustBean.setRequestSpaUrl(ResConfig.getCsSpareUrl(PlatMainActivity.this));
+                        csReqeustBean.setRequestMethod(PlatMainActivity.this.getResources().getString(R.string.star_cs_method));
+
+                        openPlatWebViewFragment(csReqeustBean.createPreRequestUrl(),platMenuModel.getName(),platMenuModel.getName());
+
+                    }else {
+                        openPlatWebViewFragment(platMenuModel.getUrl(),platMenuModel.getName(),platMenuModel.getName());
+                    }
+                }
+
 
             }
         });
@@ -132,13 +253,54 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
 
     }
 
+    public void changeToBindPhoneGiftFragment(PlatMenuModel platMenuModel) {
+        if (platMenuModel == null){
+            for (PlatMenuModel model:platMenuModels) {
+                if (model.getItemId().equals("bindGiftBag")){
+                    platMenuModel = model;
+                    break;
+                }
+            }
+        }
+        BindPhoneGiftFragment bindPhoneGiftFragment = new BindPhoneGiftFragment();
+        bindPhoneGiftFragment.setTitle(platMenuModel.getName());
+        bindPhoneGiftFragment.setUserBindInfoModel(userBindInfoModel);
+        bindPhoneGiftFragment.setUserHasGetGiftModel(userHasGetGiftModel);
+        bindPhoneGiftFragment.setPhoneAreaCodeModels(phoneAreaCodeModels);
+        changeFragmentNotBackStack(bindPhoneGiftFragment);
+    }
+
+    private void showInfoFragment(PlatMenuModel platMenuModel) {
+        if (informantionFragment == null) {
+            informantionFragment = new InformantionFragment();
+            informantionFragment.setTitle(platMenuModel.getName());
+        }
+        changeFragmentNotBackStack(informantionFragment);
+    }
+
+
     private void initData() {
 
         platPresenter = new PlatPresenterImpl();
         platPresenter.setBaseView(this);
         platPresenter.reqeustPlatMenuData(this);
 
+        requestUserBindInfo();
+        //http://testwww.starb168.com/app/user/api/phoneBindIsReceiveGiftbag
+        requestPhoneBindIsReceiveGiftbag();
+
+        requestPhoneAreaCode();
+
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        PL.i("activity onActivityResult");
+
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -146,6 +308,7 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
         if (mDrawerLayout != null && drawerListener != null){
             mDrawerLayout.removeDrawerListener(drawerListener);
         }
+
     }
 
     /**
@@ -160,12 +323,217 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
 
     @Override
     public void reqeustPlatMenuDataSuccess(PlatContract.RequestType requestType, PlatMenuAllModel platMenuAllModel) {
-        platMenuGridViewAdapter.setPlatMenuBeans(platMenuAllModel.getData());
+
+        platMenuModels = platMenuAllModel.getData();
+        platMenuGridViewAdapter.setPlatMenuBeans(platMenuModels);
         platMenuGridViewAdapter.notifyDataSetChanged();
+
+        if (platMenuModels != null && platMenuModels.size() > 0) {
+            showInfoFragment(platMenuModels.get(0));
+        }
     }
 
     @Override
     public void reqeustDataFail(PlatContract.RequestType requestType) {
+
+    }
+
+    /**
+     * 获取当前前台的Fragment
+     * @return
+     */
+    public Fragment getVisibleFragment(){
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments == null){
+            return null;
+        }
+        for(Fragment fragment : fragments){
+            if(fragment!= null && fragment.isVisible())
+                return fragment;
+        }
+        return null;
+    }
+
+
+    public void openPlatWebViewFragment(String url,String title,String tag){
+        PlatCommonWebViewFragment sWebViewFragment = new PlatCommonWebViewFragment();
+        sWebViewFragment.setWebUrl(url);
+        sWebViewFragment.setWebTitle(title);
+        sWebViewFragment.setFragmentTag("platMenuFragment_"+ tag);
+        changeFragment(sWebViewFragment);
+    }
+
+    public void changeFragment(SBaseFragment sBaseFragment) {
+        PL.d("添加新的的Fragment: ");
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        Fragment previousFragment = getVisibleFragment();
+        if (previousFragment != null) {//如果add一个新的fragment，不是第一次add的话，要先隐藏上一个再add新的才能显示出来
+            ft.hide(previousFragment);
+        }
+
+        if (!sBaseFragment.isAdded()) {
+            ft.add(contentFrameLayout.getId(), sBaseFragment);
+            ft.addToBackStack(sBaseFragment.getFragmentTag());
+            PL.d("manager.getBackStackEntryCount():" + fragmentManager.getBackStackEntryCount());
+
+        }else{
+            ft.show(sBaseFragment);
+        }
+        ft.commit();
+    }
+
+    public void changeFragmentNotBackStack(SBaseFragment sBaseFragment) {
+        PL.d("添加新的的Fragment: ");
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        Fragment previousFragment = getVisibleFragment();
+        if (previousFragment != null) {//如果add一个新的fragment，不是第一次add的话，要先隐藏上一个再add新的才能显示出来
+            ft.hide(previousFragment);
+        }
+
+        if (!sBaseFragment.isAdded()) {
+            ft.add(contentFrameLayout.getId(), sBaseFragment);
+//            ft.addToBackStack(sBaseFragment.getFragmentTag());
+            PL.d("manager.getBackStackEntryCount():" + fragmentManager.getBackStackEntryCount());
+
+        }else{
+            ft.show(sBaseFragment);
+        }
+        ft.commit();
+    }
+
+  /*  public void changeFragment(Fragment newFragment,Fragment oldFrg) {
+        PL.d("切换已存在的HotVideoFragment");
+        if (newFragment.isAdded() && oldFrg.isAdded()) {
+            fragmentManager.beginTransaction().hide(oldFrg).show(newFragment).commit();
+        }else {
+            changeFragment(newFragment);
+        }
+    }*/
+
+
+    public void replaceFragment(Fragment fragment){
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(contentFrameLayout.getId(), fragment);
+        fragmentTransaction.commit();
+    }
+
+
+    private void requestPhoneBindIsReceiveGiftbag() {
+
+        final SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(this);
+        gameBaseRequestBean.setCompleteUrl("http://testwww.starb168.com/app/user/api/phoneBindIsReceiveGiftbag");
+        AbsHttpRequest absHttpRequest = new AbsHttpRequest() {
+            @Override
+            public BaseReqeustBean createRequestBean() {
+
+                return gameBaseRequestBean;
+            }
+        };
+        absHttpRequest.setReqCallBack(new ISReqCallBack<PlatObjBaseModel<UserHasGetGiftModel>>() {
+            @Override
+            public void success(PlatObjBaseModel<UserHasGetGiftModel> baseModel, String rawResult) {
+                PL.i("get requestPhoneBindIsReceiveGiftbag success");
+                if (baseModel != null) {
+                    PL.i(baseModel.getMessage());
+                    userHasGetGiftModel = baseModel.getData();
+                }
+
+            }
+
+            @Override
+            public void timeout(String code) {
+            }
+
+            @Override
+            public void noData() {
+            }
+        });
+        absHttpRequest.excute(new TypeToken<PlatObjBaseModel<UserHasGetGiftModel>>(){}.getType());
+    }
+
+
+    private void requestUserBindInfo() {
+
+        final AccountInjectionRequestBean accountInjectionRequest = new AccountInjectionRequestBean(this);
+        accountInjectionRequest.setUserId(StarPyUtil.getUid(this));
+//        accountInjectionRequest.setGameCode(ResConfig.getGameCode(this));
+
+        BaseRequestTask baseRequestTask = new BaseRequestTask(this){
+            @Override
+            public BaseReqeustBean createRequestBean() {
+                super.createRequestBean();
+                accountInjectionRequest.setSignature(SStringUtil.toMd5(accountInjectionRequest.getAppKey() + accountInjectionRequest.getGameCode()
+                        + accountInjectionRequest.getUserId() + accountInjectionRequest.getTimestamp()));
+
+                accountInjectionRequest.setRequestMethod("users_bind_info");
+                return accountInjectionRequest;
+
+            }
+        };
+
+        baseRequestTask.setSdkBaseRequestBean(accountInjectionRequest);
+
+
+//        baseRequestTask.setLoadDialog(DialogUtil.createLoadingDialog(this,"Loading..."));
+        baseRequestTask.setReqCallBack(new ISReqCallBack<UserBindInfoModel>() {
+            @Override
+            public void success(UserBindInfoModel baseModel, String rawResult) {
+
+                PL.i("get user bind info success");
+                userBindInfoModel = baseModel;
+
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+        baseRequestTask.excute(UserBindInfoModel.class);
+    }
+
+    private void requestPhoneAreaCode() {
+
+        final SSdkBaseRequestBean sdkBaseRequestBean = new SSdkBaseRequestBean(this);
+        sdkBaseRequestBean.setRequestMethod("areaCode");
+        BaseRequestTask baseRequestTask = new BaseRequestTask(this){
+            @Override
+            public BaseReqeustBean createRequestBean() {
+                super.createRequestBean();
+                return sdkBaseRequestBean;
+
+            }
+        };
+        baseRequestTask.setSdkBaseRequestBean(sdkBaseRequestBean);
+        baseRequestTask.setReqCallBack(new ISReqCallBack<PlatArrayObjBaseModel<PhoneAreaCodeModel>>() {
+            @Override
+            public void success(PlatArrayObjBaseModel<PhoneAreaCodeModel> baseModel, String rawResult) {
+
+                PL.i("requestPhoneAreaCode success");
+                if (baseModel.isRequestSuccess()) {
+                    phoneAreaCodeModels = baseModel.getData();
+                }
+
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+        baseRequestTask.excute(new TypeToken<PlatArrayObjBaseModel<PhoneAreaCodeModel>>(){}.getType());
 
     }
 }

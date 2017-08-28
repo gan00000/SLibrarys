@@ -7,7 +7,7 @@ import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.bean.SLoginType;
-import com.starpy.data.login.request.ThirdAccountBindRequest;
+import com.starpy.data.login.request.ThirdAccountBindRequestBean;
 
 /**
  * <p>Title: 三方綁定</p>
@@ -17,7 +17,7 @@ import com.starpy.data.login.request.ThirdAccountBindRequest;
  */
 public class ThirdAccountBindRequestTask extends BaseRequestTask {
 
-    ThirdAccountBindRequest thirdAccountBindRequest;
+    ThirdAccountBindRequestBean thirdAccountBindRequestBean;
 
     /**
      *   fb綁定
@@ -32,20 +32,20 @@ public class ThirdAccountBindRequestTask extends BaseRequestTask {
     public ThirdAccountBindRequestTask(Context context, String name, String pwd, String email, String fbScopeId, String fbApps, String fbTokenBusiness) {
         super(context);
 
-        thirdAccountBindRequest = new ThirdAccountBindRequest(context);
+        thirdAccountBindRequestBean = new ThirdAccountBindRequestBean(context);
 
-        baseRequest = thirdAccountBindRequest;
+        sdkBaseRequestBean = thirdAccountBindRequestBean;
 
-        thirdAccountBindRequest.setRegistPlatform(SLoginType.LOGIN_TYPE_FB);
-        thirdAccountBindRequest.setThirdPlatId(fbScopeId);
-        thirdAccountBindRequest.setApps(fbApps);
-        thirdAccountBindRequest.setTokenBusiness(fbTokenBusiness);
+        thirdAccountBindRequestBean.setRegistPlatform(SLoginType.LOGIN_TYPE_FB);
+        thirdAccountBindRequestBean.setThirdPlatId(fbScopeId);
+        thirdAccountBindRequestBean.setApps(fbApps);
+        thirdAccountBindRequestBean.setTokenBusiness(fbTokenBusiness);
 
-        thirdAccountBindRequest.setName(name);
-        thirdAccountBindRequest.setPwd(SStringUtil.toMd5(pwd));
-        thirdAccountBindRequest.setEmail(email);
+        thirdAccountBindRequestBean.setName(name);
+        thirdAccountBindRequestBean.setPwd(SStringUtil.toMd5(pwd));
+        thirdAccountBindRequestBean.setEmail(email);
 
-        thirdAccountBindRequest.setRequestMethod("bind_thirdParty");
+        thirdAccountBindRequestBean.setRequestMethod("bind_thirdParty");
 
 
     }
@@ -65,17 +65,17 @@ public class ThirdAccountBindRequestTask extends BaseRequestTask {
             return;
         }
 
-        thirdAccountBindRequest = new ThirdAccountBindRequest(context);
+        thirdAccountBindRequestBean = new ThirdAccountBindRequestBean(context);
 
-        baseRequest = thirdAccountBindRequest;
+        sdkBaseRequestBean = thirdAccountBindRequestBean;
 
-        thirdAccountBindRequest.setRegistPlatform(sLoginType);
-        thirdAccountBindRequest.setThirdPlatId(thirdPlatId);
-        thirdAccountBindRequest.setName(name);
-        thirdAccountBindRequest.setPwd(SStringUtil.toMd5(pwd));
-        thirdAccountBindRequest.setEmail(email);
+        thirdAccountBindRequestBean.setRegistPlatform(sLoginType);
+        thirdAccountBindRequestBean.setThirdPlatId(thirdPlatId);
+        thirdAccountBindRequestBean.setName(name);
+        thirdAccountBindRequestBean.setPwd(SStringUtil.toMd5(pwd));
+        thirdAccountBindRequestBean.setEmail(email);
 
-        thirdAccountBindRequest.setRequestMethod("bind_thirdParty");
+        thirdAccountBindRequestBean.setRequestMethod("bind_thirdParty");
 
 
     }
@@ -85,10 +85,10 @@ public class ThirdAccountBindRequestTask extends BaseRequestTask {
         super.createRequestBean();
 
 
-        thirdAccountBindRequest.setSignature(SStringUtil.toMd5(thirdAccountBindRequest.getAppKey() + thirdAccountBindRequest.getTimestamp() +
-                        thirdAccountBindRequest.getName() + thirdAccountBindRequest.getPwd() +
-                thirdAccountBindRequest.getGameCode() + thirdAccountBindRequest.getThirdPlatId() + thirdAccountBindRequest.getRegistPlatform()));
+        thirdAccountBindRequestBean.setSignature(SStringUtil.toMd5(thirdAccountBindRequestBean.getAppKey() + thirdAccountBindRequestBean.getTimestamp() +
+                        thirdAccountBindRequestBean.getName() + thirdAccountBindRequestBean.getPwd() +
+                thirdAccountBindRequestBean.getGameCode() + thirdAccountBindRequestBean.getThirdPlatId() + thirdAccountBindRequestBean.getRegistPlatform()));
 
-        return thirdAccountBindRequest;
+        return thirdAccountBindRequestBean;
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.core.base.callback.ISReqCallBack;
@@ -13,9 +14,6 @@ import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
-import com.starpy.thirdlib.facebook.FbSp;
-import com.starpy.thirdlib.facebook.SFacebookProxy;
-import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.AccountInjectionRequestTask;
@@ -28,8 +26,11 @@ import com.starpy.data.login.execute.ThirdAccountBindRequestTask;
 import com.starpy.data.login.execute.ThirdLoginRegRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
+import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.sdk.login.LoginContract;
 import com.starpy.sdk.utils.DialogUtil;
+import com.starpy.thirdlib.facebook.FbSp;
+import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleSignIn;
 
 import java.util.Timer;
@@ -58,6 +59,14 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     private SFacebookProxy sFacebookProxy;
     private SGoogleSignIn sGoogleSignIn;
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = fragment;
+    }
+
+    private Fragment fragment;
+
+
 
     @Override
     public void setSGoogleSignIn(SGoogleSignIn sGoogleSignIn) {
@@ -510,7 +519,8 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         if (sFacebookProxy == null) {
             return;
         }
-        sFacebookProxy.fbLogin(activity, new SFacebookProxy.FbLoginCallBack() {
+
+        SFacebookProxy.FbLoginCallBack fbLoginCallBack1 = new SFacebookProxy.FbLoginCallBack() {
             @Override
             public void onCancel() {
 
@@ -542,7 +552,15 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                 });
 
             }
-        });
+        };
+
+        if (fragment == null) {
+            sFacebookProxy.fbLogin(activity, fbLoginCallBack1);
+        }else {
+
+            sFacebookProxy.fbLogin(fragment, fbLoginCallBack1);
+
+        }
     }
 
     private void fbThirdLogin(String fbScopeId, String fbApps, String fbTokenBusiness) {

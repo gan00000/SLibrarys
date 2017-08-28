@@ -4,22 +4,23 @@ import android.content.Context;
 
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
+import com.starpy.data.login.request.FindPwdRequestBean;
 
 public class FindPwdRequestTask extends BaseRequestTask {
 
-	private com.starpy.data.login.request.FindPwdRequest findPwdRequest;
+	private FindPwdRequestBean pwdRequestBean;
 
 	public FindPwdRequestTask(Context mContext, String userName, String email) {
 		super(mContext);
 
 		userName = userName.toLowerCase();
 
-		findPwdRequest = new com.starpy.data.login.request.FindPwdRequest(mContext);
-		baseRequest = findPwdRequest;
-		findPwdRequest.setName(userName);
-		findPwdRequest.setEmail(email);
+		pwdRequestBean = new FindPwdRequestBean(mContext);
+		sdkBaseRequestBean = pwdRequestBean;
+		pwdRequestBean.setName(userName);
+		pwdRequestBean.setEmail(email);
 
-		findPwdRequest.setRequestMethod("findPwd");
+		pwdRequestBean.setRequestMethod("findPwd");
 
 
 	}
@@ -29,9 +30,9 @@ public class FindPwdRequestTask extends BaseRequestTask {
 	public BaseReqeustBean createRequestBean() {
 		super.createRequestBean();
 
-		findPwdRequest.setSignature(SStringUtil.toMd5(findPwdRequest.getAppKey() + findPwdRequest.getTimestamp() +
-				findPwdRequest.getName() + findPwdRequest.getGameCode()));
+		pwdRequestBean.setSignature(SStringUtil.toMd5(pwdRequestBean.getAppKey() + pwdRequestBean.getTimestamp() +
+				pwdRequestBean.getName() + pwdRequestBean.getGameCode()));
 
-		return  findPwdRequest;
+		return pwdRequestBean;
 	}
 }

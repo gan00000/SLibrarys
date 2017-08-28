@@ -4,13 +4,13 @@ import android.content.Context;
 
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
-import com.starpy.data.login.request.AccountInjectionRequest;
+import com.starpy.data.login.request.AccountInjectionRequestBean;
 
 //1000成功
 //1001註冊登入成功
 public class AccountInjectionRequestTask extends BaseRequestTask {
 
-    private AccountInjectionRequest injectionRequest;
+    private AccountInjectionRequestBean requestBean;
 
     public AccountInjectionRequestTask(Context context, String userName, String password,String uid) {
         super(context);
@@ -18,16 +18,16 @@ public class AccountInjectionRequestTask extends BaseRequestTask {
         userName = userName.toLowerCase();
         password = password.toLowerCase();
 
-        injectionRequest = new AccountInjectionRequest(context);
-        baseRequest = injectionRequest;
+        requestBean = new AccountInjectionRequestBean(context);
+        sdkBaseRequestBean = requestBean;
 
-        injectionRequest.setName(userName);
+        requestBean.setName(userName);
 
         password = SStringUtil.toMd5(password);
-        injectionRequest.setPwd(password);
-        injectionRequest.setUserId(uid);
+        requestBean.setPwd(password);
+        requestBean.setUserId(uid);
 
-        injectionRequest.setRequestMethod("dynamic_injection");
+        requestBean.setRequestMethod("dynamic_injection");
 
 
     }
@@ -37,9 +37,9 @@ public class AccountInjectionRequestTask extends BaseRequestTask {
     public BaseReqeustBean createRequestBean() {
         super.createRequestBean();
 
-        injectionRequest.setSignature(SStringUtil.toMd5(injectionRequest.getAppKey() + injectionRequest.getTimestamp() +
-                injectionRequest.getName() + injectionRequest.getPwd() + injectionRequest.getGameCode()));
+        requestBean.setSignature(SStringUtil.toMd5(requestBean.getAppKey() + requestBean.getTimestamp() +
+                requestBean.getName() + requestBean.getPwd() + requestBean.getGameCode()));
 
-        return injectionRequest;
+        return requestBean;
     }
 }

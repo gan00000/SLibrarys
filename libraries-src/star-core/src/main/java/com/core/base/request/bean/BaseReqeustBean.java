@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * 使用反射进行拼接post请求，不能进行代码混淆
- * Created by Efun on 2016/11/24.
+ * Created by gan on 2016/11/24.
  */
 
 public class BaseReqeustBean extends AbsReqeustBean {
@@ -28,6 +28,17 @@ public class BaseReqeustBean extends AbsReqeustBean {
     private String packageName = "";
     private String versionCode = "";
     private String versionName = "";
+
+    private String advertisingId = "";
+
+
+    public String getAdvertisingId() {
+        return advertisingId;
+    }
+
+    public void setAdvertisingId(String advertisingId) {
+        this.advertisingId = advertisingId;
+    }
 
     public BaseReqeustBean(Context context) {
 

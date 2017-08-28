@@ -12,6 +12,7 @@ import com.core.base.utils.JsonUtil;
 import com.core.base.utils.SStringUtil;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 
 
@@ -25,6 +26,74 @@ public abstract class AbsHttpRequest implements ISRqeust {
 
     public void setReqCallBack(ISReqCallBack reqCallBack) {
         this.reqCallBack = reqCallBack;
+    }
+
+
+    public <T> void excute(final Type mTypeOfT) {
+
+        SRequestAsyncTask asyncTask = new SRequestAsyncTask() {
+
+            T responseModule = null;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                if (loadDialog != null && !loadDialog.isShowing()){
+                    loadDialog.show();
+                }
+
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+                BaseReqeustBean baseReqeustBean = createRequestBean();
+                if (baseReqeustBean == null) {
+                    return "";
+                }
+                String rawResponse = doRequest(baseReqeustBean);
+
+                //解析json数据
+                if (!TextUtils.isEmpty(rawResponse) && mTypeOfT != null && JsonUtil.isJson(rawResponse)) {
+                    Gson gson = new Gson();
+                    responseModule = gson.fromJson(rawResponse, mTypeOfT);
+                    if (responseModule != null && (responseModule instanceof BaseResponseModel)) {
+                        ((BaseResponseModel) responseModule).setRawResponse(rawResponse);
+                    }
+
+                }
+                return rawResponse;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+                if (loadDialog != null && loadDialog.isShowing()){
+                    loadDialog.dismiss();
+                }
+
+                if (coreHttpResponse != null) {
+                    if (coreHttpResponse.getHttpResponseCode() != HttpURLConnection.HTTP_OK) {
+                        onTimeout(coreHttpResponse.getHttpResponseCode() + "");
+                        if (reqCallBack != null){
+                            reqCallBack.timeout(coreHttpResponse.getHttpResponseCode() + "");
+                        }
+                    } else if (TextUtils.isEmpty(result)) {
+                        onNoData(coreHttpResponse.getRequestCompleteUrl());
+                        if (reqCallBack != null){
+                            reqCallBack.noData();
+                        }
+                    } else {
+                        onHttpSucceess(responseModule);
+                        if (reqCallBack != null){
+                            reqCallBack.success(responseModule,result);
+                        }
+                    }
+                }
+
+            }
+        };
+
+        asyncTask.asyncExcute();
     }
 
     @Override

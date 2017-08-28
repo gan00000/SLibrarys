@@ -10,8 +10,6 @@ import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.starpy.thirdlib.facebook.SFacebookProxy;
-import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
 import com.starpy.base.cfg.ConfigRequest;
@@ -26,10 +24,11 @@ import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
 import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.R;
-import com.starpy.sdk.SWebViewActivity;
 import com.starpy.sdk.SWebViewDialog;
+import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
+import com.starpy.thirdlib.facebook.SFacebookProxy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -219,6 +218,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void openPlatform(Activity activity, String roleLevel, String roleVipLevel) {
         PL.i("IStarpy pay roleLevel:" + roleLevel + ",roleVipLevel:" + roleVipLevel);
+        StarPyUtil.saveRoleLevelVip(activity,roleLevel,roleVipLevel);
     }
 
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
@@ -255,7 +255,6 @@ public class StarpyImpl implements IStarpy {
     private void othersPay(Activity activity, String cpOrderId, String roleLevel, String extra) {
         WebPayReqBean webPayReqBean = PayHelper.buildWebPayBean(activity,cpOrderId,roleLevel,extra);
 
-        Intent i = new Intent(activity, SWebViewActivity.class);
         String payThirdUrl = null;
         if (StarPyUtil.getSdkCfg(activity) != null) {
 
@@ -264,8 +263,9 @@ public class StarpyImpl implements IStarpy {
         if (TextUtils.isEmpty(payThirdUrl)){
             payThirdUrl = ResConfig.getPayPreferredUrl(activity) + ResConfig.getPayThirdMethod(activity);
         }
+        webPayReqBean.setCompleteUrl(payThirdUrl);
 
-        String webUrl = payThirdUrl + "?" + SStringUtil.map2strData(webPayReqBean.fieldValueToMap());
+        String webUrl = webPayReqBean.createPreRequestUrl();
 
         otherPayWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
 

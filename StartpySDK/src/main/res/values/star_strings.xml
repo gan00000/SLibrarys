@@ -49,5 +49,6 @@
     <string name="py_bind_unique">免註冊綁定</string>
     <string name="py_bind_fb">Facebook綁定</string>
     <string name="py_bind_google">Google綁定</string>
+    <string name="py_bind_phone_area_num">+86</string>
 
 </resources>

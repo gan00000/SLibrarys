@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.FileChooserParams;
@@ -48,9 +49,16 @@ public class UploadHandler {
 //	private boolean mHandled;
 	private boolean mCaughtActivityNotFoundException;
 	private Activity activity;
+	private Fragment fragment;
 
 	public UploadHandler(Activity activity) {
 		this.activity = activity;
+	}
+
+	public UploadHandler(Fragment fragment) {
+		this.fragment = fragment;
+		this.activity = fragment.getActivity();
+
 	}
 
 	String getFilePath() {
@@ -244,7 +252,13 @@ public class UploadHandler {
 
 	private void startActivity(Intent intent) {
 		try {
-			activity.startActivityForResult(intent, FILE_SELECTED);
+			if (fragment != null){
+
+				fragment.startActivityForResult(intent, FILE_SELECTED);
+			}else {
+
+				activity.startActivityForResult(intent, FILE_SELECTED);
+			}
 		} catch (ActivityNotFoundException e) {
 			// No installed app was able to handle the intent that
 			// we sent, so fallback to the default file upload control.

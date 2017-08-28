@@ -172,6 +172,8 @@ public class StarPyUtil {
     private static final String STARPY_LOGIN_ROLE_SERVER_CODE = "STARPY_LOGIN_ROLE_SERVER_CODE";
     private static final String STARPY_LOGIN_ROLE_SERVER_NAME = "STARPY_LOGIN_ROLE_SERVER_NAME";
     private static final String STARPY_LOGIN_ROLE_INFO = "STARPY_LOGIN_ROLE_INFO";
+    private static final String STARPY_LOGIN_ROLE_LEVEL = "STARPY_LOGIN_ROLE_LEVEL";
+    private static final String STARPY_LOGIN_ROLE_VIP = "STARPY_LOGIN_ROLE_VIP";
 
 
     public static String getRoleInfo(Context context){
@@ -210,6 +212,22 @@ public class StarPyUtil {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void saveRoleLevelVip(Context context,String roleLevel,String roleVip){
+        if (SStringUtil.isNotEmpty(roleLevel)) {
+            SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE,STARPY_LOGIN_ROLE_LEVEL,roleLevel);
+        }
+        if (SStringUtil.isNotEmpty(roleVip)) {
+            SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE,STARPY_LOGIN_ROLE_VIP,roleVip);
+        }
+    }
+
+    public static String getRoleLevel(Context context){
+        return SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_LOGIN_ROLE_LEVEL);
+    }
+    public static String getRoleVip(Context context){
+        return SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_LOGIN_ROLE_VIP);
     }
 
     public static String getCfgValueByKey(Context context, String key, String defaultValue) {

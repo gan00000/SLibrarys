@@ -8,6 +8,7 @@ import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.bean.SLoginType;
+import com.starpy.data.login.request.MacLoginRegRequestBean;
 
 /**
  * <p>Title: MacLoginRegRequestTask</p> <p>Description: 新三方登陆&注册接口</p> <p>Company: EFun</p>
@@ -17,23 +18,23 @@ import com.starpy.base.bean.SLoginType;
  */
 public class MacLoginRegRequestTask extends BaseRequestTask {
 
-    com.starpy.data.login.request.MacLoginRegRequest macLoginRegRequest;
+    MacLoginRegRequestBean macLoginRegRequestBean;
     public MacLoginRegRequestTask(Context context) {
         super(context);
 
-        macLoginRegRequest = new com.starpy.data.login.request.MacLoginRegRequest(context);
+        macLoginRegRequestBean = new MacLoginRegRequestBean(context);
 
-        baseRequest = macLoginRegRequest;
+        sdkBaseRequestBean = macLoginRegRequestBean;
 
-        macLoginRegRequest.setRegistPlatform(SLoginType.LOGIN_TYPE_UNIQUE);
+        macLoginRegRequestBean.setRegistPlatform(SLoginType.LOGIN_TYPE_UNIQUE);
         String uniqueId = ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(context);
         if(TextUtils.isEmpty(uniqueId)){
             PL.d("uniqueId:" + uniqueId);
             return;
         }
-        macLoginRegRequest.setUniqueId(uniqueId);
+        macLoginRegRequestBean.setUniqueId(uniqueId);
 
-        macLoginRegRequest.setRequestMethod("freeRegister");
+        macLoginRegRequestBean.setRequestMethod("freeRegister");
 
 
     }
@@ -41,8 +42,8 @@ public class MacLoginRegRequestTask extends BaseRequestTask {
     @Override
     public BaseReqeustBean createRequestBean() {
         super.createRequestBean();
-        macLoginRegRequest.setSignature(SStringUtil.toMd5(macLoginRegRequest.getAppKey() + macLoginRegRequest.getTimestamp() +
-                macLoginRegRequest.getUniqueId() + macLoginRegRequest.getGameCode()));
-        return macLoginRegRequest;
+        macLoginRegRequestBean.setSignature(SStringUtil.toMd5(macLoginRegRequestBean.getAppKey() + macLoginRegRequestBean.getTimestamp() +
+                macLoginRegRequestBean.getUniqueId() + macLoginRegRequestBean.getGameCode()));
+        return macLoginRegRequestBean;
     }
 }

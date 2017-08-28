@@ -4,10 +4,11 @@ import android.content.Context;
 
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
+import com.starpy.data.login.request.AccountLoginRequestBean;
 
 public class AccountLoginRequestTask extends BaseRequestTask {
 
-	private com.starpy.data.login.request.AccountLoginRequest accountLoginRequest;
+	private AccountLoginRequestBean requestBean;
 	
 	public AccountLoginRequestTask(Context mContext, String userName, String password) {
 		super(mContext);
@@ -15,13 +16,13 @@ public class AccountLoginRequestTask extends BaseRequestTask {
 		userName = userName.toLowerCase();
 		password = password.toLowerCase();
 
-		accountLoginRequest = new com.starpy.data.login.request.AccountLoginRequest(mContext);
-		baseRequest = accountLoginRequest;
-		accountLoginRequest.setName(userName);
+		requestBean = new AccountLoginRequestBean(mContext);
+		sdkBaseRequestBean = requestBean;
+		requestBean.setName(userName);
 		password = SStringUtil.toMd5(password);
-		accountLoginRequest.setPwd(password);
+		requestBean.setPwd(password);
 
-		accountLoginRequest.setRequestMethod("login");
+		requestBean.setRequestMethod("login");
 
 
 	}
@@ -31,9 +32,9 @@ public class AccountLoginRequestTask extends BaseRequestTask {
 	public BaseReqeustBean createRequestBean() {
 		super.createRequestBean();
 
-		accountLoginRequest.setSignature(SStringUtil.toMd5(accountLoginRequest.getAppKey() + accountLoginRequest.getTimestamp() +
-				accountLoginRequest.getName() + accountLoginRequest.getPwd() + accountLoginRequest.getGameCode()));
+		requestBean.setSignature(SStringUtil.toMd5(requestBean.getAppKey() + requestBean.getTimestamp() +
+				requestBean.getName() + requestBean.getPwd() + requestBean.getGameCode()));
 
-		return  accountLoginRequest;
+		return requestBean;
 	}
 }

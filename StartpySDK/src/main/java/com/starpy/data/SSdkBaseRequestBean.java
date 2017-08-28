@@ -30,6 +30,10 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
 
     private String signature = "";
 
+    private String phone = "";
+
+    private String phoneAreaCode = "";
+
     public SSdkBaseRequestBean(Context context) {
         super(context);
         initSdkField(context);
@@ -117,5 +121,21 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhoneAreaCode() {
+        return phoneAreaCode;
+    }
+
+    public void setPhoneAreaCode(String phoneAreaCode) {
+        this.phoneAreaCode = phoneAreaCode;
     }
 }

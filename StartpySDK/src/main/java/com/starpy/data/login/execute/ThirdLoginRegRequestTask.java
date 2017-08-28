@@ -5,7 +5,7 @@ import android.content.Context;
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.bean.SLoginType;
-import com.starpy.data.login.request.ThirdLoginRegRequest;
+import com.starpy.data.login.request.ThirdLoginRegRequestBean;
 
 /**
  * <p>Title: MacLoginRegRequestTask</p> <p>Description: 新三方登陆&注册接口</p> <p>Company: EFun</p>
@@ -15,7 +15,7 @@ import com.starpy.data.login.request.ThirdLoginRegRequest;
  */
 public class ThirdLoginRegRequestTask extends BaseRequestTask {
 
-    ThirdLoginRegRequest thirdLoginRegRequest;
+    ThirdLoginRegRequestBean thirdLoginRegRequestBean;
 
 
     /**
@@ -28,16 +28,16 @@ public class ThirdLoginRegRequestTask extends BaseRequestTask {
     public ThirdLoginRegRequestTask(Context context, String fbScopeId, String fbApps, String fbTokenBusiness) {
         super(context);
 
-        thirdLoginRegRequest = new ThirdLoginRegRequest(context);
+        thirdLoginRegRequestBean = new ThirdLoginRegRequestBean(context);
 
-        baseRequest = thirdLoginRegRequest;
+        sdkBaseRequestBean = thirdLoginRegRequestBean;
 
-        thirdLoginRegRequest.setRegistPlatform(SLoginType.LOGIN_TYPE_FB);
-        thirdLoginRegRequest.setThirdPlatId(fbScopeId);
-        thirdLoginRegRequest.setApps(fbApps);
-        thirdLoginRegRequest.setTokenBusiness(fbTokenBusiness);
+        thirdLoginRegRequestBean.setRegistPlatform(SLoginType.LOGIN_TYPE_FB);
+        thirdLoginRegRequestBean.setThirdPlatId(fbScopeId);
+        thirdLoginRegRequestBean.setApps(fbApps);
+        thirdLoginRegRequestBean.setTokenBusiness(fbTokenBusiness);
 
-        thirdLoginRegRequest.setRequestMethod("thirdPartyLogin");
+        thirdLoginRegRequestBean.setRequestMethod("thirdPartyLogin");
 
 
     }
@@ -51,14 +51,14 @@ public class ThirdLoginRegRequestTask extends BaseRequestTask {
     public ThirdLoginRegRequestTask(Context context, String thirdPlatId, String registPlatform) {
         super(context);
 
-        thirdLoginRegRequest = new ThirdLoginRegRequest(context);
+        thirdLoginRegRequestBean = new ThirdLoginRegRequestBean(context);
 
-        baseRequest = thirdLoginRegRequest;
+        sdkBaseRequestBean = thirdLoginRegRequestBean;
 
-        thirdLoginRegRequest.setRegistPlatform(registPlatform);
-        thirdLoginRegRequest.setThirdPlatId(thirdPlatId);
+        thirdLoginRegRequestBean.setRegistPlatform(registPlatform);
+        thirdLoginRegRequestBean.setThirdPlatId(thirdPlatId);
 
-        thirdLoginRegRequest.setRequestMethod("thirdPartyLogin");
+        thirdLoginRegRequestBean.setRequestMethod("thirdPartyLogin");
 
 
     }
@@ -68,9 +68,9 @@ public class ThirdLoginRegRequestTask extends BaseRequestTask {
         super.createRequestBean();
 
 
-        thirdLoginRegRequest.setSignature(SStringUtil.toMd5(thirdLoginRegRequest.getAppKey() + thirdLoginRegRequest.getTimestamp() +
-                thirdLoginRegRequest.getThirdPlatId() + thirdLoginRegRequest.getGameCode() + thirdLoginRegRequest.getRegistPlatform()));
+        thirdLoginRegRequestBean.setSignature(SStringUtil.toMd5(thirdLoginRegRequestBean.getAppKey() + thirdLoginRegRequestBean.getTimestamp() +
+                thirdLoginRegRequestBean.getThirdPlatId() + thirdLoginRegRequestBean.getGameCode() + thirdLoginRegRequestBean.getRegistPlatform()));
 
-        return thirdLoginRegRequest;
+        return thirdLoginRegRequestBean;
     }
 }

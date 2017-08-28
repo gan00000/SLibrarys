@@ -4,13 +4,13 @@ import android.content.Context;
 
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
-import com.starpy.data.login.request.AccountRegRequest;
+import com.starpy.data.login.request.AccountRegRequestBean;
 
 //1000成功
 //1001註冊登入成功
 public class AccountRegisterRequestTask extends BaseRequestTask {
 
-    private AccountRegRequest regRequest;
+    private AccountRegRequestBean regRequestBean;
 
     public AccountRegisterRequestTask(Context context, String userName, String password) {
         super(context);
@@ -18,15 +18,15 @@ public class AccountRegisterRequestTask extends BaseRequestTask {
         userName = userName.toLowerCase();
         password = password.toLowerCase();
 
-        regRequest = new AccountRegRequest(context);
-        baseRequest = regRequest;
+        regRequestBean = new AccountRegRequestBean(context);
+        sdkBaseRequestBean = regRequestBean;
 
-        regRequest.setName(userName);
+        regRequestBean.setName(userName);
 
         password = SStringUtil.toMd5(password);
-        regRequest.setPwd(password);
+        regRequestBean.setPwd(password);
 
-        regRequest.setRequestMethod("register");
+        regRequestBean.setRequestMethod("register");
 
 
     }
@@ -37,17 +37,17 @@ public class AccountRegisterRequestTask extends BaseRequestTask {
         userName = userName.toLowerCase();
         password = password.toLowerCase();
 
-        regRequest = new AccountRegRequest(context);
-        baseRequest = regRequest;
+        regRequestBean = new AccountRegRequestBean(context);
+        sdkBaseRequestBean = regRequestBean;
 
-        regRequest.setName(userName);
+        regRequestBean.setName(userName);
 
         password = SStringUtil.toMd5(password);
-        regRequest.setPwd(password);
+        regRequestBean.setPwd(password);
 
-        regRequest.setEmail(email);
+        regRequestBean.setEmail(email);
 
-        regRequest.setRequestMethod("register");
+        regRequestBean.setRequestMethod("register");
 
 
     }
@@ -57,9 +57,9 @@ public class AccountRegisterRequestTask extends BaseRequestTask {
     public BaseReqeustBean createRequestBean() {
         super.createRequestBean();
 
-        regRequest.setSignature(SStringUtil.toMd5(regRequest.getAppKey() + regRequest.getTimestamp() +
-                regRequest.getName() + regRequest.getPwd() + regRequest.getGameCode()));
+        regRequestBean.setSignature(SStringUtil.toMd5(regRequestBean.getAppKey() + regRequestBean.getTimestamp() +
+                regRequestBean.getName() + regRequestBean.getPwd() + regRequestBean.getGameCode()));
 
-        return regRequest;
+        return regRequestBean;
     }
 }

@@ -48,7 +48,7 @@ public class SWebViewPopu extends SBasePopu {
 
 
         int closeeRadius = getCloseRadius();
-        View contentView = activity.getLayoutInflater().inflate(R.layout.s_web_view_layout,null);
+        View contentView = activity.getLayoutInflater().inflate(R.layout.s_web_view_with_title_layout,null);
         RelativeLayout.LayoutParams webviewLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         webviewLp.setMargins(0,closeeRadius,closeeRadius,0);
         relativeLayout.addView(contentView,webviewLp);

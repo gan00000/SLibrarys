@@ -4,28 +4,28 @@ import android.content.Context;
 
 import com.core.base.request.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
-import com.starpy.data.login.request.ChangePwdRequest;
+import com.starpy.data.login.request.ChangePwdRequestBean;
 
 //1000成功
 //1001註冊登入成功
 public class ChangePwdRequestTask extends BaseRequestTask {
 
-    private ChangePwdRequest changePwdRequest;
+    private ChangePwdRequestBean pwdRequestBean;
 
     public ChangePwdRequestTask(Context context, String userName, String password, String newPwd) {
         super(context);
 
         userName = userName.toLowerCase();
 
-        changePwdRequest = new ChangePwdRequest(context);
-        baseRequest = changePwdRequest;
+        pwdRequestBean = new ChangePwdRequestBean(context);
+        sdkBaseRequestBean = pwdRequestBean;
 
-        changePwdRequest.setName(userName);
+        pwdRequestBean.setName(userName);
 
-        changePwdRequest.setPwd(SStringUtil.toMd5(password.toLowerCase()));
-        changePwdRequest.setNewPwd(SStringUtil.toMd5(newPwd.toLowerCase()));
+        pwdRequestBean.setPwd(SStringUtil.toMd5(password.toLowerCase()));
+        pwdRequestBean.setNewPwd(SStringUtil.toMd5(newPwd.toLowerCase()));
 
-        changePwdRequest.setRequestMethod("changePwd");
+        pwdRequestBean.setRequestMethod("changePwd");
 
 
     }
@@ -35,10 +35,10 @@ public class ChangePwdRequestTask extends BaseRequestTask {
     public BaseReqeustBean createRequestBean() {
         super.createRequestBean();
 
-        changePwdRequest.setSignature(SStringUtil.toMd5(changePwdRequest.getAppKey() + changePwdRequest.getTimestamp() +
-                changePwdRequest.getName() + changePwdRequest.getPwd() +
-                changePwdRequest.getNewPwd() + changePwdRequest.getGameCode()));
+        pwdRequestBean.setSignature(SStringUtil.toMd5(pwdRequestBean.getAppKey() + pwdRequestBean.getTimestamp() +
+                pwdRequestBean.getName() + pwdRequestBean.getPwd() +
+                pwdRequestBean.getNewPwd() + pwdRequestBean.getGameCode()));
 
-        return changePwdRequest;
+        return pwdRequestBean;
     }
 }

@@ -3,6 +3,7 @@ package com.core.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.webkit.ConsoleMessage;
@@ -22,12 +23,27 @@ public class BaseWebChromeClient extends WebChromeClient {
     private static final String TAG = "BaseWebChromeClient";
 
     private Activity activity;
+
+    private Fragment fragment;
+    boolean isFragment = false;
     private ProgressBar progressBar;
     private UploadHandler handler;
 
     public BaseWebChromeClient(ProgressBar progressBar, Activity activity) {
         this.progressBar = progressBar;
         this.activity = activity;
+        initWebChromeClient(activity);
+    }
+
+    /**
+     *  fragment中使用
+     * @param progressBar
+     * @param fragment
+     */
+    public BaseWebChromeClient(ProgressBar progressBar, Fragment fragment) {
+        this.progressBar = progressBar;
+        this.fragment = fragment;
+        this.isFragment = true;
         initWebChromeClient(activity);
     }
 
@@ -41,7 +57,10 @@ public class BaseWebChromeClient extends WebChromeClient {
     }
 
     private void initWebChromeClient(Activity activity){
-        if (activity != null){
+        if (isFragment && fragment != null){
+            handler = new UploadHandler(fragment);
+
+        }else if (activity != null){
             handler = new UploadHandler(activity);
         }
     }

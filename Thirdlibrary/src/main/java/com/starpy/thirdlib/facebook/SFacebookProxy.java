@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -136,13 +137,97 @@ public class SFacebookProxy {
 		
 		
 	}
-	
-	/**
-	 * <p>Description: fb 登陆</p>
-	 * @param activity
-	 * @param fbLoginCallBack
-	 * @date 2015年11月20日
-	 */
+
+	public void fbLogin(final Fragment fragment, final FbLoginCallBack fbLoginCallBack) {
+		if (loginManager == null) {
+			loginManager = LoginManager.getInstance();
+		}
+		if (callbackManager == null) {
+			callbackManager = CallbackManager.Factory.create();
+		}
+		LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
+			@Override
+			public void onSuccess(LoginResult result) {
+				Log.d(TAG, "onSuccess");
+
+				if (fbLoginCallBack == null){
+					return;
+				}
+				Profile.fetchProfileForCurrentAccessToken();
+				Profile p = Profile.getCurrentProfile();
+				User user = new User();
+				if (p != null) {
+					user.setUserId(p.getId());
+					user.setFirstName(p.getFirstName());
+					user.setLastName(p.getLastName());
+					user.setName(p.getName());
+					user.setMiddleName(p.getMiddleName());
+					user.setLinkUri(p.getLinkUri());
+
+				}else{
+					user.setUserId(result.getAccessToken().getUserId());
+				}
+				//fbLoginCallBack.onSuccess(user);
+				FbSp.saveFbId(fragment.getActivity(),user.getUserId());
+				requestTokenForBusines(fragment.getActivity(),user, fbLoginCallBack);
+			}
+
+			@Override
+			public void onError(FacebookException error) {
+				Log.d(TAG, "onError:" + error.getMessage());
+				if (fbLoginCallBack != null) {
+					fbLoginCallBack.onError(error.getMessage());
+				}
+			}
+
+			@Override
+			public void onCancel() {
+				Log.d(TAG, "onCancel");
+				if (fbLoginCallBack != null) {
+					fbLoginCallBack.onCancel();
+				}
+			}
+		});
+
+		AccessToken accessToken = AccessToken.getCurrentAccessToken();
+		if (accessToken == null) {
+			Log.d(TAG, "accessToken == null");
+			loginManager.setDefaultAudience(defaultAudience);
+			loginManager.setLoginBehavior(loginBehavior);
+			// loginManager.logInWithReadPermissions(MainActivity.this,
+			// permissions);
+
+			//loginManager.logInWithPublishPermissions(activity, permissions);
+			loginManager.logInWithReadPermissions(fragment, permissions);
+
+		} else {
+			Profile p = Profile.getCurrentProfile();
+			if (p != null) {
+				if (fbLoginCallBack != null) {
+					User user = new User();
+					user.setUserId(p.getId());
+					user.setFirstName(p.getFirstName());
+					user.setLastName(p.getLastName());
+					user.setName(p.getName());
+					user.setMiddleName(p.getMiddleName());
+					user.setLinkUri(p.getLinkUri());
+//					fbLoginCallBack.onSuccess(user);
+					FbSp.saveFbId(fragment.getActivity(),user.getUserId());
+					requestTokenForBusines(fragment.getActivity(),user, fbLoginCallBack);
+				}
+			}
+		}
+
+	}
+
+
+		/**
+         * <p>Description: fb 登陆</p>
+         * @param activity
+         * @param fbLoginCallBack
+         * @date 2015年11月20日
+         */
 	public void fbLogin(final Activity activity, final FbLoginCallBack fbLoginCallBack) {
 
 		if (loginManager == null) {
