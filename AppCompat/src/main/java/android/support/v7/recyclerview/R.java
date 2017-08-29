@@ -1,3 +1,4 @@
+/*
 package android.support.v7.recyclerview;
 //
 // Source code recreated from a .class file by IntelliJ IDEA
@@ -48,3 +49,4 @@ public final class R {
         }
     }
 }
+*/
