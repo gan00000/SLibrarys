@@ -2,7 +2,7 @@ package com.core.base.request;
 
 import android.content.Context;
 
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 
 public class CfgFileRequest extends AbsHttpRequest {
 

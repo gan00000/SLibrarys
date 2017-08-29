@@ -3,7 +3,7 @@ package com.starpy.pay.gp.task;
 import android.app.Activity;
 
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 
 /**
  * Created by Efun on 2017/2/20.

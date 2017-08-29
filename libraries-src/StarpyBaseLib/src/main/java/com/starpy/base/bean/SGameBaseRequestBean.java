@@ -1,4 +1,4 @@
-package com.starpy.data;
+package com.starpy.base.bean;
 
 import android.content.Context;
 
@@ -36,6 +36,9 @@ public class SGameBaseRequestBean extends SSdkBaseRequestBean {
         serverName = StarPyUtil.getServerName(context);
         roleName = StarPyUtil.getRoleName(context);
         roleId = StarPyUtil.getRoleId(context);
+
+        roleLevel = StarPyUtil.getRoleLevel(context);
+        roleVipLevel = StarPyUtil.getRoleVip(context);
     }
 
     public boolean isInitOk(){

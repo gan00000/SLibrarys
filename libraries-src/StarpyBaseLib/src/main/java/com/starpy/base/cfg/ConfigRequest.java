@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.CfgFileRequest;
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.JsonUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;

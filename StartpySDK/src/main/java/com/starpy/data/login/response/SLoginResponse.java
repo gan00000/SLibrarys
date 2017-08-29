@@ -1,6 +1,6 @@
 package com.starpy.data.login.response;
 
-import com.core.base.request.bean.BaseResponseModel;
+import com.core.base.bean.BaseResponseModel;
 
 /**
  * Created by Efun on 2017/2/11.

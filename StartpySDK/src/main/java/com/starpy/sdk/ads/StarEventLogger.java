@@ -1,12 +1,16 @@
 package com.starpy.sdk.ads;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.appsflyer.AppsFlyerLib;
+import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
-import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.google.ads.conversiontracking.AdWordsConversionReporter;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
+import com.starpy.thirdlib.facebook.SFacebookProxy;
+import com.starpy.thirdlib.google.SGoogleProxy;
 
 /**
  * Created by gan on 2017/3/3.
@@ -47,4 +51,17 @@ public class StarEventLogger {
     public static void trackinPayEvent(Activity activity, double payVaule){
         SFacebookProxy.trackingEvent(activity,"pay_android", payVaule);
     }
+
+    public static void registerGoogleAdId(final Context context){
+        new  Thread(new Runnable() {
+            @Override
+            public void run() {
+                PL.i("save google ad id");
+                String googleAdId = SGoogleProxy.getAdvertisingId(context.getApplicationContext());
+                StarPyUtil.saveGoogleAdId(context,googleAdId);
+            }
+        }).start();
+    }
+
+
 }

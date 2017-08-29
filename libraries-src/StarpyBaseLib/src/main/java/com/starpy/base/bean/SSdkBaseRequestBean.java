@@ -1,8 +1,8 @@
-package com.starpy.data;
+package com.starpy.base.bean;
 
 import android.content.Context;
 
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.cfg.ResConfig;
@@ -34,6 +34,18 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
 
     private String phoneAreaCode = "";
 
+    private String advertisingId = "";
+
+
+    public String getAdvertisingId() {
+        return advertisingId;
+    }
+
+    public void setAdvertisingId(String advertisingId) {
+        this.advertisingId = advertisingId;
+    }
+
+
     public SSdkBaseRequestBean(Context context) {
         super(context);
         initSdkField(context);
@@ -52,6 +64,7 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
         if (SStringUtil.isEmpty(signature)) {
             signature = SStringUtil.toMd5(ResConfig.getAppKey(context) + gameCode + timestamp);
         }
+        advertisingId = StarPyUtil.getGoogleAdId(context);
     }
 
     public String getAppKey() {

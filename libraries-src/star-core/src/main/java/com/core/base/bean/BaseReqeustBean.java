@@ -1,4 +1,4 @@
-package com.core.base.request.bean;
+package com.core.base.bean;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -28,17 +28,6 @@ public class BaseReqeustBean extends AbsReqeustBean {
     private String packageName = "";
     private String versionCode = "";
     private String versionName = "";
-
-    private String advertisingId = "";
-
-
-    public String getAdvertisingId() {
-        return advertisingId;
-    }
-
-    public void setAdvertisingId(String advertisingId) {
-        this.advertisingId = advertisingId;
-    }
 
     public BaseReqeustBean(Context context) {
 

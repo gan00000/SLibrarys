@@ -1,8 +1,6 @@
-package com.starpy.data.login.request;
+package com.starpy.base.bean;
 
 import android.content.Context;
-
-import com.starpy.data.SSdkBaseRequestBean;
 
 /**
  * <p>Title: AdsRequestBean</p> <p>Description: 接口请求参数实体</p> <p>Company: EFun</p>

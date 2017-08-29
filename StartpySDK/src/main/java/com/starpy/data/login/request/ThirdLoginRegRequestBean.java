@@ -2,6 +2,8 @@ package com.starpy.data.login.request;
 
 import android.content.Context;
 
+import com.starpy.base.bean.AdsRequestBean;
+
 /**
 * <p>Title: AdsRequestBean</p>
 * <p>Description: 接口请求参数实体</p>

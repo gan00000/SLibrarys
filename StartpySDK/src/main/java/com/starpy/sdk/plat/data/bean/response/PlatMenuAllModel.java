@@ -1,6 +1,6 @@
 package com.starpy.sdk.plat.data.bean.response;
 
-import com.core.base.request.bean.BaseResponseModel;
+import com.core.base.bean.BaseResponseModel;
 
 import java.util.ArrayList;
 

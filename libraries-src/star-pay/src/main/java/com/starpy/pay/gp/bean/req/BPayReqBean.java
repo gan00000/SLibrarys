@@ -2,11 +2,10 @@ package com.starpy.pay.gp.bean.req;
 
 import android.content.Context;
 
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.pay.gp.constants.GooglePayContant;
 
 public class BPayReqBean extends BaseReqeustBean {
 

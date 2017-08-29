@@ -2,7 +2,7 @@ package com.starpy.sdk.plat.data.bean.reqeust;
 
 import android.content.Context;
 
-import com.starpy.data.SGameBaseRequestBean;
+import com.starpy.base.bean.SGameBaseRequestBean;
 
 /**
  * Created by gan on 2017/8/22.

@@ -288,4 +288,11 @@ public class StarPyUtil {
        return ResUtil.findStringByName(context,"star_login_type").equals("100");
     }
 
+    private static final String STARPY_GOOGLE_ADVERTISING_ID = "STARPY_GOOGLE_ADVERTISING_ID";
+    public static void saveGoogleAdId(Context context, String googleAdId){
+        SPUtil.saveSimpleInfo(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_ADVERTISING_ID,googleAdId);
+    }
+    public static String getGoogleAdId(Context context){
+        return SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_ADVERTISING_ID);
+    }
 }

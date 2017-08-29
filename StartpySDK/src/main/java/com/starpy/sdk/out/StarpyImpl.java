@@ -16,7 +16,7 @@ import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.data.SGameBaseRequestBean;
+import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.pay.gp.GooglePayActivity2;
@@ -60,6 +60,7 @@ public class StarpyImpl implements IStarpy {
             @Override
             public void run() {
 
+                StarEventLogger.registerGoogleAdId(activity);
                 try {
                     Fresco.initialize(activity.getApplicationContext());//初始化fb Fresco库
                 } catch (Exception e) {

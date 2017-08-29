@@ -2,7 +2,7 @@ package com.starpy.data.cs;
 
 import android.content.Context;
 
-import com.starpy.data.SGameBaseRequestBean;
+import com.starpy.base.bean.SGameBaseRequestBean;
 
 /**
  * Created by gan on 2017/4/11.

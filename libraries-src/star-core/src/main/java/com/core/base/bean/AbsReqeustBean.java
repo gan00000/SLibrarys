@@ -1,11 +1,8 @@
-package com.core.base.request.bean;
+package com.core.base.bean;
 
 import android.text.TextUtils;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Efun on 2016/11/24.

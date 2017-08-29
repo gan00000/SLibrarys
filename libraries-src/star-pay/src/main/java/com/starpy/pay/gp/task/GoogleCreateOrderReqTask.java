@@ -1,7 +1,7 @@
 package com.starpy.pay.gp.task;
 
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 
 /**

@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 import com.starpy.sdk.R;
 import com.starpy.sdk.plat.data.PlatContract;
 import com.starpy.sdk.plat.data.bean.response.PlatMenuAllModel;

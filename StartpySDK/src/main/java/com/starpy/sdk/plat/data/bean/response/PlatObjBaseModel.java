@@ -1,6 +1,6 @@
 package com.starpy.sdk.plat.data.bean.response;
 
-import com.core.base.request.bean.BaseResponseModel;
+import com.core.base.bean.BaseResponseModel;
 
 /**
  * Created by gan on 2017/8/16.

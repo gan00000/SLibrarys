@@ -2,7 +2,7 @@ package com.starpy.data.login.execute;
 
 import android.content.Context;
 
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
 import com.starpy.data.login.request.AccountRegRequestBean;
 

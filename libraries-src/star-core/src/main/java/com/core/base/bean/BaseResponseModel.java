@@ -1,4 +1,4 @@
-package com.core.base.request.bean;
+package com.core.base.bean;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,6 +1,6 @@
 package com.core.base.request;
 
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 
 /**
  * Created by Efun on 2017/2/11.

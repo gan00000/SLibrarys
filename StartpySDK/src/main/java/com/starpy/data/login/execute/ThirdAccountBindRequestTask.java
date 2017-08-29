@@ -3,7 +3,7 @@ package com.starpy.data.login.execute;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.bean.SLoginType;

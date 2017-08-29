@@ -6,12 +6,12 @@ package com.starpy.data.login.execute;
 import android.content.Context;
 
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.request.bean.BaseReqeustBean;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.cfg.ResConfig;
-import com.starpy.data.SSdkBaseRequestBean;
+import com.starpy.base.bean.SSdkBaseRequestBean;
 
 /**
  * <p>Title: BaseRequestTask</p>
