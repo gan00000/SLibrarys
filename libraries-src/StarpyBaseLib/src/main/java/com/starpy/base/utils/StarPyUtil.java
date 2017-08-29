@@ -295,4 +295,12 @@ public class StarPyUtil {
     public static String getGoogleAdId(Context context){
         return SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_ADVERTISING_ID);
     }
+
+    private static final String STARPY_GOOGLE_INSTALL_REFERRER = "STARPY_GOOGLE_INSTALL_REFERRER";
+    public static void saveReferrer(Context context, String referrer){
+        SPUtil.saveSimpleInfo(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_INSTALL_REFERRER,referrer);
+    }
+    public static String getReferrer(Context context){
+        return SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_INSTALL_REFERRER);
+    }
 }

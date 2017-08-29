@@ -1,7 +1,6 @@
 package com.core.base.request;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.core.base.utils.PL;
 import com.core.base.utils.ThreadUtil;
@@ -27,7 +26,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 */
 public abstract class SRequestAsyncTask extends AsyncTask<String, Integer, String> {
 	
-	private static final String LOG_TAG = "efun_request";
 	private static Method executeOnExecutorMethod;
 
 	private static final int DEFAULT_CORE_POOL_SIZE = 5;
@@ -43,7 +41,7 @@ public abstract class SRequestAsyncTask extends AsyncTask<String, Integer, Strin
         private final AtomicInteger counter = new AtomicInteger(0);
 
         public Thread newThread(Runnable runnable) {
-            return new Thread(runnable, "EFUN_THREAD #" + counter.incrementAndGet());
+            return new Thread(runnable, "SRequestAsyncTask_THREAD #" + counter.incrementAndGet());
         }
     };
     
@@ -148,8 +146,7 @@ public abstract class SRequestAsyncTask extends AsyncTask<String, Integer, Strin
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		Log.d(LOG_TAG, "onPreExecute");
-		Log.d("efun", "efun-util.jar 5.4,合并日志上报功能");
+		PL.i("onPreExecute");
 		if (!asyncExcute) {
 			throw new RuntimeException("please use asyncExcute() instead of execute()");
 		}
@@ -158,13 +155,13 @@ public abstract class SRequestAsyncTask extends AsyncTask<String, Integer, Strin
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
-		Log.d(LOG_TAG, "onPostExecute");
+		PL.i("onPostExecute");
 	}
 
 	@Override
 	protected void onProgressUpdate(Integer... values) {
 		super.onProgressUpdate(values);
-		Log.d(LOG_TAG, "onProgressUpdate");
+		PL.i("onProgressUpdate");
 	}
 
 }

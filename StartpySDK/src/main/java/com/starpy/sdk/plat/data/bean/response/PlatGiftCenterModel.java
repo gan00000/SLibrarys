@@ -11,17 +11,17 @@ public class PlatGiftCenterModel {
 
     private String giftbagGameCode;
 
-    private boolean isReceive;
+    private String isReceive = "0";//0未领取，1已领，2已领完
     private String time;
     private String title;
     private String rewardName;//要打开的页面地址
 
-    public boolean isReceive() {
+    public String getIsReceive() {
         return isReceive;
     }
 
-    public void setReceive(boolean receive) {
-        isReceive = receive;
+    public void setIsReceive(String isReceive) {
+        this.isReceive = isReceive;
     }
 
     public String getActivityCode() {

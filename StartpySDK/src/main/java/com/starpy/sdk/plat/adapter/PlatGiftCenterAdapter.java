@@ -60,9 +60,15 @@ public class PlatGiftCenterAdapter extends RecyclerView.Adapter {
             ((GiftCenterHolder)viewHolder).titleTextView.setText(platGiftCenterModel.getTitle());
             ((GiftCenterHolder)viewHolder).desTextView.setText(platGiftCenterModel.getRewardName());
 
-            if (platGiftCenterModel.isReceive()){
+            if (platGiftCenterModel.getIsReceive().equals("1")){
 
                 ((GiftCenterHolder)viewHolder).getStatueTextView.setText(activity.getString(R.string.plat_gift_has_get));
+                ((GiftCenterHolder)viewHolder).getStatueTextView.setBackground(activity.getResources().getDrawable(R.drawable.plat_gift_has_get));
+                ((GiftCenterHolder)viewHolder).getStatueTextView.setClickable(false);
+
+            }else if(platGiftCenterModel.getIsReceive().equals("2")){
+
+                ((GiftCenterHolder)viewHolder).getStatueTextView.setText(activity.getString(R.string.plat_gift_has_get_finsh));
                 ((GiftCenterHolder)viewHolder).getStatueTextView.setBackground(activity.getResources().getDrawable(R.drawable.plat_gift_has_get));
                 ((GiftCenterHolder)viewHolder).getStatueTextView.setClickable(false);
             }else{

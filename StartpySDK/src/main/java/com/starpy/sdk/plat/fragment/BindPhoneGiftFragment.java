@@ -23,7 +23,7 @@ import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SSdkBaseRequestBean;
-import com.starpy.data.login.execute.BaseRequestTask;
+import com.starpy.data.login.execute.BaseLoginRequestTask;
 import com.starpy.data.login.request.AccountBindPhoneEmailBean;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
@@ -293,7 +293,7 @@ public class BindPhoneGiftFragment extends SBaseFragment {
         sSdkBaseRequestBean.setPhone(phone);
         sSdkBaseRequestBean.setPhoneAreaCode(areaCode);
         sSdkBaseRequestBean.setRequestMethod("acquireVfCode");
-        BaseRequestTask requestTask = new BaseRequestTask(getActivity()) {
+        BaseLoginRequestTask requestTask = new BaseLoginRequestTask(getActivity()) {
             @Override
             public BaseReqeustBean createRequestBean() {
                 super.createRequestBean();
@@ -409,7 +409,7 @@ public class BindPhoneGiftFragment extends SBaseFragment {
         sSdkBaseRequestBean.setPhoneAreaCode(areaCode);
         sSdkBaseRequestBean.setUserId(StarPyUtil.getUid(getActivity()));
         sSdkBaseRequestBean.setRequestMethod("bindpe_phone_email");
-        BaseRequestTask requestTask = new BaseRequestTask(getActivity()) {
+        BaseLoginRequestTask requestTask = new BaseLoginRequestTask(getActivity()) {
             @Override
             public BaseReqeustBean createRequestBean() {
                 super.createRequestBean();

@@ -16,7 +16,7 @@ import com.starpy.data.login.request.MacLoginRegRequestBean;
  * @author GanYuanrong
  * @date 2014年9月16日
  */
-public class MacLoginRegRequestTask extends BaseRequestTask {
+public class MacLoginRegRequestTask extends BaseLoginRequestTask {
 
     MacLoginRegRequestBean macLoginRegRequestBean;
     public MacLoginRegRequestTask(Context context) {

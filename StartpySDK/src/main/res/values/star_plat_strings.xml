@@ -26,6 +26,7 @@
     <string name="plat_my_serial">序號 : </string>
     <string name="plat_click_get">點擊領取</string>
     <string name="plat_gift_has_get">已領取</string>
+    <string name="plat_gift_has_get_finsh">已領完</string>
     <string name="plat_gift_get_success">領取成功！</string>
     <string name="plat_gift_serial_num">禮包序號:</string>
     <string name="plat_bind_phone_tips">來，填了它，大禮包就是你的</string>

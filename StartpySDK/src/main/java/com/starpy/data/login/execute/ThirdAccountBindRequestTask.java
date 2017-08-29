@@ -15,7 +15,7 @@ import com.starpy.data.login.request.ThirdAccountBindRequestBean;
  * @author GanYuanrong
  * @date 2014年9月16日
  */
-public class ThirdAccountBindRequestTask extends BaseRequestTask {
+public class ThirdAccountBindRequestTask extends BaseLoginRequestTask {
 
     ThirdAccountBindRequestBean thirdAccountBindRequestBean;
 

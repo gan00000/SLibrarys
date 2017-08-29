@@ -8,7 +8,7 @@ import com.starpy.data.login.request.ChangePwdRequestBean;
 
 //1000成功
 //1001註冊登入成功
-public class ChangePwdRequestTask extends BaseRequestTask {
+public class ChangePwdRequestTask extends BaseLoginRequestTask {
 
     private ChangePwdRequestBean pwdRequestBean;
 

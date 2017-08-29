@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.core.base.SBaseFragment;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
 import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
@@ -130,7 +130,6 @@ public class GiftCenterFragment extends SBaseFragment {
 
             eeeSwipeRefreshLayout.addItemDecoration(new SpaceItemDecoration(15,15));
 
-
             platGiftCenterAdapter = new PlatGiftCenterAdapter(getActivity());
 
 
@@ -215,7 +214,7 @@ public class GiftCenterFragment extends SBaseFragment {
                     ToastUtils.toast(getActivity(),getSuccessModel.getMessage());
                     if (getSuccessModel.isRequestSuccess()) {
 //                        refreshData();
-                        platGiftCenterModel.setReceive(true);
+                        platGiftCenterModel.setIsReceive("1");
                         platGiftCenterAdapter.notifyDataSetChanged();
                         showGiftGetSuccessDialog(getSuccessModel,platGiftCenterModel);
 

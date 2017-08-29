@@ -13,7 +13,7 @@ import com.starpy.data.login.request.ThirdLoginRegRequestBean;
  * @author GanYuanrong
  * @date 2014年9月16日
  */
-public class ThirdLoginRegRequestTask extends BaseRequestTask {
+public class ThirdLoginRegRequestTask extends BaseLoginRequestTask {
 
     ThirdLoginRegRequestBean thirdLoginRegRequestBean;
 

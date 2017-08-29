@@ -61,6 +61,7 @@ public class StarpyImpl implements IStarpy {
             public void run() {
 
                 StarEventLogger.registerGoogleAdId(activity);
+                StarEventLogger.reportInstallActivation(activity.getApplicationContext());
                 try {
                     Fresco.initialize(activity.getApplicationContext());//初始化fb Fresco库
                 } catch (Exception e) {

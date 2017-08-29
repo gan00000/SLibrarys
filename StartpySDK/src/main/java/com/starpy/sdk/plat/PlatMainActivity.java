@@ -27,7 +27,7 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SSdkBaseRequestBean;
 import com.starpy.data.cs.CsReqeustBean;
-import com.starpy.data.login.execute.BaseRequestTask;
+import com.starpy.data.login.execute.BaseLoginRequestTask;
 import com.starpy.data.login.request.AccountInjectionRequestBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
 import com.starpy.pay.gp.util.PayHelper;
@@ -423,7 +423,7 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
     private void requestPhoneBindIsReceiveGiftbag() {
 
         final SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(this);
-        gameBaseRequestBean.setCompleteUrl("http://testwww.starb168.com/app/user/api/phoneBindIsReceiveGiftbag");
+        gameBaseRequestBean.setCompleteUrl("http://testwww.starb168.com/app/giftbag/api/phoneBindIsReceiveGiftbag");
         AbsHttpRequest absHttpRequest = new AbsHttpRequest() {
             @Override
             public BaseReqeustBean createRequestBean() {
@@ -460,7 +460,7 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
         accountInjectionRequest.setUserId(StarPyUtil.getUid(this));
 //        accountInjectionRequest.setGameCode(ResConfig.getGameCode(this));
 
-        BaseRequestTask baseRequestTask = new BaseRequestTask(this){
+        BaseLoginRequestTask baseRequestTask = new BaseLoginRequestTask(this){
             @Override
             public BaseReqeustBean createRequestBean() {
                 super.createRequestBean();
@@ -503,7 +503,7 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
 
         final SSdkBaseRequestBean sdkBaseRequestBean = new SSdkBaseRequestBean(this);
         sdkBaseRequestBean.setRequestMethod("areaCode");
-        BaseRequestTask baseRequestTask = new BaseRequestTask(this){
+        BaseLoginRequestTask baseRequestTask = new BaseLoginRequestTask(this){
             @Override
             public BaseReqeustBean createRequestBean() {
                 super.createRequestBean();

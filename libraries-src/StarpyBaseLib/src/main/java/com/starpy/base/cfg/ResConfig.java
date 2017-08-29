@@ -168,11 +168,11 @@ public class ResConfig {
 	 * @date 2015年2月5日
 	 */
 	public static String getAdsPreferredUrl(Context context) {
-		return getConfigUrl(context, "efunAdsPreferredUrl");
+		return getConfigUrl(context, "star_ads_pre_url");
 	}
 	
 	public static String getAdsSpareUrl(Context context) {
-		return getConfigUrl(context, "efunAdsSpareUrl");
+		return getConfigUrl(context, "star_ads_spa_url");
 	}
 	
 	/**
@@ -229,18 +229,7 @@ public class ResConfig {
 //===========================================域名获取end===============================================	
 //===========================================域名获取end===============================================	
 	
-	public static String getGoogleAnalyticsTrackingId(Context context) {
-		return getResStringByName(context, "efunGoogleAnalyticsTrackingId");
-	}
-	
-	public static String getS2SListenerName(Context context) {
-		return getResStringByName(context, "efunS2SListenerName");
-	}
-	
-	public static String getGAListenerName(Context context) {
-		return getResStringByName(context, "efunGAListenerName");
-	}
-	
+
 	//<string name="reg_jp_efunAdsPreferredUrl">http://ad.efunjp.com/</string>
 	public static String getConfigUrl(Context context, String xmlSchemaName){
 		String url = getResStringByName(context, xmlSchemaName);

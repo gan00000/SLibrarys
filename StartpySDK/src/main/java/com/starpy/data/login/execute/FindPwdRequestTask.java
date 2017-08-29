@@ -6,7 +6,7 @@ import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
 import com.starpy.data.login.request.FindPwdRequestBean;
 
-public class FindPwdRequestTask extends BaseRequestTask {
+public class FindPwdRequestTask extends BaseLoginRequestTask {
 
 	private FindPwdRequestBean pwdRequestBean;
 

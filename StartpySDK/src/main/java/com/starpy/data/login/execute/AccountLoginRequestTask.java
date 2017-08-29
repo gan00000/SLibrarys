@@ -6,7 +6,7 @@ import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.SStringUtil;
 import com.starpy.data.login.request.AccountLoginRequestBean;
 
-public class AccountLoginRequestTask extends BaseRequestTask {
+public class AccountLoginRequestTask extends BaseLoginRequestTask {
 
 	private AccountLoginRequestBean requestBean;
 	

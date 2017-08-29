@@ -14,12 +14,12 @@ import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.bean.SSdkBaseRequestBean;
 
 /**
- * <p>Title: BaseRequestTask</p>
+ * <p>Title: BaseLoginRequestTask</p>
  * <p>Description: 请求接口对象封装类</p>
  * @author GanYuanrong
  * @date 2013年12月10日
  */
-public class BaseRequestTask extends AbsHttpRequest {
+public class BaseLoginRequestTask extends AbsHttpRequest {
 
 	protected Context context;
 
@@ -29,7 +29,7 @@ public class BaseRequestTask extends AbsHttpRequest {
 		this.sdkBaseRequestBean = sdkBaseRequestBean;
 	}
 
-	public BaseRequestTask(Context context) {
+	public BaseLoginRequestTask(Context context) {
 		this.context = context;
 	}
 

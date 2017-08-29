@@ -8,7 +8,7 @@ import com.starpy.data.login.request.AccountRegRequestBean;
 
 //1000成功
 //1001註冊登入成功
-public class AccountRegisterRequestTask extends BaseRequestTask {
+public class AccountRegisterRequestTask extends BaseLoginRequestTask {
 
     private AccountRegRequestBean regRequestBean;
 

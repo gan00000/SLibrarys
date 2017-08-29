@@ -2,11 +2,17 @@ package com.starpy.sdk.ads;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 
 import com.appsflyer.AppsFlyerLib;
+import com.core.base.bean.BaseResponseModel;
+import com.core.base.callback.ISReqCallBack;
+import com.core.base.request.SimpleHttpRequest;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.google.ads.conversiontracking.AdWordsConversionReporter;
+import com.starpy.base.bean.AdsRequestBean;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
@@ -56,12 +62,47 @@ public class StarEventLogger {
         new  Thread(new Runnable() {
             @Override
             public void run() {
-                PL.i("save google ad id");
                 String googleAdId = SGoogleProxy.getAdvertisingId(context.getApplicationContext());
                 StarPyUtil.saveGoogleAdId(context,googleAdId);
+                PL.i("save google ad id-->" + googleAdId);
             }
         }).start();
     }
 
+
+    public static void reportInstallActivation(final Context context){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adsInstallActivation(context);
+            }
+        },10 * 1000);
+    }
+    private static void adsInstallActivation(Context context){
+
+        final AdsRequestBean adsRequestBean = new AdsRequestBean(context);
+        adsRequestBean.setRequestUrl(ResConfig.getAdsPreferredUrl(context));
+        adsRequestBean.setRequestMethod(context.getString(R.string.star_ads_install_activation));
+        SimpleHttpRequest simpleHttpRequest = new SimpleHttpRequest();
+        simpleHttpRequest.setBaseReqeustBean(adsRequestBean);
+        simpleHttpRequest.setReqCallBack(new ISReqCallBack<BaseResponseModel>() {
+            @Override
+            public void success(BaseResponseModel responseModel, String rawResult) {
+                PL.i("ADS rawResult:" + rawResult);
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+        simpleHttpRequest.excute();
+    }
 
 }

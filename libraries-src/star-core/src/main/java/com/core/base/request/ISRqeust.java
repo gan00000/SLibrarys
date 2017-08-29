@@ -12,8 +12,18 @@ public interface ISRqeust {
 
     void excute();
 
+    /**
+     * 子线程执行
+     * @return
+     */
     BaseReqeustBean createRequestBean();
 
+    /**
+     *
+     * 主线程执行
+     * @param responseModel
+     * @param <T>
+     */
     <T> void onHttpSucceess(T responseModel);
 
     void onTimeout(String result);
