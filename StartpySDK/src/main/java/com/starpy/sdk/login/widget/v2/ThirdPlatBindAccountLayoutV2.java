@@ -110,7 +110,7 @@ public class ThirdPlatBindAccountLayoutV2 extends SLoginBaseRelativeLayout imple
 
         } else if (v == backView) {//返回键
 
-            sLoginDialogv2.toAccountLoginView();
+            sLoginDialogv2.toAccountManagerCenter();
 
         } else if (v == eyeImageView) {//密码眼睛
 

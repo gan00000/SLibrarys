@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,7 @@ import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.sdk.R;
 import com.starpy.sdk.callback.RecylerViewItemClickListener;
+import com.starpy.sdk.plat.GiftCenterLayoutManager;
 import com.starpy.sdk.plat.PlatMainActivity;
 import com.starpy.sdk.plat.adapter.PlatGiftCenterAdapter;
 import com.starpy.sdk.plat.data.bean.reqeust.ReceiveGiftBean;
@@ -109,7 +109,7 @@ public class GiftCenterFragment extends SBaseFragment {
 
         if (eeeSwipeRefreshLayout !=null){
 
-            eeeSwipeRefreshLayout.setLayoutManager(new GridLayoutManager(getActivity(),4));
+            eeeSwipeRefreshLayout.setLayoutManager(new GiftCenterLayoutManager(getActivity(),4));
             eeeSwipeRefreshLayout.setSwipeEnable(true);//open swipe
             eeeSwipeRefreshLayout.setLoadMoreListener(new PullToRefreshRecyclerView.LoadMoreListener() {
                 @Override

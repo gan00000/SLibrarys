@@ -227,7 +227,9 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
                         openPlatWebViewFragment(csReqeustBean.createPreRequestUrl(),platMenuModel.getName(),platMenuModel.getName());
 
                     }else {
-                        openPlatWebViewFragment(platMenuModel.getUrl(),platMenuModel.getName(),platMenuModel.getName());
+                        SGameBaseRequestBean sGameBaseRequestBean = new SGameBaseRequestBean(PlatMainActivity.this);
+                        sGameBaseRequestBean.setCompleteUrl(platMenuModel.getUrl());
+                        openPlatWebViewFragment(sGameBaseRequestBean.createPreRequestUrl(),platMenuModel.getName(),platMenuModel.getName());
                     }
                 }
 

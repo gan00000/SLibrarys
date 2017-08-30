@@ -28,17 +28,20 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
     private View contentView;
 
     private TextView loginMainLoginBtn;
-    private View loginMainGoRegisterBtn, loginMainGoChangePwd;
-
     private ImageView eyeImageView, savePwdCheckBox;
-    private EditText loginPasswordEditText, loginAccountEditText;
 
+    private EditText loginPasswordEditText, loginAccountEditText;
     private String account;
+
     private String password;
+
+    private View loginMainGoRegisterBtn;
     private View loginMainGoFindPwd;
-    private View loginMainGoBindUnique;
-    private View loginMainGoBindFb;
-    private View loginMainGoBindGoogle;
+//    private View loginMainGoChangePwd;
+//    private View loginMainGoBindUnique;
+//    private View loginMainGoBindFb;
+//    private View loginMainGoBindGoogle;
+    private View loginMainGoAccountCenter;
 
 
     private View leftTopView;
@@ -80,11 +83,13 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
         });
 
         loginMainGoRegisterBtn = contentView.findViewById(R.id.py_login_go_reg_v2);
-        loginMainGoChangePwd = contentView.findViewById(R.id.py_login_go_changePwd_v2);
         loginMainGoFindPwd = contentView.findViewById(R.id.py_login_go_findpwd_v2);
-        loginMainGoBindUnique = contentView.findViewById(R.id.py_login_go_bindUnique_v2);
-        loginMainGoBindFb = contentView.findViewById(R.id.py_login_go_bindFb_v2);
-        loginMainGoBindGoogle = contentView.findViewById(R.id.py_login_go_bindGoogle);
+//        loginMainGoChangePwd = contentView.findViewById(R.id.py_login_go_changePwd_v2);
+//        loginMainGoBindUnique = contentView.findViewById(R.id.py_login_go_bindUnique_v2);
+//        loginMainGoBindFb = contentView.findViewById(R.id.py_login_go_bindFb_v2);
+//        loginMainGoBindGoogle = contentView.findViewById(R.id.py_login_go_bindGoogle);
+        loginMainGoAccountCenter = contentView.findViewById(R.id.py_login_go_account_center);
+
 
         eyeImageView = (ImageView) contentView.findViewById(R.id.py_login_password_eye_v2);
 
@@ -132,35 +137,42 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
             }
         });
 
-        loginMainGoChangePwd.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sLoginDialogv2.toChangePwdView();
-            }
-        });
-
         loginMainGoFindPwd.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 sLoginDialogv2.toFindPwdView();
             }
         });
-        loginMainGoBindUnique.setOnClickListener(new OnClickListener() {
+//        loginMainGoChangePwd.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sLoginDialogv2.toChangePwdView();
+//            }
+//        });
+//
+//        loginMainGoBindUnique.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sLoginDialogv2.toBindUniqueView();
+//            }
+//        });
+//        loginMainGoBindFb.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sLoginDialogv2.toBindFbView();
+//            }
+//        });
+//        loginMainGoBindGoogle.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sLoginDialogv2.toBindGoogleView();
+//            }
+//        });
+
+        loginMainGoAccountCenter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sLoginDialogv2.toBindUniqueView();
-            }
-        });
-        loginMainGoBindFb.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sLoginDialogv2.toBindFbView();
-            }
-        });
-        loginMainGoBindGoogle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sLoginDialogv2.toBindGoogleView();
+                sLoginDialogv2.toAccountManagerCenter();
             }
         });
 

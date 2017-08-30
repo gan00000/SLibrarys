@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.starpy.sdk.login.widget.v2.AccountManagerLayoutV2;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
@@ -64,6 +65,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     private SLoginBaseRelativeLayout bindFbView;
     private SLoginBaseRelativeLayout bindGoogleView;
     private SLoginBaseRelativeLayout injectionView;
+    private SLoginBaseRelativeLayout accountManagerCenterView;
 
     private List<SLoginBaseRelativeLayout> viewPageList;
 
@@ -415,6 +417,29 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
             }
 
             if (childView == bindGoogleView){
+                childView.setVisibility(View.VISIBLE);
+            }else{
+                childView.setVisibility(View.GONE);
+            }
+        }
+
+    }
+    public void toAccountManagerCenter() {//AccountManagerLayoutV2
+
+        if (accountManagerCenterView == null || !viewPageList.contains(accountManagerCenterView)){
+            accountManagerCenterView = new AccountManagerLayoutV2(context);
+            accountManagerCenterView.setLoginDialogV2(this);
+            contentFrameLayout.addView(accountManagerCenterView);
+            viewPageList.add(accountManagerCenterView);
+        }
+
+        for (View childView : viewPageList) {
+
+            if (childView == null){
+                continue;
+            }
+
+            if (childView == accountManagerCenterView){
                 childView.setVisibility(View.VISIBLE);
             }else{
                 childView.setVisibility(View.GONE);

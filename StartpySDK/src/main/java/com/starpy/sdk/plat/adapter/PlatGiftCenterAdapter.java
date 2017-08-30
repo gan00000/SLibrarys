@@ -52,6 +52,7 @@ public class PlatGiftCenterAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         PlatGiftCenterModel platGiftCenterModel = platGiftCenterModels.get(i);
+//        platGiftCenterModel.setTitle("aaaaaaaa");
         if (platGiftCenterModel != null){
             ((GiftCenterHolder)viewHolder).itemSimpleDraweeView.setImageURI(Uri.parse(platGiftCenterModel.getIcon()));
 

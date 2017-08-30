@@ -90,7 +90,7 @@ public class AccountChangePwdLayoutV2 extends SLoginBaseRelativeLayout implement
        if (v == changePwdConfireBtn) {
             changePwd();
         } else if (v == backView) {//返回键
-           sLoginDialogv2.toAccountLoginView();
+           sLoginDialogv2.toAccountManagerCenter();
         }
 
     }

@@ -18,9 +18,9 @@ public class AdsRequestBean extends SSdkBaseRequestBean {
         referrer = StarPyUtil.getReferrer(context);
     }
 
-    private String spy_platForm;//渠道包-所属平台
-    private String spy_advertiser;//渠道包-所属广告
-    private String referrer;
+    private String spy_platForm = "";//渠道包-所属平台
+    private String spy_advertiser = "";//渠道包-所属广告
+    private String referrer = "";
 
     public String getReferrer() {
         return referrer;

@@ -54,7 +54,8 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void initSDK(final Activity activity) {
         PL.i("IStarpy initSDK");
-
+        //清除上一次登录成功的返回值
+        StarPyUtil.saveSdkLoginData(activity,"");
 
         activity.runOnUiThread(new Runnable() {
             @Override
