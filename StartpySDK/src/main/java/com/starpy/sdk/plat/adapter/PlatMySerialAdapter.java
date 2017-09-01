@@ -86,21 +86,20 @@ public class PlatMySerialAdapter extends RecyclerView.Adapter {
             titleTextView = (TextView) contentView.findViewById(R.id.plat_serial_num_item_title);
             desTextView = (TextView) contentView.findViewById(R.id.plat_serial_num_item_des);
             serialNmu.setTextIsSelectable(true);
-            serialNmu.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
+            contentView.setOnClickListener(new View.OnClickListener() {
 
+                @Override
+                public void onClick(View v) {
                     try {
                         ClipboardManager cmb = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 //                        cmb.setText(platMySerialModels.get(getLayoutPosition()).getGiftbag()); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
                         ClipData cd = ClipData.newPlainText(null,platMySerialModels.get(getLayoutPosition()).getGiftbag());
                         cmb.setPrimaryClip(cd);
                         //cm.getText();//获取粘贴信息
-                        ToastUtils.toast(activity,R.string.plat_copy_success);
+                        ToastUtils.toast(activity,String.format(activity.getString(R.string.plat_copy_success),platMySerialModels.get(getLayoutPosition()).getGiftbag()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    return true;
                 }
             });
 

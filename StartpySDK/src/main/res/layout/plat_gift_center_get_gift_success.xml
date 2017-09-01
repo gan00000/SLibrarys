@@ -57,7 +57,7 @@
             android:gravity="center"
             android:letterSpacing="1.0"
             android:text="@string/plat_confire_btn"
-            android:textColor="@color/e_e68f33"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/sp_28" />
 
 

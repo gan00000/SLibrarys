@@ -9,6 +9,7 @@ import com.core.base.bean.BaseResponseModel;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.SimpleHttpRequest;
 import com.core.base.utils.PL;
+import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
 import com.google.ads.conversiontracking.AdWordsConversionReporter;
 import com.starpy.base.bean.AdsRequestBean;
@@ -69,9 +70,14 @@ public class StarEventLogger {
         }).start();
     }
 
-
+    private static final String STAR_PY_ADSINSTALLACTIVATION = "STAR_PY_ADSINSTALLACTIVATION";
     public static void reportInstallActivation(final Context context){
+
+        if (SStringUtil.isNotEmpty(SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE,STAR_PY_ADSINSTALLACTIVATION))){
+            return;
+        }
         Handler handler = new Handler();
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -79,7 +85,7 @@ public class StarEventLogger {
             }
         },10 * 1000);
     }
-    private static void adsInstallActivation(Context context){
+    private static void adsInstallActivation(final Context context){
 
         final AdsRequestBean adsRequestBean = new AdsRequestBean(context);
         adsRequestBean.setRequestUrl(ResConfig.getAdsPreferredUrl(context));
@@ -90,6 +96,9 @@ public class StarEventLogger {
             @Override
             public void success(BaseResponseModel responseModel, String rawResult) {
                 PL.i("ADS rawResult:" + rawResult);
+                if (responseModel != null && responseModel.isRequestSuccess()){
+                    SPUtil.saveSimpleInfo(context,StarPyUtil.STAR_PY_SP_FILE,STAR_PY_ADSINSTALLACTIVATION,"adsInstallActivation");
+                }
             }
 
             @Override

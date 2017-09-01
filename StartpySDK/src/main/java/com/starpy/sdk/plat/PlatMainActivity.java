@@ -327,12 +327,14 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
     @Override
     public void reqeustPlatMenuDataSuccess(PlatContract.RequestType requestType, PlatMenuAllModel platMenuAllModel) {
 
-        platMenuModels = platMenuAllModel.getData();
-        platMenuGridViewAdapter.setPlatMenuBeans(platMenuModels);
-        platMenuGridViewAdapter.notifyDataSetChanged();
+        if (platMenuAllModel != null) {
+            platMenuModels = platMenuAllModel.getData();
+            platMenuGridViewAdapter.setPlatMenuBeans(platMenuModels);
+            platMenuGridViewAdapter.notifyDataSetChanged();
 
-        if (platMenuModels != null && platMenuModels.size() > 0) {
-            showInfoFragment(platMenuModels.get(0));
+            if (platMenuModels != null && platMenuModels.size() > 0) {
+                showInfoFragment(platMenuModels.get(0));
+            }
         }
     }
 

@@ -27,7 +27,7 @@
     <!--<scheme>://<host>:<port>[<path>|<pathPrefix>|<pathPattern>]-->
     <string name="star_android_scheme">starpy</string>
 
-    <string name="star_cdn_url">http://testwww.starb168.com/qmah/float_button.txt</string>
+    <string name="star_py_plat_menu_url">http://testtongbu.starb168.com/guanwang/platform/floatbutton/qmah/float_button.txt</string>
 
     <string name="star_ads_pre_url">http://10.10.10.200:8185/ads/</string>
     <string name="star_ads_spa_url">http://10.10.10.200:8185/ads/</string>

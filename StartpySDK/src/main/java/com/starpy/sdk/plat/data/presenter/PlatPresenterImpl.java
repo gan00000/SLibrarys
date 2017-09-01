@@ -27,7 +27,7 @@ public class PlatPresenterImpl implements PlatContract.IPlatPresenter {
             @Override
             public BaseReqeustBean createRequestBean() {
                 BaseReqeustBean baseReqeustBean = new BaseReqeustBean(activity);
-                baseReqeustBean.setCompleteUrl(activity.getResources().getString(R.string.star_cdn_url));
+                baseReqeustBean.setCompleteUrl(activity.getResources().getString(R.string.star_py_plat_menu_url));
                 return baseReqeustBean;
             }
         };

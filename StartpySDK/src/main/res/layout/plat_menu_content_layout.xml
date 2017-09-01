@@ -35,6 +35,7 @@
         android:paddingBottom="@dimen/px_20"
         android:visibility="gone"
         android:id="@+id/plat_my_serial_number_layout"
+        android:background="@drawable/plat_my_serial_number_bg"
         android:gravity="center">
 
         <TextView
@@ -44,7 +45,7 @@
             android:ems="1"
             android:textSize="@dimen/sp_24"
             android:gravity="center"
-            android:background="@drawable/plat_my_serial_number_bg"
+            android:layout_margin="@dimen/px_10"
             android:textColor="@android:color/white"
 
             />

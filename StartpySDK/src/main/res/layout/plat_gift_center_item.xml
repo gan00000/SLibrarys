@@ -26,6 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px_5"
+            android:paddingLeft="@dimen/px_10"
+            android:paddingRight="@dimen/px_10"
             android:gravity="center"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
