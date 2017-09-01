@@ -139,6 +139,10 @@ public class StarPyUtil {
         return SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_LOGIN_SERVER_RETURN_DATA);
     }
 
+    public static boolean isLogin(Context context){
+        return SStringUtil.isNotEmpty(getSdkLoginData(context));
+    }
+
     public static void saveSdkLoginTerms(Context context,String terms){
         SPUtil.saveSimpleInfo(context,STARPY_SDK_LOGIN_TERMS_FILE,STARPY_SDK_LOGIN_TERMS,terms);
     }

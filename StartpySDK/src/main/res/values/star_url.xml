@@ -16,8 +16,8 @@
 
     <!--平台CND的主域名：autocdn-palt.starb168.com-->
     <!--备用域名：autocdn-paltsl.starb168.com-->
-    <string name="star_py_cdn_pre_url">http://autocdn-palt.starb168.com/</string>
-    <string name="star_py_cdn_spa_url">http://autocdn-paltsl.starb168.com/</string>
+    <string name="star_py_cdn_pre_url">http://autocdn-palt.starb168111.com/</string>
+    <string name="star_py_cdn_spa_url">http://autocdn-paltsl.starb168111.com/</string>
 
     <string name="star_pay_third_method">dynamic_change</string>
     <string name="star_cs_method">player_entrance</string>
@@ -29,8 +29,8 @@
 
     <string name="star_cdn_url">http://testwww.starb168.com/qmah/float_button.txt</string>
 
-    <string name="star_ads_pre_url">http://ads.starb168.com/</string>
-    <string name="star_ads_spa_url">http://ads.starb168.com/</string>
+    <string name="star_ads_pre_url">http://10.10.10.200:8185/ads/</string>
+    <string name="star_ads_spa_url">http://10.10.10.200:8185/ads/</string>
     <string name="star_ads_install_activation">ads_install_activation</string>
 
 

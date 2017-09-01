@@ -34,16 +34,12 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
 
     private String phoneAreaCode = "";
 
-    private String advertisingId = "";
+//    private String advertisingId = "";
+    private String adId = "";//advertisingId
 
-
-    public String getAdvertisingId() {
-        return advertisingId;
-    }
-
-    public void setAdvertisingId(String advertisingId) {
-        this.advertisingId = advertisingId;
-    }
+    private String spy_platForm = "";//渠道包-所属平台
+    private String spy_advertiser = "";//渠道包-所属广告
+    private String referrer = "";
 
 
     public SSdkBaseRequestBean(Context context) {
@@ -64,7 +60,8 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
         if (SStringUtil.isEmpty(signature)) {
             signature = SStringUtil.toMd5(ResConfig.getAppKey(context) + gameCode + timestamp);
         }
-        advertisingId = StarPyUtil.getGoogleAdId(context);
+        adId = StarPyUtil.getGoogleAdId(context);
+        referrer = StarPyUtil.getReferrer(context);
     }
 
     public String getAppKey() {
@@ -150,5 +147,38 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
 
     public void setPhoneAreaCode(String phoneAreaCode) {
         this.phoneAreaCode = phoneAreaCode;
+    }
+
+    public String getReferrer() {
+        return referrer;
+    }
+
+    public void setReferrer(String referrer) {
+        this.referrer = referrer;
+    }
+
+    public String getSpy_platForm() {
+        return spy_platForm;
+    }
+
+    public void setSpy_platForm(String spy_platForm) {
+        this.spy_platForm = spy_platForm;
+    }
+
+    public String getSpy_advertiser() {
+        return spy_advertiser;
+    }
+
+    public void setSpy_advertiser(String spy_advertiser) {
+        this.spy_advertiser = spy_advertiser;
+    }
+
+
+    public String getAdvertisingId() {
+        return adId;
+    }
+
+    public void setAdvertisingId(String advertisingId) {
+        this.adId = advertisingId;
     }
 }

@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class BaseReqeustBean extends AbsReqeustBean {
 
-    private String androidid = "";
+    private String androidId = "";
     private String imei = "";
     private String systemVersion = "";
     private String deviceType = "";
@@ -33,7 +33,7 @@ public class BaseReqeustBean extends AbsReqeustBean {
 
         systemVersion = ApkInfoUtil.getOsVersion();
         deviceType = ApkInfoUtil.getDeviceType();
-        androidid = ApkInfoUtil.getAndroidId(context);
+        androidId = ApkInfoUtil.getAndroidId(context);
         osLanguage = ApkInfoUtil.getOsLanguage();
 
         if (context != null) {

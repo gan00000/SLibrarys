@@ -73,7 +73,7 @@ public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements
         registerConfirm.setOnClickListener(this);
 
         if (StarPyUtil.isXM(getContext())){//星盟标题
-            ((ImageView)contentView.findViewById(R.id.v2_bg_title_register_iv)).setImageResource(R.mipmap.bg_xm_title_register);
+            ((ImageView)contentView.findViewById(R.id.v2_bg_title_register_iv)).setImageResource(R.drawable.bg_xm_title_register);
         }
 
         return contentView;

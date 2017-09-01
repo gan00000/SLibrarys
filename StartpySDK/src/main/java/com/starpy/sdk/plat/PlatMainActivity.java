@@ -21,6 +21,7 @@ import com.core.base.request.AbsHttpRequest;
 import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
+import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
@@ -178,8 +179,8 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
                                 accountManagerFragment.setUserBindInfoModel(userBindInfoModel);
                                 changeFragmentNotBackStack(accountManagerFragment);
                             }
-
-
+                        }else {
+                            ToastUtils.toast(getApplicationContext(),R.string.plat_get_data_error);
                         }
 
                     }else if (platMenuModel.getItemId().equals("letterBox")){
@@ -483,8 +484,11 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
             @Override
             public void success(UserBindInfoModel baseModel, String rawResult) {
 
-                PL.i("get user bind info success");
-                userBindInfoModel = baseModel;
+                PL.i("get user bind info finish");
+                if (baseModel.isRequestSuccess()) {
+                    PL.i("get user bind info success");
+                    userBindInfoModel = baseModel;
+                }
 
             }
 

@@ -9,14 +9,15 @@ import com.core.base.ObjFactory;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
+import com.core.base.utils.ToastUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
 import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.pay.gp.GooglePayActivity2;
@@ -28,6 +29,7 @@ import com.starpy.sdk.SWebViewDialog;
 import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
+import com.starpy.sdk.plat.PlatMainActivity;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 
 import java.util.HashMap;
@@ -222,6 +224,11 @@ public class StarpyImpl implements IStarpy {
     public void openPlatform(Activity activity, String roleLevel, String roleVipLevel) {
         PL.i("IStarpy pay roleLevel:" + roleLevel + ",roleVipLevel:" + roleVipLevel);
         StarPyUtil.saveRoleLevelVip(activity,roleLevel,roleVipLevel);
+        if (StarPyUtil.isLogin(activity)){
+            activity.startActivity(new Intent(activity, PlatMainActivity.class));
+        }else {
+            ToastUtils.toast(activity,"please login game first");
+        }
     }
 
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {

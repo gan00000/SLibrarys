@@ -49,6 +49,8 @@ public class MySerialCenterFragment extends SBaseFragment {
 
     private String title;
 
+    LinearLayoutManager linearLayoutManager;
+
 
     @Nullable
     @Override
@@ -87,8 +89,8 @@ public class MySerialCenterFragment extends SBaseFragment {
         dataModelList = new ArrayList<>();
 
         if (eeeSwipeRefreshLayout !=null){
-
-            eeeSwipeRefreshLayout.setLayoutManager(new LinearLayoutManager(getActivity()));
+            linearLayoutManager = new LinearLayoutManager(getActivity());
+            eeeSwipeRefreshLayout.setLayoutManager(linearLayoutManager);
             eeeSwipeRefreshLayout.setSwipeEnable(true);//open swipe
 
             eeeSwipeRefreshLayout.setLoadMoreListener(new PullToRefreshRecyclerView.LoadMoreListener() {
@@ -186,11 +188,31 @@ public class MySerialCenterFragment extends SBaseFragment {
                     refreshFinish();
 
                 }
-
+              /*  for (int i = 0; i < 10; i++) {
+                    PlatMySerialModel p = new PlatMySerialModel();
+                    p.setTitle("title + " + i);
+                    p.setRewardName("setRewardName");
+                    dataModelList.add(p);
+                }*/
                 platMySerialAdapter.setDataModelList(dataModelList);
 
                 platMySerialAdapter.notifyDataSetChanged();
 
+                /*if (!isLoadMore){
+
+                    int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                    int lastCompletelyVisibleItemPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+                    int itemCount = linearLayoutManager.getItemCount();
+                    int visibleCount = linearLayoutManager.getChildCount();
+                    PL.i("lastVisibleItemPosition:" + lastVisibleItemPosition);
+                    PL.i("lastCompletelyVisibleItemPosition:" + lastCompletelyVisibleItemPosition);
+                    PL.i("itemCount:" + itemCount);
+                    PL.i("visibleCount:" + visibleCount);
+                    if (lastCompletelyVisibleItemPosition == dataModelList.size() - 1){
+                        eeeSwipeRefreshLayout.onFinishLoading(false, false);
+                    }
+                }
+                */
             }
 
             @Override

@@ -17,7 +17,7 @@ public class XMMainLoginLayoutV2 extends SLoginBaseRelativeLayout implements Vie
     private View contentView;
 
     private View fbLoginView, starLoginView, macLoginView, googleLoginView;
-    private View starpyRegView;
+//    private View starpyRegView;
 
     public XMMainLoginLayoutV2(Context context) {
         super(context);
@@ -44,13 +44,13 @@ public class XMMainLoginLayoutV2 extends SLoginBaseRelativeLayout implements Vie
         starLoginView = contentView.findViewById(R.id.btn_xm_member_login_iv);
         macLoginView = contentView.findViewById(R.id.btn_xm_guest_login_iv);
 
-        starpyRegView = contentView.findViewById(R.id.btn_xm_member_register_iv);
+//        starpyRegView = contentView.findViewById(R.id.btn_xm_member_register_iv);
         googleLoginView = contentView.findViewById(R.id.btn_xm_google_login_iv);
 
         fbLoginView.setOnClickListener(this);
         starLoginView.setOnClickListener(this);
         macLoginView.setOnClickListener(this);
-        starpyRegView.setOnClickListener(this);
+//        starpyRegView.setOnClickListener(this);
         googleLoginView.setOnClickListener(this);
 
         return contentView;
@@ -68,8 +68,6 @@ public class XMMainLoginLayoutV2 extends SLoginBaseRelativeLayout implements Vie
             sLoginDialogv2.toAccountLoginView();
         }else if(v == macLoginView){
             sLoginDialogv2.getLoginPresenter().macLogin(sLoginDialogv2.getActivity());
-        }else if (v == starpyRegView){
-            sLoginDialogv2.toRegisterView(1);
         }else if (v == googleLoginView){
             //google+登录
             sLoginDialogv2.getLoginPresenter().googleLogin(sLoginDialogv2.getActivity());

@@ -21,7 +21,6 @@ import com.starpy.sdk.SWebViewDialog;
 import com.starpy.sdk.out.ISdkCallBack;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
-import com.starpy.sdk.plat.PlatMainActivity;
 
 public class MainActivity extends Activity {
 
@@ -193,7 +192,8 @@ public class MainActivity extends Activity {
         findViewById(R.id.open_plat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PlatMainActivity.class));
+                //startActivity(new Intent(MainActivity.this, PlatMainActivity.class));
+                iStarpy.openPlatform(MainActivity.this,"","");
 
             }
         });

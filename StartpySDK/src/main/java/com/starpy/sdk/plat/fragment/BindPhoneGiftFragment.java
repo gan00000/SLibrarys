@@ -124,13 +124,21 @@ public class BindPhoneGiftFragment extends SBaseFragment {
 
         mDialog = DialogUtil.createLoadingDialog(getActivity(),"Loading...");
 
-        if (userHasGetGiftModel == null || userBindInfoModel == null){
+
+        if (userBindInfoModel == null){
             ToastUtils.toast(getActivity(),R.string.plat_get_data_error);
             plat_bind_phone_layout.setVisibility(View.GONE);
             plat_has_bind_phone_layout.setVisibility(View.GONE);
             bindPhoneGetGiftTextView.setVisibility(View.GONE);
         }else{
-            if (userBindInfoModel.hasBindPhone()){
+
+            if (userHasGetGiftModel == null){
+                plat_bind_phone_layout.setVisibility(View.GONE);
+                plat_has_bind_phone_layout.setVisibility(View.GONE);
+                bindPhoneGetGiftTextView.setVisibility(View.GONE);
+                bindPhoneNumTextView.setText(userBindInfoModel.getTelephone());
+
+            }else if (userBindInfoModel.hasBindPhone()){
 
                 if (userHasGetGiftModel.isReceive()){
                     plat_bind_phone_layout.setVisibility(View.GONE);
