@@ -297,6 +297,22 @@ public class BindPhoneGiftFragment extends SBaseFragment {
             ToastUtils.toast(getActivity(), R.string.plat_phone_num_not_empty);
             return;
         }
+
+        String phonePattern = "";
+        for (PhoneAreaCodeModel phoneAreaCodeModel :
+                phoneAreaCodeModels) {
+            if (areaCode.equals(phoneAreaCodeModel.getCode())) {
+                phonePattern = phoneAreaCodeModel.getPattern();
+                break;
+            }
+        }
+        if (SStringUtil.isNotEmpty(phonePattern)){
+            if (!phone.matches(phonePattern)){
+                ToastUtils.toast(getActivity(), R.string.plat_phone_num_format_error);
+                return;
+            }
+        }
+
         final SSdkBaseRequestBean sSdkBaseRequestBean = new SSdkBaseRequestBean(getActivity());
         sSdkBaseRequestBean.setPhone(phone);
         sSdkBaseRequestBean.setPhoneAreaCode(areaCode);
@@ -402,6 +418,20 @@ public class BindPhoneGiftFragment extends SBaseFragment {
         if (TextUtils.isEmpty(phone)) {
             ToastUtils.toast(getActivity(), R.string.plat_phone_num_not_empty);
             return;
+        }
+        String phonePattern = "";
+        for (PhoneAreaCodeModel phoneAreaCodeModel :
+                phoneAreaCodeModels) {
+            if (areaCode.equals(phoneAreaCodeModel.getCode())) {
+                phonePattern = phoneAreaCodeModel.getPattern();
+                break;
+            }
+        }
+        if (SStringUtil.isNotEmpty(phonePattern)){
+            if (!phone.matches(phonePattern)){
+                ToastUtils.toast(getActivity(), R.string.plat_phone_num_format_error);
+                return;
+            }
         }
 
         String vfCode = bindPhoneVfCodeEditText.getEditableText().toString().trim();
