@@ -172,7 +172,6 @@
                 android:gravity="center"
                 android:textSize="@dimen/sp_24"
                 android:textStyle="bold"
-                android:letterSpacing="0.5"
                 android:textColor="@android:color/white"
                 android:text="@string/py_login_by_members"/>
         </LinearLayout>

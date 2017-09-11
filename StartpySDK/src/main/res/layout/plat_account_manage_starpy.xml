@@ -80,7 +80,6 @@
             android:textSize="@dimen/sp_30"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:letterSpacing="1.0"
             android:background="@drawable/plat_bind_account_bg"
             android:text="@string/py_change_pwd"/>
 

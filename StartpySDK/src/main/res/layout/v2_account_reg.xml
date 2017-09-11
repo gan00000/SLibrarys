@@ -191,7 +191,6 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/sp_24"
                 android:gravity="center"
-                android:letterSpacing="1"
                 android:textColor="@android:color/white"
                 android:background="@drawable/bg_192d3f_46" />
 
