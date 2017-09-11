@@ -24,6 +24,7 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.starpy.base.cfg.ResConfig;
+import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SSdkBaseRequestBean;
@@ -121,6 +122,9 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Localization.updateSGameLanguage(this);
+
         setContentView(R.layout.plat_activity_content_page);
 
         fragmentManager = getSupportFragmentManager();

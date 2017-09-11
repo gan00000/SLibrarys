@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.starpy.base.utils.Localization;
 import com.starpy.sdk.login.widget.v2.AccountManagerLayoutV2;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.base.bean.SLoginType;
@@ -118,7 +119,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Localization.updateSGameLanguage(context);
         contentFrameLayout = new FrameLayout(context);
         contentFrameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
 
