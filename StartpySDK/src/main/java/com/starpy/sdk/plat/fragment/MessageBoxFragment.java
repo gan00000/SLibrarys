@@ -72,7 +72,7 @@ public class MessageBoxFragment extends SSdkBaseFragment {
         }
         final MessageReadBean messageReadBean = new MessageReadBean(getActivity());
         messageReadBean.setMessageId(clickPlatMessageBoxModel.getMessageId());
-        messageReadBean.setCompleteUrl("http://testwww.starb168.com/app/float/api/message/delete");
+        messageReadBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/float/api/message/delete");
 
         AbsHttpRequest absHttpRequest = new AbsHttpRequest() {
             @Override
@@ -223,7 +223,7 @@ public class MessageBoxFragment extends SSdkBaseFragment {
             @Override
             public BaseReqeustBean createRequestBean() {
 
-                pagingLoadBean.setCompleteUrl("http://testwww.starb168.com/app/float/api/message");
+                pagingLoadBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/float/api/message");
                 return pagingLoadBean;
             }
         };

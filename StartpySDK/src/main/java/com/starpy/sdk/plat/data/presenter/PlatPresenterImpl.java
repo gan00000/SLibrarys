@@ -2,9 +2,10 @@ package com.starpy.sdk.plat.data.presenter;
 
 import android.app.Activity;
 
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.bean.BaseReqeustBean;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.sdk.R;
 import com.starpy.sdk.plat.data.PlatContract;
 import com.starpy.sdk.plat.data.bean.response.PlatMenuAllModel;
@@ -27,7 +28,8 @@ public class PlatPresenterImpl implements PlatContract.IPlatPresenter {
             @Override
             public BaseReqeustBean createRequestBean() {
                 BaseReqeustBean baseReqeustBean = new BaseReqeustBean(activity);
-                baseReqeustBean.setCompleteUrl(activity.getResources().getString(R.string.star_py_plat_menu_url));
+                baseReqeustBean.setRequestUrl(activity.getResources().getString(R.string.star_py_plat_float_url));
+                baseReqeustBean.setRequestMethod(String.format("floatbutton/%s/float_button.txt", ResConfig.getGameCode(activity)));
                 return baseReqeustBean;
             }
         };

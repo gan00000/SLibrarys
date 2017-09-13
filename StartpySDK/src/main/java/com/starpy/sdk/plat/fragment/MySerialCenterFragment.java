@@ -150,7 +150,7 @@ public class MySerialCenterFragment extends SSdkBaseFragment {
             @Override
             public BaseReqeustBean createRequestBean() {
 
-                pagingLoadBean.setCompleteUrl("http://testwww.starb168.com/app/giftbag/api/giftbagReceiveRecord");
+                pagingLoadBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/giftbag/api/giftbagReceiveRecord");
                 return pagingLoadBean;
             }
         };

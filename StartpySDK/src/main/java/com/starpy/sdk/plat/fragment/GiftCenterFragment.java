@@ -162,7 +162,7 @@ public class GiftCenterFragment extends SSdkBaseFragment {
             @Override
             public BaseReqeustBean createRequestBean() {
                 SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(getActivity());
-                gameBaseRequestBean.setCompleteUrl("http://testwww.starb168.com/app/giftbag/api/giftbagCentreGameList");
+                gameBaseRequestBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/giftbag/api/giftbagCentreGameList");
                 return gameBaseRequestBean;
             }
         };
@@ -201,7 +201,7 @@ public class GiftCenterFragment extends SSdkBaseFragment {
         AbsHttpRequest absHttpRequest = new AbsHttpRequest() {
             @Override
             public BaseReqeustBean createRequestBean() {
-                receiveGiftBean.setCompleteUrl("http://testwww.starb168.com/app/giftbag/api/receiveFromGiftbagCentre");
+                receiveGiftBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/giftbag/api/receiveFromGiftbagCentre");
                 return receiveGiftBean;
             }
         };

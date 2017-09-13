@@ -223,7 +223,7 @@ public class BindPhoneGiftFragment extends SSdkBaseFragment {
     //领取礼包
     private void requestGetGift() {
         final SGameBaseRequestBean requestBean = new SGameBaseRequestBean(getActivity());
-        requestBean.setCompleteUrl("http://testwww.starb168.com//app/giftbag/api/getPhoneBindGiftbag");
+        requestBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/giftbag/api/getPhoneBindGiftbag");
         AbsHttpRequest requestTask = new AbsHttpRequest() {
             @Override
             public BaseReqeustBean createRequestBean() {

@@ -149,7 +149,7 @@ public class InformantionFragment extends SSdkBaseFragment {
             @Override
             public BaseReqeustBean createRequestBean() {
 
-                pagingLoadBean.setCompleteUrl("http://testwww.starb168.com/app/float/api/information");
+                pagingLoadBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/float/api/information");
                 return pagingLoadBean;
             }
         };
