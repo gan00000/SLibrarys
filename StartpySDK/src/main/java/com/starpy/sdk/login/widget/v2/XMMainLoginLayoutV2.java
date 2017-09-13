@@ -4,7 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.starpy.base.bean.SGameLanguage;
+import com.starpy.base.utils.Localization;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
 
@@ -52,6 +55,10 @@ public class XMMainLoginLayoutV2 extends SLoginBaseRelativeLayout implements Vie
         macLoginView.setOnClickListener(this);
 //        starpyRegView.setOnClickListener(this);
         googleLoginView.setOnClickListener(this);
+
+        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){
+            ((ImageView)macLoginView).setImageResource(R.drawable.btn_xm_guest_login_en);
+        }
 
         return contentView;
     }

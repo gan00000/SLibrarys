@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
+import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SLoginType;
+import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
@@ -67,6 +69,10 @@ public class ThirdPlatBindAccountLayoutV2 extends SLoginBaseRelativeLayout imple
         registerMailEditText = (EditText) contentView.findViewById(R.id.py_bind_account_mail);
 
         bindConfirm = (TextView) contentView.findViewById(R.id.py_bind_account_confirm);
+
+        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){
+            ((ImageView)contentView.findViewById(R.id.py_bind_account_title)).setImageResource(R.drawable.bg_title_bind_account_en);
+        }
 
         termsSelectImageView.setSelected(true);
 

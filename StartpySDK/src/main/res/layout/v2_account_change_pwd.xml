@@ -34,6 +34,7 @@
             <ImageView
                 android:layout_width="@dimen/px_400"
                 android:layout_height="match_parent"
+                android:id="@+id/py_change_pwd_title"
                 android:src="@drawable/v2_bg_title_chang_pwd"/>
 
 

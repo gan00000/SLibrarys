@@ -6,9 +6,12 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.core.base.utils.ToastUtils;
+import com.starpy.base.bean.SGameLanguage;
+import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
@@ -52,6 +55,9 @@ public class AccountFindPwdLayoutV2 extends SLoginBaseRelativeLayout implements 
 
         findPwdConfireBtn = (TextView) contentView.findViewById(R.id.v2_findpwd_btn);
 
+        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){
+            ((ImageView)contentView.findViewById(R.id.py_findpwd_account_title)).setImageResource(R.drawable.bg_title_forgot_pwd_en);
+        }
 
         backView.setOnClickListener(this);
         findPwdConfireBtn.setOnClickListener(this);

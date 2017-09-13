@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
+import com.starpy.base.bean.SGameLanguage;
+import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
@@ -102,7 +104,12 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
         leftBottomView = contentView.findViewById(R.id.py_left_bottom_id);
 
         if (StarPyUtil.isXM(getContext())){//星盟标题
+
             ((ImageView)contentView.findViewById(R.id.v2_bg_title_login_iv)).setImageResource(R.drawable.bg_xm_title_login);
+        }
+
+        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){//星盟--星彼英文一样
+            ((ImageView)contentView.findViewById(R.id.v2_bg_title_login_iv)).setImageResource(R.drawable.bg_xm_title_login_en);
         }
 
         savePwdCheckBox = (ImageView) contentView.findViewById(R.id.py_save_pwd_text_check_id);
