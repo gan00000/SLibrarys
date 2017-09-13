@@ -23,6 +23,7 @@
 
     <string name="plat_confire_btn">comfirm</string>
     <string name="plat_my_serial_number">My\nCD\nKey</string>
+    <string name="plat_my_serial_number_title">My Gift Code</string>
     <string name="plat_my_serial">Code : </string>
     <string name="plat_click_get">Click to collect</string>
     <string name="plat_gift_has_get">Collected</string>

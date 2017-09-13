@@ -59,7 +59,7 @@ public class MySerialCenterFragment extends SSdkBaseFragment {
         View contentView = inflater.inflate(R.layout.plat_menu_content_layout, container, false);
         eeeSwipeRefreshLayout = (EEESwipeRefreshLayout) contentView.findViewById(R.id.plat_info_recy_view);
         TextView titleTextView = (TextView) contentView.findViewById(R.id.plat_title_tv);
-        titleTextView.setText(getString(R.string.plat_my_serial_number));
+        titleTextView.setText(getString(R.string.plat_my_serial_number_title));
 
         contentView.findViewById(R.id.plat_title_close_tv).setOnClickListener(new View.OnClickListener() {
             @Override

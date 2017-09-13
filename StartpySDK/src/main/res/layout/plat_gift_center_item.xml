@@ -19,7 +19,8 @@
             android:layout_gravity="center"
             android:layout_width="@dimen/px_160"
             android:layout_height="@dimen/px_160"
-            android:layout_marginTop="@dimen/px_25" />
+            android:layout_marginTop="@dimen/px_25"
+            fresco:placeholderImage="@drawable/plat_default_loading"/>
 
 
         <TextView

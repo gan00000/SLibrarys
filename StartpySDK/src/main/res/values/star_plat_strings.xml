@@ -23,6 +23,7 @@
 
     <string name="plat_confire_btn">確認</string>
     <string name="plat_my_serial_number">我\n的\n序\n號</string>
+    <string name="plat_my_serial_number_title">我的序號</string>
     <string name="plat_my_serial">序號 : </string>
     <string name="plat_click_get">點擊領取</string>
     <string name="plat_gift_has_get">已領取</string>
