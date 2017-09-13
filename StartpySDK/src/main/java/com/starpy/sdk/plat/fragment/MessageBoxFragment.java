@@ -12,9 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.core.base.SBaseFragment;
+import com.core.base.bean.BaseReqeustBean;
+import com.core.base.bean.BaseResponseModel;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
 import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
@@ -45,12 +46,71 @@ public class MessageBoxFragment extends SBaseFragment {
     private List<PlatMessageBoxModel> dataModelList;
 
     private Dialog mDialog;
-
     public void setTitle(String title) {
         this.title = title;
     }
 
     private String title;
+
+    private View.OnClickListener l = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            PL.i("delete mail...");
+            reqeustDeteleMail();
+        }
+    };
+
+
+    PlatMessageBoxModel clickPlatMessageBoxModel;
+    PlatCommonWebViewFragment sWebViewFragment;
+
+
+    //刪除信件
+    private void reqeustDeteleMail() {
+        if (clickPlatMessageBoxModel == null){
+            return;
+        }
+        final MessageReadBean messageReadBean = new MessageReadBean(getActivity());
+        messageReadBean.setMessageId(clickPlatMessageBoxModel.getMessageId());
+        messageReadBean.setCompleteUrl("http://testwww.starb168.com/app/float/api/message/delete");
+
+        AbsHttpRequest absHttpRequest = new AbsHttpRequest() {
+            @Override
+            public BaseReqeustBean createRequestBean() {
+                return messageReadBean;
+            }
+        };
+
+        absHttpRequest.setLoadDialog(mDialog);
+        absHttpRequest.setReqCallBack(new ISReqCallBack<BaseResponseModel>() {
+            @Override
+            public void success(BaseResponseModel responseModel, String rawResult) {
+                PL.i(responseModel.getMessage());
+                if (responseModel.isRequestSuccess()){
+                    if (dataModelList != null && dataModelList.contains(clickPlatMessageBoxModel)){
+                        dataModelList.remove(clickPlatMessageBoxModel);
+                    }
+                    if (sWebViewFragment != null){
+                        sWebViewFragment.getFragmentManager().popBackStack();
+                    }
+                    messageBoxAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+        absHttpRequest.excute(BaseResponseModel.class);
+
+    }
 
 
     @Nullable
@@ -124,24 +184,25 @@ public class MessageBoxFragment extends SBaseFragment {
                 public void onItemClick(RecyclerView.Adapter adapter, int position, View itemView) {
                     PL.d("onItemClick:" + position);//position从0开始
                     if (dataModelList.size() > 0){
-                        PlatMessageBoxModel platMessageBoxModel = dataModelList.get(position);
+                        clickPlatMessageBoxModel = dataModelList.get(position);
 
                         MessageReadBean messageReadBean = new MessageReadBean(getActivity());
-                        messageReadBean.setCompleteUrl(platMessageBoxModel.getUrl());
-                        if (platMessageBoxModel.isReadStatus()) {
+                        messageReadBean.setCompleteUrl(clickPlatMessageBoxModel.getUrl());
+                        if (clickPlatMessageBoxModel.isReadStatus()) {
                             messageReadBean.setReadStatus("true");
                         }else{
                             messageReadBean.setReadStatus("false");
                         }
 
-                        messageReadBean.setMessageId(platMessageBoxModel.getMessageId());
-                        PlatCommonWebViewFragment sWebViewFragment = new PlatCommonWebViewFragment();
+                        messageReadBean.setMessageId(clickPlatMessageBoxModel.getMessageId());
+                        sWebViewFragment = new PlatCommonWebViewFragment();
+                        sWebViewFragment.setDeleteViewOnClickListener(l);
                         sWebViewFragment.setWebUrl(messageReadBean.createPreRequestUrl());
-                        sWebViewFragment.setWebTitle(platMessageBoxModel.getTitle());
+                        sWebViewFragment.setWebTitle(clickPlatMessageBoxModel.getTitle());
                         sWebViewFragment.setShowBackView(true);
                         ((PlatMainActivity)getActivity()).changeFragment(sWebViewFragment);
 
-                        platMessageBoxModel.setReadStatus(true);
+                        clickPlatMessageBoxModel.setReadStatus(true);
 
                         messageBoxAdapter.notifyDataSetChanged();
                     }
@@ -188,11 +249,11 @@ public class MessageBoxFragment extends SBaseFragment {
 
                 }else {
 
+                    if (dataModelList != null){//先清除数据
+                        dataModelList.clear();
+                    }
                     List<PlatMessageBoxModel> tempData = baseModel.getData();
                     if (tempData != null && tempData.size() > 0){
-                        if (dataModelList != null){//先清除数据
-                            dataModelList.clear();
-                        }
                         pagingLoadBean.increasePage();//页数增加
                         eeeSwipeRefreshLayout.setLoadMoreCount(tempData.size());//设置多少个出现loadmore
                         dataModelList = tempData;
@@ -248,13 +309,6 @@ public class MessageBoxFragment extends SBaseFragment {
 
     }
 
-
-
-
-//    protected abstract void onFragmentCreateView(InformantionFragment baseSwipeRefreshFragment, EEESwipeRefreshLayout eeeSwipeRefreshLayout, RecyclerView.Adapter recylerViewAdapter);
-//    protected abstract void onRecylerRefresh(InformantionFragment baseSwipeRefreshFragment, EEESwipeRefreshLayout eeeSwipeRefreshLayout, RecyclerView.Adapter recylerViewAdapter);
-//
-//    protected abstract void onLoadMoreData(InformantionFragment baseSwipeRefreshFragment, EEESwipeRefreshLayout eeeSwipeRefreshLayout, RecyclerView.Adapter recylerViewAdapter);
 
 
     public void refreshFinish(){

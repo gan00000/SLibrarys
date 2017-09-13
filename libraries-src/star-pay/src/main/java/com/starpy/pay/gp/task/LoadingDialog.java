@@ -8,7 +8,7 @@ import android.content.DialogInterface;
 import com.starpy.base.utils.SLog;
 
 /**
- * Created by Efun on 2017/2/23.
+ * Created by gan on 2017/2/23.
  */
 
 public class LoadingDialog {

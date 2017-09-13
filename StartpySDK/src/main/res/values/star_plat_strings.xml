@@ -41,6 +41,7 @@
     <string name="plat_has_get_gift">您已經領取禮包</string>
     <string name="plat_copy_success">序號%s複製成功</string>
     <string name="plat_phone_num_format_error">該區號手機號碼格式錯誤</string>
+    <string name="plat_mail_delete">刪除</string>
 
 
 </resources>

@@ -41,6 +41,6 @@
     <string name="plat_has_get_gift">Collected</string>
     <string name="plat_copy_success">CDKEY Copied</string>
     <string name="plat_phone_num_format_error">Telnum form incorrect</string>
-
+    <string name="plat_mail_delete">delete</string>
 
 </resources>

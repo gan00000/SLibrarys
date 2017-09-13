@@ -217,7 +217,7 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
                         }
                         webPayReqBean.setCompleteUrl(payThirdUrl);
 
-                        openPlatWebViewFragment(webPayReqBean.createPreRequestUrl(),platMenuModel.getName(),platMenuModel.getName());
+                        openPlatWebViewFragmentForPay(webPayReqBean.createPreRequestUrl(),platMenuModel.getName(),platMenuModel.getName());
 
 
                     }else if (platMenuModel.getItemId().equals("service")){
@@ -368,6 +368,16 @@ public class PlatMainActivity extends AppCompatActivity implements PlatContract.
         PlatCommonWebViewFragment sWebViewFragment = new PlatCommonWebViewFragment();
         sWebViewFragment.setWebUrl(url);
         sWebViewFragment.setWebTitle(title);
+        sWebViewFragment.setFragmentTag("platMenuFragment_"+ tag);
+        changeFragment(sWebViewFragment);
+    }
+
+    public void openPlatWebViewFragmentForPay(String url,String title,String tag){
+        PlatCommonWebViewFragment sWebViewFragment = new PlatCommonWebViewFragment();
+        sWebViewFragment.setWebUrl(url);
+        sWebViewFragment.setWebTitle(title);
+        sWebViewFragment.setShowTitleView(false);
+        sWebViewFragment.setShowWebViewCloseViwe(true);
         sWebViewFragment.setFragmentTag("platMenuFragment_"+ tag);
         changeFragment(sWebViewFragment);
     }

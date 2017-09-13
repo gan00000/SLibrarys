@@ -22,6 +22,7 @@ public class PlatCommonWebViewFragment extends SWebViewFragment {
     View backView;
 
     private boolean isShowBackView;
+    private boolean isShowTitleView = true;
 
     public void setShowBackView(boolean showBackView) {
         isShowBackView = showBackView;
@@ -31,6 +32,14 @@ public class PlatCommonWebViewFragment extends SWebViewFragment {
         this.webTitle = webTitle;
     }
 
+    public boolean isShowTitleView() {
+        return isShowTitleView;
+    }
+
+    public void setShowTitleView(boolean showTitleView) {
+        isShowTitleView = showTitleView;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,8 +47,14 @@ public class PlatCommonWebViewFragment extends SWebViewFragment {
     }
 
 
+    private View.OnClickListener deleteViewOnClickListener;
+
+    public void setDeleteViewOnClickListener(View.OnClickListener deleteViewOnClickListener) {
+        this.deleteViewOnClickListener = deleteViewOnClickListener;
+    }
+
     @Override
-    public View onCreateViewForTitle(LayoutInflater inflater, @Nullable ViewGroup container) {
+    public View onCreateViewForTitle(LayoutInflater inflater, @Nullable ViewGroup container,View contentView) {
         titleLayout = inflater.inflate(R.layout.plat_menu_content_title_layout,container,false);
         backView = titleLayout.findViewById(R.id.plat_title_back_tv);
         if (isShowBackView) {
@@ -62,6 +77,19 @@ public class PlatCommonWebViewFragment extends SWebViewFragment {
                 getFragmentManager().popBackStack();
             }
         });
+
+        if (isShowTitleView){
+            titleLayout.setVisibility(View.VISIBLE);
+        }else {
+            titleLayout.setVisibility(View.GONE);
+        }
+
+        if (deleteViewOnClickListener != null) {
+            View deleteView = contentView.findViewById(R.id.s_base_web_view_delete);
+            deleteView.setVisibility(View.VISIBLE);
+            deleteView.setOnClickListener(deleteViewOnClickListener);
+        }
+
 
         return titleLayout;
     }

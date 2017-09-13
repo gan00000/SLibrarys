@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.starpy.sdk">
 
+    <!--需要添加以下配置 start-->
+
     <uses-permission android:name="android.permission.INTERNET" />
     <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -26,27 +28,40 @@
         android:name="android.hardware.location.NETWORK"
         android:required="false" />
 
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
     <application>
 
         <activity
             android:name="com.starpy.sdk.login.SLoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|fontScale"
             android:screenOrientation="sensorLandscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/Starpy.Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
         <activity
             android:name="com.starpy.sdk.SWebViewActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|fontScale"
             android:screenOrientation="sensorLandscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/Starpy.Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
         <activity
             android:name="com.starpy.pay.gp.GooglePayActivity2"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|fontScale"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="sensorLandscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+            android:theme="@style/Starpy.Theme.AppCompat.Light.NoActionBar.FullScreen.Translucent"
+            ></activity>
 
         <activity android:name="com.starpy.sdk.plat.PlatMainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|fontScale"
             android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/Starpy.Theme.AppCompat.Light.NoActionBar.FullScreen"/>
 
 
@@ -126,5 +141,7 @@
         <!--play-services config end-->
 
     </application>
+
+    <!--需要添加以下配置 end-->
 
 </manifest>

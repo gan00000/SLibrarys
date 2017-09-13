@@ -3,13 +3,14 @@ package com.starpy.pay.gp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.starpy.pay.IPay;
 import com.starpy.pay.IPayCallBack;
 import com.starpy.pay.IPayFactory;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 
-public class GooglePayActivity2 extends Activity {
+public class GooglePayActivity2 extends AppCompatActivity {
 
 	public static final String GooglePayReqBean_Extra_Key = "GooglePayReqBean_Extra_Key";
 	public static final int GooglePayReqeustCode = 90;

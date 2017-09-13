@@ -262,7 +262,7 @@ public class GooglePayImpl implements IPay {
                     if (createOrderIdRes!=null && !TextUtils.isEmpty(createOrderIdRes.getMessage())){
                         ToastUtils.toast(activity,createOrderIdRes.getMessage());
                     }
-                    callbackFail("order id error, please try again");
+                    callbackFail("create orderId error, please try again");
                 }
             }
 

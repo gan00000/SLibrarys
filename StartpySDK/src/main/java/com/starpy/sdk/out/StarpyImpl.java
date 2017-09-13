@@ -160,7 +160,7 @@ public class StarpyImpl implements IStarpy {
         csReqeustBean.setRequestSpaUrl(ResConfig.getCsSpareUrl(activity));
         csReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_cs_method));
 
-        csWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
+        csWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
 
         csWebViewDialog.setWebUrl(csReqeustBean.createPreRequestUrl());
 
@@ -183,7 +183,7 @@ public class StarpyImpl implements IStarpy {
         webviewReqeustBean.setRequestSpaUrl(ResConfig.getActivitySpareUrl(activity));
         webviewReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_act_dynamic_method));
 
-        SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
+        SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
 
         sWebViewDialog.setWebUrl(webviewReqeustBean.createPreRequestUrl());
 
@@ -277,7 +277,7 @@ public class StarpyImpl implements IStarpy {
 
         String webUrl = webPayReqBean.createPreRequestUrl();
 
-        otherPayWebViewDialog = new SWebViewDialog(activity, R.style.StarDialogTheme);
+        otherPayWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
 
         otherPayWebViewDialog.setWebUrl(webUrl);
 

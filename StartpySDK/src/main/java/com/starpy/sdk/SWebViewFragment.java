@@ -28,6 +28,13 @@ public class SWebViewFragment extends SBaseFragment {
     private View contentView;
 
     private RelativeLayout titleContentLayout;
+    private View closeContentLayout;
+
+    private boolean showWebViewCloseViwe = false;
+
+    public void setShowWebViewCloseViwe(boolean showWebViewCloseViwe) {
+        this.showWebViewCloseViwe = showWebViewCloseViwe;
+    }
 
     @Nullable
     @Override
@@ -39,20 +46,33 @@ public class SWebViewFragment extends SBaseFragment {
         sWebView = (SWebView) contentView.findViewById(R.id.s_webview_id);
 
         titleContentLayout = (RelativeLayout) contentView.findViewById(R.id.s_base_web_view_title_content);
+        closeContentLayout = contentView.findViewById(R.id.s_base_web_view_close_layout);
 
-        View titleLayout = onCreateViewForTitle(inflater, container);
+        View titleLayout = onCreateViewForTitle(inflater, container,contentView);
 
         if (titleLayout != null){
             titleContentLayout.removeAllViews();
             titleContentLayout.addView(titleLayout);
         }
 
+        if (showWebViewCloseViwe){
+            closeContentLayout.setVisibility(View.VISIBLE);
+        }else {
+            closeContentLayout.setVisibility(View.GONE);
+        }
+        closeContentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+
         return contentView;
 
 
     }
 
-    public View onCreateViewForTitle(LayoutInflater inflater, @Nullable ViewGroup container) {
+    public View onCreateViewForTitle(LayoutInflater inflater, @Nullable ViewGroup container,View contentView) {
         return null;
     }
 
