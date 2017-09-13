@@ -11,15 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.core.base.SBaseFragment;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
 import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 import com.starpy.sdk.R;
+import com.starpy.sdk.SSdkBaseFragment;
 import com.starpy.sdk.callback.RecylerViewItemClickListener;
 import com.starpy.sdk.plat.PlatMainActivity;
 import com.starpy.sdk.plat.adapter.PlatInfoRecyclerViewAdapter;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class InformantionFragment extends SBaseFragment {
+public class InformantionFragment extends SSdkBaseFragment {
 
     protected EEESwipeRefreshLayout eeeSwipeRefreshLayout;
 

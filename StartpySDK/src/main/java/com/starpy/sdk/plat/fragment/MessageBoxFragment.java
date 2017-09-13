@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.core.base.SBaseFragment;
 import com.core.base.bean.BaseReqeustBean;
 import com.core.base.bean.BaseResponseModel;
 import com.core.base.callback.ISReqCallBack;
@@ -21,6 +20,7 @@ import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 import com.starpy.sdk.R;
+import com.starpy.sdk.SSdkBaseFragment;
 import com.starpy.sdk.callback.RecylerViewItemClickListener;
 import com.starpy.sdk.plat.PlatMainActivity;
 import com.starpy.sdk.plat.adapter.PlatMessageBoxAdapter;
@@ -37,7 +37,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class MessageBoxFragment extends SBaseFragment {
+public class MessageBoxFragment extends SSdkBaseFragment {
 
     protected EEESwipeRefreshLayout eeeSwipeRefreshLayout;
 

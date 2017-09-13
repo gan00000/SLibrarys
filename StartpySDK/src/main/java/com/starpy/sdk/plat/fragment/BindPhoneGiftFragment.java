@@ -13,20 +13,20 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.core.base.SBaseFragment;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
-import com.starpy.base.utils.StarPyUtil;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SSdkBaseRequestBean;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.BaseLoginRequestTask;
 import com.starpy.data.login.request.AccountBindPhoneEmailBean;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
+import com.starpy.sdk.SSdkBaseFragment;
 import com.starpy.sdk.plat.data.bean.response.GiftGetSuccessModel;
 import com.starpy.sdk.plat.data.bean.response.PhoneAreaCodeModel;
 import com.starpy.sdk.plat.data.bean.response.UserBindInfoModel;
@@ -39,7 +39,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class BindPhoneGiftFragment extends SBaseFragment {
+public class BindPhoneGiftFragment extends SSdkBaseFragment {
 
     private Dialog mDialog;
 

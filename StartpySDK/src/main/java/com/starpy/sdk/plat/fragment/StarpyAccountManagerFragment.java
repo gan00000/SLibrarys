@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.core.base.SBaseFragment;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
@@ -20,12 +19,13 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.ChangePwdRequestTask;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
+import com.starpy.sdk.SSdkBaseFragment;
 import com.starpy.sdk.plat.PlatMainActivity;
 import com.starpy.sdk.plat.data.bean.response.UserBindInfoModel;
 import com.starpy.sdk.utils.DialogUtil;
 
 
-public class StarpyAccountManagerFragment extends SBaseFragment {
+public class StarpyAccountManagerFragment extends SSdkBaseFragment {
 
     private Dialog mDialog;
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.starpy.base.utils.Localization;
 import com.starpy.sdk.SBaseRelativeLayout;
 import com.starpy.sdk.login.SLoginDialog;
 import com.starpy.sdk.login.SLoginDialogV2;
@@ -57,6 +58,9 @@ public abstract class SLoginBaseRelativeLayout extends SBaseRelativeLayout {
 
     private void initView(Context context) {
         this.context = context;
+
+        Localization.updateSGameLanguage(getActivity());
+
         inflater = LayoutInflater.from(context);
         View contentView = createView(this.context, inflater);
 

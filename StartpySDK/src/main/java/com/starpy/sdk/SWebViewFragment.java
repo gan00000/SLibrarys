@@ -12,13 +12,12 @@ import android.widget.RelativeLayout;
 
 import com.core.base.BaseWebChromeClient;
 import com.core.base.BaseWebViewClient;
-import com.core.base.SBaseFragment;
 import com.core.base.SWebView;
 import com.core.base.utils.PL;
 import com.core.base.utils.ToastUtils;
 
 
-public class SWebViewFragment extends SBaseFragment {
+public class SWebViewFragment extends SSdkBaseFragment {
 
     private SWebView sWebView;
     private String webUrl;

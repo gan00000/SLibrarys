@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.core.base.SBaseFragment;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
@@ -19,6 +18,7 @@ import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
+import com.starpy.sdk.SSdkBaseFragment;
 import com.starpy.sdk.login.LoginContract;
 import com.starpy.sdk.login.p.LoginPresenterImpl;
 import com.starpy.sdk.plat.data.bean.response.UserBindInfoModel;
@@ -27,7 +27,7 @@ import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleSignIn;
 
 
-public class NotStarpyAccountManagerFragment extends SBaseFragment implements LoginContract.ILoginView {
+public class NotStarpyAccountManagerFragment extends SSdkBaseFragment implements LoginContract.ILoginView {
 
     private Dialog mDialog;
 

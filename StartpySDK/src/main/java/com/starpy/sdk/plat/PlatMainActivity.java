@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,24 +15,25 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 
 import com.core.base.SBaseFragment;
+import com.core.base.bean.BaseReqeustBean;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.AbsHttpRequest;
-import com.core.base.bean.BaseReqeustBean;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
+import com.starpy.base.bean.SGameBaseRequestBean;
+import com.starpy.base.bean.SSdkBaseRequestBean;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.base.bean.SGameBaseRequestBean;
-import com.starpy.base.bean.SSdkBaseRequestBean;
 import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.execute.BaseLoginRequestTask;
 import com.starpy.data.login.request.AccountInjectionRequestBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
 import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.R;
+import com.starpy.sdk.SBaseSdkActivity;
 import com.starpy.sdk.plat.adapter.PlatMenuGridViewAdapter;
 import com.starpy.sdk.plat.data.PlatContract;
 import com.starpy.sdk.plat.data.bean.response.PhoneAreaCodeModel;
@@ -55,7 +55,7 @@ import com.starpy.sdk.plat.fragment.StarpyAccountManagerFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlatMainActivity extends AppCompatActivity implements PlatContract.IPlatView {
+public class PlatMainActivity extends SBaseSdkActivity implements PlatContract.IPlatView {
 
     private static final String TAG = PlatMainActivity.class.getCanonicalName();
     private DrawerLayout mDrawerLayout;

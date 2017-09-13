@@ -1,32 +1,23 @@
-package com.starpy.sdk.login.fragment;
+package com.starpy.sdk;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.core.base.SBaseFragment;
 import com.starpy.base.utils.Localization;
-import com.starpy.sdk.SSdkBaseFragment;
-import com.starpy.sdk.login.SLoginActivity;
 
 /**
- * Created by Efun on 2017/2/6.
+ * Created by gan on 2017/2/6.
  */
 
-public class BaseFragment extends SSdkBaseFragment {
-
-//    protected Dialog loadingDialog;
-    protected View backView;
-    protected TextView titleTextView;
-    SLoginActivity sLoginActivity;
+public class SSdkBaseFragment extends SBaseFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadingDialog = DialogUtil.createLoadingDialog(getActivity(), "Loading...");
-        sLoginActivity = (SLoginActivity) getActivity();
         Localization.updateSGameLanguage(getActivity());
 
     }
