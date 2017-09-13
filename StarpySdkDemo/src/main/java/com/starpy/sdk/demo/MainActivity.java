@@ -17,7 +17,6 @@ import com.starpy.base.utils.SLog;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
-import com.starpy.sdk.SWebViewDialog;
 import com.starpy.sdk.out.ISdkCallBack;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
@@ -180,12 +179,7 @@ public class MainActivity extends Activity {
                  * level：游戏等级
                  * vipLevel：vip等级，没有就写""
                  */
-//                iStarpy.openWebview(MainActivity.this,"roleLevel","10");
-                SWebViewDialog sWebViewDialog = new SWebViewDialog(MainActivity.this, com.starpy.sdk.R.style.StarDialogTheme);
-
-                sWebViewDialog.setWebUrl("https://line.naver.jp/R/msg/text/?《六龍御天》入駐新服S41，直升貴族50d%0ahttps://6king.efuntw.com/page/new_39852.html");
-
-                sWebViewDialog.show();
+                iStarpy.openWebview(MainActivity.this,"roleLevel","10");
             }
         });
 
