@@ -1,7 +1,5 @@
 package com.core.base.utils;
 
-import java.util.ArrayList;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,9 +9,24 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import java.util.ArrayList;
+
+/*
+
+权限请求时
+一  设备api>=23
+1.targetVerison >=23 默认权限关闭，动态请求弹出权限请求对话框，（AndroidMenifest.xml必须要配置相应的权限，不然请求无效，不会弹出对话框）
+2.targetVerison < 23 默认权限开启，不能动态请求权限；但可在应用程序进行开关设置
+
+二  设备api<23
+
+targetVerison为任何值都不需要请求，请求也无效
+*/
+
+
 public class PermissionUtil {
 
-	private static final String TAG = "efun_PermissionUtil";
+	private static final String TAG = "PermissionUtil";
 
 	public PermissionUtil() {
 		// TODO Auto-generated constructor stub
@@ -193,6 +206,7 @@ public class PermissionUtil {
     }*/
 	
     public static boolean moreThan23(){
+		PL.i("Build.VERSION.SDK_INT:" + Build.VERSION.SDK_INT);//设备系统api版本
     	if (Build.VERSION.SDK_INT < 23) {
     		return false;
     	}
