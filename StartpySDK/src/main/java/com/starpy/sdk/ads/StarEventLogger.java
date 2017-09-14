@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
+import com.appsflyer.AFInAppEventParameterName;
 import com.appsflyer.AppsFlyerLib;
 import com.core.base.bean.BaseResponseModel;
 import com.core.base.callback.ISReqCallBack;
@@ -18,6 +19,9 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleProxy;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by gan on 2017/3/3.
@@ -53,6 +57,11 @@ public class StarEventLogger {
 
     public static void trackinRegisterEvent(Activity activity){
         SFacebookProxy.trackingEvent(activity,"starpy_register_event_android");
+
+        Map<String, Object> eventValue = new HashMap<String, Object>();
+        eventValue.put(AFInAppEventParameterName.REVENUE,1);
+        AppsFlyerLib.getInstance().trackEvent(activity,"AndroidReg",eventValue);
+
     }
 
     public static void trackinPayEvent(Activity activity, double payVaule){
