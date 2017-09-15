@@ -64,7 +64,7 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
 makeLibraryJar.dependsOn(clearJar,build)
 
 def getJarName(){
-    return "py-third-1.7"
+    return "py-third-1.8"
 }
 
 
