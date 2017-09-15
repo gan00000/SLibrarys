@@ -18,6 +18,7 @@ import com.core.base.utils.PL;
 import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SSdkBaseFragment;
 import com.starpy.sdk.callback.RecylerViewItemClickListener;
@@ -149,7 +150,7 @@ public class InformantionFragment extends SSdkBaseFragment {
             @Override
             public BaseReqeustBean createRequestBean() {
 
-                pagingLoadBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/float/api/information");
+                pagingLoadBean.setCompleteUrl(ResConfig.getPlatPreferredUrl(getActivity()) + "app/float/api/information");
                 return pagingLoadBean;
             }
         };

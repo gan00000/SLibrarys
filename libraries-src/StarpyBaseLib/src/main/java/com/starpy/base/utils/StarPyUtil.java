@@ -18,7 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by Efun on 2017/2/7.
+ * Created by gan on 2017/2/7.
  */
 
 public class StarPyUtil {
@@ -34,7 +34,7 @@ public class StarPyUtil {
 
     public static final String STARPY_LOGIN_SERVER_RETURN_DATA = "STARPY_LOGIN_SERVER_RETURN_DATA";//保存服务端返回的数据
 
-    public static final String STARPY_SDK_CFG = "STARPY_SDK_CFG";//保存sdk配置
+    public static final String STARPY_SDK_CFG = "STARPY_SDK_CFG";//保存sdk配置 cdn文件
     public static final String STARPY_SDK_LOGIN_TERMS = "STARPY_SDK_LOGIN_TERMS";
     public static final String STARPY_MAC_LOGIN_USERNAME = "STARPY_MAC_LOGIN_USERNAME";
     public static final String STARPY_MAC_LOGIN_PASSWORD = "STARPY_MAC_LOGIN_PASSWORD";
@@ -44,6 +44,10 @@ public class StarPyUtil {
     public static void saveSdkCfg(Context context,String cfg){
         SPUtil.saveSimpleInfo(context,STAR_PY_SP_FILE,STARPY_SDK_CFG,cfg);
     }
+    public static String getSdkCfgString(Context context){
+        return SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_SDK_CFG);
+    }
+
 
     private static ConfigBean configBean;
 
@@ -51,7 +55,7 @@ public class StarPyUtil {
 //        if (configBean != null){//缓存
 //            return configBean;
 //        }
-        String cfg = SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_SDK_CFG);
+        String cfg = getSdkCfgString(context);
         if (JsonUtil.isJson(cfg)){
             try {
                 Gson gson = new Gson();
@@ -236,8 +240,7 @@ public class StarPyUtil {
 
     public static String getCfgValueByKey(Context context, String key, String defaultValue) {
 
-        //String sdkCfg = StarPyUtil.getSdkCfg(context);
-        String cfg = SPUtil.getSimpleString(context,STAR_PY_SP_FILE,STARPY_SDK_CFG);
+        String cfg = getSdkCfgString(context);
         return JsonUtil.getValueByKey(context,cfg, key, defaultValue);
     }
 

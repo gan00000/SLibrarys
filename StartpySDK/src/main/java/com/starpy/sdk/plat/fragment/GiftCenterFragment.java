@@ -18,6 +18,7 @@ import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 import com.starpy.base.bean.SGameBaseRequestBean;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SSdkBaseFragment;
 import com.starpy.sdk.callback.RecylerViewItemClickListener;
@@ -162,7 +163,7 @@ public class GiftCenterFragment extends SSdkBaseFragment {
             @Override
             public BaseReqeustBean createRequestBean() {
                 SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(getActivity());
-                gameBaseRequestBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/giftbag/api/giftbagCentreGameList");
+                gameBaseRequestBean.setCompleteUrl(ResConfig.getPlatPreferredUrl(getActivity()) + "app/giftbag/api/giftbagCentreGameList");
                 return gameBaseRequestBean;
             }
         };
@@ -201,7 +202,7 @@ public class GiftCenterFragment extends SSdkBaseFragment {
         AbsHttpRequest absHttpRequest = new AbsHttpRequest() {
             @Override
             public BaseReqeustBean createRequestBean() {
-                receiveGiftBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/giftbag/api/receiveFromGiftbagCentre");
+                receiveGiftBean.setCompleteUrl(ResConfig.getPlatPreferredUrl(getActivity()) + "app/giftbag/api/receiveFromGiftbagCentre");
                 return receiveGiftBean;
             }
         };

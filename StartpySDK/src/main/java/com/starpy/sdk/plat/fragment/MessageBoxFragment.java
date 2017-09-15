@@ -19,6 +19,7 @@ import com.core.base.utils.PL;
 import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SSdkBaseFragment;
 import com.starpy.sdk.callback.RecylerViewItemClickListener;
@@ -72,7 +73,7 @@ public class MessageBoxFragment extends SSdkBaseFragment {
         }
         final MessageReadBean messageReadBean = new MessageReadBean(getActivity());
         messageReadBean.setMessageId(clickPlatMessageBoxModel.getMessageId());
-        messageReadBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/float/api/message/delete");
+        messageReadBean.setCompleteUrl(ResConfig.getPlatPreferredUrl(getActivity()) + "app/float/api/message/delete");
 
         AbsHttpRequest absHttpRequest = new AbsHttpRequest() {
             @Override
@@ -223,7 +224,7 @@ public class MessageBoxFragment extends SSdkBaseFragment {
             @Override
             public BaseReqeustBean createRequestBean() {
 
-                pagingLoadBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/float/api/message");
+                pagingLoadBean.setCompleteUrl(ResConfig.getPlatPreferredUrl(getActivity()) + "app/float/api/message");
                 return pagingLoadBean;
             }
         };

@@ -21,6 +21,7 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SSdkBaseRequestBean;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.BaseLoginRequestTask;
 import com.starpy.data.login.request.AccountBindPhoneEmailBean;
@@ -223,7 +224,7 @@ public class BindPhoneGiftFragment extends SSdkBaseFragment {
     //领取礼包
     private void requestGetGift() {
         final SGameBaseRequestBean requestBean = new SGameBaseRequestBean(getActivity());
-        requestBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/giftbag/api/getPhoneBindGiftbag");
+        requestBean.setCompleteUrl(ResConfig.getPlatPreferredUrl(getActivity()) + "app/giftbag/api/getPhoneBindGiftbag");
         AbsHttpRequest requestTask = new AbsHttpRequest() {
             @Override
             public BaseReqeustBean createRequestBean() {

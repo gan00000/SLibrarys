@@ -5,7 +5,7 @@ import android.content.Context;
 import com.core.base.utils.SStringUtil;
 
 /**
- * Created by Efun on 2017/2/16.
+ * Created by gan on 2017/2/16.
  */
 
 public class ConfigBean {
@@ -25,8 +25,14 @@ public class ConfigBean {
     private boolean GoogleToOthersPay = false;//Google储值是否转移为第三方储值,废弃
     private String OpenOthersPay = "";//Google储值是否转移为第三方储值
 
-    private String S_CS_Pre_Url;
-    private String S_CS_Spa_Url;
+    private String star_py_cs_pre_url;
+    private String star_py_cs_spa_url;
+
+    private String star_plat_pre_url;
+    private String star_plat_spa_url;
+
+    private String star_ads_pre_url;
+    private String star_ads_spa_url;
 
     public String getS_AppKey() {
         return S_AppKey;
@@ -82,13 +88,6 @@ public class ConfigBean {
         return false;
     }
 
-    public String getS_CS_Spa_Url() {
-        return S_CS_Spa_Url;
-    }
-
-    public String getS_CS_Pre_Url() {
-        return S_CS_Pre_Url;
-    }
 
     public String getS_Act_Pre_Url() {
         return S_Act_Pre_Url;

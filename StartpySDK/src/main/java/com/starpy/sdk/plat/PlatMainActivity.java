@@ -442,7 +442,7 @@ public class PlatMainActivity extends SBaseSdkActivity implements PlatContract.I
     private void requestPhoneBindIsReceiveGiftbag() {
 
         final SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(this);
-        gameBaseRequestBean.setCompleteUrl(getString(R.string.star_py_plat_url) + "app/giftbag/api/phoneBindIsReceiveGiftbag");
+        gameBaseRequestBean.setCompleteUrl(ResConfig.getPlatPreferredUrl(this) + "app/giftbag/api/phoneBindIsReceiveGiftbag");
         AbsHttpRequest absHttpRequest = new AbsHttpRequest() {
             @Override
             public BaseReqeustBean createRequestBean() {

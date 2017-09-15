@@ -119,16 +119,10 @@ public class ResConfig {
 	}
 
 	public static String getCsPreferredUrl(Context context) {
-		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_CS_Pre_Url())){
-			return StarPyUtil.getSdkCfg(context).getS_CS_Pre_Url();
-		}
-		return getConfigUrl(context, "star_py_cs_pre_url");
+		return getCdnLocalUrl(context,"star_py_cs_pre_url");
 	}
 	public static String getCsSpareUrl(Context context) {
-		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_CS_Spa_Url())){
-			return StarPyUtil.getSdkCfg(context).getS_CS_Spa_Url();
-		}
-		return getConfigUrl(context, "star_py_cs_spa_url");
+		return getCdnLocalUrl(context,"star_py_cs_spa_url");
 	}
 
 	public static String getActivityPreferredUrl(Context context) {
@@ -168,11 +162,34 @@ public class ResConfig {
 	 * @date 2015年2月5日
 	 */
 	public static String getAdsPreferredUrl(Context context) {
-		return getConfigUrl(context, "star_ads_pre_url");
+		return getCdnLocalUrl(context, "star_ads_pre_url");
 	}
 	
 	public static String getAdsSpareUrl(Context context) {
-		return getConfigUrl(context, "star_ads_spa_url");
+		return getCdnLocalUrl(context, "star_ads_spa_url");
+	}
+
+	public static String getPlatPreferredUrl(Context context) {
+		return getCdnLocalUrl(context, "star_plat_pre_url");
+	}
+
+	public static String getPlatSpareUrl(Context context) {
+		return getCdnLocalUrl(context, "star_plat_spa_url");
+	}
+
+
+	/**
+	 * <p>Description: 先获取动态域名，然后获取本地域名，配置文件的key和本地的xml key需要一致</p>
+	 * @param context
+	 * @return
+	 */
+	public static String getCdnLocalUrl(Context context,String resName) {
+
+		String url = StarPyUtil.getCfgValueByKey(context,resName,"");
+		if (SStringUtil.isEmpty(url)){
+			url = getConfigUrl(context, resName);
+		}
+		return url;
 	}
 	
 	/**
