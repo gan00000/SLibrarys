@@ -1,15 +1,17 @@
 package com.starpy.sdk.demo;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.PL;
+import com.core.base.utils.PermissionUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
@@ -21,7 +23,7 @@ import com.starpy.sdk.out.ISdkCallBack;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private Button loginButton, othersPayButton,googlePayBtn,csButton,shareButton;
 
@@ -81,7 +83,7 @@ public class MainActivity extends Activity {
                     }
                 });
 
-                String s = StarPyUtil.encryptDyUrl(getApplicationContext(),FileUtil.readAssetsTxtFile(getApplicationContext(),"s_sdk_config2.txt"));
+                String s = StarPyUtil.encryptDyUrl(getApplicationContext(),FileUtil.readAssetsTxtFile(getApplicationContext(),"s_sdk_config_gl.txt"));
 //
                 PL.i(s);
 
@@ -186,8 +188,10 @@ public class MainActivity extends Activity {
         findViewById(R.id.open_plat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(MainActivity.this, PlatMainActivity.class));
-                iStarpy.openPlatform(MainActivity.this,"","");
+//                iStarpy.openPlatform(MainActivity.this,"","");
+                PermissionUtil.requestPermissions_PHONE_STORAGE(MainActivity.this,999);
+
+
 
             }
         });
@@ -229,5 +233,9 @@ public class MainActivity extends Activity {
         iStarpy.onDestroy(this);
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PL.i("activity onRequestPermissionsResult");
+    }
 }
