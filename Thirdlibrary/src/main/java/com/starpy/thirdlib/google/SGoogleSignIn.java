@@ -115,7 +115,7 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 	
 	public void handleActivityResult(Context context, int requestCode, int resultCode, Intent data) {
 		Log.d(TAG,"handleActivityResult --> " + requestCode + "  --> " +  resultCode);
-		if (isCancel) {
+		if (isCancel || mGoogleApiClient == null) {
 			return;
 		}
 		dimissDialog();
