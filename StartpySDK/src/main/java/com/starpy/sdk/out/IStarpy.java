@@ -31,4 +31,12 @@ public interface IStarpy extends IGameLifeCycle {
 
     public void openPlatform(Activity activity, String roleLevel, String roleVipLevel);
 
+    public void displayingAchievements();
+
+    public void unlockAchievement(String achievementID);
+
+    public void displayLeaderboard(String leaderboardID);
+
+    public void submitScore(String leaderboardID, long score);
+
 }

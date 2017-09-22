@@ -31,6 +31,7 @@ import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
 import com.starpy.sdk.plat.PlatMainActivity;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
+import com.starpy.thirdlib.google.SGooglePlayGameServices;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class StarpyImpl implements IStarpy {
     private static boolean isInitSdk = false;
 
     private SFacebookProxy sFacebookProxy;
+    private SGooglePlayGameServices sGooglePlayGameServices;
 
     private SWebViewDialog csWebViewDialog;
     private SWebViewDialog otherPayWebViewDialog;
@@ -296,6 +298,7 @@ public class StarpyImpl implements IStarpy {
         if (iLogin != null) {
             iLogin.onCreate(activity);
         }
+        sGooglePlayGameServices = new SGooglePlayGameServices(activity);
     }
 
     @Override
@@ -347,6 +350,10 @@ public class StarpyImpl implements IStarpy {
             }
             return;
         }
+
+        if (sGooglePlayGameServices != null){
+            sGooglePlayGameServices.handleActivityResult(activity, requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -375,4 +382,33 @@ public class StarpyImpl implements IStarpy {
             sFacebookProxy.onDestroy(activity);
         }
     }
+
+    @Override
+    public void displayingAchievements() {
+        if (sGooglePlayGameServices != null) {
+            sGooglePlayGameServices.displayingAchievements();
+        }
+    }
+
+    @Override
+    public void displayLeaderboard(String leaderboardID) {
+        if (sGooglePlayGameServices != null) {
+            sGooglePlayGameServices.displayLeaderboard(leaderboardID);
+        }
+    }
+
+    @Override
+    public void unlockAchievement(String achievementID) {
+        if (sGooglePlayGameServices != null){
+            sGooglePlayGameServices.unlock(achievementID);
+        }
+    }
+
+    @Override
+    public void submitScore(String leaderboardID, long score) {
+        if (sGooglePlayGameServices != null){
+            sGooglePlayGameServices.submitScore(leaderboardID, score);
+        }
+    }
+
 }

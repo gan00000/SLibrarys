@@ -20,7 +20,7 @@ public class SGooglePlayGameServices implements GoogleApiClient.OnConnectionFail
 	private static final String TAG = "SGooglePlayGameServices";
 
 	public static final int REQUEST_ACHIEVEMENTS = 9003;
-	private static final int REQUEST_LEADERBOARD = 9004;
+	public static final int REQUEST_LEADERBOARD = 9004;
 
 	private Activity activity;
 
@@ -47,7 +47,7 @@ public class SGooglePlayGameServices implements GoogleApiClient.OnConnectionFail
 	}
 
 	
-	public void startSignIn(GoogleConnectCallBack googleConnectCallBack){
+	private void startSignIn(GoogleConnectCallBack googleConnectCallBack){
 
 		if (activity == null) {
 			Log.e(TAG,"SGoogleSignIn fragmentActivity must not null");
