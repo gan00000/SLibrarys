@@ -11,7 +11,6 @@ import android.widget.Button;
 
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.PL;
-import com.core.base.utils.PermissionUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
@@ -188,13 +187,36 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.open_plat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                iStarpy.openPlatform(MainActivity.this,"","");
-                PermissionUtil.requestPermissions_PHONE_STORAGE(MainActivity.this,999);
-
-
+                iStarpy.openPlatform(MainActivity.this,"","");
 
             }
         });
+
+        findViewById(R.id.demo_google_unlock).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iStarpy.unlockAchievement("CggI-uz7vhQQAhAA");
+            }
+        });
+        findViewById(R.id.demo_dis_cj).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iStarpy.displayingAchievements();
+            }
+        });
+        findViewById(R.id.open_sumitScore).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iStarpy.submitScore("CggI-uz7vhQQAhAC",10l);
+            }
+        });
+        findViewById(R.id.open_dis_phb).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iStarpy.displayLeaderboard("CggI-uz7vhQQAhAC");
+            }
+        });
+
     }
 
     @Override
@@ -208,7 +230,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         iStarpy.onActivityResult(this, requestCode, resultCode, data);
     }
 

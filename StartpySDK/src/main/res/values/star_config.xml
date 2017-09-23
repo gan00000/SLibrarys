@@ -26,4 +26,8 @@
 
     <integer name="google_play_services_version">11011000</integer>
 
+    <!-- google play game services app_id -->
+    <string name="app_id" translatable="false">5500761722</string>
+
+
 </resources>
