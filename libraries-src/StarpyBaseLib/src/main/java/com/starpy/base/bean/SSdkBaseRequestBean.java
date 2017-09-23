@@ -61,6 +61,9 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
             signature = SStringUtil.toMd5(ResConfig.getAppKey(context) + gameCode + timestamp);
         }
         adId = StarPyUtil.getGoogleAdId(context);
+        if (SStringUtil.isEmpty(uniqueId) && SStringUtil.isNotEmpty(adId)){
+            uniqueId = adId;
+        }
         referrer = StarPyUtil.getReferrer(context);
     }
 
