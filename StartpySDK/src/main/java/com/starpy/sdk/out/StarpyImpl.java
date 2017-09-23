@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.core.base.ObjFactory;
 import com.core.base.utils.PL;
+import com.core.base.utils.PermissionUtil;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
@@ -39,6 +40,7 @@ import java.util.Map;
 
 public class StarpyImpl implements IStarpy {
 
+    private static final int PERMISSION_REQUEST_CODE = 401;
     private ILogin iLogin;
 
     private long firstClickTime;
@@ -299,6 +301,9 @@ public class StarpyImpl implements IStarpy {
             iLogin.onCreate(activity);
         }
         sGooglePlayGameServices = new SGooglePlayGameServices(activity);
+
+        //permission授权
+        PermissionUtil.requestPermissions_PHONE_STORAGE(activity,PERMISSION_REQUEST_CODE);
     }
 
     @Override
