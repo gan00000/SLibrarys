@@ -39,4 +39,6 @@ public interface IStarpy extends IGameLifeCycle {
 
     public void submitScore(String leaderboardID, long score);
 
+    public void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults);
+
 }

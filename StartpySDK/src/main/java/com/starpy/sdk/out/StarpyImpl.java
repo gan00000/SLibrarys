@@ -389,6 +389,11 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
+    public void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults) {
+        PL.i("activity onRequestPermissionsResult");
+    }
+
+    @Override
     public void displayingAchievements() {
         if (sGooglePlayGameServices != null) {
             sGooglePlayGameServices.displayingAchievements();
