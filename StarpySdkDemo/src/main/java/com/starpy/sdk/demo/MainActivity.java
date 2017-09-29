@@ -254,9 +254,16 @@ public class MainActivity extends AppCompatActivity {
         iStarpy.onDestroy(this);
     }
 
+
+    /**
+     *
+     * 6.0以上系统权限授权回调
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PL.i("activity onRequestPermissionsResult");
         iStarpy.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
     }
