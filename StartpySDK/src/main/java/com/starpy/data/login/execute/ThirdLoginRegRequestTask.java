@@ -25,7 +25,7 @@ public class ThirdLoginRegRequestTask extends BaseLoginRequestTask {
      * @param fbApps
      * @param fbTokenBusiness
      */
-    public ThirdLoginRegRequestTask(Context context, String fbScopeId, String fbApps, String fbTokenBusiness) {
+    public ThirdLoginRegRequestTask(Context context, String fbScopeId, String fbApps, String fbTokenBusiness,String accessTokenString) {
         super(context);
 
         thirdLoginRegRequestBean = new ThirdLoginRegRequestBean(context);
@@ -36,6 +36,23 @@ public class ThirdLoginRegRequestTask extends BaseLoginRequestTask {
         thirdLoginRegRequestBean.setThirdPlatId(fbScopeId);
         thirdLoginRegRequestBean.setApps(fbApps);
         thirdLoginRegRequestBean.setTokenBusiness(fbTokenBusiness);
+        thirdLoginRegRequestBean.setFb_oauthToken(accessTokenString);
+
+        thirdLoginRegRequestBean.setRequestMethod("thirdPartyLogin");
+
+
+    }
+
+    /**
+     * 其他第三方登录使用
+     * @param context
+     */
+    public ThirdLoginRegRequestTask(Context context, ThirdLoginRegRequestBean thirdLoginRegRequestBean) {
+        super(context);
+
+        this.thirdLoginRegRequestBean = thirdLoginRegRequestBean;
+
+        sdkBaseRequestBean = thirdLoginRegRequestBean;
 
         thirdLoginRegRequestBean.setRequestMethod("thirdPartyLogin");
 
@@ -48,6 +65,7 @@ public class ThirdLoginRegRequestTask extends BaseLoginRequestTask {
      * @param thirdPlatId
      * @param registPlatform
      */
+    @Deprecated
     public ThirdLoginRegRequestTask(Context context, String thirdPlatId, String registPlatform) {
         super(context);
 

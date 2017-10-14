@@ -2,6 +2,7 @@ package com.starpy.sdk.login;
 
 import android.app.Activity;
 
+import com.starpy.data.login.request.ThirdLoginRegRequestBean;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.BaseView;
 import com.starpy.IBasePresenter;
@@ -38,7 +39,7 @@ public class LoginContract {
         public void fbLogin(Activity activity);
         public void googleLogin(Activity activity);
 
-        public void thirdPlatLogin(Activity activity, String thirdPlatId, String registPlatform);
+        public void thirdPlatLogin(Activity activity, ThirdLoginRegRequestBean thirdLoginRegRequestBean);
 
         public void macLogin(Activity activity);
 

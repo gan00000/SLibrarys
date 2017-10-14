@@ -29,6 +29,17 @@ public class ThirdLoginRegRequestBean extends AdsRequestBean {
 	private String apps = "";
 	private String tokenBusiness = "";//编码（标志明文密文）
 
+	/**
+	 * fb服务端验证token
+	 */
+	private String fb_oauthToken;
+
+	/**
+	 * google服务端验证token
+	 */
+	private String googleIdToken;
+	private String googleClientId;
+
 	public String getRegistPlatform() {
 		return registPlatform;
 	}
@@ -59,5 +70,29 @@ public class ThirdLoginRegRequestBean extends AdsRequestBean {
 
 	public void setTokenBusiness(String tokenBusiness) {
 		this.tokenBusiness = tokenBusiness;
+	}
+
+	public String getFb_oauthToken() {
+		return fb_oauthToken;
+	}
+
+	public void setFb_oauthToken(String fb_oauthToken) {
+		this.fb_oauthToken = fb_oauthToken;
+	}
+
+	public String getGoogleIdToken() {
+		return googleIdToken;
+	}
+
+	public void setGoogleIdToken(String googleIdToken) {
+		this.googleIdToken = googleIdToken;
+	}
+
+	public String getGoogleClientId() {
+		return googleClientId;
+	}
+
+	public void setGoogleClientId(String googleClientId) {
+		this.googleClientId = googleClientId;
 	}
 }

@@ -15,6 +15,7 @@ import com.core.base.utils.BitmapUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
+import com.facebook.AccessToken;
 import com.starpy.thirdlib.facebook.FbSp;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.base.bean.SLoginType;
@@ -194,7 +195,13 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
     private void fbThirdLogin(String fbScopeId, String fbApps, String fbTokenBusiness) {
 
-        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        String accessTokenString = "";
+        if (accessToken != null){
+            accessTokenString = accessToken.getToken();
+        }
+
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness,accessTokenString);
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override

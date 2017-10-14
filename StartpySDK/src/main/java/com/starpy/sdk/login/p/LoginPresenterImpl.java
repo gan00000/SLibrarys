@@ -14,6 +14,7 @@ import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
+import com.facebook.AccessToken;
 import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.AccountInjectionRequestTask;
@@ -24,6 +25,7 @@ import com.starpy.data.login.execute.FindPwdRequestTask;
 import com.starpy.data.login.execute.MacLoginRegRequestTask;
 import com.starpy.data.login.execute.ThirdAccountBindRequestTask;
 import com.starpy.data.login.execute.ThirdLoginRegRequestTask;
+import com.starpy.data.login.request.ThirdLoginRegRequestBean;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
 import com.starpy.sdk.ads.StarEventLogger;
@@ -140,13 +142,20 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         if (sGoogleSignIn == null){
             return;
         }
+        sGoogleSignIn.setClientId(getActivity().getString(R.string.google_client_id));
         sGoogleSignIn.startSignIn(new SGoogleSignIn.GoogleSignInCallBack() {
             @Override
-            public void success(String id, String mFullName, String mEmail) {
+            public void success(String id, String mFullName, String mEmail, String idTokenString) {
                 PL.i("google sign in : " + id);
                 if (SStringUtil.isNotEmpty(id)) {
                     StarPyUtil.saveGoogleId(activity,id);
-                    thirdPlatLogin(activity,id,SLoginType.LOGIN_TYPE_GOOGLE);
+                    ThirdLoginRegRequestBean thirdLoginRegRequestBean = new ThirdLoginRegRequestBean(activity);
+                    thirdLoginRegRequestBean.setThirdPlatId(id);
+                    thirdLoginRegRequestBean.setRegistPlatform(SLoginType.LOGIN_TYPE_GOOGLE);
+                    thirdLoginRegRequestBean.setGoogleClientId(activity.getString(R.string.google_client_id));
+                    thirdLoginRegRequestBean.setGoogleIdToken(idTokenString);
+
+                    thirdPlatLogin(activity, thirdLoginRegRequestBean);
                 }
             }
 
@@ -159,10 +168,10 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     }
 
     @Override
-    public void thirdPlatLogin(Activity activity, String thirdPlatId, final String registPlatform) {
+    public void thirdPlatLogin(Activity activity, final ThirdLoginRegRequestBean thirdLoginRegRequestBean) {
         this.mActivity = activity;
 
-        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),thirdPlatId,registPlatform);
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),thirdLoginRegRequestBean);
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
@@ -171,7 +180,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
                     if (sLoginResponse.isRequestSuccess()){
 
-                        handleRegisteOrLoginSuccess(sLoginResponse,rawResult, registPlatform);
+                        handleRegisteOrLoginSuccess(sLoginResponse,rawResult, thirdLoginRegRequestBean.getRegistPlatform());
                     }else{
 
                         ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
@@ -360,9 +369,10 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             if (sGoogleSignIn == null){
                 return;
             }
+            sGoogleSignIn.setClientId(getActivity().getString(R.string.google_client_id));
             sGoogleSignIn.startSignIn(new SGoogleSignIn.GoogleSignInCallBack() {
                 @Override
-                public void success(String id, String mFullName, String mEmail) {
+                public void success(String id, String mFullName, String mEmail,String idTokenString) {
                     PL.i("google sign in : " + id);
                     if (SStringUtil.isNotEmpty(id)) {
                         ThirdAccountBindRequestTask bindGoogleRequestTask = new ThirdAccountBindRequestTask(getActivity(), mAccount,mPwd, mEmail,SLoginType.LOGIN_TYPE_GOOGLE,id);
@@ -565,7 +575,12 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     private void fbThirdLogin(String fbScopeId, String fbApps, String fbTokenBusiness) {
 
-        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness);
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        String accessTokenString = "";
+        if (accessToken != null){
+            accessTokenString = accessToken.getToken();
+        }
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness,accessTokenString);
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
@@ -738,7 +753,12 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
                             }else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_GOOGLE, registPlatform)){//Google登录
 
-                                thirdPlatLogin(activity,StarPyUtil.getGoogleId(activity),SLoginType.LOGIN_TYPE_GOOGLE);
+                                ThirdLoginRegRequestBean thirdLoginRegRequestBean = new ThirdLoginRegRequestBean(activity);
+                                thirdLoginRegRequestBean.setThirdPlatId(StarPyUtil.getGoogleId(activity));
+                                thirdLoginRegRequestBean.setRegistPlatform(SLoginType.LOGIN_TYPE_GOOGLE);
+                                thirdLoginRegRequestBean.setGoogleClientId(activity.getString(R.string.google_client_id));
+                                thirdLoginRegRequestBean.setGoogleIdToken(StarPyUtil.getGoogleIdToken(activity));
+                                thirdPlatLogin(activity, thirdLoginRegRequestBean);
                             }
 
                             if (autoLoginTimer != null){

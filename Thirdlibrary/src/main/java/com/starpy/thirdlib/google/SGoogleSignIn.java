@@ -25,6 +25,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.starpy.base.utils.StarPyUtil;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -52,7 +53,13 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 	private static final int REQUEST_RESOLVE_ERROR = 1001;
 	// Unique tag for the error dialog fragment
 	private static final String DIALOG_ERROR = "dialog_error";
-	
+
+	private String clientId = "";
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
 	public SGoogleSignIn(Activity activity) {
 
 		if (activity == null) {
@@ -86,7 +93,12 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 		// profile. ID and
 		// basic profile are included in DEFAULT_SIGN_IN.
 		if (mGoogleApiClient == null) {
-			GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().requestId().build();
+			GoogleSignInOptions gso;
+			if (TextUtils.isEmpty(clientId)){
+				gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().requestId().build();
+			}else {
+				gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().requestId().requestIdToken(clientId).build();
+			}
 
 			// Build a GoogleApiClient with access to SGoogleSignIn.API and the
 			// options above.
@@ -131,8 +143,14 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 	            String id = acct.getId();
 	            Log.d(TAG, "mFullName：" + mFullName + ",mEmail:" + mEmail + ",id:" + id);
 
-	            if (googleSignInCallBack != null) {
-	            	googleSignInCallBack.success(id, mFullName, mEmail);
+				String idToken = acct.getIdToken();
+				Log.d(TAG, "idToken：" + idToken);
+				if (idToken == null){
+					idToken = "";
+				}
+				StarPyUtil.saveGoogleIdToken(context,idToken);
+				if (googleSignInCallBack != null) {
+	            	googleSignInCallBack.success(id, mFullName, mEmail, idToken);
 				}
 			} else {
 				Log.d(TAG, "失败");
@@ -294,7 +312,7 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 
 
 	public interface GoogleSignInCallBack{
-		void success(String id, String mFullName, String mEmail);
+		void success(String id, String mFullName, String mEmail, String idTokenString);
 		void failure();
 	}
 

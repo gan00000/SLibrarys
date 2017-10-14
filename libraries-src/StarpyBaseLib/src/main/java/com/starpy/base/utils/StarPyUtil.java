@@ -310,4 +310,11 @@ public class StarPyUtil {
     public static String getReferrer(Context context){
         return SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_INSTALL_REFERRER);
     }
+    private static final String STARPY_GOOGLE_TOKEN_ID_STRING = "STARPY_GOOGLE_TOKEN_ID_STRING";
+    public static void saveGoogleIdToken(Context context, String idTokenString){
+        SPUtil.saveSimpleInfo(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_TOKEN_ID_STRING,idTokenString);
+    }
+    public static String getGoogleIdToken(Context context){
+        return SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_TOKEN_ID_STRING);
+    }
 }

@@ -14,6 +14,7 @@ import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
+import com.facebook.AccessToken;
 import com.starpy.thirdlib.facebook.FbSp;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.sdk.ads.StarEventLogger;
@@ -329,7 +330,13 @@ public class SLoginActivity extends SBaseSdkActivity {
 
     private void fbThirdLogin(final SLoginActivity sLoginActivity, String fbScopeId, String fbApps) {
 
-        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(sLoginActivity,fbScopeId,fbApps,FbSp.getTokenForBusiness(sLoginActivity));
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        String accessTokenString = "";
+        if (accessToken != null){
+            accessTokenString = accessToken.getToken();
+        }
+
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(sLoginActivity,fbScopeId,fbApps,FbSp.getTokenForBusiness(sLoginActivity),accessTokenString);
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(sLoginActivity, "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override

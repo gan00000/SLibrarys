@@ -259,6 +259,7 @@ public class SFacebookProxy {
 				}else{
 					user.setUserId(result.getAccessToken().getUserId());
 				}
+				user.setAccessTokenString(AccessToken.getCurrentAccessToken().getToken());
 				//fbLoginCallBack.onSuccess(user);
 				FbSp.saveFbId(activity,user.getUserId());
 				requestTokenForBusines(activity,user, fbLoginCallBack);
@@ -303,6 +304,7 @@ public class SFacebookProxy {
 					user.setName(p.getName());
 					user.setMiddleName(p.getMiddleName());
 					user.setLinkUri(p.getLinkUri());
+					user.setAccessTokenString(accessToken.getToken());
 //					fbLoginCallBack.onSuccess(user);
 					FbSp.saveFbId(activity,user.getUserId());
 					requestTokenForBusines(activity,user, fbLoginCallBack);
@@ -1055,7 +1057,7 @@ public class SFacebookProxy {
 	}
 	
 	public void onDestroy(Activity activity) {
-		fbLogout(activity);
+		//fbLogout(activity);
 	}
 	
 
@@ -1135,6 +1137,8 @@ public class SFacebookProxy {
 		private Uri pictureUri;
 
 		private String tokenForBusiness;
+		private String accessTokenString;
+
 
 		/**
 		 * @return the firstName
@@ -1221,6 +1225,14 @@ public class SFacebookProxy {
 
 		public void setPictureUri(Uri pictureUri) {
 			this.pictureUri = pictureUri;
+		}
+
+		public String getAccessTokenString() {
+			return accessTokenString;
+		}
+
+		public void setAccessTokenString(String accessTokenString) {
+			this.accessTokenString = accessTokenString;
 		}
 
 		@Override
