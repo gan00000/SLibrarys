@@ -152,10 +152,13 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     }
 
     private void initAutoLoginView() {
-        autoLoginLayout = (RelativeLayout) findViewById(R.id.py_auto_login_page);
-        autoLoginTips = (TextView) findViewById(R.id.py_auto_login_tips);
-        autoLoginWaitTime = (TextView) findViewById(R.id.py_auto_login_wait_time);
-        autoLoginChangeAccount = (TextView) findViewById(R.id.py_auto_login_change);
+        if (autoLoginPage == null){
+            return;
+        }
+        autoLoginLayout = (RelativeLayout) autoLoginPage.findViewById(R.id.py_auto_login_page);
+        autoLoginTips = (TextView) autoLoginPage.findViewById(R.id.py_auto_login_tips);
+        autoLoginWaitTime = (TextView) autoLoginPage.findViewById(R.id.py_auto_login_wait_time);
+        autoLoginChangeAccount = (TextView) autoLoginPage.findViewById(R.id.py_auto_login_change);
         autoLoginChangeAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

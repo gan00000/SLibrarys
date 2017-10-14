@@ -1,12 +1,12 @@
 package com.core.base.utils;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import java.util.HashMap;
+import java.util.Map;
 /**
  * 文件存储
  *
@@ -180,7 +180,7 @@ public class SPUtil {
      * 保存数据
      */
     private static void save(Context context, String fileName, Map<String, ?> map){
-    	 SharedPreferences.Editor editor = getEditor(context, fileName);
+		SharedPreferences.Editor editor = getEditor(context, fileName);
         for (Map.Entry<String, ?> entry : map.entrySet()){
             String key = entry.getKey();
             Object value = entry.getValue();

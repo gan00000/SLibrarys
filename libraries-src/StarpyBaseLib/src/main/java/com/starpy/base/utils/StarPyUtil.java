@@ -103,7 +103,7 @@ public class StarPyUtil {
     }
 
     public static String getPreviousLoginType(Context context){
-        return decryptPassword(SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_PREVIOUS_LOGIN_TYPE));
+        return SPUtil.getSimpleString(context,STAR_PY_SP_FILE, STARPY_PREVIOUS_LOGIN_TYPE);
     }
 
 //    private final static String cipherKey = "20170314starpypassword";
