@@ -158,7 +158,7 @@ public class StarPyUtil {
             m = FileUtil.readAssetsTxtFile(context,"starpy/" + gameLanguage + "/s_sdk_login_terms.txt");
         }
         if (isXM(context)){
-            m = m.replaceAll("新玩意整合行銷有限公司","星盟網絡科技有限公司");
+            m = m.replaceAll("新玩意整合行銷有限公司","Starpy網絡科技有限公司");
         }
         return m;
     }
