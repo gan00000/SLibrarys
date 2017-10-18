@@ -23,7 +23,8 @@ android {
 
 dependencies {
     compile files('libs/gson-2.2.4.jar')
-    compile project(':AppCompat')
+//    compile project(':AppCompat')
+    compile project(':facebook:facebook-android-sdk-4.25')
 }
 
 //./gradlew makeJar 出现env: bash\r: No such file or directory的话是由
