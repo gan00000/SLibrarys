@@ -83,7 +83,9 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 
 	
 	public void startSignIn(GoogleSignInCallBack googleSignInCallBack){
-
+		if (!SGoogleProxy.isGooglePlayServicesAvailableToast(activity)){
+			return;
+		}
 		if (activity == null) {
 			Log.e(TAG,"SGoogleSignIn fragmentActivity must not null");
 			return;

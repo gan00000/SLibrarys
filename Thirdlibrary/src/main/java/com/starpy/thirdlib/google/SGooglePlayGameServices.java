@@ -150,6 +150,11 @@ public class SGooglePlayGameServices implements GoogleApiClient.OnConnectionFail
 
 
 	public void unlock(final String achievementID){
+
+		if (!SGoogleProxy.isGooglePlayServicesAvailableToast(activity)){
+			return;
+		}
+
 		if (TextUtils.isEmpty(achievementID)){
 			return;
 		}
@@ -168,7 +173,9 @@ public class SGooglePlayGameServices implements GoogleApiClient.OnConnectionFail
 	}
 
 	public void displayingAchievements(){
-
+		if (!SGoogleProxy.isGooglePlayServicesAvailableToast(activity)){
+			return;
+		}
 		if (hasConnnected){
 			activity.startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient), REQUEST_ACHIEVEMENTS);
 		}else {
@@ -184,7 +191,9 @@ public class SGooglePlayGameServices implements GoogleApiClient.OnConnectionFail
 	}
 
 	public void submitScore(final String leaderboardID,final long score){
-
+		if (!SGoogleProxy.isGooglePlayServicesAvailableToast(activity)){
+			return;
+		}
 		if (TextUtils.isEmpty(leaderboardID)){
 			return;
 		}
@@ -204,7 +213,9 @@ public class SGooglePlayGameServices implements GoogleApiClient.OnConnectionFail
 	}
 
 	public void displayLeaderboard(final String leaderboardID){
-
+		if (!SGoogleProxy.isGooglePlayServicesAvailableToast(activity)){
+			return;
+		}
 		if (TextUtils.isEmpty(leaderboardID)){
 			return;
 		}

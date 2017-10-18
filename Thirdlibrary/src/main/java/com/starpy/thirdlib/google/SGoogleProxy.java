@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.core.base.utils.ToastUtils;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -113,6 +114,15 @@ public class SGoogleProxy {
 		}
 		Dialog errorDialog = GoogleApiAvailability.getInstance().getErrorDialog(activity,googleServicesCode,GOOGLE_SERVICES_ERROR_CODE);
 		errorDialog.show();
+		return false;
+	}
+
+	public static boolean isGooglePlayServicesAvailableToast(Context context){
+		int googleServicesCode = isGooglePlayServicesAvailable(context);
+		if (googleServicesCode == ConnectionResult.SUCCESS){
+			return true;
+		}
+		ToastUtils.toast(context,"Google Services is not available for this device");
 		return false;
 	}
 
