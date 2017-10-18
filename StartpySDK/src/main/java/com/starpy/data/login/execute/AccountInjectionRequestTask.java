@@ -15,8 +15,8 @@ public class AccountInjectionRequestTask extends BaseLoginRequestTask {
     public AccountInjectionRequestTask(Context context, String userName, String password,String uid) {
         super(context);
 
-        userName = userName.toLowerCase();
-        password = password.toLowerCase();
+        userName = userName.trim().toLowerCase();
+        password = password.trim();
 
         requestBean = new AccountInjectionRequestBean(context);
         sdkBaseRequestBean = requestBean;

@@ -14,7 +14,7 @@ public class AccountLoginRequestTask extends BaseLoginRequestTask {
 		super(mContext);
 
 		userName = userName.toLowerCase();
-		password = password.toLowerCase();
+		password = password.trim();
 
 		requestBean = new AccountLoginRequestBean(mContext);
 		sdkBaseRequestBean = requestBean;

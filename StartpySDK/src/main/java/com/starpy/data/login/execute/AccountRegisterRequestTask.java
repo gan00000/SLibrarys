@@ -16,7 +16,7 @@ public class AccountRegisterRequestTask extends BaseLoginRequestTask {
         super(context);
 
         userName = userName.toLowerCase();
-        password = password.toLowerCase();
+//        password = password.toLowerCase();
 
         regRequestBean = new AccountRegRequestBean(context);
         sdkBaseRequestBean = regRequestBean;
@@ -35,7 +35,6 @@ public class AccountRegisterRequestTask extends BaseLoginRequestTask {
         super(context);
 
         userName = userName.toLowerCase();
-        password = password.toLowerCase();
 
         regRequestBean = new AccountRegRequestBean(context);
         sdkBaseRequestBean = regRequestBean;

@@ -22,8 +22,8 @@ public class ChangePwdRequestTask extends BaseLoginRequestTask {
 
         pwdRequestBean.setName(userName);
 
-        pwdRequestBean.setPwd(SStringUtil.toMd5(password.toLowerCase()));
-        pwdRequestBean.setNewPwd(SStringUtil.toMd5(newPwd.toLowerCase()));
+        pwdRequestBean.setPwd(SStringUtil.toMd5(password.trim()));
+        pwdRequestBean.setNewPwd(SStringUtil.toMd5(newPwd.trim()));
 
         pwdRequestBean.setRequestMethod("changePwd");
 
