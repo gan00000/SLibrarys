@@ -5,10 +5,10 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.core.base.SBaseActivity;
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.PL;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -22,7 +22,7 @@ import com.starpy.sdk.out.ISdkCallBack;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends SBaseActivity {
 
     private Button loginButton, othersPayButton,googlePayBtn,csButton,shareButton;
 
@@ -151,9 +151,10 @@ public class MainActivity extends AppCompatActivity {
                 //下面的参数请按照实际传值
                 String title = "hello world";
                 String message = "hello world message";
-                String shareUrl = "http://www.starb168.com/brmmd_201703171125.html";
+                String shareUrl = "http://ads.starb168.com/ads_scanner?gameCode=mthxtw&adsPlatForm=star_event&advertiser=share";
                 String picUrl = "https://lh3.googleusercontent.com/mOgnBSExg8wbssGwPGj-rscvNEklCvV3mGVqXuViUqROUok0P6P3JTo6Hmho0LRXoC8=w300-rw";
                 //分享回调
+                PL.i(shareUrl);
                 ISdkCallBack iSdkCallBack = new ISdkCallBack() {
                     @Override
                     public void success() {

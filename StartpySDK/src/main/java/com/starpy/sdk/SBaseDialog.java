@@ -8,6 +8,7 @@ import android.support.annotation.StyleRes;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.core.base.utils.AppUtil;
 import com.starpy.base.utils.Localization;
 
 /**
@@ -55,6 +56,8 @@ public class SBaseDialog extends Dialog {
 
         Localization.updateSGameLanguage(context);//设置应用内语言
 
+        AppUtil.hideDialogBottomBar(this);
+
     }
 
     protected void setFullScreen(){
@@ -74,5 +77,11 @@ public class SBaseDialog extends Dialog {
         //将设置好的属性set回去
         window.setAttributes(lp);
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        AppUtil.hideDialogBottomBar(this);
     }
 }

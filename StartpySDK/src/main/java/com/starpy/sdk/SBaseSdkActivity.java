@@ -6,7 +6,7 @@ import com.core.base.SBaseActivity;
 import com.starpy.base.utils.Localization;
 
 /**
- * Created by Efun on 2017/2/7.
+ * Created by gan on 2017/2/7.
  */
 
 public class SBaseSdkActivity extends SBaseActivity {
@@ -21,5 +21,10 @@ public class SBaseSdkActivity extends SBaseActivity {
     protected void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
     }
 }

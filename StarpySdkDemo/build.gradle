@@ -28,11 +28,12 @@ android {
 
                 def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_release.apk"
                 output.outputFile = new File(outputFile.parent, fileName)
-            }else  if (outputFile != null && outputFile.name.contains("debug") && outputFile.name.endsWith('.apk')) {
-
-                def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_debug.apk"
-                output.outputFile = new File(outputFile.parent, fileName)
             }
+//            else  if (outputFile != null && outputFile.name.contains("debug") && outputFile.name.endsWith('.apk')) {
+//
+//                def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_debug.apk"
+//                output.outputFile = new File(outputFile.parent, fileName)
+//            }
         }
     }
     buildTypes {
@@ -87,7 +88,7 @@ android {
             signingConfig signingConfigs.brmmdsign
             minSdkVersion 18
             targetSdkVersion 26
-            versionCode 2
+            versionCode 6
             versionName "2.0"
         }
 

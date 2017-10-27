@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.core.base.utils.AppUtil;
+
 public class SBaseActivity extends AppCompatActivity {
 
 	/*
@@ -15,6 +17,7 @@ public class SBaseActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		AppUtil.hideActivityBottomBar(this);
 	}
 
 	/*
@@ -98,5 +101,11 @@ public class SBaseActivity extends AppCompatActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		AppUtil.hideActivityBottomBar(this);
 	}
 }

@@ -1,5 +1,7 @@
 package com.core.base.utils;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +9,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.WindowManager;
 
 import java.util.List;
 
@@ -191,4 +196,47 @@ public class AppUtil {
 //		}
 //		return new Object[]{isAppRunning,topActivityName};
 //	}
+
+	/**
+	 * 隐藏虚拟按键，并且全屏
+	 */
+	public static void hideActivityBottomBar(Activity activity){
+		//隐藏虚拟按键，并且全屏
+		if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+			View v = activity.getWindow().getDecorView();
+			v.setSystemUiVisibility(View.GONE);
+		} else if (Build.VERSION.SDK_INT >= 19) {
+			//for new api versions.
+			View decorView = activity.getWindow().getDecorView();
+			int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+					| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+					| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+					| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+					| View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+					| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+			decorView.setSystemUiVisibility(uiOptions);
+			activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
+	}
+	/**
+	 * 隐藏虚拟按键，并且全屏
+	 */
+	public static void hideDialogBottomBar(Dialog dialog){
+		//隐藏虚拟按键，并且全屏
+		if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+			View v = dialog.getWindow().getDecorView();
+			v.setSystemUiVisibility(View.GONE);
+		} else if (Build.VERSION.SDK_INT >= 19) {
+			//for new api versions.
+			View decorView = dialog.getWindow().getDecorView();
+			int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+					| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+					| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+					| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+					| View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+					| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+			decorView.setSystemUiVisibility(uiOptions);
+			dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
+	}
 }
