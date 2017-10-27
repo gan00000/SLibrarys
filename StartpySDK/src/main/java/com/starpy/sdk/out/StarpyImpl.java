@@ -34,6 +34,7 @@ import com.starpy.sdk.plat.PlatMainActivity;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGooglePlayGameServices;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -220,9 +221,17 @@ public class StarpyImpl implements IStarpy {
                     }
                 }
             };
+            if (SStringUtil.isNotEmpty(StarPyUtil.getServerCode(activity)) && SStringUtil.isNotEmpty(StarPyUtil.getRoleId(activity))) {
+                if (shareLinkUrl.contains("?")){//userId+||S||+serverCode+||S||+roleId
+                    shareLinkUrl = shareLinkUrl + "&campaign=" + URLEncoder.encode(StarPyUtil.getUid(activity)+ "||S||" + StarPyUtil.getServerCode(activity)+"||S||"+StarPyUtil.getRoleId(activity));
+                }else {
+                    shareLinkUrl = shareLinkUrl + "?campaign=" + URLEncoder.encode(StarPyUtil.getUid(activity)+ "||S||" + StarPyUtil.getServerCode(activity)+"||S||"+StarPyUtil.getRoleId(activity));
+                }
+            }
             sFacebookProxy.fbShare(activity, fbShareCallBack,title,message,shareLinkUrl,sharePictureUrl);
         }
     }
+
 
     @Override
     public void openPlatform(Activity activity, String roleLevel, String roleVipLevel) {
