@@ -3,7 +3,7 @@ include ':google:google-play-services_lib_9256000', ':StartpySDK', ':StarpySdkDe
 //include ':google:google-play-service-demo'
 
 
-include ':facebook:facebook-android-sdk-4.25'
+include ':facebook:starpy-fb-4.25'
 
 
 include ':libraries-src:star-core'

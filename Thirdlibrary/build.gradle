@@ -32,7 +32,7 @@ dependencies {
     //    compile 'com.facebook.fresco:fresco:1.4.0'
     //    compile 'com.facebook.android:facebook-android-sdk:4.+'
     //facebookfresco合并到fb sdk中
-    compile project(':facebook:facebook-android-sdk-4.25')
+    compile project(':facebook:starpy-fb-4.25')
     compile project(':libraries-src:StarpyBaseLib')
 }
 
