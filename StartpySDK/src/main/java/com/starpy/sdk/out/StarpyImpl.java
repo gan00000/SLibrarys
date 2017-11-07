@@ -155,44 +155,56 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void cs(Activity activity, String roleLevel, String roleVipLevel) {
+    public void cs(final Activity activity, final String roleLevel, final String roleVipLevel) {
 
-        CsReqeustBean csReqeustBean = new CsReqeustBean(activity);
-        csReqeustBean.setRoleLevel(roleLevel);
-        csReqeustBean.setRoleVipLevel(roleVipLevel);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
-        csReqeustBean.setRequestUrl(ResConfig.getCsPreferredUrl(activity));
-        csReqeustBean.setRequestSpaUrl(ResConfig.getCsSpareUrl(activity));
-        csReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_cs_method));
+                CsReqeustBean csReqeustBean = new CsReqeustBean(activity);
+                csReqeustBean.setRoleLevel(roleLevel);
+                csReqeustBean.setRoleVipLevel(roleVipLevel);
 
-        csWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
+                csReqeustBean.setRequestUrl(ResConfig.getCsPreferredUrl(activity));
+                csReqeustBean.setRequestSpaUrl(ResConfig.getCsSpareUrl(activity));
+                csReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_cs_method));
 
-        csWebViewDialog.setWebUrl(csReqeustBean.createPreRequestUrl());
+                csWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
 
-        csWebViewDialog.show();
+                csWebViewDialog.setWebUrl(csReqeustBean.createPreRequestUrl());
+
+                csWebViewDialog.show();
+            }
+        });
+
     }
 
     @Override
-    public void openWebview(Activity activity, String roleLevel, String roleVipLevel) {
+    public void openWebview(final Activity activity, final String roleLevel, final String roleVipLevel) {
 
-        SGameBaseRequestBean webviewReqeustBean = new SGameBaseRequestBean(activity);
-        webviewReqeustBean.setRoleLevel(roleLevel);
-        webviewReqeustBean.setRoleVipLevel(roleVipLevel);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                SGameBaseRequestBean webviewReqeustBean = new SGameBaseRequestBean(activity);
+                webviewReqeustBean.setRoleLevel(roleLevel);
+                webviewReqeustBean.setRoleVipLevel(roleVipLevel);
 
-        //设置签名
+                //设置签名
 //        appkey+gameCode+userId+roleId+timestamp
-        webviewReqeustBean.setSignature(SStringUtil.toMd5(webviewReqeustBean.getAppKey() + webviewReqeustBean.getGameCode()
-            + webviewReqeustBean.getUserId() + webviewReqeustBean.getRoleId() + webviewReqeustBean.getTimestamp()));
+                webviewReqeustBean.setSignature(SStringUtil.toMd5(webviewReqeustBean.getAppKey() + webviewReqeustBean.getGameCode()
+                        + webviewReqeustBean.getUserId() + webviewReqeustBean.getRoleId() + webviewReqeustBean.getTimestamp()));
 
-        webviewReqeustBean.setRequestUrl(ResConfig.getActivityPreferredUrl(activity));//活动域名
-        webviewReqeustBean.setRequestSpaUrl(ResConfig.getActivitySpareUrl(activity));
-        webviewReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_act_dynamic_method));
+                webviewReqeustBean.setRequestUrl(ResConfig.getActivityPreferredUrl(activity));//活动域名
+                webviewReqeustBean.setRequestSpaUrl(ResConfig.getActivitySpareUrl(activity));
+                webviewReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_act_dynamic_method));
 
-        SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
+                SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
 
-        sWebViewDialog.setWebUrl(webviewReqeustBean.createPreRequestUrl());
+                sWebViewDialog.setWebUrl(webviewReqeustBean.createPreRequestUrl());
 
-        sWebViewDialog.show();
+                sWebViewDialog.show();
+            }
+        });
     }
 
     @Override
