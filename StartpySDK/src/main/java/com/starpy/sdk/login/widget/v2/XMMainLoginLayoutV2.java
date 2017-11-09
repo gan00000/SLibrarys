@@ -58,6 +58,7 @@ public class XMMainLoginLayoutV2 extends SLoginBaseRelativeLayout implements Vie
 
         if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){
             ((ImageView)macLoginView).setImageResource(R.drawable.btn_xm_guest_login_en);
+            ((ImageView)starLoginView).setImageResource(R.drawable.btn_xm_member_login_en);
         }
 
         return contentView;
