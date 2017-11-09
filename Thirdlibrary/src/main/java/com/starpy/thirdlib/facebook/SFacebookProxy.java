@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.core.base.utils.ToastUtils;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -409,7 +410,10 @@ public class SFacebookProxy {
 			}
 
 		};
-		
+		if (!ShareDialog.canShow(ShareLinkContent.class)){
+			ToastUtils.toast(activity,"share error");
+		}
+
 		ShareDialog shareDialog = new ShareDialog(activity);
 		if (callbackManager == null) {
 			callbackManager = CallbackManager.Factory.create();
