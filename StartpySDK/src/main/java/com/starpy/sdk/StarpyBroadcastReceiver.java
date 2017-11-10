@@ -18,7 +18,7 @@ public class StarpyBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        PL.i("StarpyBroadcastReceiver onReceive");
         if (intent != null && INSTALL_REFERRER_ACTION.equals(intent.getAction())){
             String referrer = intent.getStringExtra("referrer");
             PL.i("referrer:" + referrer);
