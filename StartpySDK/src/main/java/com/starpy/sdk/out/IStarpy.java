@@ -41,4 +41,6 @@ public interface IStarpy extends IGameLifeCycle {
 
     public void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults);
 
+    public void onWindowFocusChanged(Activity activity, boolean hasFocus);
+
 }

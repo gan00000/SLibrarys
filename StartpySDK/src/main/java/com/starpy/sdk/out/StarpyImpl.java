@@ -411,7 +411,12 @@ public class StarpyImpl implements IStarpy {
 
     @Override
     public void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults) {
-        PL.i("activity onRequestPermissionsResult");
+        PL.i("IStarpy onRequestPermissionsResult");
+    }
+
+    @Override
+    public void onWindowFocusChanged(Activity activity, boolean hasFocus) {
+        PL.i("IStarpy onWindowFocusChanged: hasFocus -- " + hasFocus);
     }
 
     @Override
