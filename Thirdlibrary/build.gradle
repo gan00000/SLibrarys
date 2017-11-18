@@ -25,10 +25,10 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    //    compile 'com.google.android.gms:play-services-auth:11.0.1'
-    //    compile 'com.google.android.gms:play-services-plus:11.0.1'
-    //    compile 'com.google.android.gms:play-services-base:11.0.1'
-    //    compile 'com.google.android.gms:play-services-games:11.0.1'
+    compile 'com.google.android.gms:play-services-auth:11.0.1'
+    compile 'com.google.android.gms:play-services-plus:11.0.1'
+    compile 'com.google.android.gms:play-services-base:11.0.1'
+    compile 'com.google.android.gms:play-services-games:11.0.1'
     //    compile 'com.facebook.fresco:fresco:1.4.0'
     //    compile 'com.facebook.android:facebook-android-sdk:4.+'
     //facebookfresco合并到fb sdk中
