@@ -16,7 +16,7 @@ android {
             storePassword '000000'
         }*/
     }
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
 
 //    android.applicationVariants.all { variant ->
@@ -94,7 +94,7 @@ android {
             signingConfig signingConfigs.brmmdsign
             minSdkVersion 18
             targetSdkVersion 26
-            versionCode 6
+            versionCode 5
             versionName "2.0"
             flavorDimensions "1"
         }
@@ -114,7 +114,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':StartpySDK')
-//    compile 'com.android.support:multidex:1.0.2'
+    //    compile 'com.android.support:multidex:1.0.2'
 }
 
 
