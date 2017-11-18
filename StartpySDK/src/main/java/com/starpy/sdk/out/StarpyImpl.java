@@ -324,7 +324,7 @@ public class StarpyImpl implements IStarpy {
         sGooglePlayGameServices = new SGooglePlayGameServices(activity);
 
         //permission授权
-        PermissionUtil.requestPermissions_PHONE_STORAGE(activity,PERMISSION_REQUEST_CODE);
+        PermissionUtil.requestPermissions_STORAGE(activity,PERMISSION_REQUEST_CODE);
     }
 
     @Override
