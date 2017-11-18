@@ -248,23 +248,29 @@ public class ResConfig {
 	
 
 	//<string name="reg_jp_efunAdsPreferredUrl">http://ad.efunjp.com/</string>
-	public static String getConfigUrl(Context context, String xmlSchemaName){
+	private static String getConfigUrl(Context context, String xmlSchemaName){
+
+		String isGlobal = getResStringByName(context, "star_url_is_global");
+		if ("100".equals(isGlobal)){
+			xmlSchemaName = "g_" + xmlSchemaName;
+		}
+
 		String url = getResStringByName(context, xmlSchemaName);
 		
-		if (TextUtils.isEmpty(url)) {
-			return "";
-		}
-		if (url.contains(".com") || url.contains("http") || url.contains("//")) {
-			return url;
-		}
-		return "";
+//		if (TextUtils.isEmpty(url)) {
+//			return "";
+//		}
+//		if (url.contains(".com") || url.contains("http") || url.contains("//")) {
+//			return url;
+//		}
+		return url;
 	}
 	
 	private static String getResStringByName(Context context, String xmlSchemaName){
 
 		String xmlSchemaContent = "";
 		try {
-			xmlSchemaContent = context.getResources().getString(ResUtil.findStringIdByName(context, xmlSchemaName));
+			xmlSchemaContent = ResUtil.findStringByName(context, xmlSchemaName);
 		} catch (Exception e) {
 			PL.w("String not find:" + xmlSchemaName);
 			e.printStackTrace();

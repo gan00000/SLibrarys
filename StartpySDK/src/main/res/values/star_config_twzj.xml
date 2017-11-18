@@ -31,5 +31,12 @@
 
     <string name="google_client_id">605752434859-1sdr2hltdugd8kuk11h8mrjj492smmq9.apps.googleusercontent.com</string>
 
+    <!--默认为为港台域名，100为全球-->
+    <string name="star_url_is_global">100</string>
+
+
+    <!--<data android:scheme="starpy" android:host="@string/star_game_code"/>-->
+    <!--<scheme>://<host>:<port>[<path>|<pathPrefix>|<pathPattern>]-->
+    <string name="star_android_scheme">starpy</string>
 
 </resources>
