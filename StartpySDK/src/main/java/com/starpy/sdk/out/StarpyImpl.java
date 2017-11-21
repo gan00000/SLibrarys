@@ -11,6 +11,7 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.internal.CallbackManagerImpl;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
@@ -337,10 +338,10 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         PL.i("IStarpy onActivityResult");
-        if (iLogin != null) {
+        if (iLogin != null && requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
             iLogin.onActivityResult(activity, requestCode, resultCode, data);
         }
-        if (sFacebookProxy != null){
+        if (sFacebookProxy != null && requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()){
             sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
         }
         if (csWebViewDialog != null){
