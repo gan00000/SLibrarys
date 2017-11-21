@@ -36,20 +36,39 @@ android {
 ////            }
 //        }
 //    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [facebook_app_name: "裝甲連隊",
+                                       facebook_app_id:"134211963880586",
+                                       google_app_id:"605752434859"]
+    }
     buildTypes {
         release {
 //            multiDexEnabled true //Add this
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.brmmdsign
+
+
+            resValue "string", "facebook_app_name", "PokeMMO"
+            resValue "string", "facebook_app_id", "162382044348232"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider162382044348232"
+            resValue "string", "google_app_id", ""
         }
 
         debug {
 //            multiDexEnabled true //Add this
             signingConfig signingConfigs.brmmdsign
+
+
+            resValue "string", "facebook_app_name", "PokeMMO"
+            resValue "string", "facebook_app_id", "162382044348232"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider162382044348232"
+            resValue "string", "google_app_id", ""
         }
     }
     productFlavors {
+
         bmdzz_google {
             minSdkVersion 18
             applicationId 'com.starpy.bmdzz.tw'
@@ -97,6 +116,7 @@ android {
             versionCode 5
             versionName "2.0"
             flavorDimensions "1"
+
         }
 
     }
