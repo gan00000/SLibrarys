@@ -3,6 +3,8 @@ package com.starpy.base.cfg;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.core.base.utils.FileUtil;
+import com.core.base.utils.JsonUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.ResUtil;
 import com.core.base.utils.SPUtil;
@@ -26,7 +28,8 @@ public class ResConfig {
 		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_GameCode())){
 			return StarPyUtil.getSdkCfg(context).getS_GameCode();
 		}
-		return getResStringByName(context, "star_game_code");
+//		return getResStringByName(context, "star_game_code");
+		return getConfigInAssets(context, "star_game_code");
 	}
 	
 
@@ -40,11 +43,11 @@ public class ResConfig {
 		if (StarPyUtil.getSdkCfg(context) != null && !TextUtils.isEmpty(StarPyUtil.getSdkCfg(context).getS_AppKey())){
 			return StarPyUtil.getSdkCfg(context).getS_AppKey();
 		}
-		return getResStringByName(context, "star_app_key");
+		return getConfigInAssets(context, "star_app_key");
 	}
 
 	public static String getApplicationId(Context context) {
-		return getResStringByName(context, "facebook_app_id");
+		return getConfigInAssets(context, "facebook_app_id");
 	}
 
 
@@ -65,6 +68,9 @@ public class ResConfig {
 	
 	public static String getGameLanguageLower(Context context){
 		return getGameLanguage(context).toLowerCase();
+	}
+	public static String getGoogleClientId(Context context){
+		return getConfigInAssets(context,"google_client_id");
 	}
 
 
@@ -146,7 +152,7 @@ public class ResConfig {
 	}
 
 	public static boolean isInfringement(Context context){
-		return SStringUtil.isEqual(getResStringByName(context, "star_infringement"),"true");
+		return SStringUtil.isEqual(getConfigInAssets(context, "star_infringement"),"true");
 	}
 
 	public static String getPayThirdMethod(Context context) {
@@ -250,7 +256,7 @@ public class ResConfig {
 	//<string name="reg_jp_efunAdsPreferredUrl">http://ad.efunjp.com/</string>
 	private static String getConfigUrl(Context context, String xmlSchemaName){
 
-		String isGlobal = getResStringByName(context, "star_url_is_global");
+		String isGlobal = getConfigInAssets(context, "star_url_is_global");
 		if ("100".equals(isGlobal)){
 			xmlSchemaName = "g_" + xmlSchemaName;
 		}
@@ -277,6 +283,15 @@ public class ResConfig {
 			return "";
 		}
 		return xmlSchemaContent;
+	}
+
+	private static String gameConfig = "";
+	public static String getConfigInAssets(Context context, String key){
+		if (SStringUtil.isEmpty(gameConfig)){
+			gameConfig = FileUtil.readAssetsTxtFile(context,"starpy/starpy_game_config");
+			PL.i("gameConfig:" + gameConfig);
+		}
+		return JsonUtil.getValueByKey(context,gameConfig,key,"");
 	}
 
 }

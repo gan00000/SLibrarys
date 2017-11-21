@@ -16,6 +16,7 @@ import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
 import com.facebook.AccessToken;
 import com.starpy.base.bean.SLoginType;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.AccountInjectionRequestTask;
 import com.starpy.data.login.execute.AccountLoginRequestTask;
@@ -142,7 +143,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         if (sGoogleSignIn == null){
             return;
         }
-        sGoogleSignIn.setClientId(getActivity().getString(R.string.google_client_id));
+        sGoogleSignIn.setClientId(ResConfig.getGoogleClientId(activity));
         sGoogleSignIn.startSignIn(new SGoogleSignIn.GoogleSignInCallBack() {
             @Override
             public void success(String id, String mFullName, String mEmail, String idTokenString) {
@@ -152,7 +153,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                     ThirdLoginRegRequestBean thirdLoginRegRequestBean = new ThirdLoginRegRequestBean(activity);
                     thirdLoginRegRequestBean.setThirdPlatId(id);
                     thirdLoginRegRequestBean.setRegistPlatform(SLoginType.LOGIN_TYPE_GOOGLE);
-                    thirdLoginRegRequestBean.setGoogleClientId(activity.getString(R.string.google_client_id));
+                    thirdLoginRegRequestBean.setGoogleClientId(ResConfig.getGoogleClientId(activity));
                     thirdLoginRegRequestBean.setGoogleIdToken(idTokenString);
 
                     thirdPlatLogin(activity, thirdLoginRegRequestBean);
@@ -369,7 +370,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             if (sGoogleSignIn == null){
                 return;
             }
-            sGoogleSignIn.setClientId(getActivity().getString(R.string.google_client_id));
+            sGoogleSignIn.setClientId(ResConfig.getGoogleClientId(activity));
             sGoogleSignIn.startSignIn(new SGoogleSignIn.GoogleSignInCallBack() {
                 @Override
                 public void success(String id, String mFullName, String mEmail,String idTokenString) {
@@ -756,7 +757,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                                 ThirdLoginRegRequestBean thirdLoginRegRequestBean = new ThirdLoginRegRequestBean(activity);
                                 thirdLoginRegRequestBean.setThirdPlatId(StarPyUtil.getGoogleId(activity));
                                 thirdLoginRegRequestBean.setRegistPlatform(SLoginType.LOGIN_TYPE_GOOGLE);
-                                thirdLoginRegRequestBean.setGoogleClientId(activity.getString(R.string.google_client_id));
+                                thirdLoginRegRequestBean.setGoogleClientId(ResConfig.getGoogleClientId(activity));
                                 thirdLoginRegRequestBean.setGoogleIdToken(StarPyUtil.getGoogleIdToken(activity));
                                 thirdPlatLogin(activity, thirdLoginRegRequestBean);
                             }

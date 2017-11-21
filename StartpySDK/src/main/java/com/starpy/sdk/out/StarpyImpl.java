@@ -7,7 +7,6 @@ import android.text.TextUtils;
 
 import com.core.base.ObjFactory;
 import com.core.base.utils.PL;
-import com.core.base.utils.PermissionUtil;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
@@ -324,7 +323,7 @@ public class StarpyImpl implements IStarpy {
         sGooglePlayGameServices = new SGooglePlayGameServices(activity);
 
         //permission授权
-        PermissionUtil.requestPermissions_STORAGE(activity,PERMISSION_REQUEST_CODE);
+//        PermissionUtil.requestPermissions_STORAGE(activity,PERMISSION_REQUEST_CODE);
     }
 
     @Override

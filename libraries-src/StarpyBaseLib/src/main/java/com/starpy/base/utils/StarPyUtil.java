@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.core.base.cipher.DESCipher;
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.JsonUtil;
-import com.core.base.utils.ResUtil;
 import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
 import com.google.gson.Gson;
@@ -292,7 +291,7 @@ public class StarPyUtil {
     }
 
     public static boolean isXM(Context context){
-       return ResUtil.findStringByName(context,"star_login_type").equals("100");
+       return ResConfig.getConfigInAssets(context,"star_login_type").equals("100");
     }
 
     private static final String STARPY_GOOGLE_ADVERTISING_ID = "STARPY_GOOGLE_ADVERTISING_ID";
