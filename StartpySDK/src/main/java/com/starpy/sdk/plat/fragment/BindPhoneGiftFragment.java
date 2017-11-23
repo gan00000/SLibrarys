@@ -175,7 +175,15 @@ public class BindPhoneGiftFragment extends SSdkBaseFragment {
             }
             initGetGiftLayout();
             initBindPhoneLayout();
-            accountTextView.setText(String.format(getString(R.string.plat_starpy_account),userBindInfoModel.getName()));
+            if (SStringUtil.isNotEmpty(userBindInfoModel.getName())){
+
+                accountTextView.setText(String.format(getString(R.string.plat_starpy_account),userBindInfoModel.getName()));
+            }else if (SStringUtil.isNotEmpty(userBindInfoModel.getFreeRegisterName())){
+                accountTextView.setText(String.format(getString(R.string.plat_starpy_account),userBindInfoModel.getFreeRegisterName()));
+            }else {
+                accountTextView.setText(String.format(getString(R.string.plat_starpy_account),"unknown"));
+
+            }
             if (phoneAreaCodeModels != null){
                 phoneAreaCodeTextView.setText(phoneAreaCodeModels.get(0).getCode());
             }
