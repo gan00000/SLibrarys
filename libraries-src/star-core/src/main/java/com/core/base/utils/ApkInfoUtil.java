@@ -12,7 +12,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Environment;
+import android.os.LocaleList;
 import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -368,17 +370,35 @@ public class ApkInfoUtil {
 		return getLocaleLanguage();
 	}
 
+
+	/**
+	 *
+	 * Android7.0及之后版本，使用了LocaleList，Configuration中的语言设置可能获取的不同，而是生效于各自的Context。
+	 	这会导致：Android7.0使用就的方式，有些Activity可能会显示为手机的系统语言
+
+	 如果使用新的方法，那么所有的Context都需要设置(包括Application)，并且设置：configuration.setLocales(new LocaleList(locale));
+	 * @param context
+	 * @param newLocale
+	 */
 	public static void updateConfigurationLocale(Context context, Locale newLocale) {
 		if (null == newLocale){
 			return;
 		}
-		Resources resources = context.getApplicationContext().getResources();//获得res资源对象
+		Resources resources = context.getResources();//获得res资源对象
 		Configuration config = resources.getConfiguration();//获得设置对象
 		PL.i("old onConfigurationChanged:" + config.toString());
+
 		DisplayMetrics dm = resources.getDisplayMetrics();//获得屏幕参数：主要是分辨率，像素等。
 		config.locale = newLocale; //简体中文
 		resources.updateConfiguration(config, dm);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//Android7.0及之后通过Context来设置语言
+			config.setLocales(new LocaleList(newLocale));
+			context.createConfigurationContext(config);
+		}
+
 		PL.i("new onConfigurationChanged:" + config.toString());
+
 	}
 
 
