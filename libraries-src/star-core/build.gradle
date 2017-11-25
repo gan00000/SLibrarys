@@ -58,7 +58,7 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
 makeLibraryJar.dependsOn(clearJar,build)
 
 def getJarName(){
-    return "py-core-2.3"
+    return "py-core-2.4"
 }
 
 task copyJar(type: Copy) {

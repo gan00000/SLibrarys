@@ -287,11 +287,19 @@ public class ResConfig {
 
 	private static String gameConfig = "";
 	public static String getConfigInAssets(Context context, String key){
+
 		if (SStringUtil.isEmpty(gameConfig)){
 			gameConfig = FileUtil.readAssetsTxtFile(context,"starpy/starpy_game_config");
 			PL.i("gameConfig:" + gameConfig);
 		}
-		return JsonUtil.getValueByKey(context,gameConfig,key,"");
+		String mVaule = "";
+		if (SStringUtil.isNotEmpty(gameConfig)){
+			mVaule = JsonUtil.getValueByKey(context,gameConfig,key,"");
+		}
+		if (SStringUtil.isEmpty(mVaule)){
+			mVaule = getResStringByName(context, key);
+		}
+		return mVaule;
 	}
 
 }
