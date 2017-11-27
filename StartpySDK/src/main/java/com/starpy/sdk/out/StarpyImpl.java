@@ -338,7 +338,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         PL.i("IStarpy onActivityResult");
-        if (iLogin != null && requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
+        if (iLogin != null) {
             iLogin.onActivityResult(activity, requestCode, resultCode, data);
         }
         if (sFacebookProxy != null && requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()){

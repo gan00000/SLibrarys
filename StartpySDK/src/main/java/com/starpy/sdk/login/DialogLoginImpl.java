@@ -3,9 +3,10 @@ package com.starpy.sdk.login;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.starpy.thirdlib.facebook.SFacebookProxy;
+import com.facebook.internal.CallbackManagerImpl;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.sdk.utils.DialogUtil;
+import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleSignIn;
 
 /**
@@ -36,7 +37,7 @@ public class DialogLoginImpl implements ILogin {
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-        if (sFacebookProxy != null) {
+        if (sFacebookProxy != null && requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
             sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
         }
         if (sGoogleSignIn != null){
