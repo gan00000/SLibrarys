@@ -246,14 +246,21 @@ public class StarpyImpl implements IStarpy {
 
 
     @Override
-    public void openPlatform(Activity activity, String roleLevel, String roleVipLevel) {
+    public void openPlatform(final Activity activity, final String roleLevel, final String roleVipLevel) {
         PL.i("IStarpy pay roleLevel:" + roleLevel + ",roleVipLevel:" + roleVipLevel);
-        StarPyUtil.saveRoleLevelVip(activity,roleLevel,roleVipLevel);
-        if (StarPyUtil.isLogin(activity)){
-            activity.startActivity(new Intent(activity, PlatMainActivity.class));
-        }else {
-            ToastUtils.toast(activity,"please login game first");
-        }
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                StarPyUtil.saveRoleLevelVip(activity,roleLevel,roleVipLevel);
+                if (StarPyUtil.isLogin(activity)){
+                    activity.startActivity(new Intent(activity, PlatMainActivity.class));
+                }else {
+                    ToastUtils.toast(activity,"please login game first");
+                }
+            }
+        });
+
     }
 
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
@@ -310,21 +317,28 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void onCreate(Activity activity) {
+    public void onCreate(final Activity activity) {
         PL.i("IStarpy onCreate");
-        //广告
-        StarEventLogger.activateApp(activity);
 
-        if (!isInitSdk){
-            initSDK(activity);
-        }
-        if (iLogin != null) {
-            iLogin.onCreate(activity);
-        }
-        sGooglePlayGameServices = new SGooglePlayGameServices(activity);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //广告
+                StarEventLogger.activateApp(activity);
 
-        //permission授权
-//        PermissionUtil.requestPermissions_STORAGE(activity,PERMISSION_REQUEST_CODE);
+                if (!isInitSdk){
+                    initSDK(activity);
+                }
+                if (iLogin != null) {
+                    iLogin.onCreate(activity);
+                }
+                sGooglePlayGameServices = new SGooglePlayGameServices(activity);
+
+                //permission授权
+    //        PermissionUtil.requestPermissions_STORAGE(activity,PERMISSION_REQUEST_CODE);
+            }
+        });
+
     }
 
     @Override
