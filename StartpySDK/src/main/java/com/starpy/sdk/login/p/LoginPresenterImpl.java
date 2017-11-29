@@ -182,6 +182,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                     if (sLoginResponse.isRequestSuccess()){
 
                         handleRegisteOrLoginSuccess(sLoginResponse,rawResult, thirdLoginRegRequestBean.getRegistPlatform());
+                        return;
                     }else{
 
                         ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
@@ -189,16 +190,17 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                 } else {
                     ToastUtils.toast(getActivity(), R.string.py_error_occur);
                 }
+                showLoginView();
             }
 
             @Override
             public void timeout(String code) {
-
+                showLoginView();
             }
 
             @Override
             public void noData() {
-
+                showLoginView();
             }
         });
         cmd.excute(SLoginResponse.class);
