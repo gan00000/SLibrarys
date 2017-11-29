@@ -267,6 +267,10 @@ public class SLoginDialog extends SBaseDialog implements LoginContract.ILoginVie
 
     }
 
+    @Override
+    public void showMainLoginView() {
+    }
+
     public void setLoginCallBack(ILoginCallBack iLoginCallBack) {
         this.iLoginCallBack = iLoginCallBack;
     }

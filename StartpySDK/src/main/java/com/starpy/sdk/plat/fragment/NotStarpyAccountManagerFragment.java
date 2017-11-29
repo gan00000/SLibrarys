@@ -271,4 +271,8 @@ public class NotStarpyAccountManagerFragment extends SSdkBaseFragment implements
             userBindInfoModel.setName(account);
         }
     }
+
+    @Override
+    public void showMainLoginView() {
+    }
 }

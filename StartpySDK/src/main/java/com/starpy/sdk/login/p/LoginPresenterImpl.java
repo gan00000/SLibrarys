@@ -168,6 +168,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         });
     }
 
+    //目前Google登录使用到，fb登录没有使用
     @Override
     public void thirdPlatLogin(Activity activity, final ThirdLoginRegRequestBean thirdLoginRegRequestBean) {
         this.mActivity = activity;
@@ -180,7 +181,6 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                 if (sLoginResponse != null) {
 
                     if (sLoginResponse.isRequestSuccess()){
-
                         handleRegisteOrLoginSuccess(sLoginResponse,rawResult, thirdLoginRegRequestBean.getRegistPlatform());
                         return;
                     }else{
@@ -190,17 +190,17 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                 } else {
                     ToastUtils.toast(getActivity(), R.string.py_error_occur);
                 }
-                showLoginView();
+                showMainLoginView();
             }
 
             @Override
             public void timeout(String code) {
-                showLoginView();
+                showMainLoginView();
             }
 
             @Override
             public void noData() {
-                showLoginView();
+                showMainLoginView();
             }
         });
         cmd.excute(SLoginResponse.class);
@@ -593,6 +593,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                     if (sLoginResponse.isRequestSuccess()){
 
                         handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_FB);
+                        return;
                     }else{
 
                         ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
@@ -600,16 +601,17 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                 } else {
                     ToastUtils.toast(getActivity(), R.string.py_error_occur);
                 }
+                showMainLoginView();
             }
 
             @Override
             public void timeout(String code) {
-
+                showMainLoginView();
             }
 
             @Override
             public void noData() {
-
+                showMainLoginView();
             }
         });
         cmd.excute(SLoginResponse.class);
@@ -781,6 +783,12 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         if (iLoginView != null){
 //            iLoginView.hildAutoLoginView();
             iLoginView.showLoginView();
+        }
+    }
+
+    private void showMainLoginView() {
+        if (iLoginView != null){
+            iLoginView.showMainLoginView();
         }
     }
 

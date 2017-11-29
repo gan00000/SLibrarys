@@ -30,6 +30,8 @@ public class LoginContract {
         public void showAutoLoginWaitTime(String time);
 
         public void accountBindSuccess(SLoginResponse sLoginResponse);
+
+        public void showMainLoginView();
     }
 
     public interface ILoginPresenter extends IBasePresenter<ILoginView> {

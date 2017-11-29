@@ -495,6 +495,13 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     }
 
     @Override
+    public void showMainLoginView() {
+        contentFrameLayout.setVisibility(View.VISIBLE);
+        autoLoginLayout.setVisibility(View.GONE);
+        toMainLoginView();
+    }
+
+    @Override
     public void changePwdSuccess(SLoginResponse sLoginResponse) {
         toAccountLoginView();
     }
