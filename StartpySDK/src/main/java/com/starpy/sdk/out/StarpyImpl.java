@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.core.base.ObjFactory;
+import com.core.base.utils.AppUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
@@ -344,6 +345,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onResume(Activity activity) {
         PL.i("IStarpy onResume");
+        AppUtil.hideActivityBottomBar(activity);
         if (iLogin != null) {
             iLogin.onResume(activity);
         }
@@ -431,6 +433,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onWindowFocusChanged(Activity activity, boolean hasFocus) {
         PL.i("IStarpy onWindowFocusChanged: hasFocus -- " + hasFocus);
+        AppUtil.hideActivityBottomBar(activity);
     }
 
     @Override
