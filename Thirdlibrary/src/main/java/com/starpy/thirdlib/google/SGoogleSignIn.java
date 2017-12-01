@@ -12,6 +12,8 @@ import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -47,6 +49,8 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 	
 	boolean isCancel = false;
 
+	private Fragment fragment;
+
 	// Bool to track whether the app is already resolving an error
 	private boolean mResolvingError = false;
 	// Request code to use when launching the resolution activity
@@ -79,6 +83,21 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 
 		this.activity = activity;
 		this.mConnectionProgressDialog = dialog;
+//		if (activity instanceof FragmentActivity){
+//			this.fragmentActivity = (FragmentActivity)activity;
+//		}
+	}
+
+	public SGoogleSignIn(FragmentActivity fragmentActivity, Fragment fragment, Dialog dialog) {
+
+		if (fragmentActivity == null) {
+			Log.e(TAG,"SGoogleSignIn fragmentActivity must not null");
+			return;
+		}
+		this.activity = fragmentActivity;
+		this.mConnectionProgressDialog = dialog;
+
+		this.fragment = fragment;
 	}
 
 	
@@ -106,11 +125,12 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 			// options above.
 
 			mGoogleApiClient = new GoogleApiClient.Builder(activity)
-//					.enableAutoManage(fragmentActivity, this)
+					//.enableAutoManage(fragmentActivity, this)
 					.addApi(Auth.GOOGLE_SIGN_IN_API, gso)
 					.addConnectionCallbacks(this)
 					.addOnConnectionFailedListener(this)
 					.build();
+
 		}
 		if (!mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected()) {
 			mGoogleApiClient.connect();
@@ -215,10 +235,21 @@ public class SGoogleSignIn implements GoogleApiClient.OnConnectionFailedListener
 	private void signIn() {
 
 		if (mGoogleApiClient != null && activity != null) {
+
 			Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-			if (signInIntent != null) {
-				activity.startActivityForResult(signInIntent, RC_SIGN_IN);
+			if (this.fragment != null){
+
+				if (signInIntent != null) {
+					this.fragment.startActivityForResult(signInIntent, RC_SIGN_IN);
+				}
+
+			}else {
+
+				if (signInIntent != null) {
+					activity.startActivityForResult(signInIntent, RC_SIGN_IN);
+				}
 			}
+
 		}
 	}
    // [END signIn]

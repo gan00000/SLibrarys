@@ -109,7 +109,7 @@ public class NotStarpyAccountManagerFragment extends SSdkBaseFragment implements
             goBindTextView.setText(getString(R.string.plat_account_bind_google));
             bindType = SLoginType.bind_google;
 
-            sGoogleSignIn = new SGoogleSignIn(getActivity(), mDialog);
+            sGoogleSignIn = new SGoogleSignIn(getActivity(), this, mDialog);
 
 
 
