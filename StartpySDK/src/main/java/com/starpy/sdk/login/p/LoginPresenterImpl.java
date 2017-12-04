@@ -796,7 +796,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     private void handleRegisteOrLoginSuccess(SLoginResponse loginResponse, String rawResult, String loginType) {
 
         StarPyUtil.saveSdkLoginData(getContext(), loginResponse.getRawResponse());
-
+        loginResponse.setLoginTpye(loginType);
         if (SStringUtil.isNotEmpty(loginType)) {//loginType为空时是账号注入登录，不能空时是其他普通登入
 
             StarPyUtil.savePreviousLoginType(mActivity, loginType);

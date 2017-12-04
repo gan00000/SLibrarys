@@ -20,6 +20,8 @@ public class SLoginResponse extends BaseResponseModel {
 
     private String gameCode = "";
 
+    private String loginTpye = "";
+
     public boolean isRequestSuccess(){//1001为注册成功
         return SUCCESS_CODE.equals(getCode()) || "1001".equals(getCode());
     }
@@ -74,5 +76,13 @@ public class SLoginResponse extends BaseResponseModel {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getLoginTpye() {
+        return loginTpye;
+    }
+
+    public void setLoginTpye(String loginTpye) {
+        this.loginTpye = loginTpye;
     }
 }
