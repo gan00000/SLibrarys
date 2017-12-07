@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
-import com.appsflyer.AFInAppEventParameterName;
 import com.appsflyer.AppsFlyerLib;
 import com.core.base.bean.BaseResponseModel;
 import com.core.base.callback.ISReqCallBack;
@@ -53,14 +52,18 @@ public class StarEventLogger {
 
     public static void trackinLoginEvent(Activity activity){
         SFacebookProxy.trackingEvent(activity,"starpy_login_event_android");
+
+        Map<String, Object> eventValue = new HashMap<String, Object>();
+        AppsFlyerLib.getInstance().trackEvent(activity.getApplicationContext(),"starpy_login_event_android",eventValue);
+
     }
 
     public static void trackinRegisterEvent(Activity activity){
         SFacebookProxy.trackingEvent(activity,"starpy_register_event_android");
 
         Map<String, Object> eventValue = new HashMap<String, Object>();
-        eventValue.put(AFInAppEventParameterName.REVENUE,1);
-        AppsFlyerLib.getInstance().trackEvent(activity,"AndroidReg",eventValue);
+//        eventValue.put(AFInAppEventParameterName.REVENUE,1);
+        AppsFlyerLib.getInstance().trackEvent(activity.getApplicationContext(),"starpy_register_event_android",eventValue);
 
     }
 

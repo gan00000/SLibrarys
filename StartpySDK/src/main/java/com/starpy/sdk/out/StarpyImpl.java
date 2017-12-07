@@ -36,8 +36,6 @@ import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGooglePlayGameServices;
 
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class StarpyImpl implements IStarpy {
@@ -371,7 +369,7 @@ public class StarpyImpl implements IStarpy {
                 Bundle b = data.getExtras();
                 GooglePayCreateOrderIdReqBean g = (GooglePayCreateOrderIdReqBean) data.getSerializableExtra("GooglePayCreateOrderIdReqBean");
                 if (b.getInt("status") == 93 && g != null){//充值成功
-                    try {
+                    /*try {
                         if (g.getGameCode().equals("gbmmd")) {//全球萌萌哒特殊处理
                             PL.i("google pay success,value:" + g.getPayValue());
                             Map<String,Double> id_price = new HashMap<>();
@@ -387,7 +385,8 @@ public class StarpyImpl implements IStarpy {
                         }
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
-                    }
+                    }*/
+                    PL.i("google pay success");
                 }
             }
             return;
