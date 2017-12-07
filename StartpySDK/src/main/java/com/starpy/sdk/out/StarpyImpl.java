@@ -26,6 +26,7 @@ import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
 import com.starpy.pay.gp.util.PayHelper;
+import com.starpy.sdk.BuildConfig;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SWebViewDialog;
 import com.starpy.sdk.ads.StarEventLogger;
@@ -318,7 +319,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onCreate(final Activity activity) {
         PL.i("IStarpy onCreate");
-
+        PL.i("the jar version:" + BuildConfig.JAR_VERSION);//打印版本号
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

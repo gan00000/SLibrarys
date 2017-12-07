@@ -11,6 +11,9 @@ android {
     defaultConfig {
         minSdkVersion 18
         targetSdkVersion 25
+
+        //设置改jar版本
+        buildConfigField "String", JAR_VERSION, SDK_VERSION_NAME_STARPY_SDK
     }
    buildTypes {
         release {
@@ -63,9 +66,9 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
 makeLibraryJar.dependsOn(clearJar,build)
 
 def getJarName(){
-    return "py-star-sdk-v2-1.9"
+    return SDK_VERSION_NAME_STARPY_SDK.replace("\"","")
 }
-task copySdkJar(type: Copy) {
+task copyJar(type: Copy) {
 
     from('build/libs/')
 
@@ -73,7 +76,7 @@ task copySdkJar(type: Copy) {
     include(getJarName() + '.jar')
 }
 
-copySdkJar.dependsOn(makeLibraryJar)
+copyJar.dependsOn(makeLibraryJar)
 
 task createPySdk(type: Copy) {
 
