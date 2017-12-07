@@ -11,6 +11,7 @@ import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.SLog;
+import com.starpy.pay.BuildConfig;
 import com.starpy.pay.IPay;
 import com.starpy.pay.IPayCallBack;
 import com.starpy.pay.gp.bean.req.GoogleExchangeReqBean;
@@ -105,6 +106,8 @@ public class GooglePayImpl implements IPay {
     public void startPay(Activity activity, PayReqBean payReqBean) {
 
         this.createOrderIdReqBean = null;
+
+        PL.i("the jar version:" + BuildConfig.JAR_VERSION);//打印版本号
 
         if (activity == null) {
             PL.w("activity is null");

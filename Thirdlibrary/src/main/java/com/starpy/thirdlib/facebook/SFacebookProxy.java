@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.core.base.utils.PL;
 import com.core.base.utils.ToastUtils;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -41,6 +42,7 @@ import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.GameRequestDialog;
 import com.facebook.share.widget.ShareDialog;
+import com.starpy.thirdlib.BuildConfig;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -76,7 +78,7 @@ public class SFacebookProxy {
 
 			}
 		});*/
-
+		PL.i("the jar version:" + BuildConfig.JAR_VERSION);//打印版本号
 	}
 	
 	public static void initFbSdk(Context context){

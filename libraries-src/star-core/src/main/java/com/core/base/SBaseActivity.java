@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.core.base.utils.AppUtil;
+import com.core.base.utils.PL;
 
 public class SBaseActivity extends AppCompatActivity {
 
@@ -18,6 +19,8 @@ public class SBaseActivity extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		AppUtil.hideActivityBottomBar(this);
+
+		PL.i("the jar version:" + BuildConfig.JAR_VERSION);//打印版本号
 	}
 
 	/*

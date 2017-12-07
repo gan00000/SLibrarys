@@ -6,6 +6,9 @@ android {
     defaultConfig {
         minSdkVersion 18
         targetSdkVersion 25
+
+        //设置改jar版本
+        buildConfigField "String", JAR_VERSION, SDK_VERSION_NAME_PY_CORE
     }
 
     buildTypes {
@@ -44,8 +47,8 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
     exclude 'META-INF/LICENSE.txt'
     exclude 'META-INF/NOTICE.txt'
     //过滤不需要的class
-    exclude "**/**/BuildConfig.class"
-    exclude "**/**/BuildConfig\$*.class"
+//    exclude "**/**/BuildConfig.class"
+//    exclude "**/**/BuildConfig\$*.class"
     exclude "**/R.class"
     exclude "**/R\$*.class"
 
@@ -58,7 +61,7 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
 makeLibraryJar.dependsOn(clearJar,build)
 
 def getJarName(){
-    return "py-core-2.4"
+    return SDK_VERSION_NAME_PY_CORE.replace("\"","")
 }
 
 task copyJar(type: Copy) {
