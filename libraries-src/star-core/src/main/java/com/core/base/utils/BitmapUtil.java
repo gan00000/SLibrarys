@@ -50,6 +50,10 @@ public class BitmapUtil {
     */
 
     public static Bitmap bitmapAddText(Bitmap srcBitmap, String text) {
+        return bitmapAddText(srcBitmap, text,60.0f);
+    }
+
+    public static Bitmap bitmapAddText(Bitmap srcBitmap, String text, float textSize) {
 
         int width = srcBitmap.getWidth();
         int height = srcBitmap.getHeight();
@@ -62,7 +66,7 @@ public class BitmapUtil {
         canvas.drawBitmap(srcBitmap, 0, 0, paint);
 
         TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.DEV_KERN_TEXT_FLAG);
-        textPaint.setTextSize(60.0f);
+        textPaint.setTextSize(textSize);
         textPaint.setTypeface(Typeface.DEFAULT_BOLD); // 采用默认的宽度
         textPaint.setColor(Color.WHITE);
 
