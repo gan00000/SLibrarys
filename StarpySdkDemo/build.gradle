@@ -19,29 +19,23 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
 
-//    android.applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//            //定义一个文件
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            //定义一个文件
+//            outputFileName = "${variant.name}-${variant.versionName}.apk"
 //            def outputFile = output.outputFile
-//            //定义存储apk的位置和文件名，这里文件名格式定义为 [applicationId_版本号_ReleaseTime_apk]
-//            if (outputFile != null && outputFile.name.contains("release") && outputFile.name.endsWith('.apk')) {
-//
-//                def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_release.apk"
-//                output.outputFile = new File(outputFile.parent, fileName)
-//            }
-////            else  if (outputFile != null && outputFile.name.contains("debug") && outputFile.name.endsWith('.apk')) {
-////
-////                def fileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_debug.apk"
-////                output.outputFile = new File(outputFile.parent, fileName)
-////            }
-//        }
-//    }
+            //定义存储apk的位置和文件名，这里文件名格式定义为 [applicationId_版本号_ReleaseTime_apk]
+            if (outputFileName != null && outputFileName.contains("release") && outputFileName.endsWith('.apk')) {
 
-    productFlavors.all { flavor ->
-        flavor.manifestPlaceholders = [facebook_app_name: "裝甲連隊",
-                                       facebook_app_id:"134211963880586",
-                                       google_app_id:"605752434859"]
+                outputFileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_release.apk"
+
+            }else  if (outputFile != null && outputFile.name.contains("debug") && outputFile.name.endsWith('.apk')) {
+
+                outputFileName = "${variant.applicationId}_${variant.versionCode}_${variant.versionName}_${getReleaseTime()}_debug.apk"
+            }
+        }
     }
+
     buildTypes {
         release {
 //            multiDexEnabled true //Add this
@@ -50,10 +44,15 @@ android {
             signingConfig signingConfigs.brmmdsign
 
 
-            resValue "string", "facebook_app_name", "PokeMMO"
-            resValue "string", "facebook_app_id", "162382044348232"
-            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider162382044348232"
-            resValue "string", "google_app_id", ""
+            resValue "string", "facebook_app_name", "裝甲連隊"
+            resValue "string", "facebook_app_id", "134211963880586"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider134211963880586"
+            resValue "string", "google_app_id", "605752434859"
+            //装甲英文
+//            resValue "string", "facebook_app_name", "General Kim"
+//            resValue "string", "facebook_app_id", "141453116613802"
+//            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider141453116613802"
+//            resValue "string", "google_app_id", "768367627631"
         }
 
         debug {
@@ -61,10 +60,16 @@ android {
             signingConfig signingConfigs.brmmdsign
 
 
-            resValue "string", "facebook_app_name", "PokeMMO"
-            resValue "string", "facebook_app_id", "162382044348232"
-            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider162382044348232"
-            resValue "string", "google_app_id", ""
+            resValue "string", "facebook_app_name", "裝甲連隊"
+            resValue "string", "facebook_app_id", "134211963880586"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider134211963880586"
+            resValue "string", "google_app_id", "605752434859"
+
+            //装甲英文
+//            resValue "string", "facebook_app_name", "General Kim"
+//            resValue "string", "facebook_app_id", "141453116613802"
+//            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider141453116613802"
+//            resValue "string", "google_app_id", "768367627631"
         }
     }
     productFlavors {
@@ -117,6 +122,17 @@ android {
             versionName "2.0"
             flavorDimensions "1"
 
+        }
+
+        //全球装甲连队 英文
+        gbzj {
+            applicationId "com.starpy.py.gbzj"
+            signingConfig signingConfigs.brmmdsign
+            minSdkVersion 18
+            targetSdkVersion 26
+            versionCode 2
+            versionName "2.0"
+            dimension "1"
         }
 
     }
