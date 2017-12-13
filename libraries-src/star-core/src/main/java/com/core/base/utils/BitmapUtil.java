@@ -117,7 +117,7 @@ public class BitmapUtil {
             String insertImage = MediaStore.Images.Media.insertImage(context.getContentResolver(), imageFile.getAbsolutePath(), fileName, null);
             PL.i("mImageUrl:" + insertImage);
             if (SStringUtil.isNotEmpty(insertImage)){
-
+                //如果图片内容相同，即使文件名称不同，在相册里面只会显示一个
                 mediaScannerConnection = new MediaScannerConnection(context, new MediaScannerConnection.MediaScannerConnectionClient() {
 
                     public void onMediaScannerConnected() {
