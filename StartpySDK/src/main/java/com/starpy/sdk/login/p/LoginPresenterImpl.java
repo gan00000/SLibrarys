@@ -2,6 +2,7 @@ package com.starpy.sdk.login.p;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
@@ -518,13 +519,17 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     }
 
     private void cteateUserImage(Context context, String freeRegisterName, String freeRegisterPwd) {
-        String appName = ApkInfoUtil.getApplicationName(context);
+        try {
+            String appName = ApkInfoUtil.getApplicationName(context);
 //        String text = "你登入" + appName + "的帳號和密碼如下:\n帳號:" + freeRegisterName + "\n" + "密碼:" + freeRegisterPwd;
-        String text = String.format(context.getResources().getString(R.string.py_login_mac_tips), appName, freeRegisterName, freeRegisterPwd);
-        PL.i("cteateUserImage:" + text);
-        Bitmap bitmap = BitmapUtil.bitmapAddText(BitmapFactory.decodeResource(context.getResources(),R.drawable.v2_mac_pwd_bg),text);
-        BitmapUtil.saveImageToGallery(getContext(),bitmap);
-        ToastUtils.toast(context, context.getResources().getString(R.string.py_login_mac_saveimage_tips));
+            String text = String.format(context.getResources().getString(R.string.py_login_mac_tips), appName, freeRegisterName, freeRegisterPwd);
+            PL.i("cteateUserImage:" + text);
+            Bitmap bitmap = BitmapUtil.bitmapAddText(BitmapFactory.decodeResource(context.getResources(),R.drawable.v2_mac_pwd_bg),text);
+            BitmapUtil.saveImageToGallery(getContext(),bitmap);
+            ToastUtils.toast(context, context.getResources().getString(R.string.py_login_mac_saveimage_tips));
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -97,7 +97,7 @@ public class StarEventLogger {
             }
         },10 * 1000);
     }
-    private static void adsInstallActivation(final Context context){
+    public static void adsInstallActivation(final Context context){
 
         final AdsRequestBean adsRequestBean = new AdsRequestBean(context);
         adsRequestBean.setRequestUrl(ResConfig.getAdsPreferredUrl(context));
