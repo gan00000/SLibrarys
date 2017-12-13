@@ -1,12 +1,13 @@
 package com.core.base.utils;
 
+import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.Layout;
@@ -15,7 +16,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 /**
@@ -83,22 +83,28 @@ public class BitmapUtil {
 
     }
 
-    public static void saveImageToGallery(Context context, Bitmap bm) {
+    public static String saveImageToGallery(Context context, Bitmap bm) {
         String fileName = System.currentTimeMillis() + ".jpg";
-        String sdcard = SdcardUtil.getPath();
-        PL.i("sdcard:" + sdcard);
-        if (!TextUtils.isEmpty(sdcard)){
-            saveImageToGallery(context, bm,fileName, sdcard + File.separator + "starpy" + File.separator + context.getPackageName());
+        String bitmapPath = "";
+        if (PermissionUtil.hasSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            bitmapPath = SdcardUtil.getPath();
+        }else {
+             bitmapPath = context.getExternalCacheDir().getAbsolutePath();
         }
+        PL.i("save bitmap:" + bitmapPath);
+        if (!TextUtils.isEmpty(bitmapPath)){
+            return saveImageToGallery(context, bm,fileName, bitmapPath + File.separator + "starpy" + File.separator + context.getPackageName());
+        }
+        return null;
     }
 
-    public static void saveImageToGallery(Context context, Bitmap bm, String fileName, String fileDirStr) {
+    public static String saveImageToGallery(Context context, Bitmap bm, String fileName, String fileDirStr) {
 
         File fileDir = new File(fileDirStr);
         if (!fileDir.exists()) {
             fileDir.mkdirs();
         }
-        File imageFile = new File(fileDir, fileName);
+        final File imageFile = new File(fileDir, fileName);
         try {
             if (!imageFile.exists()) {
                 imageFile.createNewFile();
@@ -107,24 +113,74 @@ public class BitmapUtil {
             bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
             bos.flush();
             bos.close();
+
+            String insertImage = MediaStore.Images.Media.insertImage(context.getContentResolver(), imageFile.getAbsolutePath(), fileName, null);
+            PL.i("mImageUrl:" + insertImage);
+            if (SStringUtil.isNotEmpty(insertImage)){
+
+                mediaScannerConnection = new MediaScannerConnection(context, new MediaScannerConnection.MediaScannerConnectionClient() {
+
+                    public void onMediaScannerConnected() {
+                        try {
+                            PL.i("onMediaScannerConnected");
+                            mediaScannerConnection.scanFile(imageFile.getAbsolutePath(), "image/jpeg");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    public void onScanCompleted(String path, Uri uri) {
+                        PL.i("onScanCompleted");
+                        mediaScannerConnection.disconnect();
+                    }
+                });
+                mediaScannerConnection.connect();
+                return insertImage;
+            }
+
         }catch (Exception e) {
             // TODO Auto-generated catch block
-            return;
+            if (e != null)
+                e.printStackTrace();
         }
+        return null;
 
         // 其次把文件插入到系统图库
-        try {
-            MediaStore.Images.Media.insertImage(context.getContentResolver(),
-                    imageFile.getAbsolutePath(), fileName, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            MediaStore.Images.Media.insertImage(context.getContentResolver(), imageFile.getAbsolutePath(), fileName, null);
+//
+//            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//            Uri uri = Uri.fromFile(imageFile);
+//            intent.setData(uri);
+//            context.sendBroadcast(intent);
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
-        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri uri = Uri.fromFile(imageFile);
-        intent.setData(uri);
-        context.sendBroadcast(intent);
+
+//        if (SStringUtil.isNotEmpty(imageFilePath)){
+//            msc = new MediaScannerConnection(context, new MediaScannerConnection.MediaScannerConnectionClient() {
+//
+//                public void onMediaScannerConnected() {
+//                    try {
+//                        PL.i("onMediaScannerConnected");
+//                        msc.scanFile(imageFilePath, "image/jpeg");
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                public void onScanCompleted(String path, Uri uri) {
+//                    PL.i("onScanCompleted");
+//                    msc.disconnect();
+//                }
+//            });
+//            msc.connect();
+
     }
+
+    private static MediaScannerConnection mediaScannerConnection;
 
     public static int dp2px(Context context, float dp) {
         float scale = context.getResources().getDisplayMetrics().density;
