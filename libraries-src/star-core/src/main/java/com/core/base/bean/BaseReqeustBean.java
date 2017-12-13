@@ -3,7 +3,9 @@ package com.core.base.bean;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.core.base.BuildConfig;
 import com.core.base.utils.ApkInfoUtil;
+import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 
 import java.lang.reflect.Field;
@@ -30,6 +32,8 @@ public class BaseReqeustBean extends AbsReqeustBean {
     private String versionName = "";
 
     public BaseReqeustBean(Context context) {
+
+        PL.i("the jar version:" + BuildConfig.JAR_VERSION);//打印版本号
 
         systemVersion = ApkInfoUtil.getOsVersion();
         deviceType = ApkInfoUtil.getDeviceType();

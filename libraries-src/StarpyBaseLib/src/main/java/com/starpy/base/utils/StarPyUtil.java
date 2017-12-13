@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.core.base.cipher.DESCipher;
+import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.FileUtil;
 import com.core.base.utils.JsonUtil;
 import com.core.base.utils.SPUtil;
@@ -315,5 +316,27 @@ public class StarPyUtil {
     }
     public static String getGoogleIdToken(Context context){
         return SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_TOKEN_ID_STRING);
+    }
+
+
+    public static  String getCustomizedUniqueId1AndroidId1Adid(Context ctx){
+
+        if (!"mthxtw".equals(ResConfig.getGameCode(ctx))) {
+
+            String adId = StarPyUtil.getGoogleAdId(ctx);
+            if (SStringUtil.isNotEmpty(adId)){//先Google id
+                return adId;
+            }
+
+            return ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(ctx);
+        }else {//以前魔塔是这么写，这里为了兼容魔塔游戏
+
+            String uniqueId = ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(ctx);
+            if (SStringUtil.isNotEmpty(uniqueId)){
+                return uniqueId;
+            }
+            return StarPyUtil.getGoogleAdId(ctx);
+
+        }
     }
 }

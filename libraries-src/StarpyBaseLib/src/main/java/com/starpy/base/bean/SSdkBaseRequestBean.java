@@ -3,12 +3,9 @@ package com.starpy.base.bean;
 import android.content.Context;
 
 import com.core.base.bean.BaseReqeustBean;
-import com.core.base.utils.ApkInfoUtil;
-import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.connector.BuildConfig;
 
 /**
  * <p>Title: SSdkBaseRequestBean</p> <p>Description: SDK接口请求参数实体</p>
@@ -52,23 +49,21 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
 
     private void initSdkField(Context context) {
 
-        PL.i("the jar version:" + BuildConfig.JAR_VERSION);//打印版本号
-
         appKey = ResConfig.getAppKey(context);
         accessToken = StarPyUtil.getSdkAccessToken(context);
         loginTimestamp = StarPyUtil.getSdkTimestamp(context);
         gameCode = ResConfig.getGameCode(context);
         gameLanguage = ResConfig.getGameLanguage(context);
 
-        uniqueId = ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(context);
-
         if (SStringUtil.isEmpty(signature)) {
             signature = SStringUtil.toMd5(ResConfig.getAppKey(context) + gameCode + timestamp);
         }
         adId = StarPyUtil.getGoogleAdId(context);
-        if (SStringUtil.isEmpty(uniqueId) && SStringUtil.isNotEmpty(adId)){//确保免注册不受干扰
-            uniqueId = adId;
-        }
+//        if (SStringUtil.isEmpty(uniqueId) && SStringUtil.isNotEmpty(adId)){//确保免注册不受干扰
+//            uniqueId = adId;
+//        }
+
+        uniqueId = StarPyUtil.getCustomizedUniqueId1AndroidId1Adid(context);
         referrer = StarPyUtil.getReferrer(context);
     }
 

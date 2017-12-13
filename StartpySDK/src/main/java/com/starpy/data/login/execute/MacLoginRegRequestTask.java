@@ -4,10 +4,10 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.core.base.bean.BaseReqeustBean;
-import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.bean.SLoginType;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.request.MacLoginRegRequestBean;
 
 /**
@@ -27,7 +27,7 @@ public class MacLoginRegRequestTask extends BaseLoginRequestTask {
         sdkBaseRequestBean = macLoginRegRequestBean;
 
         macLoginRegRequestBean.setRegistPlatform(SLoginType.LOGIN_TYPE_UNIQUE);
-        String uniqueId = ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(context);
+        String uniqueId = StarPyUtil.getCustomizedUniqueId1AndroidId1Adid(context);
         if(TextUtils.isEmpty(uniqueId)){
             PL.d("uniqueId:" + uniqueId);
             return;

@@ -352,7 +352,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         final String mPwd = pwd;
         final String mEmail = email;
         if (bindType == SLoginType.bind_unique){
-            String uniqueId = ApkInfoUtil.getCustomizedUniqueIdOrAndroidId(activity);
+            String uniqueId = StarPyUtil.getCustomizedUniqueId1AndroidId1Adid(activity);
             if(TextUtils.isEmpty(uniqueId)){
                 PL.d("thirdPlatId:" + uniqueId);
                 return;
