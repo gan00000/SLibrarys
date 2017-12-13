@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpRequestCore{
@@ -28,6 +29,12 @@ public class HttpRequestCore{
 	private String contentType = "application/x-www-form-urlencoded";
 	private String sendData;
 	private HttpResponse httpResponse = new HttpResponse();
+
+	public Map<String, String> getHeaderMap() {
+		return headerMap;
+	}
+
+	private Map<String,String> headerMap = new HashMap<>();
 
 	private byte[] postByteData;
 
@@ -144,7 +151,24 @@ public class HttpRequestCore{
 		this.requestMethod =  HttpReuqestMethod.GET;
 		return doReuqest();
 	}
-	
+
+//	TrustManager tm = new X509TrustManager() {
+//		public void checkClientTrusted(X509Certificate[] chain, String authType)
+//				throws CertificateException {
+//			//do nothing，接受任意客户端证书
+//		}
+//
+//		public void checkServerTrusted(X509Certificate[] chain, String authType)
+//				throws CertificateException {
+//			//do nothing，接受任意服务端证书
+//		}
+//
+//		public X509Certificate[] getAcceptedIssuers() {
+//			return null;
+//		}
+//	};
+
+
 	public HttpResponse doReuqest(){
 
 		if (TextUtils.isEmpty(requestUrl)) {
@@ -156,6 +180,22 @@ public class HttpRequestCore{
 		try {
 			URL url = new URL(requestUrl);
 			urlConnection = (HttpURLConnection) url.openConnection();
+//			if (urlConnection instanceof HttpsURLConnection){
+//				HttpsURLConnection httpsURLConnection = (HttpsURLConnection)urlConnection;
+//
+//				// Create an SSLContext that uses our TrustManager
+//				SSLContext context = SSLContext.getInstance("TLS");
+//				context.init(null, new TrustManager[] { tm }, null);
+//
+//				httpsURLConnection.setSSLSocketFactory(context.getSocketFactory());
+//
+//				httpsURLConnection.setHostnameVerifier(new HostnameVerifier() {
+//					@Override
+//					public boolean verify(String hostname, SSLSession session) {
+//						return true;
+//					}
+//				});
+//			}
 
 			if (!TextUtils.isEmpty(sendData) && HttpReuqestMethod.GET != requestMethod) {
 				urlConnection.setDoOutput(true);
@@ -168,6 +208,17 @@ public class HttpRequestCore{
 			urlConnection.setRequestProperty("Connection", "Keep-Alive");
 			urlConnection.setRequestProperty("accept", "*/*");
 			urlConnection.setRequestProperty("Content-Type",contentType);
+
+			if (!headerMap.isEmpty()){
+
+				for (Map.Entry<String, String> entry : headerMap.entrySet()) {
+					String mapValue = entry.getValue();
+					if (SStringUtil.isNotEmpty(mapValue)) {
+						urlConnection.setRequestProperty(entry.getKey(),mapValue);
+					}
+				}
+
+			}
 			urlConnection.connect();
 			
 			if (!TextUtils.isEmpty(sendData) && HttpReuqestMethod.GET != requestMethod) {//post请求需要写文件流
