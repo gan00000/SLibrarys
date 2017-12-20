@@ -1,0 +1,13 @@
+.DS_Store
+*.apk
+.idea
+*.pyc
+.gradle
+*/build
+build
+build/
+
+
+gen
+.metadata
+.recommenders
