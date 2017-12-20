@@ -62,6 +62,11 @@ public class SBaseWebView extends WebView {
         ws.setCacheMode(WebSettings.LOAD_DEFAULT);
         ws.setDatabaseEnabled(true);
 
+        //自适应屏幕 start
+        ws.setUseWideViewPort(true);
+        ws.setLoadWithOverviewMode(true);
+        //自适应屏幕 end
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ws.setAllowContentAccess(true);
         }
