@@ -18,6 +18,7 @@ import com.core.base.utils.PL;
 import com.core.base.utils.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
+import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SSdkBaseFragment;
@@ -125,8 +126,13 @@ public class InformantionFragment extends SSdkBaseFragment {
                     PL.d("onItemClick:" + position);//position从0开始
                     if (dataModelList.size() > 0){
                         PlatInfoModel platInfoModel = dataModelList.get(position);
+
+                        SGameBaseRequestBean sGameBaseRequestBean = new SGameBaseRequestBean(getActivity());
+                        sGameBaseRequestBean.setCompleteUrl(platInfoModel.getUrl());
+
                         PlatCommonWebViewFragment sWebViewFragment = new PlatCommonWebViewFragment();
-                        sWebViewFragment.setWebUrl(platInfoModel.getUrl());
+                        sWebViewFragment.setWebUrl(sGameBaseRequestBean.createPreRequestUrl());
+
                         sWebViewFragment.setWebTitle(getString(R.string.plat_info_webview_title));
                         sWebViewFragment.setShowBackView(true);
                         ((PlatMainActivity)getActivity()).changeFragment(sWebViewFragment);
