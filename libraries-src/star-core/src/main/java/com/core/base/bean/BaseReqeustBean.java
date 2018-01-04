@@ -104,6 +104,9 @@ public class BaseReqeustBean extends AbsReqeustBean {
             if (s.endsWith("?")){
                 return s + fieldParams;
             }
+            if (s.contains("?")){
+                return s + "&" + fieldParams;
+            }
             return s + "?" + fieldParams;
         }
         return "";
