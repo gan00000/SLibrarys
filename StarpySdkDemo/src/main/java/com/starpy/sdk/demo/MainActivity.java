@@ -80,7 +80,7 @@ public class MainActivity extends SBaseActivity {
          * severCode 角色伺服器id
          * serverName 角色伺服器名称
          */
-        iStarpy.registerRoleInfo(this, "roleid_1", "%E9%A9%AC%E7%BA%A2%E5%86%9B", "rolelevel", "1", "serverName");
+        iStarpy.registerRoleInfo(this, "roleid_1", "gan", "10", "386", "serverName");
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +146,7 @@ public class MainActivity extends SBaseActivity {
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, SPayType.GOOGLE, "" + System.currentTimeMillis(), "py.brmmd.1.99", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, SPayType.GOOGLE, "" + System.currentTimeMillis(), "tw.zjld.2usd", "10", "customize");
 
             }
         });
