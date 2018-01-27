@@ -63,7 +63,8 @@ public class SWebViewLayout extends SBaseRelativeLayout {
         RelativeLayout.LayoutParams colseLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         colseLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         this.addView(closeImageView,colseLp);
-        closeImageView.setBackgroundResource(R.drawable.com_star_close);
+//        closeImageView.setBackgroundResource(R.drawable.com_star_close);
+        closeImageView.setImageDrawable(getResources().getDrawable(R.drawable.com_star_close));
 
         initTitle("");
 

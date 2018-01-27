@@ -3,6 +3,7 @@ package com.starpy.base.bean;
 import android.content.Context;
 
 import com.core.base.bean.BaseReqeustBean;
+import com.core.base.utils.ResUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
@@ -65,6 +66,9 @@ public class SSdkBaseRequestBean extends BaseReqeustBean {
 
         uniqueId = StarPyUtil.getCustomizedUniqueId1AndroidId1Adid(context);
         referrer = StarPyUtil.getReferrer(context);
+
+        spy_platForm = ResUtil.findStringByName(context,"spy_platForm");
+        spy_advertiser = ResUtil.findStringByName(context,"spy_advertiser");
     }
 
     public String getAppKey() {
