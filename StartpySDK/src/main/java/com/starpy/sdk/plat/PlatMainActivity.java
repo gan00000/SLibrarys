@@ -338,6 +338,7 @@ public class PlatMainActivity extends SBaseSdkActivity implements PlatContract.I
 
             if (platMenuModels != null && platMenuModels.size() > 0) {
                 showInfoFragment(platMenuModels.get(0));
+                mDrawerLayout.openDrawer(menuDrawerFrameLayout);
             }
         }
     }
