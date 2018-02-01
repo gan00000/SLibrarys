@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.thirdlib.facebook.SFacebookProxy;
 
 /**
  * Created by gan on 2017/4/12.
@@ -57,6 +58,11 @@ public class AcrivityLoginImpl implements ILogin {
         Intent intent = new Intent(activity, SLoginActivity.class);
 
         activity.startActivityForResult(intent, SLoginActivity.S_LOGIN_REQUEST);//開啟登入
+
+    }
+
+    @Override
+    public void initFacebookPro(Activity activity, SFacebookProxy sFacebookProxy) {
 
     }
 }

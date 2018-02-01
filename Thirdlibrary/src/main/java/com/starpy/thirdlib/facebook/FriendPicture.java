@@ -1,6 +1,6 @@
 package com.starpy.thirdlib.facebook;
 
-public class InviteFriendPicture {
+public class FriendPicture {
 	private int height;
 	private int width;
 	private boolean is_silhouette;

@@ -3,7 +3,6 @@ package com.starpy.sdk.login;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.facebook.internal.CallbackManagerImpl;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.sdk.utils.DialogUtil;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
@@ -23,9 +22,6 @@ public class DialogLoginImpl implements ILogin {
     @Override
     public void onCreate(Activity activity) {
 
-        // 2.实例EfunFacebookProxy
-        sFacebookProxy = new SFacebookProxy(activity.getApplicationContext());
-
         sGoogleSignIn = new SGoogleSignIn(activity, DialogUtil.createLoadingDialog(activity, "Loading..."));
 
     }
@@ -37,9 +33,9 @@ public class DialogLoginImpl implements ILogin {
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-        if (sFacebookProxy != null && requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
-            sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
-        }
+//        if (sFacebookProxy != null && requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
+//            sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
+//        }
         if (sGoogleSignIn != null){
             sGoogleSignIn.handleActivityResult(activity,requestCode,resultCode,data);
         }
@@ -57,9 +53,7 @@ public class DialogLoginImpl implements ILogin {
 
     @Override
     public void onDestroy(Activity activity) {
-        if (sFacebookProxy != null) {
-            sFacebookProxy.onDestroy(activity);
-        }
+
     }
 
     @Override
@@ -69,5 +63,10 @@ public class DialogLoginImpl implements ILogin {
         sLoginDialog.setSGoogleSignIn(sGoogleSignIn);
         sLoginDialog.setLoginCallBack(iLoginCallBack);
         sLoginDialog.show();
+    }
+
+    @Override
+    public void initFacebookPro(Activity activity, SFacebookProxy sFacebookProxy) {
+        this.sFacebookProxy = sFacebookProxy;
     }
 }

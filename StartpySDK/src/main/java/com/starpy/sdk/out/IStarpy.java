@@ -6,6 +6,10 @@ import com.core.base.callback.IGameLifeCycle;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
 import com.starpy.data.login.ILoginCallBack;
+import com.starpy.thirdlib.facebook.FriendProfile;
+import com.starpy.thirdlib.facebook.SFacebookProxy;
+
+import java.util.List;
 
 /**
  * Created by gan on 2017/2/13.
@@ -25,6 +29,9 @@ public interface IStarpy extends IGameLifeCycle {
 
     public void cs(Activity activity, String roleLevel, String roleVipLevel);
 
+    public void share(Activity activity, ISdkCallBack iSdkCallBack, String shareLinkUrl);
+
+    @Deprecated
     public void share(Activity activity, ISdkCallBack iSdkCallBack, String title, String message , String shareLinkUrl, String sharePictureUrl);
 
     public void openWebview(Activity activity, String roleLevel, String roleVipLevel);
@@ -42,5 +49,9 @@ public interface IStarpy extends IGameLifeCycle {
     public void onRequestPermissionsResult(Activity activity, int requestCode, String[] permissions, int[] grantResults);
 
     public void onWindowFocusChanged(Activity activity, boolean hasFocus);
+
+    public void getFacebookFriends(Activity activity,SFacebookProxy.RequestFriendsCallBack requestFriendsCallBack);
+
+    public void inviteFriends(Activity activity, List<FriendProfile> friendProfiles, String message, SFacebookProxy.FbInviteFriendsCallBack fbInviteFriendsCallBack);
 
 }

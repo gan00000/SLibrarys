@@ -12,7 +12,6 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.internal.CallbackManagerImpl;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
@@ -22,6 +21,7 @@ import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
+import com.starpy.data.login.execute.QueryFbToStarpyUserIdTask;
 import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
@@ -33,10 +33,12 @@ import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
 import com.starpy.sdk.plat.PlatMainActivity;
+import com.starpy.thirdlib.facebook.FriendProfile;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGooglePlayGameServices;
 
 import java.net.URLEncoder;
+import java.util.List;
 
 
 public class StarpyImpl implements IStarpy {
@@ -128,6 +130,8 @@ public class StarpyImpl implements IStarpy {
                 if (iLogin != null){
                     //清除上一次登录成功的返回值
                     StarPyUtil.saveSdkLoginData(activity,"");
+
+                    iLogin.initFacebookPro(activity,sFacebookProxy);
                     iLogin.startLogin(activity, iLoginCallBack);
                 }
             }
@@ -205,6 +209,11 @@ public class StarpyImpl implements IStarpy {
                 sWebViewDialog.show();
             }
         });
+    }
+
+    @Override
+    public void share(Activity activity, ISdkCallBack iSdkCallBack, String shareLinkUrl) {
+        share(activity, iSdkCallBack,"","", shareLinkUrl,"");
     }
 
     @Override
@@ -356,7 +365,7 @@ public class StarpyImpl implements IStarpy {
         if (iLogin != null) {
             iLogin.onActivityResult(activity, requestCode, resultCode, data);
         }
-        if (sFacebookProxy != null && requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()){
+        if (sFacebookProxy != null){
             sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
         }
         if (csWebViewDialog != null){
@@ -436,6 +445,7 @@ public class StarpyImpl implements IStarpy {
         AppUtil.hideActivityBottomBar(activity);
     }
 
+
     @Override
     public void displayingAchievements() {
         if (sGooglePlayGameServices != null) {
@@ -461,6 +471,20 @@ public class StarpyImpl implements IStarpy {
     public void submitScore(String leaderboardID, long score) {
         if (sGooglePlayGameServices != null){
             sGooglePlayGameServices.submitScore(leaderboardID, score);
+        }
+    }
+
+
+    @Override
+    public void getFacebookFriends(final Activity activity, final SFacebookProxy.RequestFriendsCallBack requestFriendsCallBack) {
+        QueryFbToStarpyUserIdTask queryFbToStarpyUserIdTask = new QueryFbToStarpyUserIdTask(activity,sFacebookProxy,requestFriendsCallBack);
+        queryFbToStarpyUserIdTask.query();
+    }
+
+    @Override
+    public void inviteFriends(Activity activity, List<FriendProfile> friendProfiles, String message, SFacebookProxy.FbInviteFriendsCallBack fbInviteFriendsCallBack) {
+        if (sFacebookProxy != null){
+            sFacebookProxy.inviteFriends(activity, friendProfiles, message, fbInviteFriendsCallBack);
         }
     }
 
