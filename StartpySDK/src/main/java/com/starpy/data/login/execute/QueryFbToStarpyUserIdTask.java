@@ -7,13 +7,14 @@ import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.AbsHttpRequest;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
-import com.starpy.base.bean.SGameBaseRequestBean;
-import com.starpy.base.cfg.ResConfig;
+import com.core.base.utils.ToastUtils;
 import com.starpy.data.login.request.QueryFbToStarpyUserIdBean;
+import com.starpy.data.login.request.StarpyUserRelateFbBean;
 import com.starpy.data.login.response.FbUser;
 import com.starpy.data.login.response.QueryFbUserResponse;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.utils.DialogUtil;
+import com.starpy.thirdlib.facebook.FbSp;
 import com.starpy.thirdlib.facebook.FriendProfile;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 
@@ -60,9 +61,10 @@ public class QueryFbToStarpyUserIdTask {
                     if (friendProfiles != null) {
                         allFriendProfiles.addAll(friendProfiles);
                     }
-                    final SGameBaseRequestBean sGameBaseRequestBean = new SGameBaseRequestBean(activity);
-                    sGameBaseRequestBean.setRequestUrl(ResConfig.getLoginPreferredUrl(activity));
+                    final StarpyUserRelateFbBean sGameBaseRequestBean = new StarpyUserRelateFbBean(activity);
+                    sGameBaseRequestBean.setRequestUrl("http://access.starpytw.com/");
                     sGameBaseRequestBean.setRequestMethod("userRelateFbAccount");
+                    sGameBaseRequestBean.setFbId(FbSp.getFbId(activity));
 
                     final AbsHttpRequest absHttpRequest = new AbsHttpRequest() {
                         @Override
@@ -78,7 +80,11 @@ public class QueryFbToStarpyUserIdTask {
 
                             if (sLoginResponse != null && sLoginResponse.isRequestSuccess()) {
                                 queryFbUser(friendProfiles);
+
                             }else {
+                                if (SStringUtil.isNotEmpty(sLoginResponse.getMessage())) {
+                                    ToastUtils.toast(activity,sLoginResponse.getMessage());
+                                }
                                 requestFriendsCallBack.onError();
                             }
 
@@ -117,7 +123,7 @@ public class QueryFbToStarpyUserIdTask {
         String theGameFbUserId = idsStringBuffer.substring(0, idsStringBuffer.lastIndexOf(","));
 
         final QueryFbToStarpyUserIdBean queryGameBaseRequestBean = new QueryFbToStarpyUserIdBean(activity);
-        queryGameBaseRequestBean.setRequestUrl(ResConfig.getLoginPreferredUrl(activity));
+        queryGameBaseRequestBean.setRequestUrl("http://access.starpytw.com/");
         queryGameBaseRequestBean.setRequestMethod("queryFbAccountUserId");
 
         queryGameBaseRequestBean.setFbIds(theGameFbUserId);

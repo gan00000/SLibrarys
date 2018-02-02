@@ -11,19 +11,19 @@ import com.starpy.base.bean.SGameBaseRequestBean;
 * @author GanYuanrong
 * @date 2014年8月22日
 */
-public class QueryFbToStarpyUserIdBean extends SGameBaseRequestBean {
+public class StarpyUserRelateFbBean extends SGameBaseRequestBean {
 
-	public QueryFbToStarpyUserIdBean(Context context) {
+	public StarpyUserRelateFbBean(Context context) {
 		super(context);
 	}
 
-	private String fbIds = "";
+	private String fbId = "";
 
-	public String getFbIds() {
-		return fbIds;
+	public String getFbId() {
+		return fbId;
 	}
 
-	public void setFbIds(String fbIds) {
-		this.fbIds = fbIds;
+	public void setFbId(String fbId) {
+		this.fbId = fbId;
 	}
 }

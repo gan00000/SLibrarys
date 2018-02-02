@@ -9,11 +9,12 @@ public class FriendProfile {
 	}
 	
 	
-	private String name;
-	private String id;
+	private String name;//fb好友头昵称
+	private String id; //fb id（已完游戏） 或者fb token(未玩游戏)
 
-	private String iconUrl;
-	private String userId;
+	private String iconUrl;//fb好友头像url
+	private String userId;//好友在starpy平台的账号id,即好友在玩该游戏的starpy平台的账号id，如果fb好友没有玩，此字段为NULL
+	private String gender;//性别，有可能为空
 
 	private FriendPicture friendPicture;
 
@@ -81,4 +82,11 @@ public class FriendProfile {
 	}
 
 
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 }
