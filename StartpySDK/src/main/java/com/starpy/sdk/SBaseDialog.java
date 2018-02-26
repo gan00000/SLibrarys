@@ -5,10 +5,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.core.base.utils.AppUtil;
+import com.core.base.utils.PL;
 import com.starpy.base.utils.Localization;
 
 /**
@@ -56,7 +58,14 @@ public class SBaseDialog extends Dialog {
 
         Localization.updateSGameLanguage(context);//设置应用内语言
 
-        AppUtil.hideDialogBottomBar(this);
+//        AppUtil.hideDialogBottomBar(this);
+        this.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                PL.i("dialog onSystemUiVisibilityChange");
+                AppUtil.hideDialogBottomBar(SBaseDialog.this);
+            }
+        });
 
     }
 
@@ -82,6 +91,8 @@ public class SBaseDialog extends Dialog {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        AppUtil.hideDialogBottomBar(this);
+        if (hasFocus) {
+            AppUtil.hideDialogBottomBar(this);
+        }
     }
 }

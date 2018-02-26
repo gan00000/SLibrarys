@@ -3,6 +3,7 @@ package com.core.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.core.base.utils.AppUtil;
 import com.core.base.utils.PL;
@@ -18,7 +19,15 @@ public class SBaseActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		AppUtil.hideActivityBottomBar(this);
+//		AppUtil.hideActivityBottomBar(this);
+
+		this.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+			@Override
+			public void onSystemUiVisibilityChange(int visibility) {
+				PL.i("activity onSystemUiVisibilityChange");
+				AppUtil.hideActivityBottomBar(SBaseActivity.this);
+			}
+		});
 
 		PL.i("the jar version:" + BuildConfig.JAR_VERSION);//打印版本号
 	}
@@ -109,6 +118,8 @@ public class SBaseActivity extends AppCompatActivity {
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
-		AppUtil.hideActivityBottomBar(this);
+		if (hasFocus) {
+			AppUtil.hideActivityBottomBar(this);
+		}
 	}
 }

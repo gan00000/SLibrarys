@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.core.base.ObjFactory;
 import com.core.base.utils.AppUtil;
@@ -332,6 +333,15 @@ public class StarpyImpl implements IStarpy {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
+                activity.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                    @Override
+                    public void onSystemUiVisibilityChange(int visibility) {
+                        PL.i("activity onSystemUiVisibilityChange");
+                        AppUtil.hideActivityBottomBar(activity);
+                    }
+                });
+
                 //广告
                 StarEventLogger.activateApp(activity);
 
@@ -353,7 +363,7 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onResume(Activity activity) {
         PL.i("IStarpy onResume");
-        AppUtil.hideActivityBottomBar(activity);
+//        AppUtil.hideActivityBottomBar(activity);
         if (iLogin != null) {
             iLogin.onResume(activity);
         }
@@ -442,7 +452,9 @@ public class StarpyImpl implements IStarpy {
     @Override
     public void onWindowFocusChanged(Activity activity, boolean hasFocus) {
         PL.i("IStarpy onWindowFocusChanged: hasFocus -- " + hasFocus);
-        AppUtil.hideActivityBottomBar(activity);
+        if (hasFocus) {
+            AppUtil.hideActivityBottomBar(activity);
+        }
     }
 
 
