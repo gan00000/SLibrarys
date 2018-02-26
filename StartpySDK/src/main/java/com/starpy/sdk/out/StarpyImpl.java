@@ -337,7 +337,7 @@ public class StarpyImpl implements IStarpy {
                 activity.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
                     @Override
                     public void onSystemUiVisibilityChange(int visibility) {
-                        PL.i("activity onSystemUiVisibilityChange");
+                        PL.d("activity onSystemUiVisibilityChange");
                         AppUtil.hideActivityBottomBar(activity);
                     }
                 });

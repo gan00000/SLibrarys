@@ -24,7 +24,7 @@ public class SBaseActivity extends AppCompatActivity {
 		this.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
 			@Override
 			public void onSystemUiVisibilityChange(int visibility) {
-				PL.i("activity onSystemUiVisibilityChange");
+				PL.d("activity onSystemUiVisibilityChange");
 				AppUtil.hideActivityBottomBar(SBaseActivity.this);
 			}
 		});

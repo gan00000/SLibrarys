@@ -62,7 +62,7 @@ public class SBaseDialog extends Dialog {
         this.getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
             public void onSystemUiVisibilityChange(int visibility) {
-                PL.i("dialog onSystemUiVisibilityChange");
+                PL.d("dialog onSystemUiVisibilityChange");
                 AppUtil.hideDialogBottomBar(SBaseDialog.this);
             }
         });
