@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
 
@@ -52,6 +53,12 @@ public class AccountManagerLayoutV2 extends SLoginBaseRelativeLayout implements 
         uniqueRegBindBtn.setOnClickListener(this);
         fbRegBindBtn.setOnClickListener(this);
         googleRegBindBtn.setOnClickListener(this);
+
+        if (StarPyUtil.isMainland(getContext())){
+            fbRegBindBtn.setVisibility(GONE);
+            googleRegBindBtn.setVisibility(GONE);
+
+        }
 
         return contentView;
     }

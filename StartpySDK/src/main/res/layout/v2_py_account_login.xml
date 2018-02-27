@@ -193,15 +193,17 @@
                 >
 
 
-                <!--<TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/py_login_go_changePwd_v2"
-                    android:text="@string/py_change_pwd"
+                    android:id="@+id/py_login_free_reg_login"
+                    android:text="@string/py_free_reg"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/sp_20"
                     android:textStyle="bold"
-                    />-->
+                    android:layout_marginLeft="@dimen/px_10"
+                    android:visibility="gone"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"

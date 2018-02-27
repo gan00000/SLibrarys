@@ -53,8 +53,8 @@ public class ResConfig {
 
 	public static String getGameLanguage(Context context) {
 		String language = SPUtil.getSimpleString(context, StarPyUtil.STAR_PY_SP_FILE, StarPyUtil.STARPY_GAME_LANGUAGE);
-//		if (TextUtils.isEmpty(language)) {
-//			language =  getResStringByName(context, "star_game_language");
+//		if (TextUtils.isEmpty(language) && StarPyUtil.isMainland(context)) {
+//			language = SGameLanguage.zh_CH.getLanguage();
 //		}
 		return language;
 	}

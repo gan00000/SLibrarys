@@ -294,6 +294,9 @@ public class StarPyUtil {
     public static boolean isXM(Context context){
        return ResConfig.getConfigInAssets(context,"star_login_type").equals("100");
     }
+    public static boolean isMainland(Context context){//100為大陸sdk,其他為海外
+       return ResConfig.getConfigInAssets(context,"star_sdk_area").equals("100");
+    }
 
     private static final String STARPY_GOOGLE_ADVERTISING_ID = "STARPY_GOOGLE_ADVERTISING_ID";
     public static void saveGoogleAdId(Context context, String googleAdId){

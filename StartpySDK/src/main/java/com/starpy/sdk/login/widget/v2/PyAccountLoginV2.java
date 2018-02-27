@@ -42,7 +42,7 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 //    private View loginMainGoChangePwd;
 //    private View loginMainGoBindUnique;
 //    private View loginMainGoBindFb;
-//    private View loginMainGoBindGoogle;
+    private View loginMainFreeRegLogin;
     private View loginMainGoAccountCenter;
 
 
@@ -91,6 +91,7 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 //        loginMainGoBindFb = contentView.findViewById(R.id.py_login_go_bindFb_v2);
 //        loginMainGoBindGoogle = contentView.findViewById(R.id.py_login_go_bindGoogle);
         loginMainGoAccountCenter = contentView.findViewById(R.id.py_login_go_account_center);
+        loginMainFreeRegLogin = contentView.findViewById(R.id.py_login_free_reg_login);//遊客登錄
 
 
         eyeImageView = (ImageView) contentView.findViewById(R.id.py_login_password_eye_v2);
@@ -106,6 +107,11 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
         if (StarPyUtil.isXM(getContext())){//星盟标题
 
             ((ImageView)contentView.findViewById(R.id.v2_bg_title_login_iv)).setImageResource(R.drawable.bg_xm_title_login);
+        }
+
+        if (StarPyUtil.isMainland(getContext())){
+            loginMainFreeRegLogin.setVisibility(View.VISIBLE);
+            backView.setVisibility(GONE);
         }
 
         if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){//星盟--星彼英文一样
@@ -175,6 +181,13 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 //                sLoginDialogv2.toBindGoogleView();
 //            }
 //        });
+
+        loginMainFreeRegLogin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sLoginDialogv2.getLoginPresenter().macLogin(sLoginDialogv2.getActivity());
+            }
+        });
 
         loginMainGoAccountCenter.setOnClickListener(new OnClickListener() {
             @Override

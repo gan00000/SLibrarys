@@ -80,7 +80,12 @@ public class StarpyImpl implements IStarpy {
                 }
 
                 if (SStringUtil.isEmpty(ResConfig.getGameLanguage(activity))){
-                    setGameLanguage(activity,SGameLanguage.zh_TW);
+                    if (StarPyUtil.isMainland(activity)) {
+                        setGameLanguage(activity,SGameLanguage.zh_CH);
+                    }else {
+
+                        setGameLanguage(activity,SGameLanguage.zh_TW);
+                    }
                 }
 
                 ConfigRequest.requestBaseCfg(activity.getApplicationContext());//下载配置文件

@@ -53,4 +53,6 @@
     <string name="py_account_center">Member Center</string>
     <string name="py_send_new_pwd">Send new password</string>
 
+    <string name="py_free_reg">guest login</string>
+
 </resources>
