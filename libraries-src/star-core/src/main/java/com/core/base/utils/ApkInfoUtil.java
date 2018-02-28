@@ -1,6 +1,7 @@
 package com.core.base.utils;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -402,5 +403,72 @@ public class ApkInfoUtil {
 
 	}
 
+	/**
+	 //透明状态栏
+	 getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+	 //透明导航栏
+	 getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
+	 * 获取状态栏高度
+	 * @param context
+	 * @return
+	 */
+	public static int getStatusBarHeight(Context context) {
+		int result = 0;
+		int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen",
+				"android");
+		if (resourceId > 0) {
+			result = context.getResources().getDimensionPixelSize(resourceId);
+		}
+		return result;
+	}
+
+	/**
+	 * 获取导航栏高度
+	 * @param context
+	 * @return
+	 */
+	public static int getNavBarHeight(Context context) {
+
+		int resourceId = 0;
+		int rid = context.getResources().getIdentifier("config_showNavigationBar", "bool", "android");
+		if (rid != 0){
+			resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+			PL.d("高度："+resourceId);
+			PL.d("高度："+context.getResources().getDimensionPixelSize(resourceId) +"");
+			return context.getResources().getDimensionPixelSize(resourceId);
+		}
+		return 0;
+	}
+
+
+	/*public static boolean isNavigationBarShow(Activity activity){
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+
+			Display display = activity.getWindowManager().getDefaultDisplay();
+			Point size = new Point();
+			Point realSize = new Point();
+			display.getSize(size);//不包括虚拟导航栏高度
+			display.getRealSize(realSize);//包括虚拟导航栏高度
+
+			if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+				return realSize.x != size.x;
+
+			}else {
+
+				return realSize.y != size.y;
+			}
+		}else {
+			boolean menu = ViewConfiguration.get(activity).hasPermanentMenuKey();
+			boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+			if(menu || back) {
+				return false;
+			}else {
+				return true;
+			}
+		}
+	}*/
 
 }
