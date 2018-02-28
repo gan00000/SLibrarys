@@ -56,5 +56,10 @@
     <string name="py_send_new_pwd">发送新密码</string>
     <string name="py_free_reg">游客登入</string>
 
+    <string name="py_login_page_account_login">会员登入页</string>
+    <string name="py_login_page_account_reg">会员注册</string>
+    <string name="py_login_page_account_bind">绑定账号</string>
+    <string name="py_login_page_change_pwd">修改密码</string>
+    <string name="py_login_page_forgot_pwd">忘记密码</string>
 
 </resources>

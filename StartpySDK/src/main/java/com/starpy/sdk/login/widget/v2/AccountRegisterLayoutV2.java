@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
-import com.starpy.base.bean.SGameLanguage;
-import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
@@ -74,13 +72,13 @@ public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements
         backView.setOnClickListener(this);
         registerConfirm.setOnClickListener(this);
 
-        if (StarPyUtil.isXM(getContext())){//星盟标题
-            ((ImageView)contentView.findViewById(R.id.v2_bg_title_register_iv)).setImageResource(R.drawable.bg_xm_title_register);
-        }
-
-        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){//星盟--星彼英文一样
-            ((ImageView)contentView.findViewById(R.id.v2_bg_title_register_iv)).setImageResource(R.drawable.bg_xm_title_register_en);
-        }
+//        if (StarPyUtil.isXM(getContext())){//星盟标题
+//            ((ImageView)contentView.findViewById(R.id.v2_bg_title_register_iv)).setImageResource(R.drawable.bg_xm_title_register);
+//        }
+//
+//        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){//星盟--星彼英文一样
+//            ((ImageView)contentView.findViewById(R.id.v2_bg_title_register_iv)).setImageResource(R.drawable.bg_xm_title_register_en);
+//        }
 
         return contentView;
     }

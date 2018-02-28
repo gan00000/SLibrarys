@@ -53,5 +53,10 @@
     <string name="py_account_center">會員中心</string>
     <string name="py_send_new_pwd">發送新密碼</string>
     <string name="py_free_reg">遊客登入</string>
+    <string name="py_login_page_account_login">會員登入頁</string>
+    <string name="py_login_page_account_reg">會員註冊</string>
+    <string name="py_login_page_account_bind">綁定帳號</string>
+    <string name="py_login_page_change_pwd">修改密碼</string>
+    <string name="py_login_page_forgot_pwd">忘記密碼</string>
 
 </resources>

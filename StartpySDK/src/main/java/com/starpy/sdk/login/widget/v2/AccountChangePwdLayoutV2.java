@@ -6,13 +6,10 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
-import com.starpy.base.bean.SGameLanguage;
-import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
@@ -58,9 +55,9 @@ public class AccountChangePwdLayoutV2 extends SLoginBaseRelativeLayout implement
         changePwdConfireBtn = (TextView) contentView.findViewById(R.id.py_changepwd_confirm);
 
 
-        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){
-            ((ImageView)contentView.findViewById(R.id.py_change_pwd_title)).setImageResource(R.drawable.bg_title_chang_pwd_en);
-        }
+//        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){
+//            ((ImageView)contentView.findViewById(R.id.py_change_pwd_title)).setImageResource(R.drawable.bg_title_chang_pwd_en);
+//        }
 
         backView.setOnClickListener(this);
         changePwdConfireBtn.setOnClickListener(this);
