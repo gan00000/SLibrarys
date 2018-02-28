@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
 
 import com.core.base.SWebView;
@@ -97,8 +100,45 @@ public class SWebViewDialog extends SBaseDialog {
             sWebView.loadUrl(webUrl);
         }
 
+        sWebViewLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            public void onGlobalLayout() {
+                PL.d("onGlobalLayout...");
+                possiblyResizeChildOfContent();
+            }
+        });
+
+        viewGroupLayoutParams = (ViewGroup.LayoutParams) sWebViewLayout.getLayoutParams();
+        originalHeight = viewGroupLayoutParams.height;
     }
 
+    private int usableHeightPrevious;
+    private ViewGroup.LayoutParams viewGroupLayoutParams;
+
+    private int originalHeight;
+
+    private void possiblyResizeChildOfContent() {//全屏状态下webView输入框被遮挡的问题，通过这个方法重设view高度勉强解决
+        int usableHeightNow = computeUsableHeight();
+        if (usableHeightNow != usableHeightPrevious) {
+            int usableHeightSansKeyboard = sWebViewLayout.getRootView().getHeight();
+            PL.d("usableHeightSansKeyboard:" + usableHeightSansKeyboard);
+            int heightDifference = usableHeightSansKeyboard - usableHeightNow;
+            if (heightDifference > (usableHeightSansKeyboard / 3)) {
+                // keyboard probably just became visible
+                viewGroupLayoutParams.height = usableHeightSansKeyboard - heightDifference;
+            } else {
+                // keyboard probably just became hidden
+                viewGroupLayoutParams.height = originalHeight;
+            }
+            sWebViewLayout.requestLayout();
+            usableHeightPrevious = usableHeightNow;
+        }
+    }
+
+    private int computeUsableHeight() {
+        Rect r = new Rect();
+        sWebViewLayout.getWindowVisibleDisplayFrame(r);
+        return (r.bottom - r.top);// 全屏模式下： return r.bottom
+    }
 
 
     @Override
