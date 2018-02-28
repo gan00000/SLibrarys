@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.AppUtil;
 import com.core.base.utils.PL;
 import com.starpy.base.utils.Localization;
@@ -40,8 +41,13 @@ public class SBaseDialog extends Dialog {
         //获得dialog的window窗口
         Window window = this.getWindow();
 
-        int padDimension = context.getResources().getDimensionPixelSize(R.dimen.px_15);
-        window.getDecorView().setPadding(padDimension, padDimension, padDimension, padDimension);
+        int padDimension = ApkInfoUtil.getNavBarHeight(context);
+        if (padDimension <= 0){
+            padDimension = context.getResources().getDimensionPixelSize(R.dimen.px_15);
+            window.getDecorView().setPadding(padDimension, padDimension, padDimension, padDimension);
+        }else {
+            window.getDecorView().setPadding(padDimension, padDimension/2, padDimension, padDimension/2);
+        }
 
         //获得window窗口的属性
         android.view.WindowManager.LayoutParams lp = window.getAttributes();

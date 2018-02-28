@@ -77,7 +77,7 @@ public class SWebViewLayout extends SBaseRelativeLayout {
     }
 
     private int getCloseRadius(){
-        return activity.getResources().getDrawable(R.drawable.com_star_close).getIntrinsicWidth()/2;
+        return activity.getResources().getDrawable(R.drawable.com_star_close).getIntrinsicWidth()/3;
     }
 
     private void initTitle(String webTitle) {
