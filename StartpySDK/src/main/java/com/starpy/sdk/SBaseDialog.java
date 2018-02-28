@@ -49,6 +49,9 @@ public class SBaseDialog extends Dialog {
             window.getDecorView().setPadding(padDimension, padDimension/2, padDimension, padDimension/2);
         }
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         //获得window窗口的属性
         android.view.WindowManager.LayoutParams lp = window.getAttributes();
 
