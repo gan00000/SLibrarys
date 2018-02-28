@@ -1,9 +1,9 @@
 package com.starpy.sdk.demo;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private Button loginButton, othersPayButton,googlePayBtn,csButton,shareButton;
 
@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 
         iStarpy = StarpyFactory.create();
 
-        iStarpy.setGameLanguage(this, SGameLanguage.en_US);
+        iStarpy.setGameLanguage(this, SGameLanguage.zh_CH);
 
         //初始化sdk
         iStarpy.initSDK(this);
@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
                 /**
                  * 打开客服接口
                  * level：游戏等级
-                 * vipLevel：vip等级，没有就选""
+                 * vipLevel：vip等级，没有就传""
                  */
                 iStarpy.cs(MainActivity.this,"level","vipLevel");
             }
@@ -153,7 +153,7 @@ public class MainActivity extends Activity {
 
                 iStarpy.share(MainActivity.this,iSdkCallBack,shareUrl);
 
-                iStarpy.share(MainActivity.this,iSdkCallBack,"", "", shareUrl, "");
+//                iStarpy.share(MainActivity.this,iSdkCallBack,"", "", shareUrl, "");
 
             }
         });
