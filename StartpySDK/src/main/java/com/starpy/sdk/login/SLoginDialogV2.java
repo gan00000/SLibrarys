@@ -12,26 +12,24 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.starpy.base.utils.Localization;
-import com.starpy.sdk.login.widget.v2.AccountManagerLayoutV2;
-import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.base.bean.SLoginType;
-import com.starpy.base.utils.StarPyUtil;
+import com.starpy.base.utils.Localization;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SBaseDialog;
 import com.starpy.sdk.login.p.LoginPresenterImpl;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
-import com.starpy.sdk.login.widget.v2.ThirdPlatBindAccountLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountChangePwdLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountFindPwdLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountInjectionLayoutV2;
+import com.starpy.sdk.login.widget.v2.AccountManagerLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterTermsLayoutV2;
-import com.starpy.sdk.login.widget.v2.MainLoginLayoutV2;
 import com.starpy.sdk.login.widget.v2.PyAccountLoginV2;
+import com.starpy.sdk.login.widget.v2.ThirdPlatBindAccountLayoutV2;
 import com.starpy.sdk.login.widget.v2.XMMainLoginLayoutV2;
+import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleSignIn;
 
 import java.util.ArrayList;
@@ -77,7 +75,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
     private ILoginCallBack iLoginCallBack;
 
-    private boolean isXM = false;
+//    private boolean isXM = false;
 
     public SLoginDialogV2(@NonNull Context context) {
         super(context);
@@ -135,7 +133,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
         viewPageList = new ArrayList<>();
 
-        isXM = StarPyUtil.isXM(activity);
+//        isXM = StarPyUtil.isXM(activity);
 
         toMainLoginView();
 
@@ -191,11 +189,12 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     public void toMainLoginView() {
         if (mainLoginView == null || !viewPageList.contains(mainLoginView)){
 
-            if (isXM) {
-                mainLoginView = new XMMainLoginLayoutV2(context);//星盟
-            }else {
-                mainLoginView = new MainLoginLayoutV2(context);//舊的新玩意
-            }
+//            if (isXM) {
+//                mainLoginView = new XMMainLoginLayoutV2(context);//星盟
+//            }else {
+//                mainLoginView = new MainLoginLayoutV2(context);//舊的新玩意
+//            }
+            mainLoginView = new XMMainLoginLayoutV2(context);//星盟
             mainLoginView.setLoginDialogV2(this);
             contentFrameLayout.addView(mainLoginView);
             viewPageList.add(mainLoginView);
