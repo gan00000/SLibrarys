@@ -20,7 +20,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 * <p>Title: SRequestAsyncTask</p>
 * <p>Description: 由于系统提供的标准AsyncTask在targetSdkVersion 4——12（包括12）下是并发执行的
 * 		而在targetSdkVersion >= 13是顺序执行的，为了满足任何情况下异步并发执行，故编写此类来工作，此类继承AsyncTask</p>
-* <p>Company: EFun</p> 
 * @author GanYuanrong
 * @date 2014年12月3日
 */

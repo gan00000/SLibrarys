@@ -1,5 +1,11 @@
 package com.core.base.cipher;
 
+import android.text.TextUtils;
+import android.util.Base64;
+
+import com.core.base.utils.PL;
+import com.core.base.utils.SStringUtil;
+
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -17,17 +23,10 @@ import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.DESedeKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
-import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
-
-import com.core.base.utils.SStringUtil;
-
 
 /**
 * <p>Title: DESCipher</p>
 * <p>Description: 加密解密类</p>
-* <p>Company: EFun</p> 
 * @author GanYuanrong
 * @date 2014年2月13日
 */
@@ -54,7 +53,7 @@ public class DESCipher {
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey, random);
 			byte[] byteResult = cipher.doFinal(encryptData.getBytes());
 			String d = SStringUtil.binaryToHexString(byteResult);
-			Log.d("efun", "byteResult:" + d);
+			PL.d("byteResult:" + d);
 			result = Base64.encodeToString(byteResult, Base64.DEFAULT);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();

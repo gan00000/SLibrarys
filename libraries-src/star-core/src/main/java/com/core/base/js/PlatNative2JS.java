@@ -1,14 +1,14 @@
 package com.core.base.js;
 
-import org.json.JSONObject;
-
-import com.core.base.SWebView;
-
 import android.content.Context;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
+
+import com.core.base.SWebView;
+import com.core.base.utils.PL;
+
+import org.json.JSONObject;
 
 public class PlatNative2JS extends Native2JS {
 
@@ -17,8 +17,8 @@ public class PlatNative2JS extends Native2JS {
 		super(context);
 	}
 
-	public PlatNative2JS(Context context, SWebView efunWebView) {
-		super(context, efunWebView);
+	public PlatNative2JS(Context context, SWebView sWebView) {
+		super(context, sWebView);
 		
 	}
 //	"{'key':'platformInfo'，'callback':'window.xxx.syncToCache'}
@@ -28,7 +28,7 @@ public class PlatNative2JS extends Native2JS {
 	
 	@JavascriptInterface
 	public String getSdkInfo(String jsJson) {//callback
-		Log.d("efun", "keyJson:" + jsJson);
+		PL.d("keyJson:" + jsJson);
 		if (TextUtils.isEmpty(jsJson)) {
 			return "";
 		}

@@ -167,11 +167,6 @@ public class ApkInfoUtil {
 	    int ipInt = info.getIpAddress();
 		String ipTmp = String.format("%d.%d.%d.%d", (ipInt & 0xff), (ipInt >> 8 & 0xff), (ipInt >> 16 & 0xff), (ipInt >> 24 & 0xff));
 
-	/*    if (TextUtils.isEmpty(ipTmp) || ipTmp.equals("0.0.0.0")) {
-	    	Log.d("efunLog", "getLocalIpAddress()");
-	    	ipTmp = getLocalIpAddress();
-		}*/
-
 	    return ipTmp;
 
 	}
@@ -210,7 +205,7 @@ public class ApkInfoUtil {
 		} else {
 			// NetworkInfo不为null开始判断是网络类型
 			int netType = mobNetInfoActivity.getType();
-			Log.i("efunLog", "netType:" + netType);
+			PL.i("netType:" + netType);
 			if (netType == ConnectivityManager.TYPE_WIFI) {
 				// wifi net处理
 				return true;

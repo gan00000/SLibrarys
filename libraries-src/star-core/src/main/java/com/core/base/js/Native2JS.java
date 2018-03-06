@@ -1,19 +1,18 @@
 package com.core.base.js;
 
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.core.base.SWebView;
 import com.core.base.utils.ApkInfoUtil;
 import com.core.base.utils.PL;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 public class Native2JS {
 
@@ -115,60 +114,7 @@ public class Native2JS {
 		return ApkInfoUtil.getVersionName(context);
 	}
 	
-/*	@JavascriptInterface
-	public String getUserName(){
-		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_USERNAME);
-	}
-	@JavascriptInterface
-	public String getPassword(){
-		return SPUtil.getSimpleString(context, SPUtil.STAR_PY_SP_FILE, SPUtil.EFUN_LOGIN_PASSWORD);
-	}
-	
-	@JavascriptInterface
-	public String getUserId(){
-		return SConfig.getCurrentEfunUserId(context);
-	}
-	
-	@JavascriptInterface
-	public String getTimesStamp(){
-		return SConfig.getSDKLoginTimestamp(context);
-	}
-	
-	@JavascriptInterface
-	public String getSign(){
-		return SConfig.getSDKLoginSign(context);
-	}
-	
-	@JavascriptInterface
-	public String getRoleId(){
-		return "";
-	}
-	
-	@JavascriptInterface
-	public String getRoleName(){
-		return "";
-	}
-	
-	@JavascriptInterface
-	public String getServerCode(){
-		return "";
-	}
-	
-	@JavascriptInterface
-	public String getLanguage(){
-		return SConfig.getGameLanguage(context);
-	}
-	
-	@JavascriptInterface
-	public String getLoginType(){
-		return "";
-	}
-	
-	@JavascriptInterface
-	public String getGameCode(){
-		return SConfig.getGameCode(context);
-	}
-	*/
+
 	@JavascriptInterface
 	public void finishActivity(){
 		if (context != null && context instanceof Activity) {

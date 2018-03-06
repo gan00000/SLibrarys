@@ -21,10 +21,11 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.FileChooserParams;
 import android.widget.Toast;
+
+import com.core.base.utils.PL;
 
 /**
  * Handle the file upload callbacks from WebView here
@@ -36,9 +37,7 @@ public class UploadHandler {
 //    final static int PREFERENCES_PAGE = 3;
     final static int FILE_SELECTED = 4;
 //    final static int VOICE_RESULT = 6;
-	private static final String TAG = "efun_UploadHandler";
 
-    
 	/*
 	 * The Object used to inform the WebView of the file to upload.
 	 */
@@ -70,11 +69,11 @@ public class UploadHandler {
 	}*/
 
 	public void onResult(int requestCode,int resultCode, Intent intent) {
-		Log.d(TAG, "onActivityResult: requestCode-->" + requestCode +",resultCode-->" + resultCode);
+		PL.d("onActivityResult: requestCode-->" + requestCode +",resultCode-->" + resultCode);
 		if (resultCode == Activity.RESULT_CANCELED && !mCaughtActivityNotFoundException) {
 			// Couldn't resolve an activity, we are going to try again so skip
 			// this result.
-			Log.d(TAG, "Activity.RESULT_CANCELED");
+			PL.d("Activity.RESULT_CANCELED");
 			mCaughtActivityNotFoundException = false;
 			if (mUploadMessage != null) {
 				mUploadMessage.onReceiveValue(null);
@@ -109,14 +108,14 @@ public class UploadHandler {
 		if(resultCode == Activity.RESULT_OK && intent != null){
 			Uri result = intent.getData();
 			if (requestCode == FILE_SELECTED) {
-				Log.d(TAG, "requestCode == FILE_SELECTED");
+				PL.d("requestCode == FILE_SELECTED");
 				if (mUploadMessage != null) {
 					mUploadMessage.onReceiveValue(result);
 				} else if (mFilePathCallback != null) {
 					Uri[] results = new Uri[] { result };
 					mFilePathCallback.onReceiveValue(results);
 				} else {
-					Log.d(TAG, "mUploadMessage and mFilePathCallback is null");
+					PL.d("mUploadMessage and mFilePathCallback is null");
 				}
 //			mHandled = true;
 			}
@@ -149,7 +148,7 @@ public class UploadHandler {
 			mUploadMessage = null;
 //			return;
 		}
-		Log.d(TAG, "acceptType:" + acceptType + " ,capture:" + capture);
+		PL.d("acceptType:" + acceptType + " ,capture:" + capture);
 		mUploadMessage = uploadMsg;
 
 //		// Parse the accept type.

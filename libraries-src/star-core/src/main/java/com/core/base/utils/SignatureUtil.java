@@ -53,13 +53,13 @@ public class SignatureUtil {
 	public static String getSignatureMD5(Context context,String pkgName) {
 		Signature[] arrayOfSignature = getRawSignature(context, pkgName);
 		if ((arrayOfSignature == null) || (arrayOfSignature.length == 0)) {
-			Log.e("efun", "signs is null");
+			PL.e("signs is null");
 			return "";
 		}
 		if (arrayOfSignature.length == 1) {
 			return getMessageDigest(arrayOfSignature[0].toByteArray(),"MD5");
 		}
-		Log.w("efun", "arrayOfSignature.length:" + arrayOfSignature.length);
+		PL.w("arrayOfSignature.length:" + arrayOfSignature.length);
 		return "";
 	}
 	
@@ -74,13 +74,13 @@ public class SignatureUtil {
 	public static String getSignatureSHA1(Context context,String pkgName) {
 		Signature[] arrayOfSignature = getRawSignature(context, pkgName);
 		if ((arrayOfSignature == null) || (arrayOfSignature.length == 0)) {
-			Log.e("efun", "signs is null");
+			PL.e("signs is null");
 			return "";
 		}
 		if (arrayOfSignature.length == 1) {
 			return getMessageDigest(arrayOfSignature[0].toByteArray(),"SHA-1");
 		}
-		Log.w("efun", "arrayOfSignature.length:" + arrayOfSignature.length);
+		PL.w("arrayOfSignature.length:" + arrayOfSignature.length);
 		return "";
 	}
 	
@@ -111,18 +111,18 @@ public class SignatureUtil {
 	public static Signature[] getRawSignature(Context context, String pkgName) {
 		PackageInfo localPackageInfo;
 		if ((pkgName == null) || (pkgName.length() == 0)) {
-			Log.e("efun", "getSignature, packageName is null");
+			PL.e("getSignature, packageName is null");
 			return null;
 		}
 		PackageManager localPackageManager = context.getPackageManager();
 		try {
 			localPackageInfo = localPackageManager.getPackageInfo(pkgName, 64);
 			if (localPackageInfo == null) {
-				Log.e("efun", "package info is null, packageName = " + pkgName);
+				PL.e("package info is null, packageName = " + pkgName);
 				return null;
 			}
 		} catch (PackageManager.NameNotFoundException localNameNotFoundException) {
-			Log.e("efun", "NameNotFoundException");
+			PL.e("NameNotFoundException");
 			return null;
 		}
 		return localPackageInfo.signatures;

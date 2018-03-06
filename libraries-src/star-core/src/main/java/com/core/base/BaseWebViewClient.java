@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 /**
- * Created by Efun on 2016/12/2.
+ * Created by gan on 2016/12/2.
  */
 
 public class BaseWebViewClient extends WebViewClient {

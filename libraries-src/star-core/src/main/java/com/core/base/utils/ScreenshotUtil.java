@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 
 import com.core.base.callback.SavePhotoCallback;
@@ -60,7 +59,7 @@ public class ScreenshotUtil {
 		}
 		
 		String path = MediaStore.Images.Media.insertImage(context.getApplicationContext().getContentResolver(), bitmap, "", "");
-		Log.e("efun", "insertImage==path:" + path);
+		PL.i("insertImage==path:" + path);
 		MediaScanner mediaScanner = new MediaScanner(context.getApplicationContext());
 		mediaScanner.scanFile(new File(path), "image/jpeg");
 	}

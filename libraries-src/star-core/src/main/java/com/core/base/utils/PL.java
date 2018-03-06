@@ -3,7 +3,7 @@ package com.core.base.utils;
 import android.util.Log;
 
 /**
- * Created by Efun on 2016/11/28.
+ * Created by gan on 2016/11/28.
  */
 
 public class PL {
@@ -21,11 +21,20 @@ public class PL {
     public static void i(String msg){
         i(PL_LOG,msg + "");
     }
+
+    public static void i(String tag, String msg){
+        Log.i(tag,msg + "");
+    }
+
     public static void w(String msg){
         Log.w(PL_LOG,msg + "");
     }
 
-    public static void i(String tag, String msg){
-        Log.i(tag,msg + "");
+    public static void e(String tag, String msg){
+        Log.e(tag,msg + "");
+    }
+
+    public static void e(String msg){
+        Log.e(PL_LOG,msg + "");
     }
 }

@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import com.core.base.js.UploadHandler;
 
 /**
- * Created by Efun on 2016/12/2.
+ * Created by gan on 2016/12/2.
  */
 
 public class BaseWebChromeClient extends WebChromeClient {

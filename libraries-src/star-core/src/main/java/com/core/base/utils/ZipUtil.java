@@ -13,7 +13,6 @@ import java.util.zip.ZipFile;
 /**
 * <p>Title: ZipUtil</p>
 * <p>Description: 压缩文件工具类（用于压缩或者解压）</p>
-* <p>Company: EFun</p> 
 * @author GanYuanrong
 * @date 2015年1月14日
 */

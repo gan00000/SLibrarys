@@ -1,15 +1,14 @@
 package com.core.base.utils;
 
-import java.io.File;
-
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
 
+import java.io.File;
+
 /**
 * <p>Title: SdcardUtil</p>
 * <p>Description: 存储空间工具类</p>
-* <p>Company: EFun</p> 
 * @author GanYuanrong
 * @date 2015年1月14日
 */

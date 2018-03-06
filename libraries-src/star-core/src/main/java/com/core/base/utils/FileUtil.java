@@ -1,5 +1,9 @@
 package com.core.base.utils;
 
+import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,10 +15,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Properties;
-
-import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
 
 public class FileUtil {
 	
@@ -74,9 +74,9 @@ public class FileUtil {
     		try {
     			f.createNewFile();
     		} catch (IOException e) {
-    			Log.d("efun", "createNewFile error:" + e.getMessage());
+    			PL.d("createNewFile error:" + e.getMessage());
     			if (e.getMessage().contains("Permission denied")) {
-    				Log.e("efun", "没有添加android.permission.WRITE_EXTERNAL_STORAGE权限");
+					PL.d("没有添加android.permission.WRITE_EXTERNAL_STORAGE权限");
 				}
     			e.printStackTrace();
     			return false;
@@ -126,14 +126,14 @@ public class FileUtil {
 	public static String getFileNameTmp(String filePath){
 		String mFileName = getFileName(filePath);
 		String tmp = mFileName.substring(0, mFileName.lastIndexOf(".") + 1) + "tmp";
-		Log.d("efun", "tmp file name:" + tmp);
+		PL.d("tmp file name:" + tmp);
 		return tmp;
 	}
 	
 	public static void deleteFile(File file) {
         if (null != file && file.exists()) { // 判断文件是否存在
             if (file.isFile()) { // 判断是否是文件
-            	Log.d("efun", "删除文件");
+				PL.d("删除文件");
                 file.delete(); // 删除文件;
             } else if (file.isDirectory()) { // 否则如果它是一个目录
                 File files[] = file.listFiles(); // 声明目录下所有的文件 files[];
@@ -188,7 +188,7 @@ public class FileUtil {
 			//如果原文件不存在
 			File oldFile = new File(oldFilePath);
 			if (oldFile.exists()) {
-				Log.d("efun", "oldFile.exists true");
+				PL.d("oldFile.exists true");
 				//获得原文件流
 				FileInputStream inputStream = new FileInputStream(oldFile);
 				byte[] data = new byte[2048 * 2];
@@ -216,10 +216,10 @@ public class FileUtil {
 				outputStream.close();
 				newTmpFile.renameTo(newFile);
 				return true;
-			} 
-			Log.d("efun", "oldFile.exists false");
+			}
+			PL.d( "oldFile.exists false");
 		} catch (IOException e) {
-			Log.d("efun", "e:" + e.getMessage());
+			PL.d("e:" + e.getMessage());
 			e.printStackTrace();
 		}
 		return false;

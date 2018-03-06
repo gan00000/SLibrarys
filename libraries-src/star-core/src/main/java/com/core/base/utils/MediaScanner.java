@@ -1,20 +1,17 @@
 package com.core.base.utils;
 
-import java.io.File;
-
 import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.util.Log;
+
+import java.io.File;
 
 /**
  * 通知系统有文件更新
- * @author Efun
+ * @author gan
  *
  */
 public class MediaScanner {
-
-	 private static final String TAG = "efun";
 
 	    private MediaScannerConnection mConn = null;
 	    private SannerClient mClient = null;
@@ -34,7 +31,7 @@ public class MediaScanner {
 	            MediaScannerConnection.MediaScannerConnectionClient {
 
 	        public void onMediaScannerConnected() {
-	        	Log.d(TAG, "onMediaScannerConnected");
+	        	PL.d("onMediaScannerConnected");
 	            if (mFile == null) {
 	                return;
 	            }
@@ -42,12 +39,12 @@ public class MediaScanner {
 	        }
 
 	        public void onScanCompleted(String path, Uri uri) {
-	        	Log.d(TAG, "onScanCompleted");
+				PL.d("onScanCompleted");
 	            mConn.disconnect();
 	        }
 
 	        private void scan(File file, String type) {
-	            Log.i(TAG, "scan " + file.getAbsolutePath());
+				PL.d("scan " + file.getAbsolutePath());
 	            if (file.isFile()) {
 	                mConn.scanFile(file.getAbsolutePath(), null);
 	                return;

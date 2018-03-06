@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 /**
- * Created by Efun on 2016/12/23.
+ * Created by gan on 2016/12/23.
  */
 
 public class BaseResponseModel implements Serializable {

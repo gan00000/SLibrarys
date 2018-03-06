@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /**
- * Created by Efun on 2017/2/16.
+ * Created by gan on 2017/2/16.
  */
 
 public class BitmapUtil {

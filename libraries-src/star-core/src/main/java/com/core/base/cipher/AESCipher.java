@@ -66,6 +66,11 @@ package com.core.base.cipher;
 // the salt, the IV, the human-friendly passphrase, all the algorithms and parameters to those algorithms.
 // Peter van der Linden, April 15 2012
 
+import android.text.TextUtils;
+import android.util.Base64;
+
+import com.core.base.utils.PL;
+
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -82,16 +87,9 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
-
-import com.core.base.utils.PL;
-
 /**
 * <p>Title: AESCipher</p>
 * <p>Description: AES加密解密文件</p>
-* <p>Company: EFun</p> 
 * @author GanYuanrong
 * @date 2014年6月30日
 */

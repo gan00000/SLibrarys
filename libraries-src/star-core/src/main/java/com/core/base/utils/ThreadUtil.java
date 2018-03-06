@@ -13,14 +13,14 @@ public class ThreadUtil {
 
 	public static void checkUiThread(Context context) {
 		if (!isUiThread()) {
-			Log.e("efun", "Calling this must from your main thread");
+			PL.e("Calling this must from your main thread");
 			Toast.makeText(context, "Calling this must from your main thread", Toast.LENGTH_SHORT).show();
 			throw new IllegalStateException("Calling this must from your main thread");
 		}
 	}
 	public static void checkUiThread() {
 		if (!isUiThread()) {
-			Log.e("efun", "Calling this must from your main thread");
+			PL.e("Calling this must from your main thread");
 			throw new IllegalStateException("Calling this must from your main thread");
 		}
 	}

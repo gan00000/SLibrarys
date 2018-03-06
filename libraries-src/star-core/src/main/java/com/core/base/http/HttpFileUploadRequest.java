@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * 上传文件的HttpRequest类
- * Created by Efun on 2016/10/27.
+ * Created by gan on 2016/10/27.
  */
 
 public class HttpFileUploadRequest {

@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import java.io.Serializable;
 
 /**
- * Created by Efun on 2016/11/24.
+ * Created by gan on 2016/11/24.
  */
 
 public abstract class AbsReqeustBean implements Serializable{
