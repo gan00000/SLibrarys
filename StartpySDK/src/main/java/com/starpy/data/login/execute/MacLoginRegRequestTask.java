@@ -11,7 +11,7 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.request.MacLoginRegRequestBean;
 
 /**
- * <p>Title: MacLoginRegRequestTask</p> <p>Description: 新三方登陆&注册接口</p> <p>Company: EFun</p>
+ * <p>Title: MacLoginRegRequestTask</p> <p>Description: 新三方登陆&注册接口</p> <p>Company:GanYuanrong</p>
  *
  * @author GanYuanrong
  * @date 2014年9月16日

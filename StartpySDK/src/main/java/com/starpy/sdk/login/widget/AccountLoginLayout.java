@@ -8,7 +8,7 @@ import android.view.View;
 import com.starpy.sdk.R;
 
 /**
- * Created by Efun on 2017/2/6.
+ * Created by GanYuanrong on 2017/2/6.
  */
 
 public class AccountLoginLayout extends SLoginBaseRelativeLayout implements View.OnClickListener {

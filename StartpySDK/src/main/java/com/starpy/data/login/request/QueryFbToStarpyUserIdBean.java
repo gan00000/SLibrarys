@@ -7,7 +7,7 @@ import com.starpy.base.bean.SGameBaseRequestBean;
 /**
 * <p>Title: AdsRequestBean</p>
 * <p>Description: 接口请求参数实体</p>
-* <p>Company: EFun</p> 
+* <p>Company:GanYuanrong</p>
 * @author GanYuanrong
 * @date 2014年8月22日
 */

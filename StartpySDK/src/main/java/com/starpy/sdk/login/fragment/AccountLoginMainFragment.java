@@ -24,7 +24,7 @@ import com.starpy.base.utils.StarPyUtil;
 import com.core.base.utils.ToastUtils;
 
 /**
- * Created by Efun on 2017/2/6.
+ * Created by gan on 2017/2/6.
  */
 
 public class AccountLoginMainFragment extends BaseFragment {

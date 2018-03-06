@@ -20,7 +20,7 @@ import com.starpy.sdk.R;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
 
 /**
- * Created by Efun on 2017/2/6.
+ * Created by GanYuanrong on 2017/2/6.
  */
 
 public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {

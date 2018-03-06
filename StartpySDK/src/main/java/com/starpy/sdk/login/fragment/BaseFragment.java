@@ -12,7 +12,7 @@ import com.starpy.sdk.SSdkBaseFragment;
 import com.starpy.sdk.login.SLoginActivity;
 
 /**
- * Created by Efun on 2017/2/6.
+ * Created by GanYuanrong on 2017/2/6.
  */
 
 public class BaseFragment extends SSdkBaseFragment {

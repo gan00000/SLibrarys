@@ -100,7 +100,7 @@ public class NotStarpyAccountManagerFragment extends SSdkBaseFragment implements
             loginTypeTips = getString(R.string.plat_fb_reg_account);
             goBindTextView.setText(getString(R.string.plat_account_bind_fb));
             bindType = SLoginType.bind_fb;
-            // 2.实例EfunFacebookProxy
+            // 2.实例SFacebookProxy
             sFacebookProxy = new SFacebookProxy(this.getActivity());
 
         }else if (SLoginType.LOGIN_TYPE_GOOGLE.equals(userBindInfoModel.getRegistPlatform())){

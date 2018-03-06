@@ -1,7 +1,7 @@
 package com.lhh.ptrrv.library;
 
 /**
- * Created by Efun on 2016/10/21.
+ * Created by GanYuanrong on 2016/10/21.
  */
 
 public class Res {

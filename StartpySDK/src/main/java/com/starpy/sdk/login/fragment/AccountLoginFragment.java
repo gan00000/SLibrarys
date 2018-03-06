@@ -27,7 +27,7 @@ import com.starpy.sdk.utils.DialogUtil;
 import com.starpy.sdk.R;
 
 /**
- * Created by Efun on 2017/2/6.
+ * Created by GanYuanrong on 2017/2/6.
  */
 
 public class AccountLoginFragment extends BaseFragment implements View.OnClickListener {

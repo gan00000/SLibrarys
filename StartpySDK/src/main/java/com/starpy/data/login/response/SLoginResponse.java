@@ -3,7 +3,7 @@ package com.starpy.data.login.response;
 import com.core.base.bean.BaseResponseModel;
 
 /**
- * Created by Efun on 2017/2/11.
+ * Created by GanYuanrong on 2017/2/11.
  * "code":1000,"accessToken":"2eccffd3771eeec9303616386f6a2d27","message":"登入成功","userId":"41","timestamp":"1487844049868"}
  */
 

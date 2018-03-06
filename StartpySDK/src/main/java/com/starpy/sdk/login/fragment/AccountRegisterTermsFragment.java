@@ -12,7 +12,7 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
 
 /**
- * Created by Efun on 2017/2/6.
+ * Created by GanYuanrong on 2017/2/6.
  */
 
 public class AccountRegisterTermsFragment extends BaseFragment{

@@ -15,7 +15,7 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 
 /**
- * Created by Efun on 2016/12/1.
+ * Created by GanYuanrong on 2016/12/1.
  */
 
 public class SWebViewActivity extends SBaseSdkActivity {

@@ -61,7 +61,7 @@ public class SLoginActivity extends SBaseSdkActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        // 2.实例EfunFacebookProxy
+        // 2.实例SFacebookProxy
         sFacebookProxy = new SFacebookProxy(this.getApplicationContext());
 
         login();
