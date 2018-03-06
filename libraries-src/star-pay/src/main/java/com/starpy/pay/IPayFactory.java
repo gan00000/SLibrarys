@@ -3,7 +3,7 @@ package com.starpy.pay;
 import com.starpy.pay.gp.GooglePayImpl;
 
 /**
- * Created by Efun on 2017/2/23.
+ * Created by gan on 2017/2/23.
  */
 
 public class IPayFactory {

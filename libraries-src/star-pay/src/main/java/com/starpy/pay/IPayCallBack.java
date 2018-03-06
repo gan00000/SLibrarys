@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.core.base.callback.ISCallBack;
 
 /**
- * Created by Efun on 2017/2/23.
+ * Created by gan on 2017/2/23.
  */
 
 public interface IPayCallBack extends ISCallBack {

@@ -3,7 +3,7 @@ package com.starpy.pay.gp.bean.res;
 import com.core.base.bean.BaseResponseModel;
 
 /**
- * Created by Efun on 2017/2/23.
+ * Created by ganyuanrong on 2017/2/23.
  */
 
 public class GPCreateOrderIdRes extends BaseResponseModel {

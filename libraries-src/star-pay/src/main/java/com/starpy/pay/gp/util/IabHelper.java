@@ -472,7 +472,6 @@ public class IabHelper {
 //			String previousOrderId = PayHelper.getPreviousOrderId(act);
 //			if (!TextUtils.isEmpty(previousOrderId)) {
 //				if (previousOrderId.equals(context.getGoogleOrderBean().getOrderId())) {
-//					Log.d(mDebugTag, "efun orderId 重复");
 //					context.getPayDialog().complain("error,please try again");
 //					return;
 //				}
@@ -562,7 +561,7 @@ public class IabHelper {
 					mPurchaseListener.onIabPurchaseFinished(result, null);
 				return true;
 			}
-			SharedPreferences preferences = context.getSharedPreferences(GooglePayContant.EFUNFILENAME, Context.MODE_PRIVATE);
+			SharedPreferences preferences = context.getSharedPreferences(GooglePayContant.GOOGLE_FILENAME, Context.MODE_PRIVATE);
 			Editor editor = preferences.edit();
 			editor.putString(GooglePayContant.PURCHASE_DATA_ONE, purchaseData);
 			editor.putString(GooglePayContant.PURCHASE_SIGN_ONE, dataSignature);

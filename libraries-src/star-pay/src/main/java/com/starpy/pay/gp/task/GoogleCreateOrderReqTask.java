@@ -5,7 +5,7 @@ import com.core.base.bean.BaseReqeustBean;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 
 /**
- * Created by Efun on 2017/2/23.
+ * Created by gan on 2017/2/23.
  */
 
 public class GoogleCreateOrderReqTask extends AbsHttpRequest {

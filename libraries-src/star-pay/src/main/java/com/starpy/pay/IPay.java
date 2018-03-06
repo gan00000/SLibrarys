@@ -6,7 +6,7 @@ import com.core.base.callback.IGameLifeCycle;
 import com.starpy.pay.gp.bean.req.PayReqBean;
 
 /**
- * Created by Efun on 2017/2/23.
+ * Created by gan on 2017/2/23.
  */
 
 public interface IPay extends IGameLifeCycle{

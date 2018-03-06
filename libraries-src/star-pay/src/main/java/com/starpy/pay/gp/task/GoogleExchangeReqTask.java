@@ -6,7 +6,7 @@ import com.core.base.request.AbsHttpRequest;
 import com.core.base.bean.BaseReqeustBean;
 
 /**
- * Created by Efun on 2017/2/20.
+ * Created by ganyuanrong on 2017/2/20.
  */
 
 public class GoogleExchangeReqTask extends AbsHttpRequest {

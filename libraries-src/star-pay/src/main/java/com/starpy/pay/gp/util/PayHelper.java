@@ -5,7 +5,6 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.core.base.utils.ApkInfoUtil;
-import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.StarPyUtil;
@@ -73,15 +72,6 @@ public class PayHelper {
 			url = url + "/";
 		}
 		return url;
-	}
-	
-	
-	public static void saveCurrentOrderId(Context ctx,String orderId){
-		SPUtil.saveSimpleInfo(ctx, GooglePayContant.EFUNFILENAME, GooglePayContant.EFUN_CURRENT_ORDER_ID_KEY, orderId);
-	}
-	
-	public static String getPreviousOrderId(Context ctx){
-		return SPUtil.getSimpleString(ctx, GooglePayContant.EFUNFILENAME, GooglePayContant.EFUN_CURRENT_ORDER_ID_KEY);
 	}
 	
 }
