@@ -15,7 +15,7 @@ import com.starpy.base.utils.StarPyUtil;
 import org.json.JSONArray;
 
 /**
- * Created by Efun on 2017/2/14.
+ * Created by gan on 2017/2/14.
  */
 
 public class ConfigRequest{

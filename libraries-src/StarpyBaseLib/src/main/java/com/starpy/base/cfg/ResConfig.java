@@ -198,55 +198,7 @@ public class ResConfig {
 		return url;
 	}
 	
-	/**
-	 * <p>Description: 获取game工程域名</p>
-	 * @param context
-	 * @return
-	 * @date 2015年2月5日
-	 */
-	public static String getGamePreferredUrl(Context context) {
-		return getConfigUrl(context, "efunGamePreferredDomainUrl");
-	}
-	
-	public static String getGameSpareUrl(Context context) {
-		return getConfigUrl(context, "efunGameSpareDomainUrl");
-	}
-	
-	/**
-	 * <p>Description: 获取FB工程域名</p>
-	 * @param context
-	 * @return
-	 * @date 2015年2月5日
-	 */
-	public static String getFBPreferredUrl(Context context) {
-		return getConfigUrl(context, "efunFbPreferredUrl");
-	}
-	
-	public static String getFBSpareUrl(Context context) {
-		return getConfigUrl(context, "efunFbSpareUrl");
-	}
-	/**
-	 * <p>Description: 获取FB工程域名</p>
-	 * @param context
-	 * @return
-	 * @date 2015年2月5日
-	 */
-	public static String getQuestionPreferredUrl(Context context) {
-		return getConfigUrl(context, "efunQuestionPreUrl");
-	}
-	
-	public static String getQuestionSpareUrl(Context context) {
-		return getConfigUrl(context, "efunQuestionSpaUrl");
-	}
-	
-	
-	public static String getPushServerPreferredUrl(Context context) {
-		return getConfigUrl(context, "efunPushPreferredUrl");
-	}
-	
-	public static String getPushServerSpareUrl(Context context) {
-		return getConfigUrl(context, "efunPushSpareUrl");
-	}
+
 
 //===========================================域名获取end===============================================	
 //===========================================域名获取end===============================================	
