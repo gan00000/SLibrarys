@@ -160,6 +160,7 @@
             android:paddingRight="@dimen/px_10"
             android:layout_marginTop="@dimen/px_15"
             android:gravity="center"
+            android:id="@+id/py_save_account_pwd_layout"
             >
 
             <ImageView android:layout_width="@dimen/px_30"
@@ -281,6 +282,18 @@
                     android:textSize="@dimen/sp_20"
                     android:textStyle="bold"
                     android:layout_marginLeft="@dimen/px_20"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/py_login_go_bind_phone"
+                    android:text="@string/py_bind_phone"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/px_20"
+                    android:visibility="gone"
                     />
 
             </LinearLayout>

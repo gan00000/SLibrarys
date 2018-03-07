@@ -59,7 +59,7 @@ public abstract class SLoginBaseRelativeLayout extends SBaseRelativeLayout {
     private void initView(Context context) {
         this.context = context;
 
-        Localization.updateSGameLanguage(getActivity());
+        Localization.updateSGameLanguage(getTheContext());
 
         inflater = LayoutInflater.from(context);
         View contentView = createView(this.context, inflater);
@@ -72,7 +72,7 @@ public abstract class SLoginBaseRelativeLayout extends SBaseRelativeLayout {
         }
     }
 
-    protected Context getActivity() {
+    protected Context getTheContext() {
         return getContext();
     }
 

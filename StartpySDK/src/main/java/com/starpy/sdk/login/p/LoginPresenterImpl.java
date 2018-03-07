@@ -475,7 +475,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             public void success(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null) {
                     if (sLoginResponse.isRequestSuccess()) {
-//                        ToastUtils.toast(getActivity(), R.string.py_login_success);
+//                        ToastUtils.toast(getTheContext(), R.string.py_login_success);
 //                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
 
                         //1001 注册成功    1000登入成功

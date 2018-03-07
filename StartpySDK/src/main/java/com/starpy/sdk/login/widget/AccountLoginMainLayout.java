@@ -126,35 +126,35 @@ public class AccountLoginMainLayout extends SLoginBaseRelativeLayout {
 
         account = loginAccountEditText.getEditableText().toString();
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_account_empty);
             return;
         }
         account = account.trim();
 
         password = loginPasswordEditText.getEditableText().toString();
         if (TextUtils.isEmpty(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_password_empty);
             return;
         }
         password = password.trim();
 
         if (SStringUtil.isEqual(account, password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_equal_account);
+            ToastUtils.toast(getTheContext(), R.string.py_password_equal_account);
             return;
         }
 
         if (!StarPyUtil.checkAccount(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_error);
+            ToastUtils.toast(getTheContext(), R.string.py_account_error);
             return;
         }
         if (!StarPyUtil.checkPassword(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_error);
+            ToastUtils.toast(getTheContext(), R.string.py_password_error);
             return;
         }
 
         sLoginDialog.getLoginPresenter().starpyAccountLogin(sLoginDialog.getActivity(),account,password);
-     /*   AccountLoginRequestTask accountLoginCmd = new AccountLoginRequestTask(getActivity(), account, password);
-        accountLoginCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(),"Loading..."));
+     /*   AccountLoginRequestTask accountLoginCmd = new AccountLoginRequestTask(getTheContext(), account, password);
+        accountLoginCmd.setLoadDialog(DialogUtil.createLoadingDialog(getTheContext(),"Loading..."));
         accountLoginCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
             public void success(SLoginResponse sLoginResponse, String rawResult) {
@@ -165,10 +165,10 @@ public class AccountLoginMainLayout extends SLoginBaseRelativeLayout {
                         sLoginDialog.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
                     }else{
 
-                        ToastUtils.toast(getActivity(),sLoginResponse.getMessage());
+                        ToastUtils.toast(getTheContext(),sLoginResponse.getMessage());
                     }
                 }else{
-                    ToastUtils.toast(getActivity(),R.string.py_error_occur);
+                    ToastUtils.toast(getTheContext(),R.string.py_error_occur);
                 }
             }
 

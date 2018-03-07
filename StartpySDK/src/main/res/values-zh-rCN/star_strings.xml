@@ -62,4 +62,10 @@
     <string name="py_login_page_change_pwd">修改密码</string>
     <string name="py_login_page_forgot_pwd">忘记密码</string>
 
+    <string name="py_bind_phone">绑定手机</string>
+
+    <string name="py_bind_phone_number">手机号码，必填</string>
+    <string name="py_bind_phone_vf_code">验证码</string>
+    <string name="py_bind_phone_get_vf_code">获取验证码</string>
+
 </resources>

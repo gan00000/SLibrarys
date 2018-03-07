@@ -78,19 +78,19 @@ public class AccountInjectionLayoutV2 extends SLoginBaseRelativeLayout implement
 
         account = registerAccountEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_account_empty);
             return;
         }
 
         password = registerPasswordEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_password_empty);
             return;
         }
 
         String uid = registerUidEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(uid)) {
-            ToastUtils.toast(getActivity(), "user id 不能为空");
+            ToastUtils.toast(getTheContext(), "user id 不能为空");
             return;
         }
 

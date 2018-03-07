@@ -126,34 +126,34 @@ public class AccountRegisterLayout extends SLoginBaseRelativeLayout implements V
 
         account = registerAccountEditText.getEditableText().toString();
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_account_empty);
             return;
         }
         account = account.trim();
 
         password = registerPasswordEditText.getEditableText().toString();
         if (TextUtils.isEmpty(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_password_empty);
             return;
         }
         password = password.trim();
 
         if (!termsSelectImageView.isSelected()) {
-            ToastUtils.toast(getActivity(), R.string.py_select_terms);
+            ToastUtils.toast(getTheContext(), R.string.py_select_terms);
             return;
         }
 
         if (SStringUtil.isEqual(account, password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_equal_account);
+            ToastUtils.toast(getTheContext(), R.string.py_password_equal_account);
             return;
         }
 
         if (!StarPyUtil.checkAccount(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_error);
+            ToastUtils.toast(getTheContext(), R.string.py_account_error);
             return;
         }
         if (!StarPyUtil.checkPassword(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_error);
+            ToastUtils.toast(getTheContext(), R.string.py_password_error);
             return;
         }
 

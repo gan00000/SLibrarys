@@ -26,6 +26,7 @@ import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
 public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 
     private View contentView;
+    private View saveAccountPwdLayout;
 
     private TextView loginMainLoginBtn;
     private ImageView eyeImageView, savePwdCheckBox;
@@ -42,6 +43,7 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 //    private View loginMainGoBindFb;
     private View loginMainFreeRegLogin;
     private View loginMainGoAccountCenter;
+    private View goBindPhone;
 
 
     private View leftTopView;
@@ -87,7 +89,7 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 //        loginMainGoChangePwd = contentView.findViewById(R.id.py_login_go_changePwd_v2);
 //        loginMainGoBindUnique = contentView.findViewById(R.id.py_login_go_bindUnique_v2);
 //        loginMainGoBindFb = contentView.findViewById(R.id.py_login_go_bindFb_v2);
-//        loginMainGoBindGoogle = contentView.findViewById(R.id.py_login_go_bindGoogle);
+        goBindPhone = contentView.findViewById(R.id.py_login_go_bind_phone);
         loginMainGoAccountCenter = contentView.findViewById(R.id.py_login_go_account_center);
         loginMainFreeRegLogin = contentView.findViewById(R.id.py_login_free_reg_login);//遊客登錄
 
@@ -107,17 +109,22 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 //            ((ImageView)contentView.findViewById(R.id.v2_bg_title_login_iv)).setImageResource(R.drawable.bg_xm_title_login);
 //        }
 
-        if (StarPyUtil.isMainland(getContext())){
-            loginMainFreeRegLogin.setVisibility(View.VISIBLE);
-            backView.setVisibility(GONE);
-        }
 
-//        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){//星盟--星彼英文一样
+//        if (Localization.getSGameLanguage(getTheContext()) == SGameLanguage.en_US){//星盟--星彼英文一样
 //            ((ImageView)contentView.findViewById(R.id.v2_bg_title_login_iv)).setImageResource(R.drawable.bg_xm_title_login_en);
 //        }
 
-        savePwdCheckBox = (ImageView) contentView.findViewById(R.id.py_save_pwd_text_check_id);
+        saveAccountPwdLayout =  contentView.findViewById(R.id.py_save_account_pwd_layout);
 
+        if (StarPyUtil.isMainland(getContext())){
+            loginMainFreeRegLogin.setVisibility(View.VISIBLE);
+            goBindPhone.setVisibility(VISIBLE);
+            backView.setVisibility(GONE);
+            loginMainGoAccountCenter.setVisibility(GONE);
+            saveAccountPwdLayout.setVisibility(GONE);
+        }
+
+        savePwdCheckBox = (ImageView) contentView.findViewById(R.id.py_save_pwd_text_check_id);
         savePwdCheckBox.setSelected(true);
 
         savePwdCheckBox.setOnClickListener(new OnClickListener() {
@@ -188,6 +195,12 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
         });
 
         loginMainGoAccountCenter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sLoginDialogv2.toAccountManagerCenter();
+            }
+        });
+        goBindPhone.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 sLoginDialogv2.toAccountManagerCenter();
@@ -280,33 +293,33 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 
         account = loginAccountEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_account_empty);
             return;
         }
 
         password = loginPasswordEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_password_empty);
             return;
         }
 
         if (SStringUtil.isEqual(account, password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_equal_account);
+            ToastUtils.toast(getTheContext(), R.string.py_password_equal_account);
             return;
         }
 
         if (!StarPyUtil.checkAccount(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_error);
+            ToastUtils.toast(getTheContext(), R.string.py_account_error);
             return;
         }
         if (!StarPyUtil.checkPassword(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_error);
+            ToastUtils.toast(getTheContext(), R.string.py_password_error);
             return;
         }
 
         sLoginDialogv2.getLoginPresenter().starpyAccountLogin(sLoginDialogv2.getActivity(),account,password);
-     /*   AccountLoginRequestTask accountLoginCmd = new AccountLoginRequestTask(getActivity(), account, password);
-        accountLoginCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(),"Loading..."));
+     /*   AccountLoginRequestTask accountLoginCmd = new AccountLoginRequestTask(getTheContext(), account, password);
+        accountLoginCmd.setLoadDialog(DialogUtil.createLoadingDialog(getTheContext(),"Loading..."));
         accountLoginCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override
             public void success(SLoginResponse sLoginResponse, String rawResult) {
@@ -317,10 +330,10 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
                         sLoginDialog.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
                     }else{
 
-                        ToastUtils.toast(getActivity(),sLoginResponse.getMessage());
+                        ToastUtils.toast(getTheContext(),sLoginResponse.getMessage());
                     }
                 }else{
-                    ToastUtils.toast(getActivity(),R.string.py_error_occur);
+                    ToastUtils.toast(getTheContext(),R.string.py_error_occur);
                 }
             }
 

@@ -56,7 +56,7 @@ public class XMMainLoginLayoutV2 extends SLoginBaseRelativeLayout implements Vie
 //        starpyRegView.setOnClickListener(this);
         googleLoginView.setOnClickListener(this);
 
-        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){
+        if (Localization.getSGameLanguage(getTheContext()) == SGameLanguage.en_US){
             ((ImageView)macLoginView).setImageResource(R.drawable.btn_xm_guest_login_en);
             ((ImageView)starLoginView).setImageResource(R.drawable.btn_xm_member_login_en);
         }

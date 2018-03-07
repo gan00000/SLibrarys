@@ -345,10 +345,10 @@ public class SLoginActivity extends SBaseSdkActivity {
 
                     if (sLoginResponse.isRequestSuccess()){
 
-//                        ToastUtils.toast(getActivity(), R.string.py_login_success);
+//                        ToastUtils.toast(getTheContext(), R.string.py_login_success);
                           sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_FB);
 //                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
-//                        getActivity().finish();
+//                        getTheContext().finish();
                     }else{
                         goCommomLogin();
                     }

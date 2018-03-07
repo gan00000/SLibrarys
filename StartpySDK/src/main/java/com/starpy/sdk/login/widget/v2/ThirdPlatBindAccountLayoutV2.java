@@ -68,7 +68,7 @@ public class ThirdPlatBindAccountLayoutV2 extends SLoginBaseRelativeLayout imple
 
         bindConfirm = (TextView) contentView.findViewById(R.id.py_bind_account_confirm);
 
-//        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){
+//        if (Localization.getSGameLanguage(getTheContext()) == SGameLanguage.en_US){
 //            ((ImageView)contentView.findViewById(R.id.py_bind_account_title)).setImageResource(R.drawable.bg_title_bind_account_en);
 //        }
 
@@ -139,39 +139,39 @@ public class ThirdPlatBindAccountLayoutV2 extends SLoginBaseRelativeLayout imple
 
         account = registerAccountEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_account_empty);
             return;
         }
 
         password = registerPasswordEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_password_empty);
             return;
         }
 
         String email = registerMailEditText.getEditableText().toString().trim();
 
         if (!termsSelectImageView.isSelected()) {
-            ToastUtils.toast(getActivity(), R.string.py_select_terms);
+            ToastUtils.toast(getTheContext(), R.string.py_select_terms);
             return;
         }
 
         if (SStringUtil.isEqual(account, password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_equal_account);
+            ToastUtils.toast(getTheContext(), R.string.py_password_equal_account);
             return;
         }
 
         if (!StarPyUtil.checkAccount(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_error);
+            ToastUtils.toast(getTheContext(), R.string.py_account_error);
             return;
         }
         if (!StarPyUtil.checkPassword(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_error);
+            ToastUtils.toast(getTheContext(), R.string.py_password_error);
             return;
         }
 
         if (SStringUtil.isNotEmpty(email) && !Validator.isEmail(email)){
-            ToastUtils.toast(getActivity(), R.string.py_email_format_error);
+            ToastUtils.toast(getTheContext(), R.string.py_email_format_error);
             return;
         }
 

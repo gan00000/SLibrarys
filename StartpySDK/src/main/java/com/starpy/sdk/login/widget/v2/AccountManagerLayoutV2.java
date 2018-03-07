@@ -19,6 +19,10 @@ public class AccountManagerLayoutV2 extends SLoginBaseRelativeLayout implements 
     private TextView fbRegBindBtn;
     private TextView googleRegBindBtn;
 
+    //國內使用
+    private TextView goBindPhoneBtn;
+    private TextView goUnbindPhoneBtn;
+
 
     public AccountManagerLayoutV2(Context context) {
         super(context);
@@ -48,15 +52,25 @@ public class AccountManagerLayoutV2 extends SLoginBaseRelativeLayout implements 
         fbRegBindBtn = (TextView) contentView.findViewById(R.id.v2_account_manager_fb_reg_bind_btn);
         googleRegBindBtn = (TextView) contentView.findViewById(R.id.v2_account_manager_google_reg_bind_btn);
 
+        goBindPhoneBtn = (TextView) contentView.findViewById(R.id.v2_account_manager_bindphone_btn);
+        goUnbindPhoneBtn = (TextView) contentView.findViewById(R.id.v2_account_manager_unbindphone_bind_btn);
+
 
         changePwdBtn.setOnClickListener(this);
         uniqueRegBindBtn.setOnClickListener(this);
         fbRegBindBtn.setOnClickListener(this);
         googleRegBindBtn.setOnClickListener(this);
+        goBindPhoneBtn.setOnClickListener(this);
+        goUnbindPhoneBtn.setOnClickListener(this);
 
         if (StarPyUtil.isMainland(getContext())){
+            changePwdBtn.setVisibility(GONE);
+            uniqueRegBindBtn.setVisibility(GONE);
             fbRegBindBtn.setVisibility(GONE);
             googleRegBindBtn.setVisibility(GONE);
+
+            goBindPhoneBtn.setVisibility(VISIBLE);
+            goUnbindPhoneBtn.setVisibility(VISIBLE);
 
         }
 
@@ -102,6 +116,12 @@ public class AccountManagerLayoutV2 extends SLoginBaseRelativeLayout implements 
 
         } else if (v == backView) {//返回键
             sLoginDialogv2.toAccountLoginView();
+
+        } else if (v == goBindPhoneBtn) {//綁定手機
+            sLoginDialogv2.toAccountBindPhone();
+
+        } else if (v == goUnbindPhoneBtn) {//解綁手機
+            sLoginDialogv2.toAccountBindPhone();
         }
 
     }

@@ -177,7 +177,7 @@ public class AccountRegisterFragment extends BaseFragment implements View.OnClic
                         StarPyUtil.savePassword(getContext(),password);
                         sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
 
-//                        getActivity().finish();
+//                        getTheContext().finish();
                     }else{
 
                         ToastUtils.toast(getActivity(), sLoginResponse.getMessage());

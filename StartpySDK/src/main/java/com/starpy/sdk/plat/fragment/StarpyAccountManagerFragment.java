@@ -170,7 +170,7 @@ public class StarpyAccountManagerFragment extends SSdkBaseFragment {
         }
 
         changePwdTask(getActivity(),userBindInfoModel.getName(),password,newPassword);
-//        ((PlatMainActivity)getActivity()).getiLoginPresenter().changePwd(getActivity(),userBindInfoModel.getName(),password,newPassword);
+//        ((PlatMainActivity)getTheContext()).getiLoginPresenter().changePwd(getTheContext(),userBindInfoModel.getName(),password,newPassword);
     }
 
     private void changePwdTask(final Activity activity, final String account, String oldPwd, String newPwd) {

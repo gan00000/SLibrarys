@@ -145,13 +145,13 @@ public class AccountLoginMainFragment extends BaseFragment {
             public void success(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null){
                     if (sLoginResponse.isRequestSuccess()) {
-//                        ToastUtils.toast(getActivity(),R.string.py_login_success);
+//                        ToastUtils.toast(getTheContext(),R.string.py_login_success);
                         StarPyUtil.saveAccount(getContext(),account);
                         StarPyUtil.savePassword(getContext(),password);
-//                        StarPyUtil.saveSdkLoginData(getActivity(),sLoginResponse.getRawResponse());
+//                        StarPyUtil.saveSdkLoginData(getTheContext(),sLoginResponse.getRawResponse());
 //
                         sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
-//                        getActivity().finish();
+//                        getTheContext().finish();
                     }else{
 
                         ToastUtils.toast(getActivity(),sLoginResponse.getMessage());

@@ -25,7 +25,7 @@ public class BaseFragment extends SSdkBaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadingDialog = DialogUtil.createLoadingDialog(getActivity(), "Loading...");
+//        loadingDialog = DialogUtil.createLoadingDialog(getTheContext(), "Loading...");
         sLoginActivity = (SLoginActivity) getActivity();
         Localization.updateSGameLanguage(getActivity());
 

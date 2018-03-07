@@ -28,6 +28,8 @@ public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements
 
     private EditText registerPasswordEditText, registerAccountEditText,registerMailEditText;
 
+    private View registerMailLayout;
+
     private String account;
     private String password;
 
@@ -64,6 +66,8 @@ public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements
 
         registerConfirm = (TextView) contentView.findViewById(R.id.py_register_account_confirm);
 
+        registerMailLayout = contentView.findViewById(R.id.py_register_mail_layout);
+
         termsSelectImageView.setSelected(true);
 
         termsSelectImageView.setOnClickListener(this);
@@ -76,10 +80,13 @@ public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements
 //            ((ImageView)contentView.findViewById(R.id.v2_bg_title_register_iv)).setImageResource(R.drawable.bg_xm_title_register);
 //        }
 //
-//        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){//星盟--星彼英文一样
+//        if (Localization.getSGameLanguage(getTheContext()) == SGameLanguage.en_US){//星盟--星彼英文一样
 //            ((ImageView)contentView.findViewById(R.id.v2_bg_title_register_iv)).setImageResource(R.drawable.bg_xm_title_register_en);
 //        }
 
+        if (StarPyUtil.isMainland(getContext()) && registerMailLayout != null){
+            registerMailLayout.setVisibility(GONE);
+        }
         return contentView;
     }
 
@@ -136,39 +143,39 @@ public class AccountRegisterLayoutV2 extends SLoginBaseRelativeLayout implements
 
         account = registerAccountEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_account_empty);
             return;
         }
 
         password = registerPasswordEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_password_empty);
             return;
         }
 
         String email = registerMailEditText.getEditableText().toString().trim();
 
         if (!termsSelectImageView.isSelected()) {
-            ToastUtils.toast(getActivity(), R.string.py_select_terms);
+            ToastUtils.toast(getTheContext(), R.string.py_select_terms);
             return;
         }
 
         if (SStringUtil.isEqual(account, password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_equal_account);
+            ToastUtils.toast(getTheContext(), R.string.py_password_equal_account);
             return;
         }
 
         if (!StarPyUtil.checkAccount(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_error);
+            ToastUtils.toast(getTheContext(), R.string.py_account_error);
             return;
         }
         if (!StarPyUtil.checkPassword(password)) {
-            ToastUtils.toast(getActivity(), R.string.py_password_error);
+            ToastUtils.toast(getTheContext(), R.string.py_password_error);
             return;
         }
 
         if (SStringUtil.isNotEmpty(email) && !Validator.isEmail(email)){
-            ToastUtils.toast(getActivity(), R.string.py_email_format_error);
+            ToastUtils.toast(getTheContext(), R.string.py_email_format_error);
             return;
         }
 

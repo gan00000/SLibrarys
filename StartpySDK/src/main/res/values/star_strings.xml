@@ -58,5 +58,11 @@
     <string name="py_login_page_account_bind">綁定帳號</string>
     <string name="py_login_page_change_pwd">修改密碼</string>
     <string name="py_login_page_forgot_pwd">忘記密碼</string>
+    <string name="py_bind_phone">綁定手機</string>
+    <string name="py_bind_phone_number">手機號碼，必填</string>
+    <string name="py_bind_phone_vf_code">驗證碼</string>
+    <string name="py_bind_phone_get_vf_code">獲取驗證碼</string>
+
+    <string name="py_unbind_phone">解綁手機</string>
 
 </resources>

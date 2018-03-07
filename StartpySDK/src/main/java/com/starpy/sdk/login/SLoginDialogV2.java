@@ -26,6 +26,7 @@ import com.starpy.sdk.login.widget.v2.AccountInjectionLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountManagerLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterTermsLayoutV2;
+import com.starpy.sdk.login.widget.v2.BindPhoneLayoutV2;
 import com.starpy.sdk.login.widget.v2.PyAccountLoginV2;
 import com.starpy.sdk.login.widget.v2.ThirdPlatBindAccountLayoutV2;
 import com.starpy.sdk.login.widget.v2.XMMainLoginLayoutV2;
@@ -65,6 +66,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     private SLoginBaseRelativeLayout bindGoogleView;
     private SLoginBaseRelativeLayout injectionView;
     private SLoginBaseRelativeLayout accountManagerCenterView;
+    private SLoginBaseRelativeLayout accountBindPhoneView;
 
     private List<SLoginBaseRelativeLayout> viewPageList;
 
@@ -443,6 +445,30 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
             }
 
             if (childView == accountManagerCenterView){
+                childView.setVisibility(View.VISIBLE);
+            }else{
+                childView.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    public void toAccountBindPhone() {
+
+        if (accountBindPhoneView == null || !viewPageList.contains(accountBindPhoneView)){
+            accountBindPhoneView = new BindPhoneLayoutV2(context);
+            accountBindPhoneView.setLoginDialogV2(this);
+            contentFrameLayout.addView(accountBindPhoneView);
+            viewPageList.add(accountBindPhoneView);
+        }
+
+        for (View childView : viewPageList) {
+
+            if (childView == null){
+                continue;
+            }
+
+            if (childView == accountBindPhoneView){
                 childView.setVisibility(View.VISIBLE);
             }else{
                 childView.setVisibility(View.GONE);

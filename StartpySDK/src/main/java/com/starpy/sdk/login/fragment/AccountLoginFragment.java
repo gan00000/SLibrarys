@@ -104,7 +104,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
             public void success(SLoginResponse sLoginResponse, String rawResult) {
                 if (sLoginResponse != null) {
                     if (sLoginResponse.isRequestSuccess()) {
-//                        ToastUtils.toast(getActivity(), R.string.py_login_success);
+//                        ToastUtils.toast(getTheContext(), R.string.py_login_success);
 //                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
 
                         //1001 注册成功    1000登入成功
@@ -117,7 +117,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
                         sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult,SLoginType.LOGIN_TYPE_MAC);
 
 
-//                        getActivity().finish();
+//                        getTheContext().finish();
                     }else {
 
                         ToastUtils.toast(getActivity(), sLoginResponse.getMessage());
@@ -210,10 +210,10 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
 
                     if (sLoginResponse.isRequestSuccess()){
 
-//                        ToastUtils.toast(getActivity(), R.string.py_login_success);
+//                        ToastUtils.toast(getTheContext(), R.string.py_login_success);
                         sLoginActivity.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_FB);
 //                        StarPyUtil.saveSdkLoginData(getContext(),rawResult);
-//                        getActivity().finish();
+//                        getTheContext().finish();
                     }else{
 
                         ToastUtils.toast(getActivity(), sLoginResponse.getMessage());

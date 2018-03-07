@@ -59,4 +59,6 @@
     <string name="py_login_page_change_pwd">修改密碼</string>
     <string name="py_login_page_forgot_pwd">忘記密碼</string>
 
+    <string name="py_bind_phone">綁定手機</string>
+
 </resources>

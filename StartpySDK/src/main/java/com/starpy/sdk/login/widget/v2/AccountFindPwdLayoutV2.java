@@ -52,7 +52,7 @@ public class AccountFindPwdLayoutV2 extends SLoginBaseRelativeLayout implements 
 
         findPwdConfireBtn = (TextView) contentView.findViewById(R.id.v2_findpwd_btn);
 
-//        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){
+//        if (Localization.getSGameLanguage(getTheContext()) == SGameLanguage.en_US){
 //            ((ImageView)contentView.findViewById(R.id.py_findpwd_account_title)).setImageResource(R.drawable.bg_title_forgot_pwd_en);
 //        }
 
@@ -100,22 +100,22 @@ public class AccountFindPwdLayoutV2 extends SLoginBaseRelativeLayout implements 
 
         account = findPwdAccountEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_account_empty);
             return;
         }
 
         email = findPwdEmailEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(email)) {
-            ToastUtils.toast(getActivity(), R.string.py_email_empty);
+            ToastUtils.toast(getTheContext(), R.string.py_email_empty);
             return;
         }
 
         if (!StarPyUtil.checkAccount(account)) {
-            ToastUtils.toast(getActivity(), R.string.py_account_error);
+            ToastUtils.toast(getTheContext(), R.string.py_account_error);
             return;
         }
         if (!Validator.isEmail(email)) {
-            ToastUtils.toast(getActivity(), R.string.py_email_format_error);
+            ToastUtils.toast(getTheContext(), R.string.py_email_format_error);
             return;
         }
 
