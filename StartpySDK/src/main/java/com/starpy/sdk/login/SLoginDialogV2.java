@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.Localization;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
@@ -28,6 +29,7 @@ import com.starpy.sdk.login.widget.v2.AccountRegisterLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterTermsLayoutV2;
 import com.starpy.sdk.login.widget.v2.BindPhoneLayoutV2;
 import com.starpy.sdk.login.widget.v2.PyAccountLoginV2;
+import com.starpy.sdk.login.widget.v2.ResetPwdLayoutV2;
 import com.starpy.sdk.login.widget.v2.ThirdPlatBindAccountLayoutV2;
 import com.starpy.sdk.login.widget.v2.XMMainLoginLayoutV2;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
@@ -67,6 +69,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     private SLoginBaseRelativeLayout injectionView;
     private SLoginBaseRelativeLayout accountManagerCenterView;
     private SLoginBaseRelativeLayout accountBindPhoneView;
+    private SLoginBaseRelativeLayout accountUnBindPhoneView;
 
     private List<SLoginBaseRelativeLayout> viewPageList;
 
@@ -137,6 +140,7 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
 //        isXM = StarPyUtil.isXM(activity);
 
+
         toMainLoginView();
 
         initAutoLoginView();
@@ -189,6 +193,12 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
 
     public void toMainLoginView() {
+
+        if (StarPyUtil.isMainland(activity)) {
+            toAccountLoginView();
+            return;
+        }
+
         if (mainLoginView == null || !viewPageList.contains(mainLoginView)){
 
 //            if (isXM) {
@@ -310,7 +320,12 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     public void toFindPwdView() {
 
         if (findPwdView == null || !viewPageList.contains(findPwdView)){
-            findPwdView = new AccountFindPwdLayoutV2(context);
+            if (StarPyUtil.isMainland(context)) {
+                findPwdView = new ResetPwdLayoutV2(context);
+            }else {
+                findPwdView = new AccountFindPwdLayoutV2(context);
+
+            }
             findPwdView.setLoginDialogV2(this);
             contentFrameLayout.addView(findPwdView);
             viewPageList.add(findPwdView);
@@ -469,6 +484,30 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
             }
 
             if (childView == accountBindPhoneView){
+                childView.setVisibility(View.VISIBLE);
+            }else{
+                childView.setVisibility(View.GONE);
+            }
+        }
+
+    }
+
+    public void toAccountUnBindPhone() {
+
+        if (accountUnBindPhoneView == null || !viewPageList.contains(accountUnBindPhoneView)){
+            accountUnBindPhoneView = new BindPhoneLayoutV2(context,true);
+            accountUnBindPhoneView.setLoginDialogV2(this);
+            contentFrameLayout.addView(accountUnBindPhoneView);
+            viewPageList.add(accountUnBindPhoneView);
+        }
+
+        for (View childView : viewPageList) {
+
+            if (childView == null){
+                continue;
+            }
+
+            if (childView == accountUnBindPhoneView){
                 childView.setVisibility(View.VISIBLE);
             }else{
                 childView.setVisibility(View.GONE);

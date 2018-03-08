@@ -121,7 +121,7 @@ public class AccountManagerLayoutV2 extends SLoginBaseRelativeLayout implements 
             sLoginDialogv2.toAccountBindPhone();
 
         } else if (v == goUnbindPhoneBtn) {//解綁手機
-            sLoginDialogv2.toAccountBindPhone();
+            sLoginDialogv2.toAccountUnBindPhone();
         }
 
     }

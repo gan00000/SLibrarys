@@ -20,6 +20,7 @@ import com.core.base.utils.ToastUtils;
 import com.starpy.base.bean.SSdkBaseRequestBean;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.execute.BaseLoginRequestTask;
+import com.starpy.data.login.request.AccountBindPhoneEmailBean;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.R;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
@@ -36,14 +37,29 @@ public class BindPhoneLayoutV2 extends SLoginBaseRelativeLayout implements View.
     private TextView bindConfirm;
     private TextView getVfCodeTextView, phoneAreaCodeTextView;
 
+    private TextView bindPhoneTitle, bindPhoneTitleEn;
+
     private EditText bindPhonePasswordEditText, bindPhoneAccountEditText,bindPhoneNumEditText,vfCodeEditText;
 
     private String account;
     private String password;
 
+    private boolean isUnBindPhone = false;
+
 
     public BindPhoneLayoutV2(Context context) {
         super(context);
+    }
+
+    public BindPhoneLayoutV2(Context context, boolean isUnBindPhone) {
+        super(context);
+        this.isUnBindPhone = isUnBindPhone;
+
+        if (isUnBindPhone){
+            bindPhoneTitle.setText(R.string.py_unbind_phone_title_hit);
+            bindPhoneTitleEn.setText(R.string.py_unbind_phone_title_en_hit);
+            bindPhoneNumEditText.setHint(R.string.py_unbind_phone_phonenum_tips);
+        }
     }
 
     public BindPhoneLayoutV2(Context context, AttributeSet attrs) {
@@ -77,6 +93,9 @@ public class BindPhoneLayoutV2 extends SLoginBaseRelativeLayout implements View.
 
         bindConfirm = (TextView) contentView.findViewById(R.id.py_bind_account_confirm);
 
+        bindPhoneTitle = (TextView) contentView.findViewById(R.id.bind_phone_title);
+        bindPhoneTitleEn = (TextView) contentView.findViewById(R.id.bind_phone_title_en);
+
 
         eyeImageView.setOnClickListener(this);
         backView.setOnClickListener(this);
@@ -99,7 +118,7 @@ public class BindPhoneLayoutV2 extends SLoginBaseRelativeLayout implements View.
 
        if (v == bindConfirm) {
 
-            accountBindPhone(2);
+            start(2);
 
         } else if (v == backView) {//返回键
 
@@ -121,12 +140,12 @@ public class BindPhoneLayoutV2 extends SLoginBaseRelativeLayout implements View.
             Selection.setSelection(etable, etable.length());
 
         }else if (v == getVfCodeTextView){
-           accountBindPhone(1);
+           start(1);
        }
 
     }
 
-    private void accountBindPhone(int m) {
+    private void start(int m) {
 
         account = bindPhoneAccountEditText.getEditableText().toString().trim();
         if (TextUtils.isEmpty(account)) {
@@ -165,14 +184,21 @@ public class BindPhoneLayoutV2 extends SLoginBaseRelativeLayout implements View.
 
 
         if (m == 1) {
-            requestVfCode(phoneAreaCode,phoneNum);
+            requestVfCode(phoneAreaCode,phoneNum);//获取验证码
         }else {
             String vfCode = vfCodeEditText.getEditableText().toString().trim();
             if (TextUtils.isEmpty(vfCode)) {
                 ToastUtils.toast(getTheContext(), R.string.plat_vf_code_not_empty);
                 return;
             }
+            if (isUnBindPhone) {
 
+                requestUnBindPhone(account,password,phoneNum,phoneAreaCode,vfCode);//解绑手机
+
+            }else {
+                requestBindPhone(account,password,phoneNum,phoneAreaCode,vfCode);//绑定手机
+
+            }
 
         }
 
@@ -268,6 +294,165 @@ public class BindPhoneLayoutV2 extends SLoginBaseRelativeLayout implements View.
                 });
             }
         },300,1000);
+    }
+
+
+    //綁定手機
+    private void requestBindPhone(String account,String pwd,String phone,String areaCode,String vfCode) {
+
+
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtils.toast(getContext(), R.string.plat_phone_num_not_empty);
+            return;
+        }
+        if (SStringUtil.isEmpty(areaCode)){
+            areaCode = "86";
+        }
+
+        if ("86".equals(areaCode) || "+86".equals(areaCode)) {
+            String phonePattern = "^1\\d{10}$";
+            if (SStringUtil.isNotEmpty(phonePattern)){
+                if (!phone.matches(phonePattern)){
+                    ToastUtils.toast(getTheContext(), R.string.plat_phone_num_format_error);
+                    return;
+                }
+            }
+        }
+
+
+        if (TextUtils.isEmpty(vfCode)) {
+            ToastUtils.toast(getContext(), R.string.plat_vf_code_not_empty);
+            return;
+        }
+
+        final AccountBindPhoneEmailBean sSdkBaseRequestBean = new AccountBindPhoneEmailBean(getContext());
+
+        sSdkBaseRequestBean.setName(account);
+        sSdkBaseRequestBean.setPwd(SStringUtil.toMd5(pwd));
+
+        sSdkBaseRequestBean.setPhone(phone);
+        sSdkBaseRequestBean.setVfCode(vfCode);
+        sSdkBaseRequestBean.setPhoneAreaCode(areaCode);
+
+        sSdkBaseRequestBean.setRequestMethod("bindpe_phone_email");
+        BaseLoginRequestTask requestTask = new BaseLoginRequestTask(getContext()) {
+            @Override
+            public BaseReqeustBean createRequestBean() {
+                super.createRequestBean();
+                sSdkBaseRequestBean.setSignature(SStringUtil.toMd5(sSdkBaseRequestBean.getAppKey() + sSdkBaseRequestBean.getTimestamp()
+                        + sSdkBaseRequestBean.getGameCode() + sSdkBaseRequestBean.getPhone()));
+                return sSdkBaseRequestBean;
+            }
+        };
+        requestTask.setSdkBaseRequestBean(sSdkBaseRequestBean);
+        requestTask.setLoadDialog(DialogUtil.createLoadingDialog(getTheContext(), "Loading..."));
+        requestTask.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
+            @Override
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
+                if (sLoginResponse != null){
+                    PL.i(sLoginResponse.getMessage());
+                    ToastUtils.toast(getContext(),sLoginResponse.getMessage());
+                    if (sLoginResponse.isRequestSuccess()) {
+
+                        ToastUtils.toast(getContext(),sLoginResponse.getMessage());
+
+                        sLoginDialogv2.toAccountManagerCenter();
+                    }
+                }
+
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+        requestTask.excute(SLoginResponse.class);
+
+    }
+
+    //解綁定手機
+    private void requestUnBindPhone(String account,String pwd,String phone,String areaCode,String vfCode) {
+
+
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtils.toast(getContext(), R.string.plat_phone_num_not_empty);
+            return;
+        }
+        if (SStringUtil.isEmpty(areaCode)){
+            areaCode = "86";
+        }
+
+        if ("86".equals(areaCode) || "+86".equals(areaCode)) {
+            String phonePattern = "^1\\d{10}$";
+            if (SStringUtil.isNotEmpty(phonePattern)){
+                if (!phone.matches(phonePattern)){
+                    ToastUtils.toast(getTheContext(), R.string.plat_phone_num_format_error);
+                    return;
+                }
+            }
+        }
+
+
+        if (TextUtils.isEmpty(vfCode)) {
+            ToastUtils.toast(getContext(), R.string.plat_vf_code_not_empty);
+            return;
+        }
+
+        final AccountBindPhoneEmailBean sSdkBaseRequestBean = new AccountBindPhoneEmailBean(getContext());
+
+        sSdkBaseRequestBean.setName(account);
+        sSdkBaseRequestBean.setPwd(SStringUtil.toMd5(pwd));
+
+        sSdkBaseRequestBean.setPhone(phone);
+        sSdkBaseRequestBean.setVfCode(vfCode);
+        sSdkBaseRequestBean.setPhoneAreaCode(areaCode);
+
+        sSdkBaseRequestBean.setRequestMethod("unbindPhone");
+        BaseLoginRequestTask requestTask = new BaseLoginRequestTask(getContext()) {
+            @Override
+            public BaseReqeustBean createRequestBean() {
+                super.createRequestBean();
+                sSdkBaseRequestBean.setSignature(SStringUtil.toMd5(sSdkBaseRequestBean.getAppKey() + sSdkBaseRequestBean.getTimestamp()
+                        + sSdkBaseRequestBean.getGameCode() + sSdkBaseRequestBean.getPhone()));
+                return sSdkBaseRequestBean;
+            }
+        };
+        requestTask.setSdkBaseRequestBean(sSdkBaseRequestBean);
+        requestTask.setLoadDialog(DialogUtil.createLoadingDialog(getTheContext(), "Loading..."));
+        requestTask.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
+            @Override
+            public void success(SLoginResponse sLoginResponse, String rawResult) {
+                if (sLoginResponse != null){
+                    PL.i(sLoginResponse.getMessage());
+                    ToastUtils.toast(getContext(),sLoginResponse.getMessage());
+                    if (sLoginResponse.isRequestSuccess()) {
+
+                        ToastUtils.toast(getContext(),sLoginResponse.getMessage());
+
+                        sLoginDialogv2.toAccountManagerCenter();
+                    }
+                }
+
+            }
+
+            @Override
+            public void timeout(String code) {
+
+            }
+
+            @Override
+            public void noData() {
+
+            }
+        });
+        requestTask.excute(SLoginResponse.class);
+
     }
 
 }
