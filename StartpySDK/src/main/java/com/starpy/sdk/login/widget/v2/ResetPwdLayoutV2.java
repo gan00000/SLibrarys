@@ -161,7 +161,7 @@ public class ResetPwdLayoutV2 extends SLoginBaseRelativeLayout implements View.O
             public BaseReqeustBean createRequestBean() {
                 super.createRequestBean();
                 sSdkBaseRequestBean.setSignature(SStringUtil.toMd5(sSdkBaseRequestBean.getAppKey() + sSdkBaseRequestBean.getTimestamp()
-                        + sSdkBaseRequestBean.getGameCode() + sSdkBaseRequestBean.getPhone()));
+                        + sSdkBaseRequestBean.getGameCode() + sSdkBaseRequestBean.getName()));
                 return sSdkBaseRequestBean;
             }
         };
