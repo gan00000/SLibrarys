@@ -32,6 +32,10 @@ import com.starpy.sdk.R;
 import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.sdk.login.LoginContract;
 import com.starpy.sdk.utils.DialogUtil;
+import com.starpy.sql.DaoManager;
+import com.starpy.sql.DaoSession;
+import com.starpy.sql.StarpyPersionDao;
+import com.starpy.sql.bean.StarpyPersion;
 import com.starpy.thirdlib.facebook.FbSp;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleSignIn;
@@ -635,6 +639,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                     if (sLoginResponse.isRequestSuccess()) {
                         StarPyUtil.saveAccount(getContext(),account);
                         StarPyUtil.savePassword(getContext(),password);
+                        saveAccountToSql(account,password);
                         handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
                     }else{
 
@@ -672,6 +677,9 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
                         StarPyUtil.saveAccount(getContext(),account);
                         StarPyUtil.savePassword(getContext(),password);
+
+                        saveAccountToSql(account,password);
+
                         handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
 
                     }else{
@@ -838,6 +846,15 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         }
     }
 
+    private void saveAccountToSql(String name,String pwd){
+        StarpyPersion starpyPersion = new StarpyPersion();
+        starpyPersion.setName(name);
+        starpyPersion.setPwd(pwd);
+
+        DaoSession daoSession = DaoManager.getDaoManager(getActivity().getApplicationContext()).getDaoSession();
+        StarpyPersionDao starpyPersionDao = daoSession.getStarpyPersionDao();
+        starpyPersionDao.insertOrReplace(starpyPersion);
+    }
 
     interface FbLoginCallBack{
 

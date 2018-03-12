@@ -88,7 +88,7 @@
                 android:background="@drawable/v2_editetext_view_bg"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/px_30"
-                android:paddingRight="@dimen/px_30"
+                android:paddingRight="@dimen/px_15"
                 android:orientation="horizontal">
 
                 <TextView
@@ -97,8 +97,9 @@
                     android:background="@drawable/v2_bg_icon_account"/>
 
                 <EditText
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1.0"
                     android:layout_marginLeft="@dimen/px_15"
                     android:maxLines="1"
                     android:inputType="text"
@@ -107,6 +108,14 @@
                     android:textSize="@dimen/sp_18"
                     android:id="@+id/py_login_account_v2"
                     />
+
+                <ImageView
+                    android:layout_width="@dimen/px_60"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/px_15"
+                    android:padding="@dimen/px_8"
+                    android:id="@+id/py_login_account_list"
+                    android:src="@drawable/account_list_tips_bg"/>
 
             </LinearLayout>
             <LinearLayout

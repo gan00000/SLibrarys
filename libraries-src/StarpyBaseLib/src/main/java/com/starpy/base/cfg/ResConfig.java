@@ -208,9 +208,11 @@ public class ResConfig {
 	//<string name="reg_jp_efunAdsPreferredUrl">http://ad.efunjp.com/</string>
 	private static String getConfigUrl(Context context, String xmlSchemaName){
 
-		String isGlobal = getConfigInAssets(context, "star_url_is_global");
-		if ("100".equals(isGlobal)){
+		String isGlobal = getConfigInAssets(context, "star_url_is_global");//旧的设置，需要兼容旧包
+		if ("100".equals(isGlobal) || StarPyUtil.isGlobal(context)){
 			xmlSchemaName = "g_" + xmlSchemaName;
+		}else if (StarPyUtil.isMainland(context)){
+			xmlSchemaName = "ch_" + xmlSchemaName;
 		}
 
 		String url = getResStringByName(context, xmlSchemaName);

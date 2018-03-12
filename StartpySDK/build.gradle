@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
 
@@ -21,7 +22,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.starpy.sql'
+        targetGenDir 'src/main/java'
+    }
 
 }
 
@@ -31,6 +36,9 @@ dependencies {
     compile project(':libraries-src:star-pay')
     compile project(':Thirdlibrary')
     //    compile 'com.android.support:recyclerview-v7:25.3.1'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    // add library
+    implementation files('libs/sqlcipher.jar')
 }
 
 

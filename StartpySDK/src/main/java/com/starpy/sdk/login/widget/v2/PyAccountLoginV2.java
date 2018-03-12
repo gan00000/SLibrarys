@@ -1,5 +1,6 @@
 package com.starpy.sdk.login.widget.v2;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.text.Editable;
 import android.text.InputType;
@@ -8,8 +9,10 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.core.base.utils.PL;
@@ -17,7 +20,15 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.StarPyUtil;
 import com.starpy.sdk.R;
+import com.starpy.sdk.login.adapter.AccountListViewAdapter;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
+import com.starpy.sdk.utils.DialogUtil;
+import com.starpy.sql.DaoManager;
+import com.starpy.sql.DaoSession;
+import com.starpy.sql.StarpyPersionDao;
+import com.starpy.sql.bean.StarpyPersion;
+
+import java.util.List;
 
 /**
  * Created by GanYuanrong on 2017/2/6.
@@ -286,7 +297,51 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
             }
         });
 
+        View listAccountView = contentView.findViewById(R.id.py_login_account_list);
+
+        listAccountView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAccount();
+            }
+        });
+
         return contentView;
+    }
+
+
+    //显示电话号码区号
+    private void showAccount() {
+
+        final List<StarpyPersion> starpyPersions = findAccountFromSql();
+
+        View listLayout = LayoutInflater.from(sLoginDialogv2.getActivity()).inflate(R.layout.login_account_list,null);
+        ListView listView = (ListView) listLayout.findViewById(R.id.login_account_list_id);
+        AccountListViewAdapter accountListViewAdapter = new AccountListViewAdapter(sLoginDialogv2.getActivity());
+
+        accountListViewAdapter.setDataModelList(starpyPersions);
+        listView.setAdapter(accountListViewAdapter);
+
+        final Dialog dialog = DialogUtil.createDialog(sLoginDialogv2.getActivity(),listLayout,true,true);
+        dialog.show();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PL.i(starpyPersions.get(position) + "   position:" + position);
+                dialog.dismiss();
+                loginAccountEditText.setText(starpyPersions.get(position).getName());
+                loginPasswordEditText.setText(starpyPersions.get(position).getPwd());
+            }
+        });
+    }
+
+    private List<StarpyPersion> findAccountFromSql(){
+
+        DaoSession daoSession = DaoManager.getDaoManager(sLoginDialogv2.getActivity().getApplicationContext()).getDaoSession();
+        StarpyPersionDao starpyPersionDao = daoSession.getStarpyPersionDao();
+        List<StarpyPersion> starpyPersions = starpyPersionDao.queryBuilder().list();
+        return starpyPersions;
     }
 
     private void login() {
