@@ -34,14 +34,16 @@ public class StarEventLogger {
 
             AppsFlyerLib.getInstance().startTracking(activity.getApplication(), ResConfig.getConfigInAssets(activity,"star_ads_appflyer_dev_key"));
 
-            SFacebookProxy.activateApp(activity.getApplicationContext());
+            if (!StarPyUtil.isMainland(activity)) {
+                SFacebookProxy.activateApp(activity.getApplicationContext());
 
-            // Google Android first open conversion tracking snippet
-            // Add this code to the onCreate() method of your application activity
-            String star_ads_adword_conversionId = ResConfig.getConfigInAssets(activity,"star_ads_adword_conversionId");
-            if (SStringUtil.isNotEmpty(star_ads_adword_conversionId)) {
-                AdWordsConversionReporter.reportWithConversionId(activity.getApplicationContext(),
-                        star_ads_adword_conversionId, ResConfig.getConfigInAssets(activity,"star_ads_adword_label"), "0.00", false);
+                // Google Android first open conversion tracking snippet
+                // Add this code to the onCreate() method of your application activity
+                String star_ads_adword_conversionId = ResConfig.getConfigInAssets(activity,"star_ads_adword_conversionId");
+                if (SStringUtil.isNotEmpty(star_ads_adword_conversionId)) {
+                    AdWordsConversionReporter.reportWithConversionId(activity.getApplicationContext(),
+                            star_ads_adword_conversionId, ResConfig.getConfigInAssets(activity,"star_ads_adword_label"), "0.00", false);
+                }
             }
 
         } catch (Exception e) {
