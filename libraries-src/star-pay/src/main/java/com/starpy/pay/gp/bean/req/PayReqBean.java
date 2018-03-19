@@ -21,6 +21,8 @@ public class PayReqBean extends BPayReqBean {
 	private String roleLevel = "";
 	private String cpOrderId = "";
 
+	private String productId;
+
 	public PayReqBean(Context context) {
 		super(context);
 
@@ -104,6 +106,20 @@ public class PayReqBean extends BPayReqBean {
 
 	public void setCpOrderId(String cpOrderId) {
 		this.cpOrderId = cpOrderId;
+	}
+
+	/**
+	 * @return the productId
+	 */
+
+	public String getProductId() {
+		return productId;
+	}
+	/**
+	 * @param productId the productId to set
+	 */
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
 }

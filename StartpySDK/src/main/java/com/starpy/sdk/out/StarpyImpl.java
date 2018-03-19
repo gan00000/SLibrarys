@@ -281,13 +281,13 @@ public class StarpyImpl implements IStarpy {
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
         if (payType == SPayType.OTHERS){//第三方储值
 
-            othersPay(activity, cpOrderId, roleLevel, extra);
+            othersPay(activity, cpOrderId,productId, roleLevel, extra);
 
         }else{//默认Google储值
 
             if (StarPyUtil.getSdkCfg(activity) != null && StarPyUtil.getSdkCfg(activity).openOthersPay(activity)){//假若Google包侵权被下架，次配置可以启动三方储值
                 PL.i("转第三方储值");
-                othersPay(activity, cpOrderId, roleLevel, extra);
+                othersPay(activity, cpOrderId,productId, roleLevel, extra);
 
             }else{
 
@@ -309,8 +309,8 @@ public class StarpyImpl implements IStarpy {
         activity.startActivityForResult(i,GooglePayActivity2.GooglePayReqeustCode);
     }
 
-    private void othersPay(Activity activity, String cpOrderId, String roleLevel, String extra) {
-        WebPayReqBean webPayReqBean = PayHelper.buildWebPayBean(activity,cpOrderId,roleLevel,extra);
+    private void othersPay(Activity activity, String cpOrderId,String productId, String roleLevel, String extra) {
+        WebPayReqBean webPayReqBean = PayHelper.buildWebPayBean(activity,cpOrderId,productId,roleLevel,extra);
 
         String payThirdUrl = null;
         if (StarPyUtil.getSdkCfg(activity) != null) {
