@@ -26,6 +26,10 @@ public class PayHelper {
 		return checkUrl(spareUrl);
 	}
 
+	public static WebPayReqBean buildWebPayBean(Context context, String cpOrderId, String roleLevel, String extra){
+		return buildWebPayBean(context, cpOrderId,"", roleLevel, extra);
+	}
+
 	public static WebPayReqBean buildWebPayBean(Context context, String cpOrderId,String productId, String roleLevel, String extra){
 		WebPayReqBean webPayReqBean = new WebPayReqBean(context);
 
