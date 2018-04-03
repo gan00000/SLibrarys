@@ -128,10 +128,7 @@ public class Native2JS {
 		finishActivity();
 	}
 	
-//	gameInfo：{"userid":"1","serverCode":"1","roleLevel":"1","gameCode":"sehzw","roleId":"EFUN_1"}
-//	gameLoginInfo：{"userid":"1","sign":"CB7AEE4499008034774E75586C6F24BD","timestamp":"1428048053685","partner":"efun","loginType":"efun"}
-//	deviceInfo：{"systemVersion":"4.3.1","mac":"d4:6e:5c:41:d1:2f","deviceType":"HUAWEI G700-T00","imei":"860457020317674","ip":"172.16.80.159"}
-	
+
 	@JavascriptInterface
 	public String getDeviceInfo(){
 		JSONObject jsonObject = new JSONObject();

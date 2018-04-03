@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.starpy.base.utils.Localization;
 import com.starpy.sdk.SBaseRelativeLayout;
-import com.starpy.sdk.login.SLoginDialog;
 import com.starpy.sdk.login.SLoginDialogV2;
 
 /**
@@ -24,7 +23,6 @@ public abstract class SLoginBaseRelativeLayout extends SBaseRelativeLayout {
     Context context;
     LayoutInflater inflater;
 
-    protected SLoginDialog sLoginDialog;
     protected SLoginDialogV2 sLoginDialogv2;
 
     protected View backView;
@@ -78,9 +76,6 @@ public abstract class SLoginBaseRelativeLayout extends SBaseRelativeLayout {
 
     protected abstract View createView(Context context, LayoutInflater layoutInflater);
 
-    public void setLoginDialog(SLoginDialog sLoginDialog) {
-        this.sLoginDialog = sLoginDialog;
-    }
     public void setLoginDialogV2(SLoginDialogV2 sLoginDialog) {
         this.sLoginDialogv2 = sLoginDialog;
     }

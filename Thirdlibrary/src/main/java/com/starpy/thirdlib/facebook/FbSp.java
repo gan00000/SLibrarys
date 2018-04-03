@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * Created by Efun on 2016/12/21.
+ * Created by gan on 2016/12/21.
  */
 
 public class FbSp {

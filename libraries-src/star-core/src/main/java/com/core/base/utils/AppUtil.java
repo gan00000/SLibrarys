@@ -159,23 +159,7 @@ public class AppUtil {
 		appInfo.setVersionCode(packageInfo.versionCode+"");
 		return appInfo;
 	}
-	*//**
-	 * 打开Line应用
-	 * @param context
-	 * @param url
-	 *//*
-	public static void openLineAPP(Context context,String url){
-		if (!isAppInstalled(context,"jp.naver.line.android")) {
-//			try {
-//				comeDownloadPageInAndroidWeb(context, url);
-//			} catch (Exception e) {				
-//			}
-			ToastUtils.toast(context, E_string.efun_pd_share_line_error);
-			return;
-		}
-		startLineApp(context, "jp.naver.line.android", url);
-	}*/
-	
+
 	/**
 	 * 判断应用程序是否在运行
 	 * @param context

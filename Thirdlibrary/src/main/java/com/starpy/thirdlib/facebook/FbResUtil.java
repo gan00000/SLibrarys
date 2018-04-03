@@ -83,7 +83,7 @@ public class FbResUtil {
 		try {
 			res = context.getResources().getString(findStringIdByName(context, resourcesName));
 		} catch (Exception e) {
-			Log.e("efun", "resourcesName:" + resourcesName);
+			Log.e("xxx", "resourcesName:" + resourcesName);
 		}
 		return res;
 	}

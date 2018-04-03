@@ -1,21 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        brmmdsign {
-            keyAlias 'brmmd'
-            keyPassword 'brmmd666888'
-            storeFile file('../keystore/brmmd-keystore.jks')
-            storePassword 'brmmd666888'
-        }
 
-       /* config222 {
-            keyAlias 'star'
-            keyPassword '000000'
-            storeFile file('../keystore/pykeystore.jks')
-            storePassword '000000'
-        }*/
-    }
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
 
@@ -41,108 +27,29 @@ android {
 //            multiDexEnabled true //Add this
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.brmmdsign
-
-
-            resValue "string", "facebook_app_name", "裝甲連隊"
-            resValue "string", "facebook_app_id", "134211963880586"
-            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider134211963880586"
-            resValue "string", "google_app_id", "605752434859"
-            //装甲英文
-//            resValue "string", "facebook_app_name", "General Kim"
-//            resValue "string", "facebook_app_id", "141453116613802"
-//            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider141453116613802"
-//            resValue "string", "google_app_id", "768367627631"
         }
 
         debug {
-//            multiDexEnabled true //Add this
-            signingConfig signingConfigs.brmmdsign
-
-
-            resValue "string", "facebook_app_name", "裝甲連隊"
-            resValue "string", "facebook_app_id", "134211963880586"
-            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider134211963880586"
-            resValue "string", "google_app_id", "605752434859"
-
-            //装甲英文
-//            resValue "string", "facebook_app_name", "General Kim"
-//            resValue "string", "facebook_app_id", "141453116613802"
-//            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider141453116613802"
-//            resValue "string", "google_app_id", "768367627631"
         }
     }
     productFlavors {
 
-        bmdzz_google {
-            minSdkVersion 18
-            applicationId 'com.starpy.bmdzz.tw'
-            signingConfig signingConfigs.brmmdsign
-            targetSdkVersion 22
-            versionCode 1
-            versionName '1.0'
-            flavorDimensions "1"
-        }
-        bmdzz_google_2 {
-            minSdkVersion 18
-            applicationId 'com.bmdzz.false2.mei'
-            signingConfig signingConfigs.brmmdsign
-            targetSdkVersion 22
-            versionCode 1
-            versionName '1.0'
-            flavorDimensions "1"
-        }
-
-        brmmd {
-            applicationId "com.star.brmmd.xm"
-            signingConfig signingConfigs.brmmdsign
-            minSdkVersion 18
-            targetSdkVersion 22
-            versionCode 20002
-            versionName "2.0.2"
-            flavorDimensions "1"
-        }
-
-        qmah {
-            applicationId "com.starpy.qmah.tw"
-            signingConfig signingConfigs.brmmdsign
-            minSdkVersion 18
-            targetSdkVersion 26
-            versionCode 2
-            versionName "2.0"
-            flavorDimensions "1"
-        }
-        gbml {
-            applicationId "com.starpy.gbml"
-            signingConfig signingConfigs.brmmdsign
-            minSdkVersion 18
-            targetSdkVersion 22
-            versionCode 1
-            versionName "1.0"
-            flavorDimensions "1"
-        }
-
         twzj {
             applicationId "com.starpy.twzj"
-            signingConfig signingConfigs.brmmdsign
             minSdkVersion 18
             targetSdkVersion 26
             versionCode 5
             versionName "2.0"
             flavorDimensions "1"
 
+            resValue "string", "facebook_app_name", "裝甲連隊"
+            resValue "string", "facebook_app_id", "134211963880586"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider134211963880586"
+            resValue "string", "google_app_id", "605752434859"
+
+
         }
 
-        //全球装甲连队 英文
-        gbzj {
-            applicationId "com.starpy.py.gbzj"
-            signingConfig signingConfigs.brmmdsign
-            minSdkVersion 18
-            targetSdkVersion 26
-            versionCode 2
-            versionName "2.0"
-            dimension "1"
-        }
 
     }
 

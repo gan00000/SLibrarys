@@ -126,38 +126,7 @@ public class SGoogleProxy {
 		return false;
 	}
 
-	/*public static Map onCreateMainActivity(Activity activity,boolean callOnClickNotification){
-		Intent i = activity.getIntent();
-		if (i != null){
-			Bundle b = i.getExtras();
-			if (b != null && !b.isEmpty() && b.containsKey(SFirebaseKey.efun_firebase_message)){
-				Map<String,String> data = new HashMap<String,String>();
-				NotificationMessage nm = new NotificationMessage();
-				Set<String> s = b.keySet();
-				for (String bKey: s) {
-					if (!TextUtils.isEmpty(bKey)) {
-						data.put(bKey,b.getString(bKey));
-					}
-				}
-				if (callOnClickNotification) {
-					nm.setData(data);
-					nm.setClickOpenUrl(data.get(SFirebaseKey.efun_click_open_url));
-					SFirebaseMessagingService.getNotificationMessages().add(nm);
 
-					Intent intent = new Intent(SPushReceiver.NOTIFICATION_CLICK);
-					intent.setClass(activity,SPushReceiver.class);
-					intent.putExtra(MessageUtil.EFUN_PUSH_MESSAGE_ACTION_KEY, MessageUtil.CLICK_INTENT_NOTIFICATION);
-					intent.setPackage(activity.getPackageName());
-					Log.d(TAG,"fire message on main activity sendBroadcast");
-					activity.sendBroadcast(intent);
-				}
-//				Bdown.excuteSpecialThing(activity, data);
-				return data;
-			}
-		}
-		return null;
-	}*/
-	
 	public void share(Activity activity,String text,String url){
 		// Launch the Google+ share dialog with attribution to your app.
 	      Intent shareIntent = new PlusShare.Builder(activity)

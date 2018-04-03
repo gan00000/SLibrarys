@@ -11,7 +11,6 @@ import com.core.base.utils.AppUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
-import com.core.base.utils.ToastUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SGameLanguage;
@@ -20,9 +19,7 @@ import com.starpy.base.cfg.ConfigRequest;
 import com.starpy.base.cfg.ResConfig;
 import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
-import com.starpy.data.login.execute.QueryFbToStarpyUserIdTask;
 import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
@@ -33,13 +30,10 @@ import com.starpy.sdk.SWebViewDialog;
 import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
-import com.starpy.sdk.plat.PlatMainActivity;
-import com.starpy.thirdlib.facebook.FriendProfile;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGooglePlayGameServices;
 
 import java.net.URLEncoder;
-import java.util.List;
 
 
 public class StarpyImpl implements IStarpy {
@@ -54,7 +48,6 @@ public class StarpyImpl implements IStarpy {
     private SFacebookProxy sFacebookProxy;
     private SGooglePlayGameServices sGooglePlayGameServices;
 
-    private SWebViewDialog csWebViewDialog;
     private SWebViewDialog otherPayWebViewDialog;
 
     public StarpyImpl() {
@@ -79,14 +72,7 @@ public class StarpyImpl implements IStarpy {
                     e.printStackTrace();
                 }
 
-                if (SStringUtil.isEmpty(ResConfig.getGameLanguage(activity))){
-                    if (StarPyUtil.isMainland(activity)) {
-                        setGameLanguage(activity,SGameLanguage.zh_CH);
-                    }else {
-
-                        setGameLanguage(activity,SGameLanguage.zh_TW);
-                    }
-                }
+                setGameLanguage(activity,SGameLanguage.zh_TW);
 
                 ConfigRequest.requestBaseCfg(activity.getApplicationContext());//下载配置文件
                 ConfigRequest.requestTermsCfg(activity.getApplicationContext());//下载服务条款
@@ -164,30 +150,6 @@ public class StarpyImpl implements IStarpy {
 
     }
 
-    @Override
-    public void cs(final Activity activity, final String roleLevel, final String roleVipLevel) {
-
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                CsReqeustBean csReqeustBean = new CsReqeustBean(activity);
-                csReqeustBean.setRoleLevel(roleLevel);
-                csReqeustBean.setRoleVipLevel(roleVipLevel);
-
-                csReqeustBean.setRequestUrl(ResConfig.getCsPreferredUrl(activity));
-                csReqeustBean.setRequestSpaUrl(ResConfig.getCsSpareUrl(activity));
-                csReqeustBean.setRequestMethod(activity.getResources().getString(R.string.star_cs_method));
-
-                csWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
-
-                csWebViewDialog.setWebUrl(csReqeustBean.createPreRequestUrl());
-
-                csWebViewDialog.show();
-            }
-        });
-
-    }
 
     @Override
     public void openWebview(final Activity activity, final String roleLevel, final String roleVipLevel) {
@@ -260,23 +222,6 @@ public class StarpyImpl implements IStarpy {
     }
 
 
-    @Override
-    public void openPlatform(final Activity activity, final String roleLevel, final String roleVipLevel) {
-        PL.i("IStarpy pay roleLevel:" + roleLevel + ",roleVipLevel:" + roleVipLevel);
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                StarPyUtil.saveRoleLevelVip(activity,roleLevel,roleVipLevel);
-                if (StarPyUtil.isLogin(activity)){
-                    activity.startActivity(new Intent(activity, PlatMainActivity.class));
-                }else {
-                    ToastUtils.toast(activity,"please login game first");
-                }
-            }
-        });
-
-    }
 
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
         if (payType == SPayType.OTHERS){//第三方储值
@@ -383,9 +328,6 @@ public class StarpyImpl implements IStarpy {
         if (sFacebookProxy != null){
             sFacebookProxy.onActivityResult(activity, requestCode, resultCode, data);
         }
-        if (csWebViewDialog != null){
-            csWebViewDialog.onActivityResult(activity, requestCode, resultCode, data);
-        }
         if (otherPayWebViewDialog != null){
             otherPayWebViewDialog.onActivityResult(activity, requestCode, resultCode, data);
         }
@@ -463,46 +405,5 @@ public class StarpyImpl implements IStarpy {
     }
 
 
-    @Override
-    public void displayingAchievements() {
-        if (sGooglePlayGameServices != null) {
-            sGooglePlayGameServices.displayingAchievements();
-        }
-    }
-
-    @Override
-    public void displayLeaderboard(String leaderboardID) {
-        if (sGooglePlayGameServices != null) {
-            sGooglePlayGameServices.displayLeaderboard(leaderboardID);
-        }
-    }
-
-    @Override
-    public void unlockAchievement(String achievementID) {
-        if (sGooglePlayGameServices != null){
-            sGooglePlayGameServices.unlock(achievementID);
-        }
-    }
-
-    @Override
-    public void submitScore(String leaderboardID, long score) {
-        if (sGooglePlayGameServices != null){
-            sGooglePlayGameServices.submitScore(leaderboardID, score);
-        }
-    }
-
-
-    @Override
-    public void getFacebookFriends(final Activity activity, final SFacebookProxy.RequestFriendsCallBack requestFriendsCallBack) {
-        QueryFbToStarpyUserIdTask queryFbToStarpyUserIdTask = new QueryFbToStarpyUserIdTask(activity,sFacebookProxy,requestFriendsCallBack);
-        queryFbToStarpyUserIdTask.query();
-    }
-
-    @Override
-    public void inviteFriends(Activity activity, List<FriendProfile> friendProfiles, String message, SFacebookProxy.FbInviteFriendsCallBack fbInviteFriendsCallBack) {
-        if (sFacebookProxy != null){
-            sFacebookProxy.inviteFriends(activity, friendProfiles, message, fbInviteFriendsCallBack);
-        }
-    }
 
 }

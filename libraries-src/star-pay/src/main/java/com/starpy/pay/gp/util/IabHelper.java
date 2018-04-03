@@ -1143,19 +1143,6 @@ public class IabHelper {
 		Log.w(mDebugTag, "In-app billing warning: " + msg);
 	}
 
-	/*
-	 * public void queryAllInventory(final List<String> moreSkus){ new
-	 * Thread(new Runnable() {
-	 * 
-	 * @Override public void run() { try { Inventory inventory =
-	 * queryInventory(true, moreSkus, null); for (int i = 0; i <
-	 * moreSkus.size(); i++) { SkuDetails details=
-	 * inventory.getSkuDetails(moreSkus.get(i)); Log.i("efunLog", "details" +
-	 * details.toString()); }
-	 * 
-	 * } catch (IabException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); } } }).start(); }
-	 */
 
 	public void consumePurchase(final String packageName, final String purchaseToken) {
 		new Thread(new Runnable() {

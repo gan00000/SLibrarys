@@ -504,11 +504,7 @@ public class SFacebookProxy {
 		
 	}
 	
-/*	public void shareLocalPhoto(Activity activity, final FbShareCallBack efunFbShareCallBack, Uri imageUrl){
-		SharePhoto photo = new SharePhoto.Builder().setImageUrl(imageUrl).build();
-		shareLocalPhoto(activity, efunFbShareCallBack, photo);
-	}*/
-	
+
 	private void shareLocalPhotoImpl(Activity activity, final FbShareCallBack fbShareCallBack, SharePhotoContent content) {
 	
 		if (content == null) {
@@ -1078,7 +1074,6 @@ public class SFacebookProxy {
 	/**
 	* <p>Title: FbInviteFriendsCallBack</p>
 	* <p>Description: 请求好友的回调接口</p>
-	* <p>Company: EFun</p> 
 	* @author GanYuanrong
 	* @date 2015年11月23日
 	*/
@@ -1091,7 +1086,6 @@ public class SFacebookProxy {
 	/**
 	* <p>Title: RequestFriendsCallBack</p>
 	* <p>Description: 获取好友的回调接口</p>
-	* <p>Company: EFun</p> 
 	* @author GanYuanrong
 	* @date 2015年11月23日
 	*/

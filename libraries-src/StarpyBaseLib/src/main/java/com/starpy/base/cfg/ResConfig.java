@@ -205,7 +205,6 @@ public class ResConfig {
 //===========================================域名获取end===============================================	
 	
 
-	//<string name="reg_jp_efunAdsPreferredUrl">http://ad.efunjp.com/</string>
 	private static String getConfigUrl(Context context, String xmlSchemaName){
 
 		String isGlobal = getConfigInAssets(context, "star_url_is_global");

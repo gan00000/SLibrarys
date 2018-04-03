@@ -15,18 +15,11 @@ import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.sdk.out.ISdkCallBack;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
-import com.starpy.thirdlib.facebook.FriendProfile;
-import com.starpy.thirdlib.facebook.SFacebookProxy;
-
-import org.json.JSONObject;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button loginButton, othersPayButton,googlePayBtn,csButton,shareButton;
+    private Button loginButton, othersPayButton,googlePayBtn,shareButton;
 
-    List<FriendProfile> mFriendProfiles;
 
     private IStarpy iStarpy;
 
@@ -37,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.demo_login);
         othersPayButton = (Button) findViewById(R.id.demo_pay);
         googlePayBtn = (Button) findViewById(R.id.demo_pay_google);
-        csButton = (Button) findViewById(R.id.demo_cs);
         shareButton = (Button) findViewById(R.id.demo_share);
 
         iStarpy = StarpyFactory.create();
@@ -117,18 +109,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        http://localhost:8086/player_entrance?gameCode=brmmd&packageName=web&userId=2&accessToken=123&loginTimestamp=234&serverCode=1&roleName=%E9%A9%AC%E7%BA%A2%E5%86%9B
-        csButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * 打开客服接口
-                 * level：游戏等级
-                 * vipLevel：vip等级，没有就传""
-                 */
-                iStarpy.cs(MainActivity.this,"level","vipLevel");
-            }
-        });
 
 
 
@@ -171,134 +151,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.open_plat).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                /**
-                 * 打开内置平台页面
-                 * level：游戏等级
-                 * vipLevel：vip等级，没有就写""
-                 */
-                iStarpy.openPlatform(MainActivity.this,"roleLevel","10");
-
-            }
-        });
-
-        findViewById(R.id.demo_google_unlock).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /**
-                 * 解锁成就
-                 * 参数：
-                 * 成就 id
-                 */
-                iStarpy.unlockAchievement("CgkIq8GizdAREAIQAA");
-            }
-        });
-        findViewById(R.id.demo_dis_cj).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * 显示成就
-                 */
-                iStarpy.displayingAchievements();
-            }
-        });
-        findViewById(R.id.open_sumitScore).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * 提交排行榜成绩
-                 *
-                 * 参数：
-                 *  排行榜id
-                 *  成绩分数
-                 */
-                iStarpy.submitScore("CgkIq8GizdAREAIQHg",10l);
-            }
-        });
-        findViewById(R.id.open_dis_phb).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * 显示排行榜
-                 * 参数：
-                 *  排行榜id
-                 */
-                iStarpy.displayLeaderboard("CgkIq8GizdAREAIQHg");
-            }
-        });
-        findViewById(R.id.get_fb_friends).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * 获取我的fb好友
-                 */
-                iStarpy.getFacebookFriends(MainActivity.this, new SFacebookProxy.RequestFriendsCallBack() {
-                    @Override
-                    public void onError() {
-
-                    }
-
-                    /**
-                     * 回调friendProfiles为好友对象列表
-                     * @param graphObject
-                     * @param friendProfiles
-                     */
-                    @Override
-                    public void onSuccess(JSONObject graphObject, List<FriendProfile> friendProfiles) {
-                        for (FriendProfile fbFriend:friendProfiles) {
-                            String name = fbFriend.getName();//FB好有名字
-                            String iconUrl = fbFriend.getIconUrl();//FB好友头像url
-                            String idToken = fbFriend.getId();//好友的fbIdToken
-                            String userId = fbFriend.getUserId();//好友在starpy平台的账号id,即好友在玩该游戏的starpy平台的账号id，如果fb好友没有玩，此字段为NULL
-                            boolean isStarpyUser = fbFriend.isStarpyUser();//可以判断该好友是否是starpy平台的用户，即是否玩过该游戏
-                        }
-
-
-                    }
-                });
-            }
-        });
-
-        findViewById(R.id.invite_fb_friends).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * 显示排行榜
-                 * 参数：
-                 *  排行榜id
-                 */
-                if (mFriendProfiles != null){
-
-                    /**
-                     * 邀请好友
-                     * mFriendProfiles   需要邀请的好友对象列表(已经进入过该游戏的好友不可以再邀请，需要过滤，不给玩家选择)
-                     * message  发送邀请的内容
-                     * FbInviteFriendsCallBack  邀请回调
-                     */
-                    iStarpy.inviteFriends(MainActivity.this, mFriendProfiles, "好玩哦", new SFacebookProxy.FbInviteFriendsCallBack() {
-                        @Override
-                        public void onCancel() {
-
-                        }
-
-                        @Override
-                        public void onError(String message) {
-
-                        }
-
-                        @Override
-                        public void onSuccess(String requestId, List<String> requestRecipients) {
-                            //里面回传的参数不需要处理
-                        }
-                    });
-                }
-
-            }
-        });
     }
 
 

@@ -22,7 +22,6 @@ import com.starpy.sdk.login.p.LoginPresenterImpl;
 import com.starpy.sdk.login.widget.SLoginBaseRelativeLayout;
 import com.starpy.sdk.login.widget.v2.AccountChangePwdLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountFindPwdLayoutV2;
-import com.starpy.sdk.login.widget.v2.AccountInjectionLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountManagerLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterTermsLayoutV2;
@@ -329,29 +328,6 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
     }
 
-    public void toInjectionView() {
-
-        if (injectionView == null || !viewPageList.contains(injectionView)){
-            injectionView = new AccountInjectionLayoutV2(context);
-            injectionView.setLoginDialogV2(this);
-            contentFrameLayout.addView(injectionView);
-            viewPageList.add(injectionView);
-        }
-
-        for (View childView : viewPageList) {
-
-            if (childView == null){
-                continue;
-            }
-
-            if (childView == injectionView){
-                childView.setVisibility(View.VISIBLE);
-            }else{
-                childView.setVisibility(View.GONE);
-            }
-        }
-
-    }
 
     public void toBindUniqueView() {
 

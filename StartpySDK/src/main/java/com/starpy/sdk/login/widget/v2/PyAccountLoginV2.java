@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
 import com.starpy.base.utils.StarPyUtil;
@@ -37,19 +36,10 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 
     private View loginMainGoRegisterBtn;
     private View loginMainGoFindPwd;
-//    private View loginMainGoChangePwd;
-//    private View loginMainGoBindUnique;
-//    private View loginMainGoBindFb;
     private View loginMainFreeRegLogin;
     private View loginMainGoAccountCenter;
 
 
-    private View leftTopView;
-    private View leftBottomView;
-    private long firstClickTime;
-//    private long lastClickTime;
-    private int leftTopClickCount = 0;
-    private int leftBottomClickCount = 0;
 
     public PyAccountLoginV2(Context context) {
         super(context);
@@ -84,10 +74,6 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 
         loginMainGoRegisterBtn = contentView.findViewById(R.id.py_login_go_reg_v2);
         loginMainGoFindPwd = contentView.findViewById(R.id.py_login_go_findpwd_v2);
-//        loginMainGoChangePwd = contentView.findViewById(R.id.py_login_go_changePwd_v2);
-//        loginMainGoBindUnique = contentView.findViewById(R.id.py_login_go_bindUnique_v2);
-//        loginMainGoBindFb = contentView.findViewById(R.id.py_login_go_bindFb_v2);
-//        loginMainGoBindGoogle = contentView.findViewById(R.id.py_login_go_bindGoogle);
         loginMainGoAccountCenter = contentView.findViewById(R.id.py_login_go_account_center);
         loginMainFreeRegLogin = contentView.findViewById(R.id.py_login_free_reg_login);//遊客登錄
 
@@ -99,22 +85,11 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
 
         loginMainLoginBtn = (TextView) contentView.findViewById(R.id.v2_member_btn_login);
 
-        leftTopView = contentView.findViewById(R.id.py_left_top_id);
-        leftBottomView = contentView.findViewById(R.id.py_left_bottom_id);
-
-//        if (StarPyUtil.isXM(getContext())){//星盟标题
-//
-//            ((ImageView)contentView.findViewById(R.id.v2_bg_title_login_iv)).setImageResource(R.drawable.bg_xm_title_login);
-//        }
 
         if (StarPyUtil.isMainland(getContext())){
             loginMainFreeRegLogin.setVisibility(View.VISIBLE);
             backView.setVisibility(GONE);
         }
-
-//        if (Localization.getSGameLanguage(getActivity()) == SGameLanguage.en_US){//星盟--星彼英文一样
-//            ((ImageView)contentView.findViewById(R.id.v2_bg_title_login_iv)).setImageResource(R.drawable.bg_xm_title_login_en);
-//        }
 
         savePwdCheckBox = (ImageView) contentView.findViewById(R.id.py_save_pwd_text_check_id);
 
@@ -154,31 +129,6 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
                 sLoginDialogv2.toFindPwdView();
             }
         });
-//        loginMainGoChangePwd.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sLoginDialogv2.toChangePwdView();
-//            }
-//        });
-//
-//        loginMainGoBindUnique.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sLoginDialogv2.toBindUniqueView();
-//            }
-//        });
-//        loginMainGoBindFb.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sLoginDialogv2.toBindFbView();
-//            }
-//        });
-//        loginMainGoBindGoogle.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sLoginDialogv2.toBindGoogleView();
-//            }
-//        });
 
         loginMainFreeRegLogin.setOnClickListener(new OnClickListener() {
             @Override
@@ -230,48 +180,6 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
             loginPasswordEditText.setText(password);
         }
 
-        leftTopView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (leftBottomClickCount > 0){//若下方点击不为0，全部重置
-                    leftTopClickCount = 0;
-                    leftBottomClickCount = 0;
-                    firstClickTime = 0;
-                }
-                if (System.currentTimeMillis() - firstClickTime < 10 * 1000){//10秒内点击计数
-                    leftTopClickCount++;
-                    PL.i("leftTopClickCount--- " + leftTopClickCount);
-                    return;
-                }
-                leftTopClickCount = 0;//大于10秒的点击重置
-                leftBottomClickCount = 0;
-                leftTopClickCount++;
-                firstClickTime = System.currentTimeMillis();
-
-            }
-        });
-        leftBottomView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (System.currentTimeMillis() - firstClickTime < 10 * 1000){
-                    leftBottomClickCount++;
-                    PL.i("leftBottomClickCount--- " + leftBottomClickCount);
-                    if (leftTopClickCount >= 5 && leftBottomClickCount >= 5){
-                        PL.i("open set uid page");
-                        leftTopClickCount = 0;
-                        leftBottomClickCount = 0;
-                        firstClickTime = 0;
-                        sLoginDialogv2.toInjectionView();
-                    }
-                    return;
-                }
-                leftTopClickCount = 0;
-                leftBottomClickCount = 0;
-                firstClickTime = 0;
-
-            }
-        });
 
         return contentView;
     }
@@ -305,36 +213,6 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
         }
 
         sLoginDialogv2.getLoginPresenter().starpyAccountLogin(sLoginDialogv2.getActivity(),account,password);
-     /*   AccountLoginRequestTask accountLoginCmd = new AccountLoginRequestTask(getActivity(), account, password);
-        accountLoginCmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(),"Loading..."));
-        accountLoginCmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
-            @Override
-            public void success(SLoginResponse sLoginResponse, String rawResult) {
-                if (sLoginResponse != null){
-                    if (sLoginResponse.isRequestSuccess()) {
-                        StarPyUtil.saveAccount(getContext(),account);
-                        StarPyUtil.savePassword(getContext(),password);
-                        sLoginDialog.handleRegisteOrLoginSuccess(sLoginResponse,rawResult, SLoginType.LOGIN_TYPE_STARPY);
-                    }else{
-
-                        ToastUtils.toast(getActivity(),sLoginResponse.getMessage());
-                    }
-                }else{
-                    ToastUtils.toast(getActivity(),R.string.py_error_occur);
-                }
-            }
-
-            @Override
-            public void timeout(String code) {
-
-            }
-
-            @Override
-            public void noData() {
-
-            }
-        });
-        accountLoginCmd.excute(SLoginResponse.class);*/
 
     }
 
