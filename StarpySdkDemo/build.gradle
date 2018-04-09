@@ -16,8 +16,8 @@ android {
             storePassword '000000'
         }*/
     }
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
@@ -126,7 +126,7 @@ android {
             applicationId "com.starpy.twzj"
             signingConfig signingConfigs.brmmdsign
             minSdkVersion 18
-            targetSdkVersion 26
+            targetSdkVersion 27
             versionCode 5
             versionName "2.0"
             flavorDimensions "1"
