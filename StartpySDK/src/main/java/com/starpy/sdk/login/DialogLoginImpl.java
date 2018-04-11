@@ -18,6 +18,7 @@ public class DialogLoginImpl implements ILogin {
 
     private SGoogleSignIn sGoogleSignIn;
 
+    private  SLoginDialogV2 sLoginDialogV2;
 
     @Override
     public void onCreate(Activity activity) {
@@ -58,11 +59,13 @@ public class DialogLoginImpl implements ILogin {
 
     @Override
     public void startLogin(Activity activity, ILoginCallBack iLoginCallBack) {
-        SLoginDialogV2 sLoginDialog = new SLoginDialogV2(activity , com.starpy.sdk.R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
-        sLoginDialog.setSFacebookProxy(sFacebookProxy);
-        sLoginDialog.setSGoogleSignIn(sGoogleSignIn);
-        sLoginDialog.setLoginCallBack(iLoginCallBack);
-        sLoginDialog.show();
+        if (sLoginDialogV2 == null) {
+            sLoginDialogV2 = new SLoginDialogV2(activity , com.starpy.sdk.R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
+        }
+        sLoginDialogV2.setSFacebookProxy(sFacebookProxy);
+        sLoginDialogV2.setSGoogleSignIn(sGoogleSignIn);
+        sLoginDialogV2.setLoginCallBack(iLoginCallBack);
+        sLoginDialogV2.show();
     }
 
     @Override

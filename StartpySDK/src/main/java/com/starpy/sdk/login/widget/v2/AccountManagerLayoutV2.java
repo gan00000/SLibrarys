@@ -65,7 +65,7 @@ public class AccountManagerLayoutV2 extends SLoginBaseRelativeLayout implements 
 
         if (StarPyUtil.isMainland(getContext())){
             changePwdBtn.setVisibility(GONE);
-            uniqueRegBindBtn.setVisibility(GONE);
+            //uniqueRegBindBtn.setVisibility(GONE);
             fbRegBindBtn.setVisibility(GONE);
             googleRegBindBtn.setVisibility(GONE);
 
