@@ -2,6 +2,7 @@ package com.starpy.sdk;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -20,6 +21,7 @@ import com.starpy.base.utils.Localization;
 
 public class SBaseDialog extends Dialog {
 
+    protected boolean isPortrait;
 
     public SBaseDialog(@NonNull Context context) {
         super(context);
@@ -38,15 +40,31 @@ public class SBaseDialog extends Dialog {
     }
 
     private void initContentLayout(Context context){
+
+        if (context.getResources().getConfiguration().orientation ==  Configuration.ORIENTATION_PORTRAIT){
+            isPortrait = true;
+        }else {
+            isPortrait = false;
+        }
+
         //获得dialog的window窗口
         Window window = this.getWindow();
 
-        int padDimension = ApkInfoUtil.getNavBarHeight(context);
-        if (padDimension <= 0){
+        int padDimension = 0;
+
+        if (isPortrait){
             padDimension = context.getResources().getDimensionPixelSize(R.dimen.px_15);
             window.getDecorView().setPadding(padDimension, padDimension, padDimension, padDimension);
         }else {
-            window.getDecorView().setPadding(padDimension, padDimension/2, padDimension, padDimension/2);
+
+            padDimension = ApkInfoUtil.getNavBarHeight(context);
+            if (padDimension <= 0){
+                padDimension = context.getResources().getDimensionPixelSize(R.dimen.px_15);
+                window.getDecorView().setPadding(padDimension, padDimension, padDimension, padDimension);
+            }else {
+                window.getDecorView().setPadding(padDimension, padDimension/2, padDimension, padDimension/2);
+            }
+
         }
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|
