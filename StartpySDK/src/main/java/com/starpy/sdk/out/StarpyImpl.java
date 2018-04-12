@@ -13,6 +13,7 @@ import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
@@ -36,6 +37,7 @@ import com.starpy.sdk.login.ILogin;
 import com.starpy.sdk.plat.PlatMainActivity;
 import com.starpy.thirdlib.facebook.FriendProfile;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
+import com.starpy.thirdlib.google.SGoogleFirebaseProxy;
 import com.starpy.thirdlib.google.SGooglePlayGameServices;
 
 import java.net.URLEncoder;
@@ -56,6 +58,8 @@ public class StarpyImpl implements IStarpy {
 
     private SWebViewDialog csWebViewDialog;
     private SWebViewDialog otherPayWebViewDialog;
+
+    private SGoogleFirebaseProxy sGoogleFirebaseProxy;
 
     public StarpyImpl() {
         iLogin = ObjFactory.create(DialogLoginImpl.class);
@@ -358,6 +362,9 @@ public class StarpyImpl implements IStarpy {
                 }
                 sGooglePlayGameServices = new SGooglePlayGameServices(activity);
 
+                sGoogleFirebaseProxy = new SGoogleFirebaseProxy(activity);
+                sGoogleFirebaseProxy.logEvent("starpy_install",null);
+
                 //permission授权
     //        PermissionUtil.requestPermissions_STORAGE(activity,PERMISSION_REQUEST_CODE);
             }
@@ -394,23 +401,17 @@ public class StarpyImpl implements IStarpy {
                 Bundle b = data.getExtras();
                 GooglePayCreateOrderIdReqBean g = (GooglePayCreateOrderIdReqBean) data.getSerializableExtra("GooglePayCreateOrderIdReqBean");
                 if (b.getInt("status") == 93 && g != null){//充值成功
-                    /*try {
-                        if (g.getGameCode().equals("gbmmd")) {//全球萌萌哒特殊处理
-                            PL.i("google pay success,value:" + g.getPayValue());
-                            Map<String,Double> id_price = new HashMap<>();
-                            id_price.put("com.brmmd.3.99.month",3.99);
-                            id_price.put("com.brmmd.19.99.month",19.99);
-                            id_price.put("py.brmmd.1.99",1.99);
-                            id_price.put("py.brmmd.4.99",4.99);
-                            id_price.put("py.brmmd.9.99",9.99);
-                            id_price.put("py.brmmd.29.99",29.99);
-                            id_price.put("py.brmmd.49.99",49.99);
-                            id_price.put("py.brmmd.99.99",99.99);
-                            StarEventLogger.trackinPayEvent(activity,id_price.get(g.getProductId()));
+
+                    if (sGoogleFirebaseProxy != null && SStringUtil.isNotEmpty(g.getPayValue())) {
+
+                        try {
+                            Bundle bundle = new Bundle();
+                            bundle.putFloat(FirebaseAnalytics.Param.VALUE, Float.parseFloat(g.getPayValue()));
+                            sGoogleFirebaseProxy.logEvent("google_pay", bundle);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
                         }
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }*/
+                    }
                     PL.i("google pay success");
                 }
             }
