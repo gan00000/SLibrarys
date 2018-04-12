@@ -84,8 +84,8 @@ public class AccountChangePwdLayoutV2 extends SLoginBaseRelativeLayout implement
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        changePwdOldEditText.setText("");
-        changePwdNewEditText.setText("");
+        //changePwdOldEditText.setText("");
+        //changePwdNewEditText.setText("");
     }
 
     @Override
