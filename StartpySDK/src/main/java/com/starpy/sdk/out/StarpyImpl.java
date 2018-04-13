@@ -362,8 +362,10 @@ public class StarpyImpl implements IStarpy {
                 }
                 sGooglePlayGameServices = new SGooglePlayGameServices(activity);
 
-                sGoogleFirebaseProxy = new SGoogleFirebaseProxy(activity);
-                sGoogleFirebaseProxy.logEvent("starpy_install",null);
+                if (!StarPyUtil.isMainland(activity)) {
+                    sGoogleFirebaseProxy = new SGoogleFirebaseProxy(activity);
+                    sGoogleFirebaseProxy.logEvent("starpy_install",null);
+                }
 
                 //permission授权
     //        PermissionUtil.requestPermissions_STORAGE(activity,PERMISSION_REQUEST_CODE);
@@ -400,7 +402,7 @@ public class StarpyImpl implements IStarpy {
             if (data != null && data.getExtras() != null){
                 Bundle b = data.getExtras();
                 GooglePayCreateOrderIdReqBean g = (GooglePayCreateOrderIdReqBean) data.getSerializableExtra("GooglePayCreateOrderIdReqBean");
-                if (b.getInt("status") == 93 && g != null){//充值成功
+                if (!StarPyUtil.isMainland(activity) && b.getInt("status") == 93 && g != null){//充值成功
 
                     if (sGoogleFirebaseProxy != null && SStringUtil.isNotEmpty(g.getPayValue())) {
 
