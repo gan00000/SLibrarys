@@ -3,6 +3,8 @@ package com.starpy.google;
 import com.core.base.utils.PL;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.starpy.data.NotificationContent;
+import com.starpy.sdk.utils.NotificationHelper;
 
 import java.util.Map;
 
@@ -25,6 +27,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         PL.d("Notification Message Body: " + body);
         PL.d("Notification Message data: " + data);
         PL.d("Notification Message title: " + title);
+
+        NotificationContent notificationContent = new NotificationContent(getApplicationContext());
+        notificationContent.setContentTitle(title);
+        notificationContent.setContentText(body);
+
+        NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+        notificationHelper.show(notificationContent);
     }
 
 
