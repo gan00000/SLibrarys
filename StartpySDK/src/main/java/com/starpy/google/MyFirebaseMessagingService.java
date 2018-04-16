@@ -1,6 +1,7 @@
 package com.starpy.google;
 
 import com.core.base.utils.PL;
+import com.core.base.utils.SStringUtil;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.starpy.data.NotificationContent;
@@ -27,6 +28,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         PL.d("Notification Message Body: " + body);
         PL.d("Notification Message data: " + data);
         PL.d("Notification Message title: " + title);
+
+        if (SStringUtil.isEmpty(title)){
+            title = getPackageName() + " message";
+        }
 
         NotificationContent notificationContent = new NotificationContent(getApplicationContext());
         notificationContent.setContentTitle(title);

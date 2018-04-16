@@ -366,6 +366,7 @@ public class StarpyImpl implements IStarpy {
                     sGoogleFirebaseProxy = new SGoogleFirebaseProxy(activity);
                     sGoogleFirebaseProxy.logEvent("starpy_install",null);
                 }
+                PL.d("sha1:" + SignatureUtil.getSignatureSHA1WithColon(activity,activity.getPackageName()));
 
                 //permission授权
     //        PermissionUtil.requestPermissions_STORAGE(activity,PERMISSION_REQUEST_CODE);
