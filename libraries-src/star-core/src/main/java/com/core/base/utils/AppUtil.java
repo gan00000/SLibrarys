@@ -239,4 +239,25 @@ public class AppUtil {
 			dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
 	}
+
+	public static void startMainActivitiy(Context context) {
+
+		String pkName = context.getPackageName();
+
+		Intent it = new Intent(Intent.ACTION_MAIN);
+		it.addCategory(Intent.CATEGORY_LAUNCHER);
+
+		Intent mainIntent = context.getPackageManager().getLaunchIntentForPackage(pkName);
+		if (mainIntent != null && mainIntent.getComponent() != null) {
+			String className = mainIntent.getComponent().getClassName();
+			it.setClassName(context, className);
+		} else if (mainIntent != null) {
+			it = mainIntent;
+		}
+		//it.putExtra(EfunPushManager.PUSH_NOTIFICATION_START, true);
+		it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+
+		context.startActivity(it);
+
+	}
 }

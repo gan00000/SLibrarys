@@ -11,6 +11,10 @@ import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
 import com.starpy.base.utils.StarPyUtil;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class ResConfig {
 
 	//===========================================参数配置start===============================================
@@ -254,6 +258,30 @@ public class ResConfig {
 			mVaule = getResStringByName(context, key);
 		}
 		return mVaule;
+	}
+
+	private static Properties cfgProperties;
+	public static String getConfigInAssetsFromProperties(Context context, String key){
+
+		try {
+			if (cfgProperties == null || cfgProperties.isEmpty()){
+				cfgProperties = new Properties();
+				InputStream inputStream = context.getAssets().open("starpy/starpy_game_config.properties");
+				if (inputStream != null){
+					cfgProperties.load(inputStream);
+				}
+			}
+			String mVaule = cfgProperties.getProperty(key,"");
+			if (SStringUtil.isEmpty(mVaule)){
+				mVaule = getResStringByName(context, key);
+			}
+			return mVaule;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "";
 	}
 
 }
