@@ -132,9 +132,10 @@ public class PyAccountLoginV2 extends SLoginBaseRelativeLayout {
         saveAccountPwdLayout =  contentView.findViewById(R.id.py_save_account_pwd_layout);
 
         if (StarPyUtil.isMainland(getContext())){
-            loginMainFreeRegLogin.setVisibility(View.VISIBLE);
+            loginMainFreeRegLogin.setVisibility(View.GONE);
+            loginMainGoRegisterBtn.setVisibility(View.GONE);
             goBindPhone.setVisibility(VISIBLE);
-            backView.setVisibility(GONE);
+//            backView.setVisibility(GONE);
             loginMainGoAccountCenter.setVisibility(GONE);
             saveAccountPwdLayout.setVisibility(GONE);
         }

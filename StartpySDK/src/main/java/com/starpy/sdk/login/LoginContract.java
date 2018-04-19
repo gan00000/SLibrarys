@@ -44,6 +44,7 @@ public class LoginContract {
         public void thirdPlatLogin(Activity activity, ThirdLoginRegRequestBean thirdLoginRegRequestBean);
 
         public void macLogin(Activity activity);
+        public void wxLogin(Activity activity);
 
         public void register(Activity activity, String account, String pwd, String email);
         public void changePwd(Activity activity, String account, String oldPwd, String newPwd);

@@ -7,6 +7,7 @@ import com.starpy.data.login.ILoginCallBack;
 import com.starpy.sdk.utils.DialogUtil;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleSignIn;
+import com.starpy.thirdlib.wx.SWXProxy;
 
 /**
  * Created by gan on 2017/4/12.
@@ -20,11 +21,17 @@ public class DialogLoginImpl implements ILogin {
 
     private  SLoginDialogV2 sLoginDialogV2;
 
+    private SWXProxy swxProxy;//
+
     @Override
     public void onCreate(Activity activity) {
 
         sGoogleSignIn = new SGoogleSignIn(activity, DialogUtil.createLoadingDialog(activity, "Loading..."));
+        if (swxProxy == null){
+            swxProxy = SWXProxy.getSWXProxy();
+            swxProxy.init(activity,"wx8378d30863b94ea3","f9868ffbb04292411161c76cbde90664");
 
+        }
     }
 
     @Override
@@ -59,9 +66,11 @@ public class DialogLoginImpl implements ILogin {
 
     @Override
     public void startLogin(Activity activity, ILoginCallBack iLoginCallBack) {
-        if (sLoginDialogV2 == null) {
-            sLoginDialogV2 = new SLoginDialogV2(activity , com.starpy.sdk.R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
+        if (sLoginDialogV2 != null) {
+            sLoginDialogV2.dismiss();
+            sLoginDialogV2 = null;
         }
+        sLoginDialogV2 = new SLoginDialogV2(activity , com.starpy.sdk.R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
         sLoginDialogV2.setSFacebookProxy(sFacebookProxy);
         sLoginDialogV2.setSGoogleSignIn(sGoogleSignIn);
         sLoginDialogV2.setLoginCallBack(iLoginCallBack);

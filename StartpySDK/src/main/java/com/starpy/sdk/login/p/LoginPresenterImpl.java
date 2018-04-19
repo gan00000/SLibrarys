@@ -39,6 +39,9 @@ import com.starpy.sql.bean.StarpyPersion;
 import com.starpy.thirdlib.facebook.FbSp;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleSignIn;
+import com.starpy.thirdlib.wx.SWXProxy;
+import com.starpy.thirdlib.wx.WxCallback;
+import com.starpy.thirdlib.wx.WxUserInfo;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -114,7 +117,11 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 //           thirdPlatLogin(mActivity,StarPyUtil.getGoogleId(mActivity),SLoginType.LOGIN_TYPE_GOOGLE);
             startAutoLogin(activity, SLoginType.LOGIN_TYPE_GOOGLE, "", "");
 
-        }else {//進入登錄頁面
+        } else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_WECHAT, previousLoginType)){
+
+            startAutoLogin(activity, SLoginType.LOGIN_TYPE_WECHAT, "", "");
+
+        } else {//進入登錄頁面
             showLoginView();
         }
 
@@ -215,6 +222,26 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
     public void macLogin(Activity activity) {
         this.mActivity = activity;
         mMacLogin(activity);
+    }
+
+    @Override
+    public void wxLogin(Activity activity) {
+        this.mActivity = activity;
+        SWXProxy.getSWXProxy().setWxCallback(new WxCallback() {
+            @Override
+            public void callback(WxUserInfo wxUserInfo) {
+                if (wxUserInfo != null && SStringUtil.isNotEmpty(wxUserInfo.getUnionid())){
+                    PL.d("wxUserInfo:" + wxUserInfo.getUnionid());
+                    ThirdLoginRegRequestBean thirdLoginRegRequestBean = new ThirdLoginRegRequestBean(mActivity);
+                    thirdLoginRegRequestBean.setThirdPlatId(wxUserInfo.getUnionid().toLowerCase());
+                    thirdLoginRegRequestBean.setRegistPlatform(SLoginType.LOGIN_TYPE_WECHAT);
+                    thirdPlatLogin(mActivity,thirdLoginRegRequestBean);
+                }else {
+                    ToastUtils.toast(mActivity,"微信登录失败");
+                }
+            }
+        });
+        SWXProxy.getSWXProxy().wxLogin();
     }
 
     @Override
@@ -738,6 +765,8 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                 autoLoginTips = "Facebook" + autoLoginTips;
             }else if (registPlatform.equals(SLoginType.LOGIN_TYPE_GOOGLE)){
                 autoLoginTips = "Google" + autoLoginTips;
+            }else if (registPlatform.equals(SLoginType.LOGIN_TYPE_WECHAT)){
+                autoLoginTips = "微信" + autoLoginTips;
             }
             iLoginView.showAutoLoginTips(autoLoginTips);
         }
@@ -778,6 +807,10 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
                                 thirdLoginRegRequestBean.setGoogleClientId(ResConfig.getGoogleClientId(activity));
                                 thirdLoginRegRequestBean.setGoogleIdToken(StarPyUtil.getGoogleIdToken(activity));
                                 thirdPlatLogin(activity, thirdLoginRegRequestBean);
+
+                            }else if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_WECHAT, registPlatform)){//
+
+                                wxLogin(activity);
                             }
 
                             if (autoLoginTimer != null){

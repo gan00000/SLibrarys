@@ -28,6 +28,7 @@ import com.starpy.sdk.login.widget.v2.AccountManagerLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterLayoutV2;
 import com.starpy.sdk.login.widget.v2.AccountRegisterTermsLayoutV2;
 import com.starpy.sdk.login.widget.v2.BindPhoneLayoutV2;
+import com.starpy.sdk.login.widget.v2.MainLoginMainLandLayoutV;
 import com.starpy.sdk.login.widget.v2.PyAccountLoginV2;
 import com.starpy.sdk.login.widget.v2.ResetPwdLayoutV2;
 import com.starpy.sdk.login.widget.v2.ThirdPlatBindAccountLayoutV2;
@@ -194,19 +195,14 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
     public void toMainLoginView() {
 
-        if (StarPyUtil.isMainland(activity)) {
-            toAccountLoginView();
-            return;
-        }
+//        if (StarPyUtil.isMainland(activity)) {
+//            toAccountLoginView();
+//            return;
+//        }
 
         if (mainLoginView == null || !viewPageList.contains(mainLoginView)){
 
-//            if (isXM) {
-//                mainLoginView = new XMMainLoginLayoutV2(context);//星盟
-//            }else {
-//                mainLoginView = new MainLoginLayoutV2(context);//舊的新玩意
-//            }
-            mainLoginView = new XMMainLoginLayoutV2(context);//星盟
+            cteateMainView();
             mainLoginView.setLoginDialogV2(this);
             contentFrameLayout.addView(mainLoginView);
             viewPageList.add(mainLoginView);
@@ -222,6 +218,16 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
             }
         }
     }
+
+    private void cteateMainView() {
+        if (StarPyUtil.isMainland(context)){
+            mainLoginView = new MainLoginMainLandLayoutV(context);
+        }else {
+
+            mainLoginView = new XMMainLoginLayoutV2(context);//星盟
+        }
+    }
+
     public void toAccountLoginView() {
 
         if (accountLoginView == null || !viewPageList.contains(accountLoginView)){

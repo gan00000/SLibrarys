@@ -14,6 +14,7 @@ public class SLoginType {
 	 * Google登入
 	 */
 	public static final String LOGIN_TYPE_GOOGLE = "google";
+	public static final String LOGIN_TYPE_WECHAT = "wechat";
 	/**
 	 * mac登入
 	 */
