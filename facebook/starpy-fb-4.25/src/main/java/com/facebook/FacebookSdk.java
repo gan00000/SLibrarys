@@ -33,10 +33,10 @@ import android.util.Log;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.internal.AppEventsLoggerUtility;
+import com.facebook.internal.AttributionIdentifiers;
+import com.facebook.internal.BoltsMeasurementEventListener;
 import com.facebook.internal.FetchedAppSettingsManager;
 import com.facebook.internal.LockOnGetVariable;
-import com.facebook.internal.BoltsMeasurementEventListener;
-import com.facebook.internal.AttributionIdentifiers;
 import com.facebook.internal.NativeProtocol;
 import com.facebook.internal.ServerProtocol;
 import com.facebook.internal.Utility;
@@ -53,7 +53,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -273,9 +278,10 @@ public final class FacebookSdk {
 
         // We should have an application id by now if not throw
         if (Utility.isNullOrEmpty(applicationId)) {
-            throw new FacebookException("A valid Facebook app id must be set in the " +
+            Log.e(TAG,"A valid Facebook app id must be set in the " +
                     "AndroidManifest.xml or set by calling FacebookSdk.setApplicationId " +
                     "before initializing the sdk.");
+            return;
         }
 
         // Set sdkInitialized to true now so the bellow async tasks don't throw not initialized
@@ -851,7 +857,7 @@ public final class FacebookSdk {
     }
 
     /**
-     * Gets the flag used by {@link com.facebook.appevents.AppEventsLogger}
+     * Gets the flag used by {@link AppEventsLogger}
      * @return the auto logging events flag for the application
      */
     public static boolean getAutoLogAppEventsEnabled() {
@@ -861,7 +867,7 @@ public final class FacebookSdk {
 
     /**
      * Sets the auto logging events flag for the application
-     * {@link com.facebook.appevents.AppEventsLogger}
+     * {@link AppEventsLogger}
      * @param flag true or false
      */
     public static void setAutoLogAppEventsEnabled(boolean flag) {
