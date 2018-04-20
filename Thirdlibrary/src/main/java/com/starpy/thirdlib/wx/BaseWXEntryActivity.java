@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import com.core.base.utils.PL;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 /**
@@ -51,13 +50,12 @@ public class BaseWXEntryActivity extends Activity implements IWXAPIEventHandler 
     public void onResp(BaseResp baseResp) {
         PL.i("onResp");
         int errCode = baseResp.errCode;
-        PL.i("errCode:" + errCode);
-
-        SendAuth.Resp resp = (SendAuth.Resp)baseResp;
+        PL.i("errCode:" + errCode + "  errMsg:" + baseResp.errStr);
+//        SendAuth.Resp resp = (SendAuth.Resp)baseResp;
 //        String code = resp.code;
 
         if (swxProxy != null) {
-            swxProxy.SendAuthCallback(resp);
+            swxProxy.onResp(baseResp);
         }
         finish();
 

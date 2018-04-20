@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 
 import com.core.base.http.HttpRequest;
 import com.core.base.request.SRequestAsyncTask;
@@ -14,6 +15,10 @@ import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXTextObject;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -24,6 +29,9 @@ import org.json.JSONObject;
 /**
  */
 public class SWXProxy{
+
+	public static final String SHARE_TEXT = "SHARE_TEXT";
+	public static final String SHARE_WEB_PAGE = "SHARE_WEB_PAGE";
 
 	private Activity activity;
 	private IWXAPI iwxapi;
@@ -37,8 +45,13 @@ public class SWXProxy{
 	private final static String wxResult = "wx_wxResult";
 
 	private WxCallback wxCallback;
+	private WxShareCallback wxShareCallback;
 
 	private WxUserInfo wxUserInfo;
+
+	public WxUserInfo getWxUserInfo() {
+		return wxUserInfo;
+	}
 
 	private static SWXProxy swxProxy;
 
@@ -118,22 +131,47 @@ public class SWXProxy{
 
 	}
 
-	public void SendAuthCallback(SendAuth.Resp resp){
-		int errCode = resp.errCode;
-
+	public void onResp(BaseResp baseResp){
+		int errCode = baseResp.errCode;
+		String transaction = baseResp.transaction;
+		PL.d("baseResp type:" + baseResp.getType() + "  transaction:" + transaction);
 		switch (errCode) {
+
 			case BaseResp.ErrCode.ERR_OK:
-				String code = resp.code;
-				if (SStringUtil.isNotEmpty(code)){
-					codeExchangeAccessToken(code);
+
+
+				if (SStringUtil.isNotEmpty(transaction) && transaction.contains(SHARE_TEXT)){
+					if (wxShareCallback != null){
+						wxShareCallback.success();
+					}
+				}else if (SStringUtil.isNotEmpty(transaction) && transaction.contains(SHARE_WEB_PAGE)){
+					if (wxShareCallback != null){
+						wxShareCallback.success();
+					}
+				}else {
+					SendAuth.Resp resp = (SendAuth.Resp)baseResp;
+					String code = resp.code;
+					if (SStringUtil.isNotEmpty(code)){
+						codeExchangeAccessToken(code);
+					}
 				}
 
 				break;
 			case BaseResp.ErrCode.ERR_USER_CANCEL:
 			case BaseResp.ErrCode.ERR_AUTH_DENIED:
 			case BaseResp.ErrCode.ERR_UNSUPPORT:
+				if (SStringUtil.isNotEmpty(transaction) && transaction.contains(SHARE_TEXT)){
+					if (wxShareCallback != null){
+						wxShareCallback.failure();
+					}
+				}else if (SStringUtil.isNotEmpty(transaction) && transaction.contains(SHARE_WEB_PAGE)){
+					if (wxShareCallback != null){
+						wxShareCallback.failure();
+					}
+				}else {
 
-				wxUserInfoCallBack(null);
+					wxFiinshCallBack(null);
+				}
 				break;
 
 			default:
@@ -246,7 +284,7 @@ public class SWXProxy{
 				PL.d("result:" + result);
 
 				WxUserInfo wxUserInfo = parseUserInfo(result);
-				wxUserInfoCallBack(wxUserInfo);
+				wxFiinshCallBack(wxUserInfo);
 			}
 		};
 
@@ -268,11 +306,11 @@ public class SWXProxy{
 			}
 		}
 
-		wxUserInfoCallBack(null);
+		wxFiinshCallBack(null);
 
 	}
 
-	public void wxUserInfoCallBack(WxUserInfo wxUserInfo){
+	public void wxFiinshCallBack(WxUserInfo wxUserInfo){
 		this.wxUserInfo = wxUserInfo;
 		if (wxCallback != null){
 			wxCallback.callback(wxUserInfo);
@@ -366,4 +404,60 @@ public class SWXProxy{
         return null;
 	}
 
+
+	public void shareText(String text,int mTargetScene,WxShareCallback wxShareCallback){
+
+		this.wxShareCallback = wxShareCallback;
+
+		WXTextObject textObj = new WXTextObject();
+		textObj.text = text;
+
+		WXMediaMessage msg = new WXMediaMessage();
+		msg.mediaObject = textObj;
+		msg.description = text;
+
+		SendMessageToWX.Req req = new SendMessageToWX.Req();
+		req.transaction = buildTransaction(SHARE_TEXT);
+		req.message = msg;
+		if (mTargetScene == 0){
+			req.scene = SendMessageToWX.Req.WXSceneSession;
+		}else {
+			req.scene = SendMessageToWX.Req.WXSceneTimeline;
+		}
+
+		iwxapi.sendReq(req);
+	}
+
+	//图片不能大于32K
+	public void shareWebPage(String url, String title, String text, Bitmap thumbBitmap,int mTargetScene,WxShareCallback wxShareCallback){
+
+		this.wxShareCallback = wxShareCallback;
+
+		WXWebpageObject wxWebpageObject = new WXWebpageObject();
+		wxWebpageObject.webpageUrl = url;
+
+		WXMediaMessage msg = new WXMediaMessage();
+		msg.mediaObject = wxWebpageObject;
+		msg.title = title;
+		msg.description = text;
+
+		if (thumbBitmap != null){
+			msg.thumbData = Util.bmpToByteArray(thumbBitmap,true);//检查发送时的缩略图大小是否超过32k
+		}
+
+		SendMessageToWX.Req req = new SendMessageToWX.Req();
+		req.transaction = buildTransaction(SHARE_WEB_PAGE);
+		req.message = msg;
+		if (mTargetScene == 0){
+			req.scene = SendMessageToWX.Req.WXSceneSession;
+		}else {
+			req.scene = SendMessageToWX.Req.WXSceneTimeline;
+		}
+
+		iwxapi.sendReq(req);
+	}
+
+	private String buildTransaction(final String type) {
+		return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+	}
 }
