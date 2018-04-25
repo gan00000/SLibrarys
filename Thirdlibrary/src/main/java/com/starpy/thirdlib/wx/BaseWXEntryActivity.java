@@ -28,7 +28,8 @@ public class BaseWXEntryActivity extends Activity implements IWXAPIEventHandler 
         swxProxy = SWXProxy.getSWXProxy();
 
         try {
-            swxProxy.handleIntent(getIntent(), this);
+//            swxProxy.handleIntent(getIntent(), this);
+            swxProxy.createNewIWXAPI(this).handleIntent(getIntent(),this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,6 +58,10 @@ public class BaseWXEntryActivity extends Activity implements IWXAPIEventHandler 
         if (swxProxy != null) {
             swxProxy.onResp(baseResp);
         }
+
+//        Intent intent = new Intent();
+//        intent.putExtra("aaa","iadid");
+//        setResult(801,intent);
         finish();
 
     }

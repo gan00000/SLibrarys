@@ -537,7 +537,13 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
         if (iLoginCallBack != null){
             iLoginCallBack.onLogin(sLoginResponse);
         }
-        this.dismiss();
+        try {
+            if (this.isShowing()) {
+                this.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

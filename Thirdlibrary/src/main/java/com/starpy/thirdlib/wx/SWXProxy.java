@@ -70,6 +70,10 @@ public class SWXProxy{
 
 	}
 
+	public IWXAPI createNewIWXAPI(Activity mActivity){
+		return WXAPIFactory.createWXAPI(mActivity,appId,true);
+	}
+
 	public void init(Activity activity, String appId, String appSecret) {
 		this.activity = activity;
 		this.appId = appId;
