@@ -79,6 +79,11 @@ public class SWXProxy{
 		this.appId = appId;
 		this.appSecret = appSecret;
 
+		if (SStringUtil.isEmpty(appId) || SStringUtil.isEmpty(appSecret)){
+			PL.w("wx appId or appSecret is empty");
+			return;
+		}
+
 		iwxapi = WXAPIFactory.createWXAPI(activity,appId,true);
 
 		iwxapi.registerApp(appId);
