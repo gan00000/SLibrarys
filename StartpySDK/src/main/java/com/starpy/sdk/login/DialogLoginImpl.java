@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.starpy.base.cfg.ResConfig;
+import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.sdk.utils.DialogUtil;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
@@ -28,9 +29,8 @@ public class DialogLoginImpl implements ILogin {
     public void onCreate(Activity activity) {
 
         sGoogleSignIn = new SGoogleSignIn(activity, DialogUtil.createLoadingDialog(activity, "Loading..."));
-        if (swxProxy == null){
+        if (StarPyUtil.isMainland(activity) && swxProxy == null){
             swxProxy = SWXProxy.getSWXProxy();
-//            swxProxy.init(activity,"wx8378d30863b94ea3","f9868ffbb04292411161c76cbde90664");
             swxProxy.init(activity, ResConfig.getConfigInAssets(activity,"star_sdk_wx_appid"),
                     ResConfig.getConfigInAssets(activity,"star_sdk_wx_appsecret"));
         }

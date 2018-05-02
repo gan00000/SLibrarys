@@ -18,9 +18,6 @@ public class BaseWXEntryActivity extends Activity implements IWXAPIEventHandler 
 
     private SWXProxy swxProxy;
 
-    String appId = "wx8378d30863b94ea3";
-//    String appSecret = "f9868ffbb04292411161c76cbde90664";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,16 +49,11 @@ public class BaseWXEntryActivity extends Activity implements IWXAPIEventHandler 
         PL.i("onResp");
         int errCode = baseResp.errCode;
         PL.i("errCode:" + errCode + "  errMsg:" + baseResp.errStr);
-//        SendAuth.Resp resp = (SendAuth.Resp)baseResp;
-//        String code = resp.code;
 
         if (swxProxy != null) {
             swxProxy.onResp(baseResp);
         }
 
-//        Intent intent = new Intent();
-//        intent.putExtra("aaa","iadid");
-//        setResult(801,intent);
         finish();
 
     }
