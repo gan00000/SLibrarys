@@ -78,7 +78,7 @@ public class ApkInfoUtil {
 	
 	public static String getMacAddress(Context ctx) {
 
-		String macTmp = "";
+		/*String macTmp = "";
 		try {
 			WifiManager wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 			WifiInfo info = wifi.getConnectionInfo();
@@ -86,7 +86,8 @@ public class ApkInfoUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return macTmp;
+		return macTmp;*/
+		return "";
 	}
 
 
@@ -148,7 +149,7 @@ public class ApkInfoUtil {
 	
 
 	public static String getImeiAddress(Context ctx) {
-		String imei = "";
+		/*String imei = "";
 		try {
 			if (PermissionUtil.hasSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE)) {
 				TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
@@ -158,7 +159,8 @@ public class ApkInfoUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return imei;
+		return imei;*/
+		return "";
 	}
 
 	public static String getLocalIpAddress(Context ctx){
