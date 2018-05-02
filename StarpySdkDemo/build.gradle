@@ -43,33 +43,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.brmmdsign
 
-
-            resValue "string", "facebook_app_name", "裝甲連隊"
-            resValue "string", "facebook_app_id", "134211963880586"
-            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider134211963880586"
-            resValue "string", "google_app_id", "605752434859"
-            //装甲英文
-//            resValue "string", "facebook_app_name", "General Kim"
-//            resValue "string", "facebook_app_id", "141453116613802"
-//            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider141453116613802"
-//            resValue "string", "google_app_id", "768367627631"
         }
 
         debug {
 //            multiDexEnabled true //Add this
             signingConfig signingConfigs.brmmdsign
 
-
-            resValue "string", "facebook_app_name", "裝甲連隊"
-            resValue "string", "facebook_app_id", "134211963880586"
-            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider134211963880586"
-            resValue "string", "google_app_id", "605752434859"
-
-            //装甲英文
-//            resValue "string", "facebook_app_name", "General Kim"
-//            resValue "string", "facebook_app_id", "141453116613802"
-//            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider141453116613802"
-//            resValue "string", "google_app_id", "768367627631"
         }
     }
     productFlavors {
@@ -131,6 +110,11 @@ android {
             versionName "2.0"
             flavorDimensions "1"
 
+            resValue "string", "facebook_app_name", "裝甲連隊"
+            resValue "string", "facebook_app_id", "134211963880586"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider134211963880586"
+            resValue "string", "google_app_id", "605752434859"
+
         }
 
         //全球装甲连队 英文
@@ -142,6 +126,28 @@ android {
             versionCode 2
             versionName "2.0"
             dimension "1"
+
+            //装甲英文
+            resValue "string", "facebook_app_name", "General Kim"
+            resValue "string", "facebook_app_id", "141453116613802"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider141453116613802"
+            resValue "string", "google_game_app_id", "768367627631"
+        }
+
+        hxcn_ch {
+            applicationId "com.starpy.hxcn"
+            signingConfig signingConfigs.brmmdsign
+            minSdkVersion 18
+            targetSdkVersion 22
+            versionCode 2
+            versionName "2.0"
+            dimension "1"
+
+            resValue "string", "facebook_app_name", ""
+            resValue "string", "facebook_app_id", ""
+            resValue "string", "facebook_authorities", "com.starpy.hxcn"
+            resValue "string", "google_game_app_id", ""
+
         }
 
     }
@@ -166,3 +172,6 @@ dependencies {
 def getReleaseTime() {
     return new Date().format("yyyy-MM-dd-HH-mm", TimeZone.getDefault())
 }
+
+// ADD THIS AT THE BOTTOM
+//apply plugin: 'com.google.gms.google-services'
