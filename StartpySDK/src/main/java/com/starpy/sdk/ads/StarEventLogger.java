@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
-import com.appsflyer.AppsFlyerLib;
 import com.core.base.bean.BaseResponseModel;
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.SimpleHttpRequest;
@@ -19,21 +18,22 @@ import com.starpy.sdk.R;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleProxy;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by gan on 2017/3/3.
  */
 
 public class StarEventLogger {
 
+    private static boolean needAf(Activity activity){//100标识接入af(其他都标识接入)，101不接入
+        return !ResConfig.getConfigInAssets(activity,"star_sdk_af").equals("101");
+    }
+
     public static void activateApp(Activity activity){
 
         try {
-
-            AppsFlyerLib.getInstance().startTracking(activity.getApplication(), ResConfig.getConfigInAssets(activity,"star_ads_appflyer_dev_key"));
-
+            if (needAf(activity)){
+                AFDelegate.activateApp(activity);
+            }
             if (!StarPyUtil.isMainland(activity)) {
                 SFacebookProxy.activateApp(activity.getApplicationContext());
 
@@ -53,19 +53,18 @@ public class StarEventLogger {
     }
 
     public static void trackinLoginEvent(Activity activity){
-        SFacebookProxy.trackingEvent(activity,"starpy_login_event_android");
+        if (needAf(activity)){
 
-        Map<String, Object> eventValue = new HashMap<String, Object>();
-        AppsFlyerLib.getInstance().trackEvent(activity.getApplicationContext(),"starpy_login_event_android",eventValue);
+            AFDelegate.trackinLoginEvent(activity);
+        }
 
     }
 
     public static void trackinRegisterEvent(Activity activity){
-        SFacebookProxy.trackingEvent(activity,"starpy_register_event_android");
+        if (needAf(activity)){
 
-        Map<String, Object> eventValue = new HashMap<String, Object>();
-//        eventValue.put(AFInAppEventParameterName.REVENUE,1);
-        AppsFlyerLib.getInstance().trackEvent(activity.getApplicationContext(),"starpy_register_event_android",eventValue);
+            AFDelegate.trackinRegisterEvent(activity);
+        }
 
     }
 
