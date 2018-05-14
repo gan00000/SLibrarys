@@ -246,11 +246,17 @@ public class ResConfig {
 	private static String gameConfig = "";
 	public static String getConfigInAssets(Context context, String key){
 
+		String mVaule = "";
+
+		mVaule = getConfigInAssetsFromProperties(context, key);
+		if (SStringUtil.isNotEmpty(mVaule)){
+			return mVaule;
+		}
 		if (SStringUtil.isEmpty(gameConfig)){
 			gameConfig = FileUtil.readAssetsTxtFile(context,"starpy/starpy_game_config");
 			PL.i("gameConfig:" + gameConfig);
 		}
-		String mVaule = "";
+
 		if (SStringUtil.isNotEmpty(gameConfig)){
 			mVaule = JsonUtil.getValueByKey(context,gameConfig,key,"");
 		}
@@ -261,7 +267,7 @@ public class ResConfig {
 	}
 
 	private static Properties cfgProperties;
-	public static String getConfigInAssetsFromProperties(Context context, String key){
+	private static String getConfigInAssetsFromProperties(Context context, String key){
 
 		try {
 			if (cfgProperties == null || cfgProperties.isEmpty()){
@@ -271,11 +277,11 @@ public class ResConfig {
 					cfgProperties.load(inputStream);
 				}
 			}
-			String mVaule = cfgProperties.getProperty(key,"");
-			if (SStringUtil.isEmpty(mVaule)){
-				mVaule = getResStringByName(context, key);
-			}
-			return mVaule;
+			return cfgProperties.getProperty(key,"");
+//			if (SStringUtil.isEmpty(mVaule)){
+//				mVaule = getResStringByName(context, key);
+//			}
+//			return mVaule;
 
 		} catch (IOException e) {
 			e.printStackTrace();
