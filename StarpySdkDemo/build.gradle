@@ -150,6 +150,22 @@ android {
 
         }
 
+        kdzq {
+            applicationId "com.starpy.kdzq"
+            signingConfig signingConfigs.brmmdsign
+            minSdkVersion 18
+            targetSdkVersion 26
+            versionCode 1
+            versionName "1.0"
+            dimension "1"
+
+            resValue "string", "facebook_app_name", "Man Behind the Match"
+            resValue "string", "facebook_app_id", "1020021748149567"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider1020021748149567"
+            resValue "string", "google_app_id", ""
+
+        }
+
     }
 
     android {
