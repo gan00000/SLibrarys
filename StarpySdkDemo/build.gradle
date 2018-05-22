@@ -9,12 +9,12 @@ android {
             storePassword 'brmmd666888'
         }
 
-       /* config222 {
-            keyAlias 'star'
-            keyPassword '000000'
-            storeFile file('../keystore/pykeystore.jks')
-            storePassword '000000'
-        }*/
+       psm_sign {
+            keyAlias 'emagroup_psm'
+            keyPassword 'psmema9wee'
+            storeFile file('../keystore/psm.keystore')
+            storePassword 'psmema9wee'
+        }
     }
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
@@ -41,13 +41,13 @@ android {
 //            multiDexEnabled true //Add this
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.brmmdsign
+//            signingConfig signingConfigs.brmmdsign
 
         }
 
         debug {
 //            multiDexEnabled true //Add this
-            signingConfig signingConfigs.brmmdsign
+//            signingConfig signingConfigs.brmmdsign
 
         }
     }
@@ -152,7 +152,7 @@ android {
 
         kdzq {
             applicationId "com.starpy.kdzq"
-            signingConfig signingConfigs.brmmdsign
+            signingConfig signingConfigs.psm_sign
             minSdkVersion 18
             targetSdkVersion 26
             versionCode 1
@@ -164,6 +164,37 @@ android {
             resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider1020021748149567"
             resValue "string", "google_app_id", ""
 
+        }
+
+        xygj_ch {
+            applicationId "com.starpy.xygjch"
+            signingConfig signingConfigs.brmmdsign
+            minSdkVersion 18
+            targetSdkVersion 26
+            versionCode 1
+            versionName "1.0"
+            dimension "1"
+
+            //简体
+            resValue "string", "facebook_app_name", "嘻游挂机"
+            resValue "string", "facebook_app_id", "190673121550709"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider190673121550709"
+            resValue "string", "google_app_id", ""
+
+        }
+        xygj_tw {
+            applicationId "com.starpy.xygjtw"
+            signingConfig signingConfigs.brmmdsign
+            minSdkVersion 18
+            targetSdkVersion 26
+            versionCode 1
+            versionName "1.0"
+            dimension "1"
+
+            resValue "string", "facebook_app_name", "嘻游掛機"
+            resValue "string", "facebook_app_id", "790330361167525"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider790330361167525"
+            resValue "string", "google_app_id", ""
         }
 
     }
