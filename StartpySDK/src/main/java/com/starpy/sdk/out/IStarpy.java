@@ -36,6 +36,8 @@ public interface IStarpy extends IGameLifeCycle {
 
     public void openWebview(Activity activity, String roleLevel, String roleVipLevel);
 
+    public void openWebview(Activity activity, String url);
+
     public void openPlatform(Activity activity, String roleLevel, String roleVipLevel);
 
     public void displayingAchievements();

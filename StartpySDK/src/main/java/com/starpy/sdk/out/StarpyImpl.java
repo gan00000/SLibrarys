@@ -221,6 +221,20 @@ public class StarpyImpl implements IStarpy {
         });
     }
 
+
+    @Override
+    public void openWebview(final Activity activity, final String url) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                SWebViewDialog sWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
+                sWebViewDialog.setWebUrl(url);
+                sWebViewDialog.show();
+            }
+        });
+    }
+
     @Override
     public void share(Activity activity, ISdkCallBack iSdkCallBack, String shareLinkUrl) {
         share(activity, iSdkCallBack,"","", shareLinkUrl,"");
