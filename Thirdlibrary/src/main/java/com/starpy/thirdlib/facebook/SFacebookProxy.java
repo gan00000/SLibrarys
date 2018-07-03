@@ -42,7 +42,6 @@ import com.facebook.share.widget.GameRequestDialog;
 import com.facebook.share.widget.ShareDialog;
 import com.starpy.thirdlib.BuildConfig;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -335,7 +334,13 @@ public class SFacebookProxy {
 	 * @param fbLoginCallBack
 	 */
 	public void requestTokenForBusines(final Activity activity, final User user, final FbLoginCallBack fbLoginCallBack){
-		AccessToken accessToken =  AccessToken.getCurrentAccessToken();
+
+		if (fbLoginCallBack != null) {
+			user.setTokenForBusiness("");
+			fbLoginCallBack.onSuccess(user);//回调登陆成功
+		}
+
+		/*AccessToken accessToken =  AccessToken.getCurrentAccessToken();
 		if (accessToken != null) {
 			GraphRequest request = GraphRequest.newMeRequest(
                     accessToken,
@@ -368,7 +373,7 @@ public class SFacebookProxy {
 			if (fbLoginCallBack != null) {
 				fbLoginCallBack.onSuccess(user);//回调登陆成功
 			}
-		}
+		}*/
 	}
 
 
@@ -810,8 +815,12 @@ public class SFacebookProxy {
 	
 
 	public void requestBusinessId(final Activity activity,final FbBusinessIdCallBack fbBusinessIdCallBack){
+
+		if (fbBusinessIdCallBack != null) {
+			fbBusinessIdCallBack.onSuccess("");
+		}
 		
-		AccessToken accessToken =  AccessToken.getCurrentAccessToken();
+		/*AccessToken accessToken =  AccessToken.getCurrentAccessToken();
 		Bundle b = new Bundle();
 		b.putString("limit", "300");
 	//	b.putString("fields", "300");
@@ -854,7 +863,7 @@ public class SFacebookProxy {
 			}).executeAsync();
 		}else if(fbBusinessIdCallBack != null){
 			fbBusinessIdCallBack.onError();
-		}
+		}*/
 	}
 	
 	
