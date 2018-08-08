@@ -120,17 +120,21 @@ public class BaseWebViewClient extends WebViewClient {
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
 //        super.onReceivedError(view, request, error);
         PL.w("onReceivedError(WebView view, WebResourceRequest request, WebResourceError error)");
-        handleReceivedError(view, request.getUrl().toString());
+        if (!handleReceivedError(view, request.getUrl().toString())){
+            super.onReceivedError(view, request, error);
+        }
     }
 
     @Override
     public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 //        super.onReceivedError(view, errorCode, description, failingUrl);
         PL.w("onReceivedError(WebView view, int errorCode, String description, String failingUrl)");
-        handleReceivedError(view, failingUrl);
+        if(!handleReceivedError(view, failingUrl)){
+            super.onReceivedError(view, errorCode, description, failingUrl);
+        }
     }
 
-    public void handleReceivedError(WebView webView,String url){
+    public boolean handleReceivedError(WebView webView,String url){
         try {
             PL.w("ERROR URL:" + url);
 //            webView.loadData(URLEncoder.encode("loading error!!!","utf-8"),"text/html","utf-8");
@@ -139,10 +143,12 @@ public class BaseWebViewClient extends WebViewClient {
                 PL.w("ERROR URL urlSub:" + urlSub);
                 if (urlSub.contains("starb168.com")){
                     webView.loadData("loading error, Please try again later", "text/html", "utf-8");
+                    return true;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 }
