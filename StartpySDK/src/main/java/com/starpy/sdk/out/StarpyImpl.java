@@ -1,5 +1,6 @@
 package com.starpy.sdk.out;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.core.base.ObjFactory;
 import com.core.base.utils.AppUtil;
 import com.core.base.utils.PL;
+import com.core.base.utils.PermissionUtil;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
@@ -31,6 +33,7 @@ import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.sdk.BuildConfig;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SWebViewDialog;
+import com.starpy.sdk.StarpyPermissionActivity;
 import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
@@ -384,7 +387,10 @@ public class StarpyImpl implements IStarpy {
                 PL.d("md5:" + SignatureUtil.getSignatureMD5(activity,activity.getPackageName()).toLowerCase());
 
                 //permission授权
-    //        PermissionUtil.requestPermissions_STORAGE(activity,PERMISSION_REQUEST_CODE);
+                if (!PermissionUtil.hasSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                    Intent intent = new Intent(activity, StarpyPermissionActivity.class);
+                    activity.startActivity(intent);
+                }
             }
         });
 
