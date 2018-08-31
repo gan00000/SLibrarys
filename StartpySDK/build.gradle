@@ -31,10 +31,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':libraries-src:StarpyBaseLib')
-    compile project(':libraries-src:star-pay')
-    compile project(':Thirdlibrary')
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':libraries-src:StarpyBaseLib')
+    api project(':libraries-src:star-pay')
+    api project(':Thirdlibrary')
     //    compile 'com.android.support:recyclerview-v7:25.3.1'
     implementation 'org.greenrobot:greendao:3.2.2'
     // add library

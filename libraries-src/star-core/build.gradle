@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 18
@@ -25,8 +25,9 @@ android {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile project(':facebook:starpy-fb-4.25')
+    api 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    api project(':facebook:starpy-fb-4.25')
 }
 
 //./gradlew makeJar 出现env: bash\r: No such file or directory的话是由

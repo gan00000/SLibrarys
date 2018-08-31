@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    compile project(':libraries-src:StarpyBaseLib')
+    api project(':libraries-src:StarpyBaseLib')
 }
 
 

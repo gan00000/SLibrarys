@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-    compile files('libs/libGoogleAnalytics.jar')
-    compile project(':libraries-src:LibConnector')
-    compile project(':google:google-play-services_lib_9256000')
+    api files('libs/libGoogleAnalytics.jar')
+    api project(':libraries-src:LibConnector')
+    api project(':google:google-play-services_lib_9256000')
 }
