@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.core.base.utils.PL;
 import com.starpy.base.bean.SLoginType;
 import com.starpy.base.utils.Localization;
 import com.starpy.base.utils.StarPyUtil;
@@ -123,6 +124,9 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PL.i("SLoginDialogV2 onCreate");
+
         Localization.updateSGameLanguage(context);
         contentFrameLayout = new FrameLayout(context);
         contentFrameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
@@ -175,11 +179,30 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
+        PL.i("SLoginDialogV2 onAttachedToWindow");
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        PL.i("SLoginDialogV2 onStart");
+
+    }
+
 
     @Override
     protected void onStop() {
         super.onStop();
+        PL.i("SLoginDialogV2 onStop");
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        PL.i("SLoginDialogV2 onWindowFocusChanged: hasFocus -- " + hasFocus);
+        if (activity != null && hasFocus) {
+            activity.onWindowFocusChanged(true);
+        }
     }
 
     @Override
