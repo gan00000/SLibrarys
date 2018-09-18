@@ -31,7 +31,7 @@ public class ResUtil {
 		Resources resources = context.getResources();
 		int id = resources.getIdentifier(resourcesName, packageName, context.getPackageName());
 		if (id == 0) {
-			Log.e("ResUtil", "资源文件读取不到！resourcesName:" + resourcesName);
+			Log.w("ResUtil", "resource not find！resourcesName:" + resourcesName);
 		}
 		return id;
 	}

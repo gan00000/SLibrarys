@@ -266,7 +266,8 @@ public class FileUtil {
 				return new String(buffer, "utf8");
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			PL.w("starpy w:" + e.getMessage());
 		}
 		return "";
 	}

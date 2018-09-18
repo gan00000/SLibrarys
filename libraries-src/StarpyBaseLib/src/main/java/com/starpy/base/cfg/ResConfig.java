@@ -237,7 +237,7 @@ public class ResConfig {
 			xmlSchemaContent = ResUtil.findStringByName(context, xmlSchemaName);
 		} catch (Exception e) {
 			PL.w("String not find:" + xmlSchemaName);
-			e.printStackTrace();
+//			e.printStackTrace();
 			return "";
 		}
 		return xmlSchemaContent;
@@ -284,7 +284,8 @@ public class ResConfig {
 //			return mVaule;
 
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			PL.w("starpy w:" + e.getMessage());
 		}
 
 		return "";
