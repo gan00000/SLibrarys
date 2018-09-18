@@ -4,6 +4,6 @@ public interface PluginCallBack {
 
     void payInapp(String s);
 
-    void payInPlugin(String s);
+    void payInPlugin(String pluginPackageName);
 
 }

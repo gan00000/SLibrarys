@@ -26,6 +26,8 @@ public class PayPluginManger {
     private Dialog dialog;
     private PluginCallBack pluginCallBack;
 
+    public static final String PayPluginAction = "com.qqgame.PayPluginAction";
+
     public void setPluginCallBack(PluginCallBack pluginCallBack) {
         this.pluginCallBack = pluginCallBack;
     }
@@ -72,7 +74,7 @@ public class PayPluginManger {
                     if (String.valueOf(versionCode).equals(pluginResultModel.getVersion())){
                         //启动插件充值
                         if (pluginCallBack != null){
-                            pluginCallBack.payInPlugin("");
+                            pluginCallBack.payInPlugin(pluginResultModel.getPluginPackageName());
                         }
 
                     }else {

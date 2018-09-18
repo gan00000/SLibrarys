@@ -30,6 +30,8 @@ import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
 import com.starpy.pay.gp.util.PayHelper;
+import com.starpy.plugin.PayPluginManger;
+import com.starpy.plugin.PluginCallBack;
 import com.starpy.sdk.BuildConfig;
 import com.starpy.sdk.R;
 import com.starpy.sdk.SWebViewDialog;
@@ -63,6 +65,8 @@ public class StarpyImpl implements IStarpy {
     private SWebViewDialog otherPayWebViewDialog;
 
     private SGoogleFirebaseProxy sGoogleFirebaseProxy;
+
+    private PayPluginManger payPluginManger;
 
     public StarpyImpl() {
         iLogin = ObjFactory.create(DialogLoginImpl.class);
@@ -299,6 +303,7 @@ public class StarpyImpl implements IStarpy {
 
     }
 
+
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
         if (payType == SPayType.OTHERS){//第三方储值
 
@@ -312,7 +317,14 @@ public class StarpyImpl implements IStarpy {
 
             }else{
 
-                googlePay(activity, cpOrderId, productId, roleLevel, extra);
+                if (StarPyUtil.isPayPlugin(activity)){
+
+                    googlePayInPlugin(activity, cpOrderId, productId, roleLevel, extra);
+
+                }else {
+
+                    googlePay(activity, cpOrderId, productId, roleLevel, extra);
+                }
             }
 
         }
@@ -328,6 +340,38 @@ public class StarpyImpl implements IStarpy {
         Intent i = new Intent(activity, GooglePayActivity2.class);
         i.putExtra(GooglePayActivity2.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
         activity.startActivityForResult(i,GooglePayActivity2.GooglePayReqeustCode);
+    }
+
+    private void googlePayInPlugin(final Activity activity, final String cpOrderId, final String productId, final String roleLevel,final String extra) {
+
+        if (payPluginManger == null) {
+            payPluginManger = new PayPluginManger(activity);
+        }
+        payPluginManger.setPluginCallBack(new PluginCallBack() {
+            @Override
+            public void payInapp(String s) {
+                googlePay(activity, cpOrderId, productId, roleLevel, extra);
+            }
+
+            @Override
+            public void payInPlugin(String pluginPkg) {
+
+                GooglePayCreateOrderIdReqBean googlePayCreateOrderIdReqBean = new GooglePayCreateOrderIdReqBean(activity);
+                googlePayCreateOrderIdReqBean.setCpOrderId(cpOrderId);
+                googlePayCreateOrderIdReqBean.setProductId(productId);
+                googlePayCreateOrderIdReqBean.setRoleLevel(roleLevel);
+                googlePayCreateOrderIdReqBean.setExtra(extra);
+
+                Intent i = new Intent(activity, GooglePayActivity2.class);
+                i.setAction(PayPluginManger.PayPluginAction);
+                i.setPackage(pluginPkg);
+                i.putExtra(GooglePayActivity2.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
+                activity.startActivityForResult(i,GooglePayActivity2.GooglePayReqeustCode);
+
+            }
+        });
+        payPluginManger.checkPlugin();
+
     }
 
     private void othersPay(Activity activity, String cpOrderId,String productId, String roleLevel, String extra) {

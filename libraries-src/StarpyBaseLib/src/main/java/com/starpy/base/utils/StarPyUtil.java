@@ -302,6 +302,10 @@ public class StarPyUtil {
        return ResConfig.getConfigInAssets(context,"star_sdk_area").equals("101");
     }
 
+    public static boolean isPayPlugin(Context context){//100接入小錢包，否則不接入
+        return ResConfig.getConfigInAssets(context,"star_sdk_pay_plugin").equals("100");
+    }
+
     private static final String STARPY_GOOGLE_ADVERTISING_ID = "STARPY_GOOGLE_ADVERTISING_ID";
     public static void saveGoogleAdId(Context context, String googleAdId){
         SPUtil.saveSimpleInfo(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_ADVERTISING_ID,googleAdId);
