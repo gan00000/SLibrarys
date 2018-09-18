@@ -26,7 +26,7 @@ android {
 
 dependencies {
     api 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    api 'com.squareup.okhttp3:okhttp:3.11.0'
     api project(':facebook:starpy-fb-4.25')
 }
 
