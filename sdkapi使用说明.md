@@ -19,9 +19,9 @@
 		* [12.3 Google game services提交排行榜分数](#12.3)
 		* [12.4 Google game services显示排行榜](#12.4)
 	* [13. Firebase接入](#13)
-		* [13.1 首先，向您的根级(根级..根级..) build.gradle 文件添加规则，以纳入 google-services 插件和 Google 的 Maven 代码库](#13.1)
+		* [13.1 首先，向您工程的根级 build.gradle 文件添加规则，以纳入 google-services 插件和 Google 的 Maven 代码库](#13.1)
 		* [13.2 在您的APP模块 Gradle 文件（通常是 app/build.gradle）中，在文件的最底部添加apply plugin 代码行，以启用 Gradle 插件](#13.2)
-		* [13.3 添加Firebase配置的google-services.json文件，将此文件复制到项目的模块文件夹（通常是 app/）](#13.3)
+		* [13.3 添加Firebase配置的google-services.json文件，将此文件复制到项目的模块module文件夹（通常是 app/）](#13.3)
 		
 
 
@@ -364,7 +364,7 @@ iStarpy.cs(MainActivity.this,"level","vipLevel");
 * <h3 id="13">Firebase接入</h3>
 改功能是否需要接入请与对接童鞋沟通(一般是需要的)
 
-1. <h5 id="13.1">首先，向您的根级(根级..根级..) build.gradle 文件添加规则，以纳入 google-services 插件和 Google 的 Maven 代码库</h5>
+1. <h5 id="13.1">首先，向您项目的根级 build.gradle 文件添加规则，以纳入 google-services 插件和 Google 的 Maven 代码库</h5>
  
  ```
 buildscript {
@@ -378,8 +378,8 @@ allprojects {
    
     repositories {
         maven {
-        	  // Google's Maven repository
-            url "https://maven.google.com"      
+	        	// Google's Maven repository
+	            url "https://maven.google.com"      
             }
      	}
 }
@@ -393,7 +393,7 @@ allprojects {
 	apply plugin: 'com.google.gms.google-services'
  ```
  
-3. <h5 id="13.3">添加Firebase配置的google-services.json文件，将此文件复制到项目的模块文件夹（通常是 app/）</h5>
+3. <h5 id="13.3">添加Firebase配置的google-services.json文件，将此文件复制到项目的模块module文件夹（通常是 app/）</h5>
 	注意：google-services.json文件由我方对接人员提供
 
 
