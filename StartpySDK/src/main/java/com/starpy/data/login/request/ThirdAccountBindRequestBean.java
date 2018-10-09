@@ -26,6 +26,11 @@ public class ThirdAccountBindRequestBean extends AccountLoginRequestBean {
 	private String apps = "";
 	private String tokenBusiness = "";//编码（标志明文密文）
 
+	/**
+	 * fb服务端验证token
+	 */
+	private String fb_oauthToken;
+
 	public String getRegistPlatform() {
 		return registPlatform;
 	}
@@ -56,5 +61,13 @@ public class ThirdAccountBindRequestBean extends AccountLoginRequestBean {
 
 	public void setTokenBusiness(String tokenBusiness) {
 		this.tokenBusiness = tokenBusiness;
+	}
+
+	public String getFb_oauthToken() {
+		return fb_oauthToken;
+	}
+
+	public void setFb_oauthToken(String fb_oauthToken) {
+		this.fb_oauthToken = fb_oauthToken;
 	}
 }

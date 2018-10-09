@@ -29,7 +29,7 @@ public class ThirdAccountBindRequestTask extends BaseLoginRequestTask {
      * @param fbApps
      * @param fbTokenBusiness
      */
-    public ThirdAccountBindRequestTask(Context context, String name, String pwd, String email, String fbScopeId, String fbApps, String fbTokenBusiness) {
+    public ThirdAccountBindRequestTask(Context context, String name, String pwd, String email, String fbScopeId, String fbApps, String fbTokenBusiness,String accessTokenString) {
         super(context);
 
         thirdAccountBindRequestBean = new ThirdAccountBindRequestBean(context);
@@ -40,6 +40,7 @@ public class ThirdAccountBindRequestTask extends BaseLoginRequestTask {
         thirdAccountBindRequestBean.setThirdPlatId(fbScopeId);
         thirdAccountBindRequestBean.setApps(fbApps);
         thirdAccountBindRequestBean.setTokenBusiness(fbTokenBusiness);
+        thirdAccountBindRequestBean.setFb_oauthToken(accessTokenString);
 
         thirdAccountBindRequestBean.setName(name);
         thirdAccountBindRequestBean.setPwd(SStringUtil.toMd5(pwd));

@@ -394,7 +394,14 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             sFbLogin(activity, sFacebookProxy, new FbLoginCallBack() {
                 @Override
                 public void loginSuccess(String fbScopeId, String businessId, String tokenForBusiness) {
-                    ThirdAccountBindRequestTask bindRequestTask = new ThirdAccountBindRequestTask(getActivity(), mAccount,mPwd, mEmail,fbScopeId,businessId,tokenForBusiness);
+
+                    AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                    String accessTokenString = "";
+                    if (accessToken != null){
+                        accessTokenString = accessToken.getToken();
+                    }
+
+                    ThirdAccountBindRequestTask bindRequestTask = new ThirdAccountBindRequestTask(getActivity(), mAccount,mPwd, mEmail,fbScopeId,businessId,tokenForBusiness,accessTokenString);
                     sAccountBind(bindRequestTask);
                 }
             });
