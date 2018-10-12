@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.widget.Toast;
 
 import com.core.base.callback.ISReqCallBack;
 import com.core.base.http.DownloadManager;
@@ -12,7 +11,6 @@ import com.core.base.request.SimpleHttpRequest;
 import com.core.base.utils.ApkInstallUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
-import com.core.base.utils.ToastUtils;
 import com.starpy.base.bean.SSdkBaseRequestBean;
 import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.plugin.bean.CheckPluginResultModel;
@@ -118,20 +116,30 @@ public class PayPluginManger {
     private void downLoadPlugin(String downloadurl){
 
         dialog.show();
-        ToastUtils.toast(activity,"正在為您下載安裝充值插件，安裝完成后請重新點擊即可充值",Toast.LENGTH_SHORT);
+//        ToastUtils.toast(activity,"正在為您下載安裝充值插件，安裝完成后請重新點擊即可充值",Toast.LENGTH_SHORT);
         DownloadManager.downloadFile(downloadurl, activity.getFilesDir().getAbsolutePath(), new DownloadManager.ResultCallback<String>() {
 
             @Override
             public void onError(Request request, Exception e) {
-                ToastUtils.toast(activity,"download error");
+//                ToastUtils.toast(activity,"download error");
                 dialog.dismiss();
+                //关闭插件，使用包内充值
+                if (pluginCallBack != null){
+                    pluginCallBack.payInapp("");
+                }
             }
 
             @Override
             public void onResponse(String response) {
                 dialog.dismiss();
-                if (SStringUtil.isNotEmpty(response)) {
+                if (SStringUtil.isNotEmpty(response) && response.endsWith(".apk")) {
                     ApkInstallUtil.installApk(activity,response);
+                }else {
+//                    ToastUtils.toast(activity,"download error");
+                    //关闭插件，使用包内充值
+                    if (pluginCallBack != null){
+                        pluginCallBack.payInapp("");
+                    }
                 }
 
             }

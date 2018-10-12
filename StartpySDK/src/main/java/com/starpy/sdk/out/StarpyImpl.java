@@ -362,11 +362,15 @@ public class StarpyImpl implements IStarpy {
                 googlePayCreateOrderIdReqBean.setRoleLevel(roleLevel);
                 googlePayCreateOrderIdReqBean.setExtra(extra);
 
-                Intent i = new Intent(activity, GooglePayActivity2.class);
-                i.setAction(PayPluginManger.PayPluginAction);
-                i.setPackage(pluginPkg);
-                i.putExtra(GooglePayActivity2.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
-                activity.startActivityForResult(i,GooglePayActivity2.GooglePayReqeustCode);
+                try {
+                    Intent i = new Intent();
+                    i.setAction(PayPluginManger.PayPluginAction);
+                    i.setPackage(pluginPkg);
+                    i.putExtra(GooglePayActivity2.GooglePayReqBean_Extra_Key, googlePayCreateOrderIdReqBean);
+                    activity.startActivityForResult(i,GooglePayActivity2.GooglePayReqeustCode);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
         });
