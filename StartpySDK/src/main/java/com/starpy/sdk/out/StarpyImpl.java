@@ -26,6 +26,7 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.execute.QueryFbToStarpyUserIdTask;
+import com.starpy.pay.PayManager;
 import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
 import com.starpy.pay.gp.bean.req.WebPayReqBean;
@@ -150,6 +151,8 @@ public class StarpyImpl implements IStarpy {
 
                     iLogin.initFacebookPro(activity,sFacebookProxy);
                     iLogin.startLogin(activity, iLoginCallBack);
+
+                    PayManager.checkOnlyThirdPay(activity);
                 }
             }
         });
@@ -305,6 +308,7 @@ public class StarpyImpl implements IStarpy {
 
 
     private void starPay(Activity activity, SPayType payType, String cpOrderId, String productId, String roleLevel, String extra) {
+
         if (payType == SPayType.OTHERS){//第三方储值
 
             othersPay(activity, cpOrderId,productId, roleLevel, extra);
@@ -313,6 +317,11 @@ public class StarpyImpl implements IStarpy {
 
             if (StarPyUtil.getSdkCfg(activity) != null && StarPyUtil.getSdkCfg(activity).openOthersPay(activity)){//假若Google包侵权被下架，次配置可以启动三方储值
                 PL.i("转第三方储值");
+                othersPay(activity, cpOrderId,productId, roleLevel, extra);
+
+            }else if (StarPyUtil.getOnlyThirdPay(activity).equals("1000")){
+
+                PL.i("接口设置转第三方储值");
                 othersPay(activity, cpOrderId,productId, roleLevel, extra);
 
             }else{

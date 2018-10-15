@@ -329,6 +329,14 @@ public class StarPyUtil {
         return SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_GOOGLE_TOKEN_ID_STRING);
     }
 
+    private static final String STARPY_ONLY_THIRD_PAY = "STARPY_ONLY_THIRD_PAY";
+    public static void setOnlyThirdPay(Context context, String data){
+        SPUtil.saveSimpleInfo(context,StarPyUtil.STAR_PY_SP_FILE,STARPY_ONLY_THIRD_PAY,data);
+    }
+    public static String getOnlyThirdPay(Context context){
+        return SPUtil.getSimpleString(context,StarPyUtil.STAR_PY_SP_FILE, STARPY_ONLY_THIRD_PAY);
+    }
+
 
     public static  String getCustomizedUniqueId1AndroidId1Adid(Context ctx){
 
