@@ -11,6 +11,7 @@ import com.core.base.request.SimpleHttpRequest;
 import com.core.base.utils.ApkInstallUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
+import com.core.base.utils.ToastUtils;
 import com.starpy.base.bean.SSdkBaseRequestBean;
 import com.starpy.pay.gp.util.PayHelper;
 import com.starpy.plugin.bean.CheckPluginResultModel;
@@ -117,7 +118,7 @@ public class PayPluginManger {
 
         dialog.show();
 //        ToastUtils.toast(activity,"正在為您下載安裝充值插件，安裝完成后請重新點擊即可充值",Toast.LENGTH_SHORT);
-        DownloadManager.downloadFile(downloadurl, activity.getFilesDir().getAbsolutePath(), new DownloadManager.ResultCallback<String>() {
+        DownloadManager.downloadFile(downloadurl, activity.getExternalCacheDir().getAbsolutePath(), new DownloadManager.ResultCallback<String>() {
 
             @Override
             public void onError(Request request, Exception e) {
@@ -133,6 +134,7 @@ public class PayPluginManger {
             public void onResponse(String response) {
                 dialog.dismiss();
                 if (SStringUtil.isNotEmpty(response) && response.endsWith(".apk")) {
+                    ToastUtils.toast(activity,"請安裝充值插件後再進行充值");
                     ApkInstallUtil.installApk(activity,response);
                 }else {
 //                    ToastUtils.toast(activity,"download error");

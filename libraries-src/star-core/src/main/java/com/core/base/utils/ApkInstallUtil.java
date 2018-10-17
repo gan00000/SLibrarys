@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -24,10 +26,21 @@ public class ApkInstallUtil {
 			PL.i("---------------没有发现要安装的文件------------------");
 			return;
 		}
-		Uri uri = Uri.fromFile(apkfile);      
+
 		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setDataAndType(uri, "application/vnd.android.package-archive");
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+		//判断是否是AndroidN以及更高的版本
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//			intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", apkfile);
+			intent.setDataAndType(contentUri, context.getContentResolver().getType(contentUri));
+		} else {
+			intent.setDataAndType(Uri.fromFile(apkfile), "application/vnd.android.package-archive");
+		}
+
+//		intent.setDataAndType(uri, "application/vnd.android.package-archive");
 		context.startActivity(intent);
 		
 	}
