@@ -57,11 +57,16 @@ task makeLibraryJar(type:org.gradle.api.tasks.bundling.Jar) {
     //过滤不需要的class
 //    exclude "**/**/BuildConfig.class"
 //    exclude "**/**/BuildConfig\$*.class"
+    exclude "android/"
+    exclude "com/google/"
+    exclude "com/facebook/"
     exclude "**/R.class"
     exclude "**/R\$*.class"
 
     //从哪里打包class文件,可以指定文件和目录
-    from('build/intermediates/classes/release/')
+//    from('build/intermediates/classes/release/')
+    from('build/intermediates/javac/release/compileReleaseJavaWithJavac/classes')
+
     //打包到jar后的目录结构
 //    into('./')
 }
