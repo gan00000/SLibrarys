@@ -131,13 +131,9 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
         contentFrameLayout = new FrameLayout(context);
         contentFrameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
 
-        autoLoginLayout = new RelativeLayout(context);
-        autoLoginPage = getLayoutInflater().inflate(R.layout.v2_py_auto_login_loading,null,false);
-        autoLoginLayout.addView(autoLoginPage,new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT));
-
         rootFrameLayout = new FrameLayout(context);
         rootFrameLayout.addView(contentFrameLayout);
-        rootFrameLayout.addView(autoLoginLayout);
+
 
         setContentView(rootFrameLayout);
 
@@ -145,17 +141,28 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
 //        isXM = StarPyUtil.isXM(activity);
 
-
-        toMainLoginView();
-
-        initAutoLoginView();
-
-
-        iLoginPresenter.autoLogin(activity);
-
-
         iLoginPresenter.setSFacebookProxy(sFacebookProxy);
         iLoginPresenter.setSGoogleSignIn(sGoogleSignIn);
+
+
+        if (StarPyUtil.isOnlyFBLoginMode(activity)){
+
+            iLoginPresenter.fbLogin(this.getActivity());
+        }else {
+
+            autoLoginLayout = new RelativeLayout(context);
+            autoLoginPage = getLayoutInflater().inflate(R.layout.v2_py_auto_login_loading,null,false);
+            autoLoginLayout.addView(autoLoginPage,new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT));
+
+            rootFrameLayout.addView(autoLoginLayout);
+
+            toMainLoginView();
+
+            initAutoLoginView();
+
+
+            iLoginPresenter.autoLogin(activity);
+        }
 
 
     }
@@ -595,9 +602,16 @@ public class SLoginDialogV2 extends SBaseDialog implements LoginContract.ILoginV
 
     @Override
     public void showMainLoginView() {
-        contentFrameLayout.setVisibility(View.VISIBLE);
-        autoLoginLayout.setVisibility(View.GONE);
-        toMainLoginView();
+
+        if (StarPyUtil.isOnlyFBLoginMode(activity)) {
+
+            dismiss();
+
+        }else {
+            contentFrameLayout.setVisibility(View.VISIBLE);
+            autoLoginLayout.setVisibility(View.GONE);
+            toMainLoginView();
+        }
     }
 
     @Override

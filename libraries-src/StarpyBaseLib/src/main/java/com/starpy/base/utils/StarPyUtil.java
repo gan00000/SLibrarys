@@ -305,6 +305,9 @@ public class StarPyUtil {
     public static boolean isPayPlugin(Context context){//100接入小錢包，否則不接入
         return ResConfig.getConfigInAssets(context,"star_sdk_pay_plugin").equals("100");
     }
+    public static boolean isOnlyFBLoginMode(Context context){//100只使用fb模式,默认无
+        return ResConfig.getConfigInAssets(context,"star_sdk_login_fb_mode").equals("100");
+    }
 
     private static final String STARPY_GOOGLE_ADVERTISING_ID = "STARPY_GOOGLE_ADVERTISING_ID";
     public static void saveGoogleAdId(Context context, String googleAdId){

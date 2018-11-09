@@ -76,7 +76,11 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
 
     private Fragment fragment;
 
+    private SFacebookProxy.User fbUser;
 
+    public SFacebookProxy.User getFbUser() {
+        return fbUser;
+    }
 
     @Override
     public void setSGoogleSignIn(SGoogleSignIn sGoogleSignIn) {
@@ -591,6 +595,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             @Override
             public void onSuccess(SFacebookProxy.User user) {
                 PL.d("fb uid:" + user.getUserId());
+                fbUser = user;
 
                 final String fbScopeId = user.getUserId();
                 sFacebookProxy.requestBusinessId(activity, new SFacebookProxy.FbBusinessIdCallBack() {
@@ -611,6 +616,7 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             }
         };
 
+        fbUser = null;
         if (fragment == null) {
             sFacebookProxy.fbLogin(activity, fbLoginCallBack1);
         }else {
@@ -869,7 +875,12 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
             }
         }
 
-
+        if (fbUser != null){
+            loginResponse.setFbName(fbUser.getName());
+            loginResponse.setFbPictureUrl(fbUser.getPictureUri().toString());
+            loginResponse.setFbUserId(fbUser.getUserId());
+            fbUser = null;
+        }
 
     /*    if (SStringUtil.isEqual(SLoginType.LOGIN_TYPE_STARPY, loginType)) {
 

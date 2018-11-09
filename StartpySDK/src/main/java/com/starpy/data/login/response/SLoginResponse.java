@@ -22,6 +22,11 @@ public class SLoginResponse extends BaseResponseModel {
 
     private String loginType = "";
 
+    private String fbPictureUrl = "";
+    private String fbName = "";
+    private String fbUserId = "";
+
+
     public boolean isRequestSuccess(){//1001为注册成功
         return SUCCESS_CODE.equals(getCode()) || "1001".equals(getCode());
     }
@@ -84,5 +89,29 @@ public class SLoginResponse extends BaseResponseModel {
 
     public void setLoginType(String loginType) {
         this.loginType = loginType;
+    }
+
+    public String getFbPictureUrl() {
+        return fbPictureUrl;
+    }
+
+    public void setFbPictureUrl(String fbPictureUrl) {
+        this.fbPictureUrl = fbPictureUrl;
+    }
+
+    public String getFbName() {
+        return fbName;
+    }
+
+    public void setFbName(String fbName) {
+        this.fbName = fbName;
+    }
+
+    public String getFbUserId() {
+        return fbUserId;
+    }
+
+    public void setFbUserId(String fbUserId) {
+        this.fbUserId = fbUserId;
     }
 }
