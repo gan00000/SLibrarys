@@ -178,8 +178,37 @@ public class SFacebookProxy {
 					user.setMiddleName(p.getMiddleName());
 					user.setLinkUri(p.getLinkUri());
 
+					Uri picUri = p.getProfilePictureUri(300,300);
+					user.setPictureUri(picUri);
+
 				}else{
-					user.setUserId(result.getAccessToken().getUserId());
+//					user.setUserId(result.getAccessToken().getUserId());
+					getMyProfile(fragment.getActivity(), new FbLoginCallBack() {
+						@Override
+						public void onCancel() {
+							if (fbLoginCallBack != null) {
+								fbLoginCallBack.onCancel();
+							}
+						}
+
+						@Override
+						public void onError(String message) {
+							if (fbLoginCallBack != null) {
+								fbLoginCallBack.onError(message);
+							}
+						}
+
+						@Override
+						public void onSuccess(User user) {
+
+							user.setAccessTokenString(AccessToken.getCurrentAccessToken().getToken());
+							//fbLoginCallBack.onSuccess(user);
+							FbSp.saveFbId(fragment.getActivity(),user.getUserId());
+							requestTokenForBusines(fragment.getActivity(),user, fbLoginCallBack);
+						}
+					});
+
+					return;
 				}
 				//fbLoginCallBack.onSuccess(user);
 				FbSp.saveFbId(fragment.getActivity(),user.getUserId());
@@ -226,6 +255,9 @@ public class SFacebookProxy {
 					user.setMiddleName(p.getMiddleName());
 					user.setLinkUri(p.getLinkUri());
 //					fbLoginCallBack.onSuccess(user);
+
+					Uri picUri = p.getProfilePictureUri(300,300);
+					user.setPictureUri(picUri);
 					FbSp.saveFbId(fragment.getActivity(),user.getUserId());
 					requestTokenForBusines(fragment.getActivity(),user, fbLoginCallBack);
 				}
@@ -268,9 +300,37 @@ public class SFacebookProxy {
 					user.setName(p.getName());
 					user.setMiddleName(p.getMiddleName());
 					user.setLinkUri(p.getLinkUri());
+					Uri picUri = p.getProfilePictureUri(300,300);
+					user.setPictureUri(picUri);
 
 				}else{
-					user.setUserId(result.getAccessToken().getUserId());
+//					user.setUserId(result.getAccessToken().getUserId());
+					getMyProfile(activity, new FbLoginCallBack() {
+						@Override
+						public void onCancel() {
+							if (fbLoginCallBack != null) {
+								fbLoginCallBack.onCancel();
+							}
+						}
+
+						@Override
+						public void onError(String message) {
+							if (fbLoginCallBack != null) {
+								fbLoginCallBack.onError(message);
+							}
+						}
+
+						@Override
+						public void onSuccess(User user) {
+
+							user.setAccessTokenString(AccessToken.getCurrentAccessToken().getToken());
+							//fbLoginCallBack.onSuccess(user);
+							FbSp.saveFbId(activity,user.getUserId());
+							requestTokenForBusines(activity,user, fbLoginCallBack);
+						}
+					});
+
+					return;
 				}
 				user.setAccessTokenString(AccessToken.getCurrentAccessToken().getToken());
 				//fbLoginCallBack.onSuccess(user);
@@ -318,9 +378,13 @@ public class SFacebookProxy {
 					user.setMiddleName(p.getMiddleName());
 					user.setLinkUri(p.getLinkUri());
 					user.setAccessTokenString(accessToken.getToken());
+					Uri picUri = p.getProfilePictureUri(300,300);
+					user.setPictureUri(picUri);
 //					fbLoginCallBack.onSuccess(user);
 					FbSp.saveFbId(activity,user.getUserId());
 					requestTokenForBusines(activity,user, fbLoginCallBack);
+
+
 				}
 			}
 		}
