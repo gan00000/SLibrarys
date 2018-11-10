@@ -233,7 +233,7 @@ public class SFacebookProxy {
 		});
 
 		AccessToken accessToken = AccessToken.getCurrentAccessToken();
-		if (accessToken == null) {
+		if (accessToken == null || accessToken.isExpired()) {
 			Log.d(FB_TAG, "accessToken == null");
 			loginManager.setDefaultAudience(defaultAudience);
 			loginManager.setLoginBehavior(loginBehavior);
@@ -356,7 +356,7 @@ public class SFacebookProxy {
 		});
 
 		AccessToken accessToken = AccessToken.getCurrentAccessToken();
-		if (accessToken == null) {
+		if (accessToken == null || accessToken.isExpired()) {
 			Log.d(FB_TAG, "accessToken == null");
 			loginManager.setDefaultAudience(defaultAudience);
 			loginManager.setLoginBehavior(loginBehavior);
@@ -776,7 +776,7 @@ public class SFacebookProxy {
 	
 	
 	public void inviteFriends(Activity activity, List<FriendProfile> friendProfileIdsList, String message, final FbInviteFriendsCallBack fbInviteFriendsCallBack) {
-		
+
 		if (friendProfileIdsList != null && !friendProfileIdsList.isEmpty()) {
 
 			List<FriendProfile> invitingList = new ArrayList<>();
@@ -787,6 +787,9 @@ public class SFacebookProxy {
 			}
 
 			inviteFriendinBatches(activity,invitingList,message, fbInviteFriendsCallBack);
+		}else {
+
+			inviteFriends(activity, "", message, fbInviteFriendsCallBack);
 		}
 	}
 
@@ -848,14 +851,25 @@ public class SFacebookProxy {
 						}
 					}
 				});
-				
-				 GameRequestContent content = new GameRequestContent.Builder()
-			                .setMessage(message)
-			                .setTo(inviteFriendIds)
-			                
-			                //.setActionType(ActionType.SEND)
-			                .build();
-			     requestDialog.show(content);
+
+				if (TextUtils.isEmpty(inviteFriendIds)){
+
+					GameRequestContent content = new GameRequestContent.Builder()
+							.setMessage(message)
+							.build();
+					requestDialog.show(content);
+
+				}else {
+
+					GameRequestContent content = new GameRequestContent.Builder()
+							.setMessage(message)
+							.setTo(inviteFriendIds)
+
+							//.setActionType(ActionType.SEND)
+							.build();
+					requestDialog.show(content);
+				}
+
 				
 			}
 			
