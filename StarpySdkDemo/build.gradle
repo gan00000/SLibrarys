@@ -15,6 +15,13 @@ android {
             storeFile file('../keystore/psm.keystore')
             storePassword 'psmema9wee'
         }
+
+       starpysg_sign {
+            keyAlias 'sgsp'
+            keyPassword 'sgsp88'
+            storePassword 'sgsp88'
+            storeFile file('../keystore/starpysg.keystore')
+        }
     }
     compileSdkVersion 27
     buildToolsVersion '28.0.3'
@@ -184,7 +191,7 @@ android {
         }
         xygj_tw {
             applicationId "com.starpy.xygjtw"
-            signingConfig signingConfigs.brmmdsign
+            signingConfig signingConfigs.starpysg_sign
             minSdkVersion 18
             targetSdkVersion 26
             versionCode 1
@@ -208,6 +215,7 @@ android {
             resValue "string", "facebook_app_name", "qlz"
             resValue "string", "facebook_app_id", "236658347018463"
             resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider236658347018463"
+            resValue "string", "fb_login_protocol_scheme", "fb236658347018463"
             resValue "string", "google_game_app_id", ""
 
             dimension "1"

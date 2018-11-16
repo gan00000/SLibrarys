@@ -1,6 +1,7 @@
 package com.starpy.sdk.demo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.core.base.utils.PL;
+import com.facebook.share.model.ShareMessengerGenericTemplateContent;
+import com.facebook.share.model.ShareMessengerGenericTemplateElement;
+import com.facebook.share.model.ShareMessengerURLActionButton;
+import com.facebook.share.widget.MessageDialog;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
 import com.starpy.data.login.ILoginCallBack;
@@ -167,7 +172,29 @@ public class MainActivity extends AppCompatActivity {
                  * level：游戏等级
                  * vipLevel：vip等级，没有就写""
                  */
-                iStarpy.openWebview(MainActivity.this,"roleLevel","10");
+//                iStarpy.openWebview(MainActivity.this,"roleLevel","10");
+
+                ShareMessengerURLActionButton actionButton =
+                        new ShareMessengerURLActionButton.Builder()
+                                .setTitle("Visit Facebook aaaa")
+                                .setUrl(Uri.parse("https://www.baidu.com/s?rtt=1&bsst=1&cl=2&tn=news&word=%E5%9B%BE%E7%89%87"))
+                                .build();
+                ShareMessengerGenericTemplateElement genericTemplateElement =
+                        new ShareMessengerGenericTemplateElement.Builder()
+                                .setTitle("Visit Facebook  mmmmmd")
+                                .setSubtitle("Visit Messenger llllaaaa")
+                                .setImageUrl(Uri.parse("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=371772476,1548437417&fm=27&gp=0.jpg"))
+                                .setButton(actionButton)
+                                .build();
+                ShareMessengerGenericTemplateContent genericTemplateContent =
+                        new ShareMessengerGenericTemplateContent.Builder()
+//                                .setPageId("Your Page Id") // Your page ID, required
+                                .setGenericTemplateElement(genericTemplateElement)
+                                .build();
+
+                if (MessageDialog.canShow(genericTemplateContent.getClass())) {
+                    MessageDialog.show(MainActivity.this, genericTemplateContent);
+                }
             }
         });
 
@@ -266,36 +293,29 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.invite_fb_friends).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 /**
-                 * 显示排行榜
-                 * 参数：
-                 *  排行榜id
+                 * 邀请好友
+                 * mFriendProfiles   需要邀请的好友对象列表(已经进入过该游戏的好友不可以再邀请，需要过滤，不给玩家选择)
+                 * message  发送邀请的内容
+                 * FbInviteFriendsCallBack  邀请回调
                  */
-                if (mFriendProfiles != null){
+                iStarpy.inviteFriends(MainActivity.this, mFriendProfiles, "好玩哦", new SFacebookProxy.FbInviteFriendsCallBack() {
+                    @Override
+                    public void onCancel() {
 
-                    /**
-                     * 邀请好友
-                     * mFriendProfiles   需要邀请的好友对象列表(已经进入过该游戏的好友不可以再邀请，需要过滤，不给玩家选择)
-                     * message  发送邀请的内容
-                     * FbInviteFriendsCallBack  邀请回调
-                     */
-                    iStarpy.inviteFriends(MainActivity.this, mFriendProfiles, "好玩哦", new SFacebookProxy.FbInviteFriendsCallBack() {
-                        @Override
-                        public void onCancel() {
+                    }
 
-                        }
+                    @Override
+                    public void onError(String message) {
 
-                        @Override
-                        public void onError(String message) {
+                    }
 
-                        }
-
-                        @Override
-                        public void onSuccess(String requestId, List<String> requestRecipients) {
-                            //里面回传的参数不需要处理
-                        }
-                    });
-                }
+                    @Override
+                    public void onSuccess(String requestId, List<String> requestRecipients) {
+                        //里面回传的参数不需要处理
+                    }
+                });
 
             }
         });
