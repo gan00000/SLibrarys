@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         minSdkVersion 18
-        targetSdkVersion 25
+        targetSdkVersion 27
 
         //设置改jar版本
         buildConfigField "String", JAR_VERSION, SDK_VERSION_NAME_PY_THIRD
@@ -33,11 +33,18 @@ dependencies {
     api 'com.google.firebase:firebase-core:11.8.0'
     api 'com.google.firebase:firebase-messaging:11.8.0'
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-    //    compile 'com.facebook.fresco:fresco:1.4.0'
-    //    compile 'com.facebook.android:facebook-android-sdk:4.+'
+
     //facebookfresco合并到fb sdk中
-    api project(':facebook:starpy-fb-4.25')
+//    api project(':facebook:starpy-fb-4.25')
     api project(':libraries-src:StarpyBaseLib')
+
+    api 'com.facebook.android:facebook-core:[4,5)'
+    api 'com.facebook.android:facebook-login:[4,5)'
+    api 'com.facebook.android:facebook-share:[4,5)'
+//    api 'com.facebook.android:facebook-places:[4,5)'
+    api 'com.facebook.android:facebook-messenger:[4,5)'
+//    api 'com.facebook.android:facebook-applinks:[4,5)'
+    api 'com.facebook.fresco:fresco:1.11.0'
 }
 
 

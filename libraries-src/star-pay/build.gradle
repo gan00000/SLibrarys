@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         minSdkVersion 18
-        targetSdkVersion 25
+        targetSdkVersion 27
 
         //设置改jar版本
         buildConfigField "String", JAR_VERSION, SDK_VERSION_NAME_PY_PAY
