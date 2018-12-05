@@ -737,6 +737,11 @@ public class SFacebookProxy {
 					bundle.putString("fields", "name,picture.width(300)");
 				}
 				if (accessToken != null) {
+
+					//This edge was deprecated on April 4th, 2018, and can no longer be accessed.
+				// {Response:  responseCode: 400, graphObject: null, error: {HttpStatus: 400, errorCode: 100,
+				// subErrorCode: -1, errorType: OAuthException, errorMessage: (#100) No permission to access invitable_friends.}}
+
 					new GraphRequest(accessToken, "/me/invitable_friends", bundle, HttpMethod.GET, new GraphRequest.Callback() {
 						public void onCompleted(GraphResponse response) {
 							Log.d(FB_TAG, "invite:" + response.toString());
