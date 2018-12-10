@@ -7,7 +7,6 @@ import com.core.base.callback.ISReqCallBack;
 import com.core.base.request.SimpleHttpRequest;
 import com.starpy.base.bean.SGameBaseRequestBean;
 import com.starpy.base.utils.StarPyUtil;
-import com.starpy.pay.gp.bean.res.GPExchangeRes;
 import com.starpy.pay.gp.util.PayHelper;
 
 public class PayManager {
@@ -43,6 +42,6 @@ public class PayManager {
             public void noData() {
             }
         });
-        httpRequest.excute(GPExchangeRes.class);
+        httpRequest.excute(BaseResponseModel.class);
     }
 }
