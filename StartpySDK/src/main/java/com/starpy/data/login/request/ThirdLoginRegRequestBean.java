@@ -34,6 +34,9 @@ public class ThirdLoginRegRequestBean extends AdsRequestBean {
 	 */
 	private String fb_oauthToken;
 
+	private String fb_picture_url;
+	private String fb_name;
+
 	/**
 	 * google服务端验证token
 	 */
@@ -94,5 +97,21 @@ public class ThirdLoginRegRequestBean extends AdsRequestBean {
 
 	public void setGoogleClientId(String googleClientId) {
 		this.googleClientId = googleClientId;
+	}
+
+	public String getFb_picture_url() {
+		return fb_picture_url;
+	}
+
+	public void setFb_picture_url(String fb_picture_url) {
+		this.fb_picture_url = fb_picture_url;
+	}
+
+	public String getFb_name() {
+		return fb_name;
+	}
+
+	public void setFb_name(String fb_name) {
+		this.fb_name = fb_name;
 	}
 }

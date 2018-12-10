@@ -633,7 +633,10 @@ public class LoginPresenterImpl implements LoginContract.ILoginPresenter {
         if (accessToken != null){
             accessTokenString = accessToken.getToken();
         }
-        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness,accessTokenString);
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness,accessTokenString,
+                fbUser == null ? "" : fbUser.getPictureUri().toString(),
+                fbUser == null ? "" : fbUser.getName());
+
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override

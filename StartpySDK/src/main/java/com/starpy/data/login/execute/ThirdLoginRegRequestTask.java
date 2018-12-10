@@ -25,7 +25,7 @@ public class ThirdLoginRegRequestTask extends BaseLoginRequestTask {
      * @param fbApps
      * @param fbTokenBusiness
      */
-    public ThirdLoginRegRequestTask(Context context, String fbScopeId, String fbApps, String fbTokenBusiness,String accessTokenString) {
+    public ThirdLoginRegRequestTask(Context context, String fbScopeId, String fbApps, String fbTokenBusiness,String accessTokenString, String fbPictureUrl,String fbName) {
         super(context);
 
         thirdLoginRegRequestBean = new ThirdLoginRegRequestBean(context);
@@ -37,6 +37,9 @@ public class ThirdLoginRegRequestTask extends BaseLoginRequestTask {
         thirdLoginRegRequestBean.setApps(fbApps);
         thirdLoginRegRequestBean.setTokenBusiness(fbTokenBusiness);
         thirdLoginRegRequestBean.setFb_oauthToken(accessTokenString);
+
+        thirdLoginRegRequestBean.setFb_picture_url(fbPictureUrl);
+        thirdLoginRegRequestBean.setFb_name(fbName);
 
         thirdLoginRegRequestBean.setRequestMethod("thirdPartyLogin");
 

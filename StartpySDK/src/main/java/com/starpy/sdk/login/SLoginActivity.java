@@ -336,7 +336,11 @@ public class SLoginActivity extends SBaseSdkActivity {
             accessTokenString = accessToken.getToken();
         }
 
-        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(sLoginActivity,fbScopeId,fbApps,FbSp.getTokenForBusiness(sLoginActivity),accessTokenString);
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(sLoginActivity,fbScopeId,fbApps,FbSp.getTokenForBusiness(sLoginActivity),accessTokenString,
+
+                "",
+                ""
+        );
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(sLoginActivity, "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override

@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.core.base.ObjFactory;
+import com.core.base.callback.ISReqCallBack;
+import com.core.base.request.SimpleHttpRequest;
 import com.core.base.utils.AppUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.PermissionUtil;
@@ -26,6 +28,7 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.execute.QueryFbToStarpyUserIdTask;
+import com.starpy.data.login.response.UserListModel;
 import com.starpy.pay.PayManager;
 import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
@@ -41,6 +44,7 @@ import com.starpy.sdk.ads.StarEventLogger;
 import com.starpy.sdk.login.DialogLoginImpl;
 import com.starpy.sdk.login.ILogin;
 import com.starpy.sdk.plat.PlatMainActivity;
+import com.starpy.sdk.utils.DialogUtil;
 import com.starpy.thirdlib.facebook.FriendProfile;
 import com.starpy.thirdlib.facebook.SFacebookProxy;
 import com.starpy.thirdlib.google.SGoogleFirebaseProxy;
@@ -587,4 +591,47 @@ public class StarpyImpl implements IStarpy {
         }
     }
 
+    @Override
+    public void requestInviteUser(Activity activity, final IRequestUserCallBack iRequestUserCallBack) {
+
+        SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(activity);
+
+        gameBaseRequestBean.setRequestUrl(ResConfig.getActivityPreferredUrl(activity));
+        gameBaseRequestBean.setRequestSpaUrl(ResConfig.getActivityPreferredUrl(activity));
+        gameBaseRequestBean.setRequestMethod("invite/friends/invite_register_all_users");
+
+        SimpleHttpRequest httpRequest = new SimpleHttpRequest();
+
+        httpRequest.setLoadDialog(DialogUtil.createLoadingDialog(activity, "Loading..."));
+        httpRequest.setBaseReqeustBean(gameBaseRequestBean);
+        httpRequest.setReqCallBack(new ISReqCallBack<UserListModel>() {
+
+            @Override
+            public void success(UserListModel userListModel, String rawResult) {
+
+                PL.d("invite_register_all_users finish rawResult:" + rawResult);
+                if (userListModel != null && iRequestUserCallBack != null){
+
+                    iRequestUserCallBack.onFinish(userListModel.getUserList());
+                }
+
+            }
+
+            @Override
+            public void timeout(String code) {
+                if (iRequestUserCallBack != null){
+                    iRequestUserCallBack.onFinish(null);
+                }
+            }
+
+            @Override
+            public void noData() {
+                if (iRequestUserCallBack != null){
+                    iRequestUserCallBack.onFinish(null);
+                }
+            }
+        });
+
+        httpRequest.excute(UserListModel.class);
+    }
 }
