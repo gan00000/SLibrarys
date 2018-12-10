@@ -8,6 +8,7 @@ import com.core.base.request.AbsHttpRequest;
 import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.ToastUtils;
+import com.starpy.base.cfg.ResConfig;
 import com.starpy.data.login.request.QueryFbToStarpyUserIdBean;
 import com.starpy.data.login.request.StarpyUserRelateFbBean;
 import com.starpy.data.login.response.FbUser;
@@ -46,7 +47,8 @@ public class QueryFbToStarpyUserIdTask {
 
     public void query(){
 
-        if (sFacebookProxy != null){
+        if (sFacebookProxy != null){  //获得玩该游戏的FB好友
+            PL.i("requestMyFriends start");
             sFacebookProxy.requestMyFriends(activity, new SFacebookProxy.RequestFriendsCallBack() {
                 @Override
                 public void onError() {
@@ -61,8 +63,9 @@ public class QueryFbToStarpyUserIdTask {
                     if (friendProfiles != null) {
                         allFriendProfiles.addAll(friendProfiles);
                     }
+                    //自己的fb绑定平台uid（userRelateFbAccount）
                     final StarpyUserRelateFbBean sGameBaseRequestBean = new StarpyUserRelateFbBean(activity);
-                    sGameBaseRequestBean.setRequestUrl("http://access.starpytw.com/");
+                    sGameBaseRequestBean.setRequestUrl(ResConfig.getCdnLocalUrl(activity,"star_access_pre_url"));
                     sGameBaseRequestBean.setRequestMethod("userRelateFbAccount");
                     sGameBaseRequestBean.setFbId(FbSp.getFbId(activity));
 
@@ -79,7 +82,7 @@ public class QueryFbToStarpyUserIdTask {
                             //todo 判断是否关联成功
 
                             if (sLoginResponse != null && sLoginResponse.isRequestSuccess()) {
-                                queryFbUser(friendProfiles);
+                                queryFbFriendStarpyUserId(friendProfiles);
 
                             }else {
                                 if (SStringUtil.isNotEmpty(sLoginResponse.getMessage())) {
@@ -109,10 +112,12 @@ public class QueryFbToStarpyUserIdTask {
 
     }
 
-    private void queryFbUser(List<FriendProfile> friendProfiles) {
+
+    private void queryFbFriendStarpyUserId(List<FriendProfile> friendProfiles) {
 
         if (friendProfiles == null || friendProfiles.isEmpty()){
-            reqestInviteFriends();
+//            reqestInviteFriends();
+            requestFriendsCallBack.onSuccess(new JSONObject(),allFriendProfiles);
             return;
         }
 
@@ -122,8 +127,9 @@ public class QueryFbToStarpyUserIdTask {
         }
         String theGameFbUserId = idsStringBuffer.substring(0, idsStringBuffer.lastIndexOf(","));
 
+//        查找玩该游戏的好友的平台uid
         final QueryFbToStarpyUserIdBean queryGameBaseRequestBean = new QueryFbToStarpyUserIdBean(activity);
-        queryGameBaseRequestBean.setRequestUrl("http://access.starpytw.com/");
+        queryGameBaseRequestBean.setRequestUrl(ResConfig.getCdnLocalUrl(activity,"star_access_pre_url"));
         queryGameBaseRequestBean.setRequestMethod("queryFbAccountUserId");
 
         queryGameBaseRequestBean.setFbIds(theGameFbUserId);
@@ -156,14 +162,13 @@ public class QueryFbToStarpyUserIdTask {
                                     }
                                 }
                             }
-
-
                         }
                     }
 
                 }
 
-                reqestInviteFriends();
+//                reqestInviteFriends();
+                requestFriendsCallBack.onSuccess(new JSONObject(),allFriendProfiles);
             }
 
             @Override
@@ -183,6 +188,9 @@ public class QueryFbToStarpyUserIdTask {
 
     private void reqestInviteFriends() {
 
+        //This edge was deprecated on April 4th, 2018, and can no longer be accessed.
+//        {Response:  responseCode: 400, graphObject: null, error: {HttpStatus: 400, errorCode: 100,
+// subErrorCode: -1, errorType: OAuthException, errorMessage: (#100) No permission to access invitable_friends.}}
         sFacebookProxy.requestInviteFriends(activity, null, new SFacebookProxy.RequestFriendsCallBack() {
             @Override
             public void onError() {
