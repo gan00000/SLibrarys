@@ -281,8 +281,8 @@ public class StarpyImpl implements IStarpy {
 
                 @Override
                 public void onSuccess() {
-                    int shareTimes = SPUtil.getSimpleInteger(activity,StarPyUtil.STAR_PY_SP_FILE,"fb_share_times");
-                    SPUtil.saveSimpleInfo(activity, StarPyUtil.STAR_PY_SP_FILE,"fb_share_times",shareTimes + 1);
+//                    int shareTimes = SPUtil.getSimpleInteger(activity,StarPyUtil.STAR_PY_SP_FILE,"fb_share_times");
+//                    SPUtil.saveSimpleInfo(activity, StarPyUtil.STAR_PY_SP_FILE,"fb_share_times",shareTimes + 1);
                     if (iSdkCallBack != null){
                         iSdkCallBack.success();
                     }
@@ -299,6 +299,44 @@ public class StarpyImpl implements IStarpy {
         }
     }
 
+
+    private void fbShare(final Activity activity, final ISdkCallBack iSdkCallBack, String shareLinkUrl) {
+        if (sFacebookProxy != null){
+
+            SFacebookProxy.FbShareCallBack fbShareCallBack = new SFacebookProxy.FbShareCallBack() {
+                @Override
+                public void onCancel() {
+                    if (iSdkCallBack != null){
+                        iSdkCallBack.failure();
+                    }
+                }
+
+                @Override
+                public void onError(String message) {
+                    if (iSdkCallBack != null){
+                        iSdkCallBack.failure();
+                    }
+                }
+
+                @Override
+                public void onSuccess() {
+                    int shareTimes = SPUtil.getSimpleInteger(activity,StarPyUtil.STAR_PY_SP_FILE,"fb_share_times");
+                    SPUtil.saveSimpleInfo(activity, StarPyUtil.STAR_PY_SP_FILE,"fb_share_times",shareTimes + 1);
+                    if (iSdkCallBack != null){
+                        iSdkCallBack.success();
+                    }
+                }
+            };
+            if (SStringUtil.isNotEmpty(StarPyUtil.getServerCode(activity)) && SStringUtil.isNotEmpty(StarPyUtil.getRoleId(activity))) {
+                if (shareLinkUrl.contains("?")){//userId+||S||+serverCode+||S||+roleId
+                    shareLinkUrl = shareLinkUrl + "&campaign=" + URLEncoder.encode(StarPyUtil.getUid(activity)+ "||S||" + StarPyUtil.getServerCode(activity)+"||S||"+StarPyUtil.getRoleId(activity));
+                }else {
+                    shareLinkUrl = shareLinkUrl + "?campaign=" + URLEncoder.encode(StarPyUtil.getUid(activity)+ "||S||" + StarPyUtil.getServerCode(activity)+"||S||"+StarPyUtil.getRoleId(activity));
+                }
+            }
+            sFacebookProxy.fbShare(activity, fbShareCallBack,"","",shareLinkUrl,"");
+        }
+    }
 
     @Override
     public void openPlatform(final Activity activity, final String roleLevel, final String roleVipLevel) {
@@ -667,7 +705,7 @@ public class StarpyImpl implements IStarpy {
             }
         }
 
-        share(activity, iSdkCallBack, shareLinkUrl);
+        fbShare(activity, iSdkCallBack, shareLinkUrl);
     }
 
     private void requestAdParams(final Activity activity) {
