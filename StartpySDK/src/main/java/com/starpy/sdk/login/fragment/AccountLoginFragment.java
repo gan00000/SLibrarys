@@ -201,7 +201,7 @@ public class AccountLoginFragment extends BaseFragment implements View.OnClickLi
             accessTokenString = accessToken.getToken();
         }
 
-        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness,accessTokenString);
+        ThirdLoginRegRequestTask cmd = new ThirdLoginRegRequestTask(getActivity(),fbScopeId,fbApps,fbTokenBusiness,accessTokenString,"","");
         cmd.setLoadDialog(DialogUtil.createLoadingDialog(getActivity(), "Loading..."));
         cmd.setReqCallBack(new ISReqCallBack<SLoginResponse>() {
             @Override

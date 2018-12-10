@@ -56,7 +56,7 @@ public interface IStarpy extends IGameLifeCycle {
 
     public void inviteFriends(Activity activity, List<FriendProfile> friendProfiles, String message, SFacebookProxy.FbInviteFriendsCallBack fbInviteFriendsCallBack);
 
-    public void requestInviteUser(Activity activity, IRequestUserCallBack iRequestUserCallBack);
+    public void getInviteUser(Activity activity, IRequestUserCallBack iRequestUserCallBack);
 
     public void showAd(Activity activity, SFacebookProxy.FbAdCallBack fbAdCallBack);
 

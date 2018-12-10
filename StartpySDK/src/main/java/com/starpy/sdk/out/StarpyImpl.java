@@ -638,7 +638,7 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void requestInviteUser(Activity activity, final IRequestUserCallBack iRequestUserCallBack) {
+    public void getInviteUser(Activity activity, final IRequestUserCallBack iRequestUserCallBack) {
 
         SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(activity);
 
