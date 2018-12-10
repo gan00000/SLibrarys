@@ -23,6 +23,10 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.Profile;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.DefaultAudience;
 import com.facebook.login.LoginBehavior;
@@ -67,7 +71,8 @@ public class SFacebookProxy {
 	
 //	private boolean canPresentShareDialog;
     private boolean canPresentShareDialogWithPhotos;
-	
+	private InterstitialAd interstitialAd;
+
 	public SFacebookProxy(Context context) {
 		/*FacebookSdk.sdkInitialize(context.getApplicationContext(), new InitializeCallback() {
 			@Override
@@ -1137,6 +1142,86 @@ public class SFacebookProxy {
 		MessengerUtils.shareToMessenger(activity, REQUEST_TOMESSENGER, shareToMessengerParams);
 	}
 
+	public void initInterstitialAd(Activity activity, String placementId){
+		Log.e(FB_TAG, "Interstitial ad placementId : " + placementId);
+		interstitialAd = new InterstitialAd(activity, placementId);
+	}
+
+	public void showInterstitialAd(Activity activity, final FbAdCallBack fbAdCallBack){
+
+		if (interstitialAd != null && !interstitialAd.isAdLoaded() && interstitialAd.isAdInvalidated()){
+
+			// Set listeners for the Interstitial Ad
+			interstitialAd.setAdListener(new InterstitialAdListener() {
+				@Override
+				public void onInterstitialDisplayed(Ad ad) {
+					// Interstitial ad displayed callback
+					Log.e(FB_TAG, "Interstitial ad displayed.");
+					if (fbAdCallBack != null){
+						fbAdCallBack.onInterstitialDisplayed();
+					}
+				}
+
+				@Override
+				public void onInterstitialDismissed(Ad ad) {
+					// Interstitial dismissed callback
+					Log.e(FB_TAG, "Interstitial ad dismissed.");
+					if (fbAdCallBack != null){
+						fbAdCallBack.onInterstitialDismissed();
+					}
+				}
+
+				@Override
+				public void onError(Ad ad, AdError adError) {
+					// Ad error callback
+					Log.e(FB_TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+				}
+
+				@Override
+				public void onAdLoaded(Ad ad) {
+					// Interstitial ad is loaded and ready to be displayed
+					Log.d(FB_TAG, "Interstitial ad is loaded and ready to be displayed!");
+					// Show the ad
+					interstitialAd.show();
+				}
+
+				@Override
+				public void onAdClicked(Ad ad) {
+					// Ad clicked callback
+					Log.d(FB_TAG, "Interstitial ad clicked!");
+					if (fbAdCallBack != null){
+						fbAdCallBack.onAdClicked();
+					}
+				}
+
+				@Override
+				public void onLoggingImpression(Ad ad) {
+					// Ad impression logged callback
+					Log.d(FB_TAG, "Interstitial ad impression logged!");
+				}
+			});
+
+		}else {
+			// Show the ad
+			if (interstitialAd != null){
+
+				interstitialAd.show();
+			}
+		}
+
+
+//		// Check if interstitialAd has been loaded successfully
+//		if(interstitialAd == null ) {
+//			return;
+//		}
+//		// Check if ad is already expired or invalidated, and do not show ad if that is the case. You will not get paid to show an invalidated ad.
+//		if(interstitialAd.isAdInvalidated()) {
+//			return;
+//		}
+
+
+	}
+
 	
 	public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
 		 if (callbackManager != null) {
@@ -1153,7 +1238,12 @@ public class SFacebookProxy {
 	public void onDestroy(Activity activity) {
 		//fbLogout(activity);
 	}
-	
+
+	public interface FbAdCallBack {
+		public void onInterstitialDisplayed();
+		public void onInterstitialDismissed();
+		public void onAdClicked();
+	}
 
 	public interface FbShareCallBack {
 		public void onCancel();

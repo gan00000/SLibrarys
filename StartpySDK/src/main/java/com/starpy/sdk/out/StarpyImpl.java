@@ -13,6 +13,7 @@ import com.core.base.request.SimpleHttpRequest;
 import com.core.base.utils.AppUtil;
 import com.core.base.utils.PL;
 import com.core.base.utils.PermissionUtil;
+import com.core.base.utils.SPUtil;
 import com.core.base.utils.SStringUtil;
 import com.core.base.utils.SignatureUtil;
 import com.core.base.utils.ToastUtils;
@@ -28,6 +29,7 @@ import com.starpy.base.utils.StarPyUtil;
 import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.execute.QueryFbToStarpyUserIdTask;
+import com.starpy.data.login.response.AdModel;
 import com.starpy.data.login.response.UserListModel;
 import com.starpy.pay.PayManager;
 import com.starpy.pay.gp.GooglePayActivity2;
@@ -73,6 +75,8 @@ public class StarpyImpl implements IStarpy {
 
     private PayPluginManger payPluginManger;
 
+    private AdModel adModel;
+
     public StarpyImpl() {
         iLogin = ObjFactory.create(DialogLoginImpl.class);
     }
@@ -110,6 +114,8 @@ public class StarpyImpl implements IStarpy {
                 SFacebookProxy.initFbSdk(activity.getApplicationContext());
                 sFacebookProxy = new SFacebookProxy(activity.getApplicationContext());
                 isInitSdk = true;
+                //请求fb Audience Network 参数
+                requestAdParams(activity);
             }
         });
 
@@ -255,7 +261,7 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
-    public void share(Activity activity, final ISdkCallBack iSdkCallBack, String title, String message, String shareLinkUrl, String sharePictureUrl) {
+    public void share(final Activity activity, final ISdkCallBack iSdkCallBack, String title, String message, String shareLinkUrl, String sharePictureUrl) {
         if (sFacebookProxy != null){
 
             SFacebookProxy.FbShareCallBack fbShareCallBack = new SFacebookProxy.FbShareCallBack() {
@@ -275,6 +281,8 @@ public class StarpyImpl implements IStarpy {
 
                 @Override
                 public void onSuccess() {
+                    int shareTimes = SPUtil.getSimpleInteger(activity,StarPyUtil.STAR_PY_SP_FILE,"fb_share_times");
+                    SPUtil.saveSimpleInfo(activity, StarPyUtil.STAR_PY_SP_FILE,"fb_share_times",shareTimes + 1);
                     if (iSdkCallBack != null){
                         iSdkCallBack.success();
                     }
@@ -609,7 +617,7 @@ public class StarpyImpl implements IStarpy {
             @Override
             public void success(UserListModel userListModel, String rawResult) {
 
-                PL.d("invite_register_all_users finish rawResult:" + rawResult);
+                PL.d("invite_register_all_users finish");
                 if (userListModel != null && iRequestUserCallBack != null){
 
                     iRequestUserCallBack.onFinish(userListModel.getUserList());
@@ -633,5 +641,73 @@ public class StarpyImpl implements IStarpy {
         });
 
         httpRequest.excute(UserListModel.class);
+    }
+
+    @Override
+    public void showAd(Activity activity, SFacebookProxy.FbAdCallBack fbAdCallBack) {
+
+        if (sFacebookProxy != null){
+
+            sFacebookProxy.showInterstitialAd(activity,fbAdCallBack);
+        }
+    }
+
+    @Override
+    public void fbShareAndShowAd(Activity activity, ISdkCallBack iSdkCallBack, String shareLinkUrl, SFacebookProxy.FbAdCallBack fbAdCallBack) {
+
+        if (adModel != null){
+            int shareTimes = SPUtil.getSimpleInteger(activity,StarPyUtil.STAR_PY_SP_FILE,"fb_share_times");
+            String shareTimeTotalStr = adModel.getFbShareTimes();
+            if (SStringUtil.isNotEmpty(shareTimeTotalStr)){
+                int shareTimeTotal = Integer.parseInt(shareTimeTotalStr);
+                if (shareTimes > shareTimeTotal){//分享次数超过一定次数后弹出广告，否则弹出分享
+                    showAd(activity,fbAdCallBack);
+                    return;
+                }
+            }
+        }
+
+        share(activity, iSdkCallBack, shareLinkUrl);
+    }
+
+    private void requestAdParams(final Activity activity) {
+
+        SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(activity);
+
+        gameBaseRequestBean.setRequestUrl(ResConfig.getActivityPreferredUrl(activity));
+        gameBaseRequestBean.setRequestSpaUrl(ResConfig.getActivityPreferredUrl(activity));
+        gameBaseRequestBean.setRequestMethod("fb/ads/switch");
+
+        SimpleHttpRequest httpRequest = new SimpleHttpRequest();
+
+        httpRequest.setBaseReqeustBean(gameBaseRequestBean);
+        httpRequest.setReqCallBack(new ISReqCallBack<AdModel>() {
+
+            @Override
+            public void success(AdModel mAdModel, String rawResult) {
+
+                PL.d("switch finish");
+                adModel = mAdModel;
+                if (adModel != null){
+
+                    String isAdPlacementId = adModel.getISAdPlacementId();
+                    if (SStringUtil.isNotEmpty(isAdPlacementId) && sFacebookProxy != null){
+                        sFacebookProxy.initInterstitialAd(activity,isAdPlacementId);
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void timeout(String code) {
+            }
+
+            @Override
+            public void noData() {
+            }
+        });
+
+        httpRequest.excute(AdModel.class);
     }
 }

@@ -45,6 +45,8 @@ dependencies {
     api 'com.facebook.android:facebook-messenger:[4,5)'
 //    api 'com.facebook.android:facebook-applinks:[4,5)'
     api 'com.facebook.fresco:fresco:1.11.0'
+
+    api 'com.facebook.android:audience-network-sdk:5.+'
 }
 
 
