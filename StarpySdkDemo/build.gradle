@@ -22,6 +22,13 @@ android {
             storePassword 'sgsp88'
             storeFile file('../keystore/starpysg.keystore')
         }
+
+        qqgameSign {
+            keyAlias 'qqgame'
+            keyPassword 'qq123456'
+            storeFile file('../keystore/qqgame-keystore.jks')
+            storePassword 'qq123456'
+        }
     }
     compileSdkVersion 27
     buildToolsVersion '28.0.3'
@@ -216,6 +223,22 @@ android {
             resValue "string", "facebook_app_id", "236658347018463"
             resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider236658347018463"
             resValue "string", "fb_login_protocol_scheme", "fb236658347018463"
+            resValue "string", "google_game_app_id", ""
+
+            dimension "1"
+        }
+
+        qlzen {
+            applicationId "com.sksy.lzqen"
+            signingConfig signingConfigs.qqgameSign
+            minSdkVersion 18
+            targetSdkVersion 28
+            versionCode 1  //厂商可自主定义，5以上
+            versionName "1.0"  //厂商可自主定义
+
+            resValue "string", "facebook_app_name", "lzqen"
+            resValue "string", "facebook_app_id", "324571308320751"
+            resValue "string", "facebook_authorities", "com.facebook.app.FacebookContentProvider324571308320751"
             resValue "string", "google_game_app_id", ""
 
             dimension "1"
