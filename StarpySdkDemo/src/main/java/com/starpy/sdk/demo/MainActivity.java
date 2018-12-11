@@ -1,7 +1,6 @@
 package com.starpy.sdk.demo;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,10 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.core.base.utils.PL;
-import com.facebook.share.model.ShareMessengerGenericTemplateContent;
-import com.facebook.share.model.ShareMessengerGenericTemplateElement;
-import com.facebook.share.model.ShareMessengerURLActionButton;
-import com.facebook.share.widget.MessageDialog;
 import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
 import com.starpy.data.login.ILoginCallBack;
@@ -81,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
                             String uid = sLoginResponse.getUserId();
                             String accessToken = sLoginResponse.getAccessToken();
                             String timestamp = sLoginResponse.getTimestamp();
+
+                            String fbName = sLoginResponse.getFbName();//fb昵称
+                            String fbPictureUrl = sLoginResponse.getFbPictureUrl();//fb头像url
+
                             PL.i("uid:" + uid);
                         }
                     }
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onFinish() {
                         PL.d("other pay onFinish");
                     }
-                },"" + System.currentTimeMillis(), "payone", "roleLevel", "customize");
+                },"", "", "", "");
 
 
             }
@@ -135,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        http://localhost:8086/player_entrance?gameCode=brmmd&packageName=web&userId=2&accessToken=123&loginTimestamp=234&serverCode=1&roleName=%E9%A9%AC%E7%BA%A2%E5%86%9B
         csButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,8 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
                 iStarpy.share(MainActivity.this,iSdkCallBack,shareUrl);
 
-//                iStarpy.share(MainActivity.this,iSdkCallBack,"", "", shareUrl, "");
-
             }
         });
 
@@ -185,29 +181,8 @@ public class MainActivity extends AppCompatActivity {
                  * level：游戏等级
                  * vipLevel：vip等级，没有就写""
                  */
-//                iStarpy.openWebview(MainActivity.this,"roleLevel","10");
+                iStarpy.openWebview(MainActivity.this,"roleLevel","10");
 
-                ShareMessengerURLActionButton actionButton =
-                        new ShareMessengerURLActionButton.Builder()
-                                .setTitle("Visit Facebook aaaa")
-                                .setUrl(Uri.parse("https://www.baidu.com/s?rtt=1&bsst=1&cl=2&tn=news&word=%E5%9B%BE%E7%89%87"))
-                                .build();
-                ShareMessengerGenericTemplateElement genericTemplateElement =
-                        new ShareMessengerGenericTemplateElement.Builder()
-                                .setTitle("Visit Facebook  mmmmmd")
-                                .setSubtitle("Visit Messenger llllaaaa")
-                                .setImageUrl(Uri.parse("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=371772476,1548437417&fm=27&gp=0.jpg"))
-                                .setButton(actionButton)
-                                .build();
-                ShareMessengerGenericTemplateContent genericTemplateContent =
-                        new ShareMessengerGenericTemplateContent.Builder()
-//                                .setPageId("Your Page Id") // Your page ID, required
-                                .setGenericTemplateElement(genericTemplateElement)
-                                .build();
-
-                if (MessageDialog.canShow(genericTemplateContent.getClass())) {
-                    MessageDialog.show(MainActivity.this, genericTemplateContent);
-                }
             }
         });
 
@@ -270,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
                 iStarpy.displayLeaderboard("CgkIq8GizdAREAIQHg");
             }
         });
+
         findViewById(R.id.get_fb_friends).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
