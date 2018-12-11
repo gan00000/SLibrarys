@@ -2,6 +2,7 @@ package com.starpy.sdk.out;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -76,6 +77,8 @@ public class StarpyImpl implements IStarpy {
     private PayPluginManger payPluginManger;
 
     private AdModel adModel;
+
+    private IPayCallBack iPayCallBack;
 
     public StarpyImpl() {
         iLogin = ObjFactory.create(DialogLoginImpl.class);
@@ -186,6 +189,12 @@ public class StarpyImpl implements IStarpy {
             }
         });
 
+    }
+
+    @Override
+    public void pay(Activity activity, SPayType payType, IPayCallBack iPayCallBack, String cpOrderId, String productId, String roleLevel, String extra) {
+        this.iPayCallBack = iPayCallBack;
+        pay(activity,payType,cpOrderId,productId,roleLevel,extra);
     }
 
     @Override
@@ -453,6 +462,15 @@ public class StarpyImpl implements IStarpy {
         String webUrl = webPayReqBean.createPreRequestUrl();
 
         otherPayWebViewDialog = new SWebViewDialog(activity, R.style.Starpy_Theme_AppCompat_Dialog_Notitle_Fullscreen);
+        otherPayWebViewDialog.setSBaseDialogOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (iPayCallBack != null){
+                    PL.d("iPayCallBack.onFinish");
+                    iPayCallBack.onFinish();
+                }
+            }
+        });
 
         otherPayWebViewDialog.setWebUrl(webUrl);
 
@@ -528,6 +546,12 @@ public class StarpyImpl implements IStarpy {
             otherPayWebViewDialog.onActivityResult(activity, requestCode, resultCode, data);
         }
         if (requestCode == GooglePayActivity2.GooglePayReqeustCode && resultCode == GooglePayActivity2.GooglePayResultCode){
+
+            PL.i("google pay callback");
+            if (this.iPayCallBack != null){
+                this.iPayCallBack.onFinish();//回调原厂接口
+            }
+
             if (data != null && data.getExtras() != null){
                 Bundle b = data.getExtras();
                 GooglePayCreateOrderIdReqBean g = (GooglePayCreateOrderIdReqBean) data.getSerializableExtra("GooglePayCreateOrderIdReqBean");

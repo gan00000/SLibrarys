@@ -29,7 +29,13 @@ public class SWebViewDialog extends SBaseDialog {
     private ProgressBar progressBar;
     private SWebView sWebView;
 
-   private SWebViewLayout sWebViewLayout;
+    private OnDismissListener mmOnDismissListener;
+
+    public void setSBaseDialogOnDismissListener(OnDismissListener onDismissListener) {
+        this.mmOnDismissListener = onDismissListener;
+    }
+
+    private SWebViewLayout sWebViewLayout;
 
     public void setWebUrl(String webUrl) {
         this.webUrl = webUrl;
@@ -78,6 +84,11 @@ public class SWebViewDialog extends SBaseDialog {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 if (sWebView != null){
+
+                    if (mmOnDismissListener != null){
+                        mmOnDismissListener.onDismiss(dialog);
+                    }
+
                     sWebView.clearCache(true);
                     sWebView.clearHistory();
                     sWebView.destroy();
