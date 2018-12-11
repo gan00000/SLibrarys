@@ -1144,12 +1144,20 @@ public class SFacebookProxy {
 
 	public void initInterstitialAd(Activity activity, String placementId){
 		Log.e(FB_TAG, "Interstitial ad placementId : " + placementId);
+		if (interstitialAd != null && interstitialAd.getPlacementId().equals(placementId)){
+			return;
+		}
 		interstitialAd = new InterstitialAd(activity, placementId);
 	}
 
 	public void showInterstitialAd(Activity activity, final FbAdCallBack fbAdCallBack){
 
-		if (interstitialAd != null && !interstitialAd.isAdLoaded() && interstitialAd.isAdInvalidated()){
+		if (interstitialAd != null){
+
+			if (interstitialAd.isAdLoaded() && !interstitialAd.isAdInvalidated()){
+				interstitialAd.show();
+				return;
+			}
 
 			// Set listeners for the Interstitial Ad
 			interstitialAd.setAdListener(new InterstitialAdListener() {
@@ -1201,12 +1209,9 @@ public class SFacebookProxy {
 				}
 			});
 
-		}else {
-			// Show the ad
-			if (interstitialAd != null){
+			// load the ad
+			interstitialAd.loadAd();
 
-				interstitialAd.show();
-			}
 		}
 
 
@@ -1237,6 +1242,9 @@ public class SFacebookProxy {
 	
 	public void onDestroy(Activity activity) {
 		//fbLogout(activity);
+		if (interstitialAd != null) {
+			interstitialAd.destroy();
+		}
 	}
 
 	public interface FbAdCallBack {

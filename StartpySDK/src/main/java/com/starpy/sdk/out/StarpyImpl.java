@@ -691,6 +691,15 @@ public class StarpyImpl implements IStarpy {
     }
 
     @Override
+    public void showAd(Activity activity, String placementId, SFacebookProxy.FbAdCallBack fbAdCallBack) {
+
+        if (sFacebookProxy != null){
+            sFacebookProxy.initInterstitialAd(activity,placementId);
+            sFacebookProxy.showInterstitialAd(activity,fbAdCallBack);
+        }
+    }
+
+    @Override
     public void fbShareAndShowAd(Activity activity, ISdkCallBack iSdkCallBack, String shareLinkUrl, SFacebookProxy.FbAdCallBack fbAdCallBack) {
 
         if (adModel != null){
