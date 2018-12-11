@@ -9,8 +9,10 @@ import com.core.base.http.HttpResponse;
 import com.core.base.bean.BaseReqeustBean;
 import com.core.base.bean.BaseResponseModel;
 import com.core.base.utils.JsonUtil;
+import com.core.base.utils.PL;
 import com.core.base.utils.SStringUtil;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
@@ -127,10 +129,15 @@ public abstract class AbsHttpRequest implements ISRqeust {
 
                 //解析json数据
                 if (!TextUtils.isEmpty(rawResponse) && classOfT != null && JsonUtil.isJson(rawResponse)) {
-                    Gson gson = new Gson();
-                    responseModule = gson.fromJson(rawResponse, classOfT);
-                    if (responseModule != null && (responseModule instanceof BaseResponseModel)) {
-                        ((BaseResponseModel) responseModule).setRawResponse(rawResponse);
+                    try {
+                        Gson gson = new Gson();
+                        responseModule = gson.fromJson(rawResponse, classOfT);
+                        if (responseModule != null && (responseModule instanceof BaseResponseModel)) {
+                            ((BaseResponseModel) responseModule).setRawResponse(rawResponse);
+                        }
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                        PL.e("json解析出错，responseModule = gson.fromJson(rawResponse, classOfT)");
                     }
 
                 }
