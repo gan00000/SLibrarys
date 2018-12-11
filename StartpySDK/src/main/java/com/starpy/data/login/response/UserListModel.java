@@ -6,13 +6,13 @@ import java.util.List;
 
 public class UserListModel extends BaseResponseModel {
 
-    private List<User> userList;
+    private List<User> users;
 
     public List<User> getUserList() {
-        return userList;
+        return users;
     }
 
     public void setUserList(List<User> userList) {
-        this.userList = userList;
+        this.users = userList;
     }
 }
