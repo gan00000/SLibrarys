@@ -17,6 +17,8 @@ import com.starpy.base.bean.SGameLanguage;
 import com.starpy.base.bean.SPayType;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
+import com.starpy.data.login.response.User;
+import com.starpy.sdk.out.IRequestUserCallBack;
 import com.starpy.sdk.out.ISdkCallBack;
 import com.starpy.sdk.out.IStarpy;
 import com.starpy.sdk.out.StarpyFactory;
@@ -316,6 +318,95 @@ public class MainActivity extends AppCompatActivity {
                         //里面回传的参数不需要处理
                     }
                 });
+
+            }
+        });
+
+        findViewById(R.id.showad).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /**
+                 * 获得通过fb分享连接安装进游戏的用户
+                 */
+                iStarpy.showAd(MainActivity.this, new SFacebookProxy.FbAdCallBack() {
+                    @Override
+                    public void onInterstitialDisplayed() {
+
+                    }
+
+                    @Override
+                    public void onInterstitialDismissed() {
+
+                    }
+
+                    @Override
+                    public void onAdClicked() {
+
+                    }
+                });
+
+            }
+        });
+
+        findViewById(R.id.get_invite_user).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /**
+                 * 获得通过fb分享连接安装进游戏的用户
+                 */
+                iStarpy.getInviteUser(MainActivity.this, new IRequestUserCallBack() {
+                    @Override
+                    public void onFinish(List<User> users) {
+                        if (users != null && !users.isEmpty()){
+                            //continue to do
+                        }
+                    }
+                });
+
+            }
+        });
+        findViewById(R.id.fb_share_ad).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /**
+                 * 该接口为fb分享到达一定次数后弹出fb广告接口
+                 * ISdkCallBack 为分享回调
+                 * shareLinkUrl为分享的链接
+                 * FbAdCallBack 为广告的回调
+                 */
+                iStarpy.fbShareAndShowAd(MainActivity.this,
+                        new ISdkCallBack() {
+                            @Override
+                            public void success() {
+
+                            }
+
+                            @Override
+                            public void failure() {
+
+                            }
+                        },
+                        "https://developers.facebook.com/docs/facebook-login/review/examples/#example",
+
+                        new SFacebookProxy.FbAdCallBack() {
+                            @Override
+                            public void onInterstitialDisplayed() {
+                                //广告显示
+                            }
+
+                            @Override
+                            public void onInterstitialDismissed() {
+                                //广告消失
+                            }
+
+                            @Override
+                            public void onAdClicked() {
+                                //广告被点击
+                            }
+                        });
 
             }
         });
