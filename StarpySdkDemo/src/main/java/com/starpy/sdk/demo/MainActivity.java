@@ -18,6 +18,7 @@ import com.starpy.base.bean.SPayType;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.response.SLoginResponse;
 import com.starpy.data.login.response.User;
+import com.starpy.sdk.out.IPayCallBack;
 import com.starpy.sdk.out.IRequestUserCallBack;
 import com.starpy.sdk.out.ISdkCallBack;
 import com.starpy.sdk.out.IStarpy;
@@ -101,7 +102,12 @@ public class MainActivity extends AppCompatActivity {
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, SPayType.OTHERS, "" + System.currentTimeMillis(), "payone", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, SPayType.OTHERS, new IPayCallBack() {
+                    @Override
+                    public void onFinish() {
+                        PL.d("other pay onFinish");
+                    }
+                },"" + System.currentTimeMillis(), "payone", "roleLevel", "customize");
 
 
             }
@@ -119,7 +125,12 @@ public class MainActivity extends AppCompatActivity {
                 roleLevel 觉得等级
                 customize 自定义透传字段（从服务端回调到cp）
                 */
-                iStarpy.pay(MainActivity.this, SPayType.GOOGLE, "" + System.currentTimeMillis(), "tw.mthx.100usd", "roleLevel", "customize");
+                iStarpy.pay(MainActivity.this, SPayType.GOOGLE, new IPayCallBack() {
+                    @Override
+                    public void onFinish() {
+                        PL.d("google pay onFinish");
+                    }
+                },"" + System.currentTimeMillis(), "tw.mthx.100usd", "roleLevel", "customize");
 
             }
         });
