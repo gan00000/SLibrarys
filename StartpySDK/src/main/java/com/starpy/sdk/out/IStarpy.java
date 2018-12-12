@@ -59,6 +59,8 @@ public interface IStarpy extends IGameLifeCycle {
 
     public void getInviteUser(Activity activity, IRequestUserCallBack iRequestUserCallBack);
 
+    public void getInviteMeUser(Activity activity, IRequestUserCallBack iRequestUserCallBack);
+
     public void showAd(Activity activity, SFacebookProxy.FbAdCallBack fbAdCallBack);
     public void showAd(Activity activity, String placementId, SFacebookProxy.FbAdCallBack fbAdCallBack);
 

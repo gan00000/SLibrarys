@@ -31,7 +31,9 @@ import com.starpy.data.cs.CsReqeustBean;
 import com.starpy.data.login.ILoginCallBack;
 import com.starpy.data.login.execute.QueryFbToStarpyUserIdTask;
 import com.starpy.data.login.response.AdModel;
+import com.starpy.data.login.response.User;
 import com.starpy.data.login.response.UserListModel;
+import com.starpy.data.login.response.UserModel;
 import com.starpy.pay.PayManager;
 import com.starpy.pay.gp.GooglePayActivity2;
 import com.starpy.pay.gp.bean.req.GooglePayCreateOrderIdReqBean;
@@ -54,6 +56,7 @@ import com.starpy.thirdlib.google.SGoogleFirebaseProxy;
 import com.starpy.thirdlib.google.SGooglePlayGameServices;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -680,9 +683,13 @@ public class StarpyImpl implements IStarpy {
             public void success(UserListModel userListModel, String rawResult) {
 
                 PL.d("invite_register_all_users finish");
-                if (userListModel != null && iRequestUserCallBack != null){
-
+                if (iRequestUserCallBack != null){
+                    return;
+                }
+                if (userListModel != null){
                     iRequestUserCallBack.onFinish(userListModel.getUserList());
+                }else {
+                    iRequestUserCallBack.onFinish(null);
                 }
 
             }
@@ -703,6 +710,60 @@ public class StarpyImpl implements IStarpy {
         });
 
         httpRequest.excute(UserListModel.class);
+    }
+
+    @Override
+    public void getInviteMeUser(Activity activity, final IRequestUserCallBack iRequestUserCallBack) {
+
+        SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(activity);
+
+        gameBaseRequestBean.setRequestUrl(ResConfig.getActivityPreferredUrl(activity));
+        gameBaseRequestBean.setRequestSpaUrl(ResConfig.getActivityPreferredUrl(activity));
+        gameBaseRequestBean.setRequestMethod("invite/friends/invitees_userId");
+
+        SimpleHttpRequest httpRequest = new SimpleHttpRequest();
+
+        httpRequest.setLoadDialog(DialogUtil.createLoadingDialog(activity, "Loading..."));
+        httpRequest.setBaseReqeustBean(gameBaseRequestBean);
+        httpRequest.setReqCallBack(new ISReqCallBack<UserModel>() {
+
+            @Override
+            public void success(UserModel userModel, String rawResult) {
+
+                PL.d("invitees_userId finish");
+                if (iRequestUserCallBack != null){
+                    return;
+                }
+                if (userModel != null && SStringUtil.isNotEmpty(userModel.getInviteesUserId())){
+
+                    List<User> users = new ArrayList<>();
+                    User u = new User();
+                    u.setUserId(userModel.getInviteesUserId());
+                    users.add(u);
+
+                    iRequestUserCallBack.onFinish(users);
+                }else {
+                    iRequestUserCallBack.onFinish(null);
+                }
+
+            }
+
+            @Override
+            public void timeout(String code) {
+                if (iRequestUserCallBack != null){
+                    iRequestUserCallBack.onFinish(null);
+                }
+            }
+
+            @Override
+            public void noData() {
+                if (iRequestUserCallBack != null){
+                    iRequestUserCallBack.onFinish(null);
+                }
+            }
+        });
+
+        httpRequest.excute(UserModel.class);
     }
 
     @Override
