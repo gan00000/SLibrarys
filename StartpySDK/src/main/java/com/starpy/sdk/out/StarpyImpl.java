@@ -681,7 +681,7 @@ public class StarpyImpl implements IStarpy {
             public void success(UserListModel userListModel, String rawResult) {
 
                 PL.d("invite_register_all_users finish");
-                if (iRequestUserCallBack != null){
+                if (iRequestUserCallBack == null){
                     return;
                 }
                 if (userListModel != null){
@@ -729,7 +729,7 @@ public class StarpyImpl implements IStarpy {
             public void success(UserModel userModel, String rawResult) {
 
                 PL.d("invitees_userId finish");
-                if (iRequestUserCallBack != null){
+                if (iRequestUserCallBack == null){
                     return;
                 }
                 if (userModel != null && SStringUtil.isNotEmpty(userModel.getInviteesUserId())){
