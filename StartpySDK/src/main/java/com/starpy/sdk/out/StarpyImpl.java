@@ -293,8 +293,6 @@ public class StarpyImpl implements IStarpy {
 
                 @Override
                 public void onSuccess() {
-//                    int shareTimes = SPUtil.getSimpleInteger(activity,StarPyUtil.STAR_PY_SP_FILE,"fb_share_times");
-//                    SPUtil.saveSimpleInfo(activity, StarPyUtil.STAR_PY_SP_FILE,"fb_share_times",shareTimes + 1);
                     if (iSdkCallBack != null){
                         iSdkCallBack.success();
                     }
@@ -333,7 +331,7 @@ public class StarpyImpl implements IStarpy {
                 @Override
                 public void onSuccess() {
                     int shareTimes = SPUtil.getSimpleInteger(activity,StarPyUtil.STAR_PY_SP_FILE,"fb_share_times");
-                    SPUtil.saveSimpleInfo(activity, StarPyUtil.STAR_PY_SP_FILE,"fb_share_times",shareTimes + 1);
+                    SPUtil.saveSimpleInteger(activity, StarPyUtil.STAR_PY_SP_FILE,"fb_share_times",shareTimes + 1);
                     if (iSdkCallBack != null){
                         iSdkCallBack.success();
                     }
