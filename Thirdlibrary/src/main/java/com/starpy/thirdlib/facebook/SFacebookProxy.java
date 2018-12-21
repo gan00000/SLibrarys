@@ -25,6 +25,7 @@ import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
+import com.facebook.ads.AdSettings;
 import com.facebook.ads.InterstitialAd;
 import com.facebook.ads.InterstitialAdListener;
 import com.facebook.appevents.AppEventsLogger;
@@ -72,6 +73,7 @@ public class SFacebookProxy {
 //	private boolean canPresentShareDialog;
     private boolean canPresentShareDialogWithPhotos;
 	private InterstitialAd interstitialAd;
+	private boolean interstitialAd_isloading;
 
 	public SFacebookProxy(Context context) {
 		/*FacebookSdk.sdkInitialize(context.getApplicationContext(), new InitializeCallback() {
@@ -1148,12 +1150,16 @@ public class SFacebookProxy {
 			return;
 		}
 		interstitialAd = new InterstitialAd(activity, placementId);
+		AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CALLBACK_MODE);
 	}
 
 	public void showInterstitialAd(Activity activity, final FbAdCallBack fbAdCallBack){
 
 		if (interstitialAd != null){
 
+			if (interstitialAd_isloading){
+				return;
+			}
 			if (interstitialAd.isAdLoaded() && !interstitialAd.isAdInvalidated()){
 				interstitialAd.show();
 				return;
@@ -1165,6 +1171,7 @@ public class SFacebookProxy {
 				public void onInterstitialDisplayed(Ad ad) {
 					// Interstitial ad displayed callback
 					Log.e(FB_TAG, "Interstitial ad displayed.");
+					interstitialAd_isloading = false;
 					if (fbAdCallBack != null){
 						fbAdCallBack.onInterstitialDisplayed();
 					}
@@ -1174,6 +1181,7 @@ public class SFacebookProxy {
 				public void onInterstitialDismissed(Ad ad) {
 					// Interstitial dismissed callback
 					Log.e(FB_TAG, "Interstitial ad dismissed.");
+					interstitialAd_isloading = false;
 					if (fbAdCallBack != null){
 						fbAdCallBack.onInterstitialDismissed();
 					}
@@ -1183,6 +1191,7 @@ public class SFacebookProxy {
 				public void onError(Ad ad, AdError adError) {
 					// Ad error callback
 					Log.e(FB_TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+					interstitialAd_isloading = false;
 				}
 
 				@Override
@@ -1190,6 +1199,7 @@ public class SFacebookProxy {
 					// Interstitial ad is loaded and ready to be displayed
 					Log.d(FB_TAG, "Interstitial ad is loaded and ready to be displayed!");
 					// Show the ad
+					interstitialAd_isloading = false;
 					interstitialAd.show();
 				}
 
@@ -1211,6 +1221,7 @@ public class SFacebookProxy {
 
 			// load the ad
 			interstitialAd.loadAd();
+			interstitialAd_isloading = true;
 
 		}
 
