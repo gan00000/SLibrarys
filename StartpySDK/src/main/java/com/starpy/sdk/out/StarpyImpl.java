@@ -668,7 +668,7 @@ public class StarpyImpl implements IStarpy {
         SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(activity);
 
         gameBaseRequestBean.setRequestUrl(ResConfig.getActivityPreferredUrl(activity));
-        gameBaseRequestBean.setRequestSpaUrl(ResConfig.getActivityPreferredUrl(activity));
+        gameBaseRequestBean.setRequestSpaUrl(ResConfig.getActivitySpareUrl(activity));
         gameBaseRequestBean.setRequestMethod("invite/friends/invite_register_all_users");
 
         SimpleHttpRequest httpRequest = new SimpleHttpRequest();
@@ -716,7 +716,7 @@ public class StarpyImpl implements IStarpy {
         SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(activity);
 
         gameBaseRequestBean.setRequestUrl(ResConfig.getActivityPreferredUrl(activity));
-        gameBaseRequestBean.setRequestSpaUrl(ResConfig.getActivityPreferredUrl(activity));
+        gameBaseRequestBean.setRequestSpaUrl(ResConfig.getActivitySpareUrl(activity));
         gameBaseRequestBean.setRequestMethod("invite/friends/invitees_userId");
 
         SimpleHttpRequest httpRequest = new SimpleHttpRequest();
@@ -805,7 +805,7 @@ public class StarpyImpl implements IStarpy {
         SGameBaseRequestBean gameBaseRequestBean = new SGameBaseRequestBean(activity);
 
         gameBaseRequestBean.setRequestUrl(ResConfig.getActivityPreferredUrl(activity));
-        gameBaseRequestBean.setRequestSpaUrl(ResConfig.getActivityPreferredUrl(activity));
+        gameBaseRequestBean.setRequestSpaUrl(ResConfig.getActivitySpareUrl(activity));
         gameBaseRequestBean.setRequestMethod("fb/ads/switch");
 
         SimpleHttpRequest httpRequest = new SimpleHttpRequest();
