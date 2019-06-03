@@ -1,9 +1,6 @@
-include ':StartpySDK', ':StarpySdkDemo', ':Thirdlibrary', ':facebookfresco'
+include ':StartpySDK', ':StarpySdkDemo', ':Thirdlibrary'
 //include ':google:google-play-service-src'
 //include ':google:google-play-service-demo'
-
-
-include ':facebook:starpy-fb-4.25'
 
 
 include ':libraries-src:star-core'
