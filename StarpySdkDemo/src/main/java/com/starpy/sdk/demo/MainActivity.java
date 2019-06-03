@@ -352,6 +352,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                iStarpy.getInviteMeUser(MainActivity.this, new IRequestUserCallBack() {
+                    @Override
+                    public void onFinish(List<User> users) {
+                        if (users != null && !users.isEmpty()){
+
+                            User inviteMeUser = users.get(0);
+                            String id = inviteMeUser.getUserId();
+                            //continue to do
+                        }
+                    }
+                });
+
             }
         });
         findViewById(R.id.fb_share_ad).setOnClickListener(new View.OnClickListener() {
